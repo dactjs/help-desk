@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
-const inter = Inter({ subsets: ["latin"] });
-
+import { theme } from "@/config/theme";
 import { PageParams } from "@/types/page-params";
 
 export const metadata: Metadata = {
@@ -21,7 +22,18 @@ export interface RootLayoutProps {
 export default function RootLayout({ params, children }: RootLayoutProps) {
   return (
     <html lang={params.lang}>
-      <body className={inter.className}>{children}</body>
+      <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </head>
+
+      <body>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   );
 }
