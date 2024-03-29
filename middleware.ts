@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import Negotiator from "negotiator";
-import { match } from "@formatjs/intl-localematcher";
+import { NextResponse } from "next/server";
 
-import { SUPPORTED_LANGUAGES, FALLBACK_LANGUAGE } from "@/config/languages";
+import { auth } from "@/auth";
+import { getLanguageFromHeaders } from "@/utils/get-language-from-headers";
+import { SUPPORTED_LANGUAGES } from "@/config/languages";
 
-export function middleware(request: NextRequest) {
+export default auth((request) => {
   const { pathname } = request.nextUrl;
 
   const pathnameIncludeLang = SUPPORTED_LANGUAGES.some(
@@ -13,21 +13,13 @@ export function middleware(request: NextRequest) {
 
   if (pathnameIncludeLang) return;
 
-  const languages = new Negotiator({
-    headers: {
-      "accept-language": request.headers.get("accept-language") ?? "*",
-    },
-  }).languages();
-
-  const language = match(languages, SUPPORTED_LANGUAGES, FALLBACK_LANGUAGE);
+  const language = getLanguageFromHeaders(request.headers);
 
   request.nextUrl.pathname = `/${language}${pathname}`;
 
   return NextResponse.redirect(request.nextUrl);
-}
+});
 
 export const config = {
-  matcher: [
-    "/((?!_next).*)", // Skip all internal paths (_next)
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

@@ -1,0 +1,5 @@
+{
+  "UNEXPECTED_ERROR": "Ha ocurrido un error inesperado, por favor intenta nuevamente.",
+  "INVALID_CREDENTIALS": "Credenciales inválidas o usuario inexistente",
+  "DISABLED_USER": "Usuario deshabilitado"
+}

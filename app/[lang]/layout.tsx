@@ -6,12 +6,21 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { theme } from "@/config/theme";
 import { PageParams } from "@/types/page-params";
 
-export const metadata: Metadata = {
-  title: "Help Desk",
-};
+import { ClientProviders } from "./_components/client-providers";
+import { getDictionary } from "./_dictionaries";
 
 export function generateStaticParams(): PageParams[] {
   return [{ lang: "en" }, { lang: "es" }];
+}
+
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: PageParams;
+}): Promise<Metadata> {
+  const { title } = await getDictionary(lang);
+
+  return { title };
 }
 
 export interface RootLayoutProps {
@@ -19,18 +28,17 @@ export interface RootLayoutProps {
   children: React.ReactElement;
 }
 
-export default function RootLayout({ params, children }: RootLayoutProps) {
+export default function RootLayout({
+  params: { lang },
+  children,
+}: RootLayoutProps) {
   return (
-    <html lang={params.lang}>
-      <head>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </head>
-
+    <html lang={lang}>
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {children}
+            <ClientProviders>{children}</ClientProviders>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
