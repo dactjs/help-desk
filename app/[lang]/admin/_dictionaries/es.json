@@ -1,4 +1,6 @@
 {
   "title": "Dashboard",
-  "heading": "Panel Administrador"
+  "tickets": "Tickets",
+  "resources": "Recursos",
+  "users": "Usuarios"
 }

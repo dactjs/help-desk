@@ -17,11 +17,11 @@ export async function generateMetadata({
   return { title };
 }
 
-export interface AdminPageProps {
+export interface UsersPageProps {
   params: PageParams;
 }
 
-export default async function AdminPage({ params: { lang } }: AdminPageProps) {
+export default async function UsersPage({ params: { lang } }: UsersPageProps) {
   const { title } = await getDictionary(lang);
 
   return (
