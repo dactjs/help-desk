@@ -4,8 +4,8 @@ import { useFormState } from "react-dom";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 
-import { FormTextField } from "@/components/atoms/form-text-field";
-import { SubmitButton } from "@/components/atoms/submit-button";
+import { FormTextField } from "@/components/forms/form-text-field";
+import { SubmitButton } from "@/components/forms/submit-button";
 
 import { submit } from "../../_actions/submit";
 
