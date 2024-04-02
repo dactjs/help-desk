@@ -26,7 +26,7 @@
     "@mui/x-charts": "7.1.0",
     "@mui/x-data-grid": "7.1.0",
     "@mui/x-date-pickers": "7.1.0",
-    "@prisma/client": "5.11.0",
+    "@prisma/client": "5.12.0",
     "@vercel/speed-insights": "1.0.10",
     "bcryptjs": "2.4.3",
     "date-fns": "3.6.0",
@@ -45,12 +45,12 @@
   "devDependencies": {
     "@types/bcryptjs": "2.4.6",
     "@types/negotiator": "0.6.3",
-    "@types/node": "20.12.2",
-    "@types/react": "18.2.73",
+    "@types/node": "20.12.3",
+    "@types/react": "18.2.74",
     "@types/react-dom": "18.2.23",
     "eslint": "8.57.0",
     "eslint-config-next": "14.1.4",
-    "prisma": "5.11.0",
+    "prisma": "5.12.0",
     "tsx": "4.7.1",
     "typescript": "5.4.3"
   }

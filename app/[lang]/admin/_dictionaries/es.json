@@ -1,6 +1,7 @@
 {
   "title": "Dashboard",
-  "tickets": "Tickets",
-  "resources": "Recursos",
-  "users": "Usuarios"
+  "dashboard_item_text": "Dashboard",
+  "tickets_item_text": "Tickets",
+  "resources_item_text": "Recursos",
+  "users_item_text": "Usuarios"
 }

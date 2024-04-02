@@ -2,10 +2,9 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { UserRole } from "@prisma/client";
 import { typeToFlattenedError } from "zod";
 
-import { auth, signIn } from "@/auth";
+import { signIn } from "@/auth";
 import { AuthError } from "@/auth/errors";
 import { SignInCredentials } from "@/auth/types";
 import { getLanguageFromHeaders } from "@/utils/get-language-from-headers";
@@ -23,10 +22,10 @@ export async function submit(
   _: SubmitActionState,
   formData: FormData
 ): Promise<SubmitActionState> {
-  const lang = getLanguageFromHeaders(headers());
+  const language = getLanguageFromHeaders(headers());
 
   try {
-    const z = zod(lang);
+    const z = zod(language);
 
     const schema = z.object({
       username: z.string(),
@@ -50,7 +49,7 @@ export async function submit(
       redirect: false,
     });
   } catch (error) {
-    const errors = await getErrorsDictionary(lang);
+    const errors = await getErrorsDictionary(language);
 
     if (error instanceof AuthError) {
       return {
@@ -69,7 +68,5 @@ export async function submit(
     };
   }
 
-  const session = await auth();
-
-  redirect(session?.user?.role === UserRole.ADMIN ? "/admin" : "/dashboard");
+  redirect(`/${language}/dashboard`);
 }

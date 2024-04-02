@@ -61,17 +61,32 @@ export const {
 
       const language = getLanguageFromHeaders(request.headers);
 
+      const signInPath = `/${language}/auth/sign-in`;
+      const adminPath = `/${language}/admin`;
+      const dashboardPath = `/${language}/dashboard`;
+
+      if (!auth?.user || auth.user.status !== UserStatus.ENABLED) {
+        if (pathname === signInPath) return;
+
+        request.nextUrl.pathname = signInPath;
+
+        return NextResponse.redirect(request.nextUrl);
+      }
+
       if (
-        !auth?.user ||
-        auth.user.status !== UserStatus.ENABLED ||
-        (pathname.startsWith(`/${language}/admin`) &&
-          auth.user.role !== UserRole.ADMIN)
+        auth.user.role === UserRole.ADMIN &&
+        !pathname.startsWith(adminPath)
       ) {
-        const url = `/${language}/auth/sign-in`;
+        request.nextUrl.pathname = adminPath;
 
-        if (pathname === url) return;
+        return NextResponse.redirect(request.nextUrl);
+      }
 
-        request.nextUrl.pathname = url;
+      if (
+        auth.user.role === UserRole.USER &&
+        !pathname.startsWith(dashboardPath)
+      ) {
+        request.nextUrl.pathname = dashboardPath;
 
         return NextResponse.redirect(request.nextUrl);
       }

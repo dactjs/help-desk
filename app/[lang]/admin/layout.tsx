@@ -1,8 +1,10 @@
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import TicketsIcon from "@mui/icons-material/ConfirmationNumber";
 import ResourcesIcon from "@mui/icons-material/Devices";
 import UsersIcon from "@mui/icons-material/Group";
 
-import { Dashboard } from "@/components/templates/draft";
+import { Dashboard } from "@/components/templates/dashboard";
+import { DashboardNavigationType } from "@/components/templates/dashboard/types";
 import { PageParams } from "@/types/page-params";
 
 import { getDictionary } from "./_dictionaries";
@@ -12,33 +14,43 @@ export interface AdminLayoutProps {
   children: React.ReactElement;
 }
 
-//  TODO: dont use draft
 export default async function AdminLayout({
   params: { lang },
   children,
 }: AdminLayoutProps) {
-  const { tickets, resources, users } = await getDictionary(lang);
+  const {
+    dashboard_item_text,
+    tickets_item_text,
+    resources_item_text,
+    users_item_text,
+  } = await getDictionary(lang);
 
   return (
     <Dashboard
       navigation={[
         {
+          type: DashboardNavigationType.ITEM,
+          href: `/${lang}/admin/dashboard`,
+          icon: <DashboardIcon />,
+          text: dashboard_item_text,
+        },
+        {
+          type: DashboardNavigationType.ITEM,
           href: `/${lang}/admin/tickets`,
-          type: "ITEM",
           icon: <TicketsIcon />,
-          label: tickets,
+          text: tickets_item_text,
         },
         {
+          type: DashboardNavigationType.ITEM,
           href: `/${lang}/admin/resources`,
-          type: "ITEM",
           icon: <ResourcesIcon />,
-          label: resources,
+          text: resources_item_text,
         },
         {
+          type: DashboardNavigationType.ITEM,
           href: `/${lang}/admin/users`,
-          type: "ITEM",
           icon: <UsersIcon />,
-          label: users,
+          text: users_item_text,
         },
       ]}
     >

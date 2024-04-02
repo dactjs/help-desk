@@ -24,11 +24,11 @@ export interface DashboardPageProps {
 export default async function DashboardPage({
   params: { lang },
 }: DashboardPageProps) {
-  const { heading } = await getDictionary(lang);
+  const { title } = await getDictionary(lang);
 
   return (
     <Container>
-      <Typography>{heading}</Typography>
+      <Typography>{title}</Typography>
     </Container>
   );
 }
