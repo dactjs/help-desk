@@ -6,12 +6,12 @@ import { signOut } from "@/auth";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { getLanguageFromHeaders } from "@/utils/get-language-from-headers";
 
-import { getDictionary } from "./_dictionaries";
+import { getDictionary } from "../../dictionaries";
 
 export const SignOutButton: React.FC = async () => {
   const language = getLanguageFromHeaders(headers());
 
-  const { text } = await getDictionary(language);
+  const { sign_out_button_text } = await getDictionary(language);
 
   const handleSignOut = async () => {
     "use server";
@@ -31,13 +31,13 @@ export const SignOutButton: React.FC = async () => {
         color="error"
         sx={{ display: { xs: "none", md: "flex" } }}
       >
-        {text}
+        {sign_out_button_text}
       </SubmitButton>
 
       <IconButton
         type="submit"
         color="error"
-        aria-label={text}
+        aria-label={sign_out_button_text}
         sx={{ display: { xs: "flex", md: "none" } }}
       >
         <LogoutIcon />
