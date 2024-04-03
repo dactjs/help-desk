@@ -63,6 +63,7 @@ export const {
 
       const signInPath = `/${language}/auth/sign-in`;
       const adminPath = `/${language}/admin`;
+      const techniciansPath = `/${language}/technicians`;
       const dashboardPath = `/${language}/dashboard`;
 
       if (!auth?.user || auth.user.status !== UserStatus.ENABLED) {
@@ -78,6 +79,15 @@ export const {
         !pathname.startsWith(adminPath)
       ) {
         request.nextUrl.pathname = adminPath;
+
+        return NextResponse.redirect(request.nextUrl);
+      }
+
+      if (
+        auth.user.role === UserRole.TECHNICIAN &&
+        !pathname.startsWith(techniciansPath)
+      ) {
+        request.nextUrl.pathname = techniciansPath;
 
         return NextResponse.redirect(request.nextUrl);
       }

@@ -1,0 +1,9 @@
+{
+  "title": "Dashboard",
+  "heading": "Bienvenido a tu dashboard 💻",
+  "hint": "Para comenzar, selecciona una opción del menú lateral.",
+  "dashboard_item_text": "Dashboard",
+  "tickets_item_text": "Tickets",
+  "resources_item_text": "Recursos",
+  "users_item_text": "Usuarios"
+}
