@@ -43,6 +43,8 @@
     "zod-i18n-map": "2.27.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "19.2.1",
+    "@commitlint/config-conventional": "19.1.0",
     "@types/bcryptjs": "2.4.6",
     "@types/negotiator": "0.6.3",
     "@types/node": "20.12.3",
