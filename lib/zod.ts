@@ -5,7 +5,7 @@ import en from "zod-i18n-map/locales/en/zod.json";
 import es from "zod-i18n-map/locales/es/zod.json";
 
 import { ENV } from "@/config/env";
-import { SupportedLanguage } from "@/types/supported-language";
+import { SupportedLanguage } from "@/internationalization/types/supported-language";
 
 i18next.init({
   lng: ENV.FALLBACK_LANGUAGE,

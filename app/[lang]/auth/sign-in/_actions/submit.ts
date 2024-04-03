@@ -6,9 +6,9 @@ import { typeToFlattenedError } from "zod";
 import { signIn } from "@/auth";
 import { AuthError } from "@/auth/errors";
 import { SignInCredentials } from "@/auth/types";
-import { getAppLanguage } from "@/utils/get-app-language";
+import { getAppLanguage } from "@/internationalization/utils/get-app-language";
+import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
 import { zod } from "@/lib/zod";
-import { getErrorsDictionary } from "@/dictionaries/errors";
 
 export type SubmitActionState = {
   errors: {

@@ -5,7 +5,7 @@ import { UserStatus, UserRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 import { InvalidCredentialsError, DisabledUserError } from "@/auth/errors";
-import { getAppLanguage } from "@/utils/get-app-language";
+import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { prisma } from "@/lib/prisma";
 
 export const {

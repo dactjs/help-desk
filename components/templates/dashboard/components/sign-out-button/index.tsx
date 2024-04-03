@@ -3,7 +3,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 import { signOut } from "@/auth";
 import { SubmitButton } from "@/components/forms/submit-button";
-import { getAppLanguage } from "@/utils/get-app-language";
+import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 
 import { getDictionary } from "../../dictionaries";
 

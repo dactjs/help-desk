@@ -3,8 +3,8 @@ import Negotiator from "negotiator";
 import { match } from "@formatjs/intl-localematcher";
 
 import { ENV } from "@/config/env";
-import { SUPPORTED_LANGUAGES } from "@/config/languages";
-import { SupportedLanguage } from "@/types/supported-language";
+import { SUPPORTED_LANGUAGES } from "@/internationalization/config/languages";
+import { SupportedLanguage } from "@/internationalization/types/supported-language";
 
 export function getAppLanguage(): SupportedLanguage {
   const languages = new Negotiator({

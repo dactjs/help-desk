@@ -1,5 +1,3 @@
 import { SupportedLanguage } from "@/internationalization/types/supported-language";
 
-export type PageParams<T = {}> = T & {
-  lang: SupportedLanguage;
-};
+export const SUPPORTED_LANGUAGES: SupportedLanguage[] = ["en", "es"];

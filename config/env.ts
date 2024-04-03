@@ -1,6 +1,5 @@
-import { SupportedLanguage } from "@/types/supported-language";
-
-import { SUPPORTED_LANGUAGES } from "./languages";
+import { SUPPORTED_LANGUAGES } from "@/internationalization/config/languages";
+import { SupportedLanguage } from "@/internationalization/types/supported-language";
 
 export const ENV = {
   // Server
