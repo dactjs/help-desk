@@ -14,13 +14,11 @@ import { DashboardNavigation, DashboardNavigationType } from "./types";
 
 export interface DashboardProps {
   navigation: DashboardNavigation;
-  children: React.ReactElement;
 }
 
-export const Dashboard: React.FC<DashboardProps> = async ({
-  navigation,
-  children,
-}) => {
+export const Dashboard: React.FC<
+  React.PropsWithChildren<DashboardProps>
+> = async ({ navigation, children }) => {
   const session = await auth();
 
   return (
