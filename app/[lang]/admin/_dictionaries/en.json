@@ -1,5 +1,7 @@
 {
   "title": "Dashboard",
+  "heading": "Welcome to your dashboard 💻",
+  "hint": "To get started, select an option from the sidebar.",
   "dashboard_item_text": "Dashboard",
   "tickets_item_text": "Tickets",
   "resources_item_text": "Resources",

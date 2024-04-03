@@ -22,11 +22,27 @@ export interface AdminPageProps {
 }
 
 export default async function AdminPage({ params: { lang } }: AdminPageProps) {
-  const { title } = await getDictionary(lang);
+  const { heading, hint } = await getDictionary(lang);
 
   return (
-    <Container>
-      <Typography>{title}</Typography>
+    <Container fixed sx={{ minHeight: "100%", placeContent: "center" }}>
+      <Typography
+        component="h1"
+        variant="h4"
+        align="center"
+        fontWeight="bolder"
+      >
+        {heading}
+      </Typography>
+
+      <Typography
+        component="p"
+        variant="body1"
+        align="center"
+        color="text.secondary"
+      >
+        {hint}
+      </Typography>
     </Container>
   );
 }
