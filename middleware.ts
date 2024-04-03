@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
-import { getLanguageFromHeaders } from "@/utils/get-language-from-headers";
+import { getAppLanguage } from "@/utils/get-app-language";
 import { SUPPORTED_LANGUAGES } from "@/config/languages";
 
 export default auth((request) => {
@@ -13,7 +13,7 @@ export default auth((request) => {
 
   if (pathnameIncludeLang) return;
 
-  const language = getLanguageFromHeaders(request.headers);
+  const language = getAppLanguage();
 
   request.nextUrl.pathname = `/${language}${pathname}`;
 

@@ -5,7 +5,7 @@ import { UserStatus, UserRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 import { InvalidCredentialsError, DisabledUserError } from "@/auth/errors";
-import { getLanguageFromHeaders } from "@/utils/get-language-from-headers";
+import { getAppLanguage } from "@/utils/get-app-language";
 import { prisma } from "@/lib/prisma";
 
 export const {
@@ -59,7 +59,7 @@ export const {
     async authorized({ request, auth }) {
       const { pathname } = request.nextUrl;
 
-      const language = getLanguageFromHeaders(request.headers);
+      const language = getAppLanguage();
 
       const signInPath = `/${language}/auth/sign-in`;
       const adminPath = `/${language}/admin`;

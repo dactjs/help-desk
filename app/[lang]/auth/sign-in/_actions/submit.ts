@@ -1,13 +1,12 @@
 "use server";
 
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { typeToFlattenedError } from "zod";
 
 import { signIn } from "@/auth";
 import { AuthError } from "@/auth/errors";
 import { SignInCredentials } from "@/auth/types";
-import { getLanguageFromHeaders } from "@/utils/get-language-from-headers";
+import { getAppLanguage } from "@/utils/get-app-language";
 import { zod } from "@/lib/zod";
 import { getErrorsDictionary } from "@/dictionaries/errors";
 
@@ -22,7 +21,7 @@ export async function submit(
   _: SubmitActionState,
   formData: FormData
 ): Promise<SubmitActionState> {
-  const language = getLanguageFromHeaders(headers());
+  const language = getAppLanguage();
 
   try {
     const z = zod(language);

@@ -1,15 +1,14 @@
-import { headers } from "next/headers";
 import IconButton from "@mui/material/IconButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 import { signOut } from "@/auth";
 import { SubmitButton } from "@/components/forms/submit-button";
-import { getLanguageFromHeaders } from "@/utils/get-language-from-headers";
+import { getAppLanguage } from "@/utils/get-app-language";
 
 import { getDictionary } from "../../dictionaries";
 
 export const SignOutButton: React.FC = async () => {
-  const language = getLanguageFromHeaders(headers());
+  const language = getAppLanguage();
 
   const { sign_out_button_text } = await getDictionary(language);
 
