@@ -4,18 +4,18 @@ import { zodI18nMap } from "zod-i18n-map";
 import en from "zod-i18n-map/locales/en/zod.json";
 import es from "zod-i18n-map/locales/es/zod.json";
 
-import { FALLBACK_LANGUAGE } from "@/config/languages";
+import { ENV } from "@/config/env";
 import { SupportedLanguage } from "@/types/supported-language";
 
 i18next.init({
-  lng: FALLBACK_LANGUAGE,
+  lng: ENV.FALLBACK_LANGUAGE,
   resources: {
     en: { zod: en },
     es: { zod: es },
   },
 });
 
-export function zod(lang: SupportedLanguage = FALLBACK_LANGUAGE) {
+export function zod(lang: SupportedLanguage = ENV.FALLBACK_LANGUAGE) {
   i18next.changeLanguage(lang);
 
   z.setErrorMap(zodI18nMap);

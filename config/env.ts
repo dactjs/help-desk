@@ -1,5 +1,7 @@
 import { SupportedLanguage } from "@/types/supported-language";
 
+import { SUPPORTED_LANGUAGES } from "./languages";
+
 export const ENV = {
   // Server
   DATABASE_URL: process.env.DATABASE_URL as string,
@@ -17,4 +19,17 @@ export const ENV = {
 Object.entries(ENV).forEach(([key, value]) => {
   if (typeof window === "undefined" && key.startsWith("NEXT_PUBLIC")) return;
   if (!value) throw new Error(`Missing ${key} environment variable`);
+
+  if (
+    key === "FALLBACK_LANGUAGE" &&
+    !SUPPORTED_LANGUAGES.includes(value as SupportedLanguage)
+  ) {
+    const formatter = new Intl.ListFormat("en", { type: "disjunction" });
+
+    const list = formatter.format(SUPPORTED_LANGUAGES);
+
+    const message = `Invalid ${key} environment variable value. Supported values are: ${list}`;
+
+    throw new Error(message);
+  }
 });
