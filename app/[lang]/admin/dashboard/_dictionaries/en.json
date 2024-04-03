@@ -1,3 +1,6 @@
 {
-  "title": "Dashboard"
+  "title": "Dashboard",
+  "not_found_heading": "Resource not found",
+  "not_found_description": "The web server could not find the requested resource",
+  "not_found_call_to_action_text": "Back to dashboard"
 }

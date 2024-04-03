@@ -1,3 +1,6 @@
 {
-  "title": "Help Desk"
+  "title": "Help Desk",
+  "not_found_heading": "Recurso no encontrado",
+  "not_found_description": "El servidor web no pudo encontrar el recurso solicitado",
+  "not_found_call_to_action_text": "Volver al dashboard"
 }
