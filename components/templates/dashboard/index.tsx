@@ -92,8 +92,11 @@ export const Dashboard: React.FC<DashboardProps> = async ({
           </Stack>
         </Box>
 
-        <Box component="nav">
-          <List disablePadding sx={{ overflowX: "hidden", overflowY: "auto" }}>
+        <Box
+          component="nav"
+          sx={{ height: "100%", overflowX: "hidden", overflowY: "auto" }}
+        >
+          <List disablePadding>
             {navigation.map((element) =>
               element.type === DashboardNavigationType.ITEM ? (
                 <NavigationItem key={element.text} {...element} />
