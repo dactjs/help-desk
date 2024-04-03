@@ -113,6 +113,7 @@ export const Dashboard: React.FC<DashboardProps> = async ({
         component="main"
         sx={{
           gridArea: "content",
+          position: "relative",
           overflowX: "hidden",
           overflowY: "auto",
         }}
