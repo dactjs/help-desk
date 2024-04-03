@@ -9,7 +9,11 @@ import { SubmitButton } from "@/components/forms/submit-button";
 
 import { submit } from "../../_actions/submit";
 
-import { SignInFormProps } from "./types";
+export interface SignInFormProps {
+  username_input_label: string;
+  password_input_label: string;
+  submit_button_text: string;
+}
 
 export const SignInForm: React.FC<SignInFormProps> = ({
   username_input_label,
