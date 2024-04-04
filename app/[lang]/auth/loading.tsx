@@ -3,7 +3,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export default function AuthLoading() {
   return (
-    <Backdrop open sx={{ position: "absolute" }}>
+    <Backdrop open>
       <CircularProgress />
     </Backdrop>
   );

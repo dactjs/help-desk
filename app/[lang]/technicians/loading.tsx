@@ -1,10 +1,17 @@
-import Backdrop from "@mui/material/Backdrop";
+import Container from "@mui/material/Container";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function TechniciansLoading() {
   return (
-    <Backdrop open sx={{ position: "absolute" }}>
+    <Container
+      fixed
+      sx={{
+        display: "grid",
+        minHeight: "100%",
+        placeContent: "center",
+      }}
+    >
       <CircularProgress />
-    </Backdrop>
+    </Container>
   );
 }

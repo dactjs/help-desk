@@ -97,20 +97,6 @@ model TicketServiceCategory {
   updatedAt DateTime @updatedAt
 }
 
-model TicketComment {
-  id      String @id @default(uuid())
-  content String
-
-  writtenBy   User   @relation(fields: [writtenById], references: [id], onDelete: Restrict)
-  writtenById String
-
-  ticket   Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-  ticketId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model TicketTrace {
   id   String          @id @default(uuid())
   type TicketTraceType
@@ -139,4 +125,18 @@ enum TicketTraceType {
   RESOLVED
   CLOSED
   CANCELLED
+}
+
+model TicketComment {
+  id      String @id @default(uuid())
+  content String
+
+  writtenBy   User   @relation(fields: [writtenById], references: [id], onDelete: Restrict)
+  writtenById String
+
+  ticket   Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  ticketId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
