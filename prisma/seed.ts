@@ -9,11 +9,17 @@ async function main() {
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(ENV.ROOT_USER_PASSWORD, salt);
 
-  await prisma.user.create({
-    data: {
+  await prisma.user.upsert({
+    where: { username: ENV.ROOT_USER_USERNAME },
+    create: {
       username: ENV.ROOT_USER_USERNAME,
       email: ENV.ROOT_USER_EMAIL,
       password: hash,
+      name: ENV.ROOT_USER_NAME,
+      role: UserRole.ADMIN,
+    },
+    update: {
+      email: ENV.ROOT_USER_EMAIL,
       name: ENV.ROOT_USER_NAME,
       role: UserRole.ADMIN,
     },
