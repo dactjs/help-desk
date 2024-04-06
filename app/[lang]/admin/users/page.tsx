@@ -1,10 +1,12 @@
 import { Metadata } from "next";
 
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Unstable_Grid2";
 
+import { Widget } from "@/components/templates/widget";
 import { PageParams } from "@/types/page-params";
 
+import { UserDataGrid } from "./_components/user-data-grid";
 import { getDictionary } from "./_dictionaries";
 
 export async function generateMetadata({
@@ -17,16 +19,16 @@ export async function generateMetadata({
   return { title };
 }
 
-export interface UsersPageProps {
-  params: PageParams;
-}
-
-export default async function UsersPage({ params: { lang } }: UsersPageProps) {
-  const { title } = await getDictionary(lang);
-
+export default async function UsersPage() {
   return (
-    <Container>
-      <Typography>{title}</Typography>
+    <Container fixed sx={{ paddingY: 2 }}>
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid xs={12}>
+          <Widget>
+            <UserDataGrid />
+          </Widget>
+        </Grid>
+      </Grid>
     </Container>
   );
 }

@@ -1,0 +1,18 @@
+{
+  "id": "ID",
+  "username": "Usuario",
+  "email": "Correo electrónico",
+  "name": "Nombre",
+
+  "status": "Estado",
+  "status--enabled": "Habilitado",
+  "status--disabled": "Deshabilitado",
+
+  "role": "Rol",
+  "role--admin": "Administrador",
+  "role--technician": "Técnico",
+  "role--user": "Usuario",
+
+  "createdAt": "Creado en",
+  "updatedAt": "Actualizado en"
+}
