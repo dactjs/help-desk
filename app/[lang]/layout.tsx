@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import GlobalStyles from "@mui/material/GlobalStyles";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import { theme } from "@/config/theme";
 import { PageParams } from "@/types/page-params";
 
-import { ClientProviders } from "./_components/client-providers";
+import { Providers } from "./_components/providers";
 import { getDictionary } from "./_dictionaries";
 
 export function generateStaticParams(): PageParams[] {
@@ -38,23 +34,10 @@ export default function RootLayout({
     <html lang={lang}>
       <body>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-
-            <GlobalStyles
-              styles={{
-                "*": {
-                  scrollbarWidth: "thin",
-                  scrollbarColor: "chocolate transparent",
-                },
-              }}
-            />
-
-            <ClientProviders>
-              {children}
-              <SpeedInsights />
-            </ClientProviders>
-          </ThemeProvider>
+          <Providers lang={lang}>
+            {children}
+            <SpeedInsights />
+          </Providers>
         </AppRouterCacheProvider>
       </body>
     </html>
