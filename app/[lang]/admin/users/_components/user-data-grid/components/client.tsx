@@ -79,7 +79,7 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
           <Chip
             variant="filled"
             label={dict[params.row.status] ?? "???"}
-            color={colors[params.row.status]}
+            color={colors[params.row.status] ?? "default"}
           />
         );
       },
@@ -110,7 +110,7 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
           <Chip
             variant="filled"
             label={dict[params.row.role] ?? "???"}
-            color={colors[params.row.role]}
+            color={colors[params.row.role] ?? "default"}
           />
         );
       },

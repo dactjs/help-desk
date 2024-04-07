@@ -19,7 +19,7 @@ export async function generateMetadata({
   return { title };
 }
 
-export default async function UsersPage() {
+export default function UsersPage() {
   return (
     <Container fixed sx={{ paddingY: 2 }}>
       <Grid container justifyContent="center" alignItems="center">

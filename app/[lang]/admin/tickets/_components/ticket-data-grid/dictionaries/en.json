@@ -1,0 +1,18 @@
+{
+  "id": "ID",
+
+  "status": "Status",
+  "status--unassigned": "Unassigned",
+  "status--assigned": "Assigned",
+  "status--in-progress": "In Progress",
+  "status--resolved": "Resolved",
+  "status--closed": "Closed",
+  "status--cancelled": "Cancelled",
+
+  "service": "Service",
+  "sentBy": "Sent By",
+  "assignedTo": "Assigned To",
+
+  "createdAt": "Created At",
+  "updatedAt": "Updated At"
+}

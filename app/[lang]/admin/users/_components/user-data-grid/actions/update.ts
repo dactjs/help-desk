@@ -8,16 +8,18 @@ import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 
 import { UserSchema, User } from "../schemas/user";
+import { NECESSARY_USER_FIELDS } from "../constants";
 import { getDictionary } from "../dictionaries";
 
 // TODO: add authorization
-export async function update(data: User): Promise<User> {
+export async function update(data: unknown): Promise<User> {
   const language = getAppLanguage();
 
   try {
     const z = zod(language);
 
     const schema = z.object({
+      id: z.string().uuid(),
       username: z.string(),
       email: z.string(),
       name: z.string(),
@@ -48,14 +50,15 @@ export async function update(data: User): Promise<User> {
     }
 
     const updated = await prisma.user.update({
-      where: { id: data.id },
+      where: { id: result.data.id },
       data: {
-        username: data.username,
-        email: data.email,
-        name: data.name,
-        status: data.status,
-        role: data.role,
+        username: result.data.username,
+        email: result.data.email,
+        name: result.data.name,
+        status: result.data.status,
+        role: result.data.role,
       },
+      select: NECESSARY_USER_FIELDS,
     });
 
     const stripped = UserSchema(language).parse(updated);

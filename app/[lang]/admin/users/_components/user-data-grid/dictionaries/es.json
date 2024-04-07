@@ -1,7 +1,7 @@
 {
   "id": "ID",
   "username": "Usuario",
-  "email": "Correo electrónico",
+  "email": "Correo Electrónico",
   "name": "Nombre",
 
   "status": "Estado",
@@ -13,6 +13,6 @@
   "role--technician": "Técnico",
   "role--user": "Usuario",
 
-  "createdAt": "Creado en",
-  "updatedAt": "Actualizado en"
+  "createdAt": "Creado En",
+  "updatedAt": "Actualizado En"
 }
