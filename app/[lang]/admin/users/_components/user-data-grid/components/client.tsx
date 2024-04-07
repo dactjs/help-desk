@@ -101,9 +101,9 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
         };
 
         const colors: Record<UserRole, ChipProps["color"]> = {
-          ADMIN: "primary",
-          TECHNICIAN: "secondary",
-          USER: "default",
+          ADMIN: "warning",
+          TECHNICIAN: "info",
+          USER: "success",
         };
 
         return (

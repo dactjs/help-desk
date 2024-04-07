@@ -25,6 +25,13 @@ model User {
   destinationUserOnTicketTraces TicketTrace[] @relation("DestinationUserOnTicketTrace")
   originUserOnTicketTraces      TicketTrace[] @relation("OriginUserOnTicketTrace")
 
+  assignedResources Resource[]
+  resourceComments  ResourceComment[]
+
+  resourceTraces                  ResourceTrace[]
+  destinationUserOnResourceTraces ResourceTrace[] @relation("DestinationUserOnResourceTrace")
+  originUserOnResourceTraces      ResourceTrace[] @relation("OriginUserOnResourceTrace")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -139,4 +146,63 @@ model TicketComment {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Resource {
+  id     String @id @default(uuid())
+  brand  String
+  model  String
+  serial String @unique
+
+  traces   ResourceTrace[]
+  comments ResourceComment[]
+
+  assignedTo   User?   @relation(fields: [assignedToId], references: [id], onDelete: Restrict)
+  assignedToId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ResourceComment {
+  id      String @id @default(uuid())
+  content String
+
+  writtenBy   User   @relation(fields: [writtenById], references: [id], onDelete: Restrict)
+  writtenById String
+
+  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  resourceId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ResourceTrace {
+  id   String            @id @default(uuid())
+  type ResourceTraceType
+
+  origin   User?   @relation("OriginUserOnResourceTrace", fields: [originId], references: [id])
+  originId String?
+
+  destination   User?   @relation("DestinationUserOnResourceTrace", fields: [destinationId], references: [id])
+  destinationId String?
+
+  madeBy   User   @relation(fields: [madeById], references: [id], onDelete: Restrict)
+  madeById String
+
+  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Restrict)
+  resourceId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ResourceTraceType {
+  INPUT
+  ASSIGNMENT
+  TRANSFER
+  UNASSIGNMENT
+  REPAIR
+  OUTPUT
 }

@@ -1,0 +1,9 @@
+{
+  "id": "ID",
+  "brand": "Brand",
+  "model": "Model",
+  "serial": "Serial Number",
+  "assignedTo": "Assigned To",
+  "createdAt": "Created At",
+  "updatedAt": "Updated At"
+}
