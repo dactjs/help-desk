@@ -10,7 +10,7 @@ import { NECESSARY_RESOURCE_FIELDS } from "../constants";
 import { getDictionary } from "../dictionaries";
 
 // TODO: add authorization
-export async function update(data: unknown): Promise<Resource> {
+export async function updateResource(data: unknown): Promise<Resource> {
   const language = getAppLanguage();
 
   try {

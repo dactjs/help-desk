@@ -1,13 +1,21 @@
 "use client";
 
 import Chip, { ChipProps } from "@mui/material/Chip";
-import { DataGrid, GridToolbar, GridColDef } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridToolbar,
+  GridActionsCellItem,
+  GridColDef,
+  GridRowParams,
+} from "@mui/x-data-grid";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 import { UserStatus, UserRole } from "@prisma/client";
 
 import { getShortUUID } from "@/utils/get-short-uuid";
 
-import { update } from "../actions/update";
+import { updateUser } from "../actions/update";
+import { deleteUser } from "../actions/delete";
 import { Dictionary } from "../dictionaries";
 import { User } from "../schemas/user";
 
@@ -22,7 +30,34 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteUser(id);
+    } catch (error) {
+      if (error instanceof Error) {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+          style: { whiteSpace: "pre-line" },
+        });
+      }
+    }
+  };
+
   const columns: GridColDef<User>[] = [
+    {
+      type: "actions",
+      field: "actions",
+      headerName: dictionary.actions,
+      getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          key={`${params.id}-delete`}
+          icon={<DeleteIcon color="error" />}
+          label={dictionary["actions--delete"]}
+          aria-label={dictionary["actions--delete"]}
+          onClick={() => handleDelete(params.row.id)}
+        />,
+      ],
+    },
     {
       field: "id",
       headerName: dictionary.id,
@@ -149,7 +184,7 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
       rows={users}
       slots={{ toolbar: GridToolbar }}
       slotProps={{ toolbar: { showQuickFilter: true } }}
-      processRowUpdate={update}
+      processRowUpdate={updateUser}
       onProcessRowUpdateError={handleOnProcessRowUpdateError}
     />
   );

@@ -1,11 +1,19 @@
 "use client";
 
-import { DataGrid, GridToolbar, GridColDef } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridToolbar,
+  GridActionsCellItem,
+  GridColDef,
+  GridRowParams,
+} from "@mui/x-data-grid";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 
 import { getShortUUID } from "@/utils/get-short-uuid";
 
-import { update } from "../actions/update";
+import { updateResource } from "../actions/update";
+import { deleteResource } from "../actions/delete";
 import { Dictionary } from "../dictionaries";
 import { Resource } from "../schemas/resource";
 
@@ -20,7 +28,34 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteResource(id);
+    } catch (error) {
+      if (error instanceof Error) {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+          style: { whiteSpace: "pre-line" },
+        });
+      }
+    }
+  };
+
   const columns: GridColDef<Resource>[] = [
+    {
+      type: "actions",
+      field: "actions",
+      headerName: dictionary.actions,
+      getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          key={`${params.id}-delete`}
+          icon={<DeleteIcon color="error" />}
+          label={dictionary["actions--delete"]}
+          aria-label={dictionary["actions--delete"]}
+          onClick={() => handleDelete(params.row.id)}
+        />,
+      ],
+    },
     {
       field: "id",
       headerName: dictionary.id,
@@ -95,7 +130,7 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
       rows={resources}
       slots={{ toolbar: GridToolbar }}
       slotProps={{ toolbar: { showQuickFilter: true } }}
-      processRowUpdate={update}
+      processRowUpdate={updateResource}
       onProcessRowUpdateError={handleOnProcessRowUpdateError}
     />
   );

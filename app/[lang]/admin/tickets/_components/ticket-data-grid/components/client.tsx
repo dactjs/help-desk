@@ -1,11 +1,20 @@
 "use client";
 
 import Chip, { ChipProps } from "@mui/material/Chip";
-import { DataGrid, GridToolbar, GridColDef } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridToolbar,
+  GridActionsCellItem,
+  GridColDef,
+  GridRowParams,
+} from "@mui/x-data-grid";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useSnackbar } from "notistack";
 import { TicketStatus } from "@prisma/client";
 
 import { getShortUUID } from "@/utils/get-short-uuid";
 
+import { deleteTicket } from "../actions/delete";
 import { Dictionary } from "../dictionaries";
 import { Ticket } from "../schemas/ticket";
 
@@ -18,7 +27,36 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
   tickets,
   dictionary,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteTicket(id);
+    } catch (error) {
+      if (error instanceof Error) {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+          style: { whiteSpace: "pre-line" },
+        });
+      }
+    }
+  };
+
   const columns: GridColDef<Ticket>[] = [
+    {
+      type: "actions",
+      field: "actions",
+      headerName: dictionary.actions,
+      getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          key={`${params.id}-delete`}
+          icon={<DeleteIcon color="error" />}
+          label={dictionary["actions--delete"]}
+          aria-label={dictionary["actions--delete"]}
+          onClick={() => handleDelete(params.row.id)}
+        />,
+      ],
+    },
     {
       field: "id",
       headerName: dictionary.id,

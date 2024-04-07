@@ -12,7 +12,7 @@ import { NECESSARY_USER_FIELDS } from "../constants";
 import { getDictionary } from "../dictionaries";
 
 // TODO: add authorization
-export async function update(data: unknown): Promise<User> {
+export async function updateUser(data: unknown): Promise<User> {
   const language = getAppLanguage();
 
   try {

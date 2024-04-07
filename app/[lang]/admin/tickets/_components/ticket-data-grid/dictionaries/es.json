@@ -14,5 +14,8 @@
   "assignedTo": "Asignado A",
 
   "createdAt": "Creado En",
-  "updatedAt": "Actualizado En"
+  "updatedAt": "Actualizado En",
+
+  "actions": "Acciones",
+  "actions--delete": "Borrar Usuario"
 }

@@ -5,5 +5,8 @@
   "serial": "Serial Number",
   "assignedTo": "Assigned To",
   "createdAt": "Created At",
-  "updatedAt": "Updated At"
+  "updatedAt": "Updated At",
+
+  "actions": "Actions",
+  "actions--delete": "Delete User"
 }
