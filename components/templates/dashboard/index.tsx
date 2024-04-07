@@ -25,7 +25,10 @@ export const Dashboard: React.FC<
     <Box
       sx={{
         display: "grid",
-        gridTemplateColumns: { xs: "auto 1fr", md: "200px 1fr" },
+        gridTemplateColumns: {
+          xs: "auto 1fr",
+          md: "minmax(auto, 15em) 1fr",
+        },
         gridTemplateRows: "auto 1fr",
         gridTemplateAreas: {
           xs: `
@@ -73,6 +76,7 @@ export const Dashboard: React.FC<
           <Stack
             component={Paper}
             direction="row"
+            alignItems="center"
             spacing={1}
             sx={{ padding: 1 }}
           >

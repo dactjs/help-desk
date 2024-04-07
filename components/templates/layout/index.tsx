@@ -46,6 +46,7 @@ export const Layout: React.FC<React.PropsWithChildren> = async ({
           <Stack
             component={Paper}
             direction="row"
+            alignItems="center"
             spacing={1}
             sx={{ padding: 1 }}
           >
