@@ -8,8 +8,10 @@ import {
   GridColDef,
   GridRowParams,
 } from "@mui/x-data-grid";
+import SyncLockIcon from "@mui/icons-material/SyncLock";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
+import { useConfirm } from "material-ui-confirm";
 import { UserStatus, UserRole } from "@prisma/client";
 
 import { getShortUUID } from "@/utils/get-short-uuid";
@@ -30,17 +32,23 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteUser(id);
-    } catch (error) {
-      if (error instanceof Error) {
-        enqueueSnackbar(error.message, {
-          variant: "error",
-          style: { whiteSpace: "pre-line" },
-        });
-      }
-    }
+  const confirm = useConfirm();
+
+  const handleDelete = (id: string) => {
+    confirm()
+      .then(async () => {
+        try {
+          await deleteUser(id);
+        } catch (error) {
+          if (error instanceof Error) {
+            enqueueSnackbar(error.message, {
+              variant: "error",
+              style: { whiteSpace: "pre-line" },
+            });
+          }
+        }
+      })
+      .catch(() => null);
   };
 
   const columns: GridColDef<User>[] = [
@@ -50,7 +58,15 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
       headerName: dictionary.actions,
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
+          key={`${params.id}-reset-password`}
+          showInMenu
+          icon={<SyncLockIcon />}
+          label={dictionary["actions--reset-password"]}
+          aria-label={dictionary["actions--reset-password"]}
+        />,
+        <GridActionsCellItem
           key={`${params.id}-delete`}
+          showInMenu
           icon={<DeleteIcon color="error" />}
           label={dictionary["actions--delete"]}
           aria-label={dictionary["actions--delete"]}

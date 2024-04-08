@@ -1,25 +1,19 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 
-import { UserSchema, User } from "../schemas/user";
-import { NECESSARY_USER_FIELDS } from "../constants";
-
 // TODO: add authorization
-export async function deleteUser(id: string): Promise<User> {
+export async function deleteUser(id: string): Promise<void> {
   const language = getAppLanguage();
 
   try {
-    const deleted = await prisma.user.delete({
-      where: { id },
-      select: NECESSARY_USER_FIELDS,
-    });
+    await prisma.user.delete({ where: { id } });
 
-    const stripped = UserSchema(language).parse(deleted);
-
-    return stripped;
+    revalidatePath("/[lang]/admin/users");
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message);
 
