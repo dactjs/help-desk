@@ -4,7 +4,7 @@ import ResourcesIcon from "@mui/icons-material/Devices";
 import UsersIcon from "@mui/icons-material/Group";
 
 import { Dashboard } from "@/components/templates/dashboard";
-import { DashboardNavigationType } from "@/components/templates/dashboard/types";
+import { DashboardNavigationType } from "@/components/templates/dashboard/types/navigation";
 import { PageParams } from "@/types/page-params";
 
 import { getDictionary } from "./_dictionaries";

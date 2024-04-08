@@ -1,3 +1,5 @@
+import "server-only";
+
 import { headers, cookies } from "next/headers";
 import Negotiator from "negotiator";
 import { match } from "@formatjs/intl-localematcher";
@@ -11,14 +13,10 @@ import {
 import { SupportedLanguage } from "../../types/supported-language";
 
 export function getAppLanguage(): SupportedLanguage {
-  const cookie = cookies().get(LANGUAGE_COOKIE_KEY);
+  const cookie = cookies().get(LANGUAGE_COOKIE_KEY)?.value;
 
-  if (
-    cookie?.value &&
-    SUPPORTED_LANGUAGES.includes(cookie.value as SupportedLanguage)
-  ) {
-    return cookie.value as SupportedLanguage;
-  }
+  if (cookie && SUPPORTED_LANGUAGES.includes(cookie as SupportedLanguage))
+    return cookie as SupportedLanguage;
 
   const languages = new Negotiator({
     headers: Object.fromEntries(headers()),

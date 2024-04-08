@@ -20,11 +20,15 @@ export class AuthError extends CredentialsSignin {
 export class InvalidCredentialsError extends AuthError {
   constructor() {
     super(AuthErrorCode.INVALID_CREDENTIALS);
+
+    this.message = "Invalid Credentials";
   }
 }
 
 export class DisabledUserError extends AuthError {
   constructor() {
     super(AuthErrorCode.DISABLED_USER);
+
+    this.message = "Disabled User";
   }
 }

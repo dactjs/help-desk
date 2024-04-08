@@ -12,7 +12,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Theme } from "@mui/material/styles";
 
-import { DashboardNavigationGroup } from "../../types";
+import { DashboardNavigationGroup } from "../../types/navigation";
 
 import { NavigationItem } from "../navigation-item";
 
