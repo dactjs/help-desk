@@ -9,6 +9,7 @@ import {
 } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
+import { useConfirm } from "material-ui-confirm";
 
 import { getShortUUID } from "@/utils/get-short-uuid";
 
@@ -28,17 +29,23 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteResource(id);
-    } catch (error) {
-      if (error instanceof Error) {
-        enqueueSnackbar(error.message, {
-          variant: "error",
-          style: { whiteSpace: "pre-line" },
-        });
-      }
-    }
+  const confirm = useConfirm();
+
+  const handleDelete = (id: string) => {
+    confirm()
+      .then(async () => {
+        try {
+          await deleteResource(id);
+        } catch (error) {
+          if (error instanceof Error) {
+            enqueueSnackbar(error.message, {
+              variant: "error",
+              style: { whiteSpace: "pre-line" },
+            });
+          }
+        }
+      })
+      .catch(() => null);
   };
 
   const columns: GridColDef<Resource>[] = [
@@ -49,6 +56,7 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-delete`}
+          showInMenu
           icon={<DeleteIcon color="error" />}
           label={dictionary["actions--delete"]}
           aria-label={dictionary["actions--delete"]}

@@ -5,24 +5,23 @@ import Typography from "@mui/material/Typography";
 
 import { PageParams } from "@/types/page-params";
 
-import { CreateUserForm } from "./_components/form";
+import { CreateResourceForm } from "./_components/form";
 import { getDictionary } from "./_dictionaries";
 
-export interface CreateUserPageProps {
+export interface CreateResourcePageProps {
   params: PageParams;
 }
 
-export default async function CreateUserPage({
+export default async function CreateResourcePage({
   params: { lang },
 }: {
   params: PageParams;
 }) {
   const {
     heading,
-    username_input_label,
-    email_input_label,
-    name_input_label,
-    password_input_label,
+    brand_input_label,
+    model_input_label,
+    serial_input_label,
     submit_button_text,
   } = await getDictionary(lang);
 
@@ -33,11 +32,10 @@ export default async function CreateUserPage({
           {heading}
         </Typography>
 
-        <CreateUserForm
-          username_input_label={username_input_label}
-          email_input_label={email_input_label}
-          name_input_label={name_input_label}
-          password_input_label={password_input_label}
+        <CreateResourceForm
+          brand_input_label={brand_input_label}
+          model_input_label={model_input_label}
+          serial_input_label={serial_input_label}
           submit_button_text={submit_button_text}
         />
       </Stack>
