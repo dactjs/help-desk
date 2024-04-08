@@ -17,5 +17,6 @@
   "updatedAt": "Actualizado En",
 
   "actions": "Acciones",
+  "actions--reset-password": "Restablecer Contraseña",
   "actions--delete": "Borrar Usuario"
 }
