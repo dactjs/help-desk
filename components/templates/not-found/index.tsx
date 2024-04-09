@@ -50,8 +50,8 @@ export const NotFound: React.FC<NotFoundProps> = ({
         <Button
           LinkComponent={Link}
           href={callToAction.href}
-          size="small"
           variant="contained"
+          size="small"
           color="primary"
         >
           {callToAction.text}

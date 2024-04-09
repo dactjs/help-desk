@@ -2,10 +2,12 @@
   "title": "Dashboard",
   "heading": "Welcome to your dashboard 💻",
   "hint": "To get started, select an option from the sidebar.",
+
   "dashboard_item_text": "Dashboard",
   "tickets_item_text": "Tickets",
   "resources_item_text": "Resources",
   "users_item_text": "Users",
+
   "not_found_heading": "Resource not found",
   "not_found_description": "The web server could not find the requested resource",
   "not_found_call_to_action_text": "Back to dashboard"
