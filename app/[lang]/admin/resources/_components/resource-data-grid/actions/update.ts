@@ -5,7 +5,7 @@ import { getErrorsDictionary } from "@/internationalization/dictionaries/errors"
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 
-import { ResourceSchema, Resource } from "../schemas/resource";
+import { Resource } from "../schemas/resource";
 import { NECESSARY_RESOURCE_FIELDS } from "../constants";
 import { getDictionary } from "../dictionaries";
 
@@ -51,9 +51,7 @@ export async function updateResource(data: unknown): Promise<Resource> {
       select: NECESSARY_RESOURCE_FIELDS,
     });
 
-    const stripped = ResourceSchema(language).parse(updated);
-
-    return stripped;
+    return updated;
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message);
 

@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
@@ -8,15 +10,23 @@ import { PageParams } from "@/types/page-params";
 import { CreateResourceForm } from "./_components/form";
 import { getDictionary } from "./_dictionaries";
 
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: PageParams;
+}): Promise<Metadata> {
+  const { title } = await getDictionary(lang);
+
+  return { title };
+}
+
 export interface CreateResourcePageProps {
   params: PageParams;
 }
 
 export default async function CreateResourcePage({
   params: { lang },
-}: {
-  params: PageParams;
-}) {
+}: CreateResourcePageProps) {
   const {
     heading,
     brand_input_label,
@@ -27,7 +37,7 @@ export default async function CreateResourcePage({
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
-      <Stack divider={<Divider flexItem />}>
+      <Stack spacing={1} divider={<Divider flexItem />}>
         <Typography component="h1" variant="h5">
           {heading}
         </Typography>

@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
@@ -8,15 +10,23 @@ import { PageParams } from "@/types/page-params";
 import { CreateUserForm } from "./_components/form";
 import { getDictionary } from "./_dictionaries";
 
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: PageParams;
+}): Promise<Metadata> {
+  const { title } = await getDictionary(lang);
+
+  return { title };
+}
+
 export interface CreateUserPageProps {
   params: PageParams;
 }
 
 export default async function CreateUserPage({
   params: { lang },
-}: {
-  params: PageParams;
-}) {
+}: CreateUserPageProps) {
   const {
     heading,
     username_input_label,
@@ -28,7 +38,7 @@ export default async function CreateUserPage({
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
-      <Stack divider={<Divider flexItem />}>
+      <Stack spacing={1} divider={<Divider flexItem />}>
         <Typography component="h1" variant="h5">
           {heading}
         </Typography>

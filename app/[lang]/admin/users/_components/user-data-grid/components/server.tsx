@@ -1,7 +1,6 @@
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { prisma } from "@/lib/prisma";
 
-import { UserSchema } from "../schemas/user";
 import { NECESSARY_USER_FIELDS } from "../constants";
 import { getDictionary } from "../dictionaries";
 
@@ -16,7 +15,5 @@ export const ServerUserDataGrid: React.FC = async () => {
     getDictionary(language),
   ]);
 
-  const stripped = UserSchema(language).array().parse(users);
-
-  return <ClientUserDataGrid users={stripped} dictionary={dictionary} />;
+  return <ClientUserDataGrid users={users} dictionary={dictionary} />;
 };

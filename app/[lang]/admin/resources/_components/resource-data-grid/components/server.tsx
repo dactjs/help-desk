@@ -1,7 +1,6 @@
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { prisma } from "@/lib/prisma";
 
-import { ResourceSchema } from "../schemas/resource";
 import { NECESSARY_RESOURCE_FIELDS } from "../constants";
 import { getDictionary } from "../dictionaries";
 
@@ -16,9 +15,7 @@ export const ServerResourceDataGrid: React.FC = async () => {
     getDictionary(language),
   ]);
 
-  const stripped = ResourceSchema(language).array().parse(resources);
-
   return (
-    <ClientResourceDataGrid resources={stripped} dictionary={dictionary} />
+    <ClientResourceDataGrid resources={resources} dictionary={dictionary} />
   );
 };

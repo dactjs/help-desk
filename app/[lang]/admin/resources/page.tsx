@@ -22,13 +22,13 @@ export async function generateMetadata({
   return { title };
 }
 
-export type ResourcesPageProps = PageParams;
+export interface ResourcesPageProps {
+  params: PageParams;
+}
 
 export default async function ResourcesPage({
   params: { lang },
-}: {
-  params: ResourcesPageProps;
-}) {
+}: ResourcesPageProps) {
   const dictionary = await getDictionary(lang);
 
   return (

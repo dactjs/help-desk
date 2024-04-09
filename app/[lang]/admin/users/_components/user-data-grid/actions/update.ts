@@ -7,7 +7,7 @@ import { getErrorsDictionary } from "@/internationalization/dictionaries/errors"
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 
-import { UserSchema, User } from "../schemas/user";
+import { User } from "../schemas/user";
 import { NECESSARY_USER_FIELDS } from "../constants";
 import { getDictionary } from "../dictionaries";
 
@@ -61,9 +61,7 @@ export async function updateUser(data: unknown): Promise<User> {
       select: NECESSARY_USER_FIELDS,
     });
 
-    const stripped = UserSchema(language).parse(updated);
-
-    return stripped;
+    return updated;
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message);
 

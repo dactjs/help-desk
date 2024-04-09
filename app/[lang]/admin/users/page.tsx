@@ -22,13 +22,11 @@ export async function generateMetadata({
   return { title };
 }
 
-export type UsersPageProps = PageParams;
+export interface UsersPageProps {
+  params: PageParams;
+}
 
-export default async function UsersPage({
-  params: { lang },
-}: {
-  params: UsersPageProps;
-}) {
+export default async function UsersPage({ params: { lang } }: UsersPageProps) {
   const dictionary = await getDictionary(lang);
 
   return (
