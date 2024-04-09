@@ -1,4 +1,4 @@
-import { SupportedLanguage } from "../types/supported-language";
+import { SupportedLanguage } from "../types";
 
 export const SUPPORTED_LANGUAGES: SupportedLanguage[] = ["en", "es"];
 

@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { typeToFlattenedError } from "zod";
+import * as bcrypt from "bcryptjs";
 
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
@@ -22,6 +23,7 @@ export type SubmitActionState = {
   };
 };
 
+// TODO: add authorization
 export async function submit(
   _: SubmitActionState,
   formData: FormData
@@ -49,11 +51,14 @@ export async function submit(
       };
     }
 
+    const salt = bcrypt.genSaltSync();
+    const hash = bcrypt.hashSync(result.data.password, salt);
+
     await prisma.user.create({
       data: {
         username: result.data.username,
         email: result.data.email,
-        password: result.data.password,
+        password: hash,
         name: result.data.name,
       },
     });

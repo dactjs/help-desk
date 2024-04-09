@@ -8,6 +8,7 @@ export type SignInCredentials = {
 };
 
 export type AuthenticatedUser = {
+  id: string;
   username: string;
   email: string;
   name: string;

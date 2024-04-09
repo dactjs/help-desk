@@ -36,6 +36,7 @@ export const {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        token.id = String(user.id);
         token.username = user.username;
         token.email = user.email;
         token.name = user.name;
@@ -47,9 +48,10 @@ export const {
     },
     async session({ session, token }) {
       if (token) {
-        session.user.username = String(token.username);
+        session.user.id = token.id;
+        session.user.username = token.username;
         session.user.email = String(token.email);
-        session.user.name = String(token.name);
+        session.user.name = token.name;
         session.user.status = token.status;
         session.user.role = token.role;
       }

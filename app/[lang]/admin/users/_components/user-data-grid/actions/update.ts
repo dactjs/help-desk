@@ -7,9 +7,9 @@ import { getErrorsDictionary } from "@/internationalization/dictionaries/errors"
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 
-import { User } from "../schemas/user";
 import { NECESSARY_USER_FIELDS } from "../constants";
 import { getDictionary } from "../dictionaries";
+import { User } from "../types";
 
 // TODO: add authorization
 export async function updateUser(data: unknown): Promise<User> {
@@ -30,11 +30,12 @@ export async function updateUser(data: unknown): Promise<User> {
     const result = schema.safeParse(data);
 
     if (!result.success) {
-      const { username, email, name, status, role } = await getDictionary(
+      const { id, username, email, name, status, role } = await getDictionary(
         language
       );
 
       const errors = {
+        [id]: result.error.flatten().fieldErrors.id,
         [username]: result.error.flatten().fieldErrors.username,
         [email]: result.error.flatten().fieldErrors.email,
         [name]: result.error.flatten().fieldErrors.name,

@@ -21,6 +21,7 @@ export type SubmitActionState = {
   };
 };
 
+// TODO: add authorization
 export async function submit(
   _: SubmitActionState,
   formData: FormData

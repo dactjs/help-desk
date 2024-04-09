@@ -9,7 +9,7 @@ import ListItemText from "@mui/material/ListItemText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Theme } from "@mui/material/styles";
 
-import { DashboardNavigationItem } from "../../types/navigation";
+import { DashboardNavigationItem } from "../../types";
 
 export interface NavigationItemProps extends DashboardNavigationItem {
   nested?: boolean;

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
-import { SUPPORTED_LANGUAGES } from "@/internationalization/config/languages";
+import { SUPPORTED_LANGUAGES } from "@/internationalization/config";
 
 export default auth((request) => {
   const { pathname } = request.nextUrl;

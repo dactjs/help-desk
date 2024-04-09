@@ -10,10 +10,7 @@ import { auth } from "@/auth";
 import { NavigationItem } from "./components/navigation-item";
 import { NavigationGroup } from "./components/navigation-group";
 import { SignOutButton } from "./components/sign-out-button";
-import {
-  DashboardNavigation,
-  DashboardNavigationType,
-} from "./types/navigation";
+import { DashboardNavigation, DashboardNavigationType } from "./types";
 
 export interface DashboardProps {
   navigation: DashboardNavigation;

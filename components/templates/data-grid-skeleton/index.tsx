@@ -41,7 +41,7 @@ export const DataGridSkeleton: React.FC = () => {
           overflow: "auto",
         }}
       >
-        {Array.from({ length: 10 }).map((_, index) => (
+        {Array.from({ length: 20 }).map((_, index) => (
           <Skeleton
             key={index}
             variant="rectangular"

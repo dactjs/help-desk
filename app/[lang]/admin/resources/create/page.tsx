@@ -37,7 +37,7 @@ export default async function CreateResourcePage({
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
-      <Stack spacing={1} divider={<Divider flexItem />}>
+      <Stack spacing={2} divider={<Divider flexItem />}>
         <Typography component="h1" variant="h5">
           {heading}
         </Typography>

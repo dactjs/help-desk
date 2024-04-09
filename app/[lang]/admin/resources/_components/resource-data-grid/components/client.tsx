@@ -16,7 +16,7 @@ import { getShortUUID } from "@/utils/get-short-uuid";
 import { updateResource } from "../actions/update";
 import { deleteResource } from "../actions/delete";
 import { Dictionary } from "../dictionaries";
-import { Resource } from "../schemas/resource";
+import { Resource } from "../types";
 
 export interface ClientResourceDataGridProps {
   resources: Resource[];

@@ -9,7 +9,7 @@ import { SnackbarProvider } from "notistack";
 import { ConfirmProvider } from "material-ui-confirm";
 
 import { getMuiTranslations } from "@/internationalization/utils/get-mui-translations";
-import { SupportedLanguage } from "@/internationalization/types/supported-language";
+import { SupportedLanguage } from "@/internationalization/types";
 
 const roboto = Roboto({
   display: "swap",

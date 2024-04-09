@@ -1,6 +1,6 @@
 import "server-only";
 
-import { SupportedLanguage } from "../../types/supported-language";
+import { SupportedLanguage } from "../../types";
 
 export async function getErrorsDictionary(language: SupportedLanguage) {
   const dictionaries = {

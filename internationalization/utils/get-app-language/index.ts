@@ -6,11 +6,8 @@ import { match } from "@formatjs/intl-localematcher";
 
 import { ENV } from "@/config/env";
 
-import {
-  SUPPORTED_LANGUAGES,
-  LANGUAGE_COOKIE_KEY,
-} from "../../config/languages";
-import { SupportedLanguage } from "../../types/supported-language";
+import { SUPPORTED_LANGUAGES, LANGUAGE_COOKIE_KEY } from "../../config";
+import { SupportedLanguage } from "../../types";
 
 export function getAppLanguage(): SupportedLanguage {
   const cookie = cookies().get(LANGUAGE_COOKIE_KEY)?.value;

@@ -8,7 +8,7 @@ import {
   esES as pickersEs,
 } from "@mui/x-date-pickers/locales";
 
-import { SupportedLanguage } from "../../types/supported-language";
+import { SupportedLanguage } from "../../types";
 
 export type MuiTranslations = ReturnType<typeof getMuiTranslations>;
 

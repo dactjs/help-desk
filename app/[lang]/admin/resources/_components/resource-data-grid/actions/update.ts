@@ -5,9 +5,9 @@ import { getErrorsDictionary } from "@/internationalization/dictionaries/errors"
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 
-import { Resource } from "../schemas/resource";
 import { NECESSARY_RESOURCE_FIELDS } from "../constants";
 import { getDictionary } from "../dictionaries";
+import { Resource } from "../types";
 
 // TODO: add authorization
 export async function updateResource(data: unknown): Promise<Resource> {
@@ -26,9 +26,10 @@ export async function updateResource(data: unknown): Promise<Resource> {
     const result = schema.safeParse(data);
 
     if (!result.success) {
-      const { brand, model, serial } = await getDictionary(language);
+      const { id, brand, model, serial } = await getDictionary(language);
 
       const errors = {
+        [id]: result.error.flatten().fieldErrors.id,
         [brand]: result.error.flatten().fieldErrors.brand,
         [model]: result.error.flatten().fieldErrors.model,
         [serial]: result.error.flatten().fieldErrors.serial,

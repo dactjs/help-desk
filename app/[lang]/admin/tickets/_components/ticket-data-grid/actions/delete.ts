@@ -1,25 +1,19 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 
-import { TicketSchema, Ticket } from "../schemas/ticket";
-import { NECESSARY_TICKET_FIELDS } from "../constants";
-
 // TODO: add authorization
-export async function deleteTicket(id: string): Promise<Ticket> {
+export async function deleteTicket(id: string): Promise<void> {
   const language = getAppLanguage();
 
   try {
-    const deleted = await prisma.ticket.delete({
-      where: { id },
-      select: NECESSARY_TICKET_FIELDS,
-    });
+    await prisma.ticket.delete({ where: { id } });
 
-    const stripped = TicketSchema(language).parse(deleted);
-
-    return stripped;
+    revalidatePath("/[lang]/admin/tickets");
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message);
 

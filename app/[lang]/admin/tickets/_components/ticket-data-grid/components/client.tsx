@@ -10,13 +10,14 @@ import {
 } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
+import { useConfirm } from "material-ui-confirm";
 import { TicketStatus } from "@prisma/client";
 
 import { getShortUUID } from "@/utils/get-short-uuid";
 
 import { deleteTicket } from "../actions/delete";
 import { Dictionary } from "../dictionaries";
-import { Ticket } from "../schemas/ticket";
+import { Ticket } from "../types";
 
 export interface ClientTicketDataGridProps {
   tickets: Ticket[];
@@ -29,17 +30,23 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteTicket(id);
-    } catch (error) {
-      if (error instanceof Error) {
-        enqueueSnackbar(error.message, {
-          variant: "error",
-          style: { whiteSpace: "pre-line" },
-        });
-      }
-    }
+  const confirm = useConfirm();
+
+  const handleDelete = (id: string) => {
+    confirm()
+      .then(async () => {
+        try {
+          await deleteTicket(id);
+        } catch (error) {
+          if (error instanceof Error) {
+            enqueueSnackbar(error.message, {
+              variant: "error",
+              style: { whiteSpace: "pre-line" },
+            });
+          }
+        }
+      })
+      .catch(() => null);
   };
 
   const columns: GridColDef<Ticket>[] = [
@@ -50,6 +57,7 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-delete`}
+          showInMenu
           icon={<DeleteIcon color="error" />}
           label={dictionary["actions--delete"]}
           aria-label={dictionary["actions--delete"]}

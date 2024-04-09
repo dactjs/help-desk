@@ -11,7 +11,7 @@ export class AuthError extends CredentialsSignin {
   public code: AuthErrorCode;
 
   constructor(code: AuthErrorCode) {
-    super();
+    super("Auth Error");
 
     this.code = code;
   }

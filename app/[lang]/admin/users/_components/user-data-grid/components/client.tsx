@@ -19,7 +19,7 @@ import { getShortUUID } from "@/utils/get-short-uuid";
 import { updateUser } from "../actions/update";
 import { deleteUser } from "../actions/delete";
 import { Dictionary } from "../dictionaries";
-import { User } from "../schemas/user";
+import { User } from "../types";
 
 export interface ClientUserDataGridProps {
   users: User[];
