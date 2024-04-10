@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter, useParams } from "next/navigation";
 import Chip, { ChipProps } from "@mui/material/Chip";
 import {
   DataGrid,
@@ -8,6 +9,7 @@ import {
   GridColDef,
   GridRowParams,
 } from "@mui/x-data-grid";
+import LaunchIcon from "@mui/icons-material/Launch";
 import SyncLockIcon from "@mui/icons-material/SyncLock";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
@@ -30,6 +32,10 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
   users,
   dictionary,
 }) => {
+  const router = useRouter();
+
+  const { lang } = useParams();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -57,6 +63,13 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
       field: "actions",
       headerName: dictionary.actions,
       getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          key={`${params.id}-view-details`}
+          icon={<LaunchIcon />}
+          label={dictionary["actions--view-details"]}
+          aria-label={dictionary["actions--view-details"]}
+          onClick={() => router.push(`/${lang}/admin/users/${params.row.id}`)}
+        />,
         <GridActionsCellItem
           key={`${params.id}-reset-password`}
           showInMenu

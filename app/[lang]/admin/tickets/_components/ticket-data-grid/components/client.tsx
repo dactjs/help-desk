@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter, useParams } from "next/navigation";
 import Chip, { ChipProps } from "@mui/material/Chip";
 import {
   DataGrid,
@@ -8,6 +9,7 @@ import {
   GridColDef,
   GridRowParams,
 } from "@mui/x-data-grid";
+import LaunchIcon from "@mui/icons-material/Launch";
 import AssignIcon from "@mui/icons-material/AssignmentInd";
 import TransferIcon from "@mui/icons-material/SwapHoriz";
 import OpenIcon from "@mui/icons-material/HourglassBottom";
@@ -34,6 +36,10 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
   tickets,
   dictionary,
 }) => {
+  const router = useRouter();
+
+  const { lang } = useParams();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -61,6 +67,13 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
       field: "actions",
       headerName: dictionary.actions,
       getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          key={`${params.id}-view-details`}
+          icon={<LaunchIcon />}
+          label={dictionary["actions--view-details"]}
+          aria-label={dictionary["actions--view-details"]}
+          onClick={() => router.push(`/${lang}/admin/tickets/${params.row.id}`)}
+        />,
         <GridActionsCellItem
           key={`${params.id}-assign`}
           showInMenu

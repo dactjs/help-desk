@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter, useParams } from "next/navigation";
 import {
   DataGrid,
   GridToolbar,
@@ -7,6 +8,7 @@ import {
   GridColDef,
   GridRowParams,
 } from "@mui/x-data-grid";
+import LaunchIcon from "@mui/icons-material/Launch";
 import AssignIcon from "@mui/icons-material/Assignment";
 import TransferIcon from "@mui/icons-material/SwapHoriz";
 import UnassignIcon from "@mui/icons-material/AssignmentReturn";
@@ -32,6 +34,10 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
   resources,
   dictionary,
 }) => {
+  const router = useRouter();
+
+  const { lang } = useParams();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -59,6 +65,15 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
       field: "actions",
       headerName: dictionary.actions,
       getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          key={`${params.id}-view-details`}
+          icon={<LaunchIcon />}
+          label={dictionary["actions--view-details"]}
+          aria-label={dictionary["actions--view-details"]}
+          onClick={() =>
+            router.push(`/${lang}/admin/resources/${params.row.id}`)
+          }
+        />,
         <GridActionsCellItem
           key={`${params.id}-assign`}
           showInMenu

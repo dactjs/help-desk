@@ -117,7 +117,7 @@ model TicketTrace {
   madeBy   User   @relation(fields: [madeById], references: [id], onDelete: Restrict)
   madeById String
 
-  ticket   Ticket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  ticket   Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   ticketId String
 
   createdAt DateTime @default(now())
@@ -191,7 +191,7 @@ model ResourceTrace {
   madeBy   User   @relation(fields: [madeById], references: [id], onDelete: Restrict)
   madeById String
 
-  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Restrict)
+  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
   resourceId String
 
   createdAt DateTime @default(now())

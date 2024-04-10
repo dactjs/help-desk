@@ -17,6 +17,7 @@
   "updatedAt": "Actualizado En",
 
   "actions": "Acciones",
+  "actions--view-details": "Ver Detalles",
   "actions--assign": "Asignar",
   "actions--transfer": "Transferir",
   "actions--open": "Abrir",

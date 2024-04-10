@@ -17,6 +17,7 @@
   "updatedAt": "Updated At",
 
   "actions": "Actions",
+  "actions--view-details": "View Details",
   "actions--reset-password": "Reset Password",
   "actions--delete": "Delete User"
 }
