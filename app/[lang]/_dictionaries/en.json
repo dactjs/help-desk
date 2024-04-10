@@ -1,5 +1,9 @@
 {
   "title": "Help Desk",
+
+  "confirm_dialog_title": "Are you sure you want to perform this action?",
+  "confirm_dialog_description": "This action can have permanent consequences, so make sure you are sure of what you are doing before proceeding. If you're sure, go ahead, keep going!",
+
   "not_found_heading": "Resource not found",
   "not_found_description": "The web server could not find the requested resource"
 }

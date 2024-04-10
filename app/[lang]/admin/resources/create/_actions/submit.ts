@@ -1,8 +1,10 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { ResourceTraceType } from "@prisma/client";
 import { typeToFlattenedError } from "zod";
 
+import { auth } from "@/auth";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
@@ -27,6 +29,10 @@ export async function submit(
   formData: FormData
 ): Promise<SubmitActionState> {
   const language = getAppLanguage();
+
+  const session = await auth();
+
+  if (!session?.user?.id) redirect(`/${language}/auth/sign-in`);
 
   try {
     const z = zod(language);
@@ -53,6 +59,12 @@ export async function submit(
         brand: result.data.brand,
         model: result.data.model,
         serial: result.data.serial,
+        traces: {
+          create: {
+            type: ResourceTraceType.INPUT,
+            madeById: session.user.id,
+          },
+        },
       },
     });
   } catch (error) {

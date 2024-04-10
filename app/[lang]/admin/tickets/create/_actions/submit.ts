@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { TicketStatus, TicketTraceType } from "@prisma/client";
 import { typeToFlattenedError } from "zod";
 
 import { auth } from "@/auth";
@@ -62,19 +63,19 @@ export async function submit(
         sentById: result.data.user,
         traces: {
           create: {
-            type: "RECEPTION",
+            type: TicketTraceType.RECEPTION,
             madeById: session.user.id,
           },
         },
 
         ...(result.data.technician && {
-          status: "ASSIGNED",
+          status: TicketStatus.ASSIGNED,
           assignedToId: result.data.technician,
           traces: {
             createMany: {
               data: [
-                { type: "RECEPTION", madeById: session.user.id },
-                { type: "ASSIGNMENT", madeById: session.user.id },
+                { type: TicketTraceType.RECEPTION, madeById: session.user.id },
+                { type: TicketTraceType.ASSIGNMENT, madeById: session.user.id },
               ],
             },
           },

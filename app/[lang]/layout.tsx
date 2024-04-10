@@ -26,15 +26,22 @@ export interface RootLayoutProps {
   children: React.ReactElement;
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   params: { lang },
   children,
 }: RootLayoutProps) {
+  const { confirm_dialog_title, confirm_dialog_description } =
+    await getDictionary(lang);
+
   return (
     <html lang={lang}>
       <body>
         <AppRouterCacheProvider>
-          <Providers lang={lang}>
+          <Providers
+            lang={lang}
+            confirm_dialog_title={confirm_dialog_title}
+            confirm_dialog_description={confirm_dialog_description}
+          >
             {children}
             <SpeedInsights />
           </Providers>

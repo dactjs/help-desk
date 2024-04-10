@@ -19,10 +19,14 @@ const roboto = Roboto({
 
 export interface ProvidersProps {
   lang: SupportedLanguage;
+  confirm_dialog_title: string;
+  confirm_dialog_description: string;
 }
 
 export const Providers: React.FC<React.PropsWithChildren<ProvidersProps>> = ({
   lang,
+  confirm_dialog_title,
+  confirm_dialog_description,
   children,
 }) => {
   const translations = getMuiTranslations(lang);
@@ -38,7 +42,20 @@ export const Providers: React.FC<React.PropsWithChildren<ProvidersProps>> = ({
   return (
     <ThemeProvider theme={theme}>
       <SnackbarProvider>
-        <ConfirmProvider>
+        <ConfirmProvider
+          defaultOptions={{
+            title: confirm_dialog_title,
+            description: confirm_dialog_description,
+            confirmationButtonProps: {
+              variant: "contained",
+              color: "warning",
+            },
+            cancellationButtonProps: {
+              variant: "outlined",
+              color: "inherit",
+            },
+          }}
+        >
           <CssBaseline />
 
           <GlobalStyles
