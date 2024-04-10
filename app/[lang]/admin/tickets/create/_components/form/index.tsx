@@ -14,6 +14,7 @@ import { TicketService } from "@/components/forms/ticket-service-autocomplete/ty
 import { SubmitButton } from "@/components/forms/submit-button";
 
 import { submit } from "../../_actions/submit";
+import { CreateTicketData } from "../../_types";
 
 export interface CreateTicketFormProps {
   issue_input_label: string;
@@ -41,12 +42,14 @@ export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
   const handleAction = (formData: FormData) => {
     if (!service || !user) return;
 
-    formData.set("service", service.id);
-    formData.set("user", user.id);
+    const data: CreateTicketData = {
+      issue: String(formData.get("issue")),
+      service: service.id,
+      user: user.id,
+      technician: technician?.id || null,
+    };
 
-    if (technician) formData.set("technician", technician.id);
-
-    return action(formData); // TODO: check
+    return action(data);
   };
 
   return (

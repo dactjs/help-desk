@@ -9,12 +9,7 @@ import { getErrorsDictionary } from "@/internationalization/dictionaries/errors"
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 
-type CreateUserData = {
-  username: string;
-  email: string;
-  name: string;
-  password: string;
-};
+import { CreateUserData } from "../_types";
 
 export type SubmitActionState = {
   errors: {
@@ -26,7 +21,7 @@ export type SubmitActionState = {
 // TODO: add authorization
 export async function submit(
   _: SubmitActionState,
-  formData: FormData
+  data: CreateUserData
 ): Promise<SubmitActionState> {
   const language = getAppLanguage();
 
@@ -40,7 +35,7 @@ export async function submit(
       password: z.string(),
     });
 
-    const result = schema.safeParse(Object.fromEntries(formData));
+    const result = schema.safeParse(data);
 
     if (!result.success) {
       return {

@@ -32,6 +32,7 @@ export default async function CreateResourcePage({
     brand_input_label,
     model_input_label,
     serial_input_label,
+    user_input_label,
     submit_button_text,
   } = await getDictionary(lang);
 
@@ -46,6 +47,7 @@ export default async function CreateResourcePage({
           brand_input_label={brand_input_label}
           model_input_label={model_input_label}
           serial_input_label={serial_input_label}
+          user_input_label={user_input_label}
           submit_button_text={submit_button_text}
         />
       </Stack>

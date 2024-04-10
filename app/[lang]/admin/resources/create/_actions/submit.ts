@@ -10,11 +10,7 @@ import { getErrorsDictionary } from "@/internationalization/dictionaries/errors"
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 
-type CreateResourceData = {
-  brand: string;
-  model: string;
-  serial: string;
-};
+import { CreateResourceData } from "../_types";
 
 export type SubmitActionState = {
   errors: {
@@ -26,7 +22,7 @@ export type SubmitActionState = {
 // TODO: add authorization
 export async function submit(
   _: SubmitActionState,
-  formData: FormData
+  data: CreateResourceData
 ): Promise<SubmitActionState> {
   const language = getAppLanguage();
 
@@ -41,9 +37,10 @@ export async function submit(
       brand: z.string(),
       model: z.string(),
       serial: z.string(),
+      user: z.string().uuid().nullish(),
     });
 
-    const result = schema.safeParse(Object.fromEntries(formData));
+    const result = schema.safeParse(data);
 
     if (!result.success) {
       return {
@@ -65,6 +62,24 @@ export async function submit(
             madeById: session.user.id,
           },
         },
+
+        ...(result.data.user && {
+          assignedToId: result.data.user,
+          traces: {
+            createMany: {
+              data: [
+                {
+                  type: ResourceTraceType.INPUT,
+                  madeById: session.user.id,
+                },
+                {
+                  type: ResourceTraceType.ASSIGNMENT,
+                  madeById: session.user.id,
+                },
+              ],
+            },
+          },
+        }),
       },
     });
   } catch (error) {

@@ -4,5 +4,6 @@
   "brand_input_label": "Marca",
   "model_input_label": "Modelo",
   "serial_input_label": "Serial °",
+  "user_input_label": "Usuario Asignado",
   "submit_button_text": "Crear"
 }

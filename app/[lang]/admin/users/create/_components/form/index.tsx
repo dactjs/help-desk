@@ -8,6 +8,7 @@ import { FormTextField } from "@/components/forms/form-text-field";
 import { SubmitButton } from "@/components/forms/submit-button";
 
 import { submit } from "../../_actions/submit";
+import { CreateUserData } from "../../_types";
 
 export interface CreateUserFormProps {
   username_input_label: string;
@@ -28,8 +29,24 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({
     errors: { api: null, fields: null },
   });
 
+  const handleAction = (formData: FormData) => {
+    const data: CreateUserData = {
+      username: String(formData.get("username")),
+      email: String(formData.get("email")),
+      name: String(formData.get("name")),
+      password: String(formData.get("password")),
+    };
+
+    return action(data);
+  };
+
   return (
-    <Stack component="form" autoComplete="off" action={action} spacing={2}>
+    <Stack
+      component="form"
+      autoComplete="off"
+      action={handleAction}
+      spacing={2}
+    >
       <FormTextField
         required
         fullWidth
