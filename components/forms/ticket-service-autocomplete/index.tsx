@@ -25,13 +25,15 @@ export const TicketServiceAutocomplete: React.FC<
   const { pending } = useFormStatus();
 
   const [input, setInput] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [options, setOptions] = useState<TicketService[]>([]);
 
   useEffect(() => {
-    (async () => {
-      const services = await query(input);
-      setOptions(services);
-    })();
+    setLoading(true);
+
+    query(input)
+      .then((services) => setOptions(services))
+      .finally(() => setLoading(false));
   }, [input]);
 
   const getOptionLabel = (option: string | TicketService) =>
@@ -39,6 +41,7 @@ export const TicketServiceAutocomplete: React.FC<
 
   return (
     <Autocomplete
+      loading={loading}
       disabled={pending}
       options={options}
       groupBy={(option) => option.category.name}

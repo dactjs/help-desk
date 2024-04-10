@@ -33,13 +33,15 @@ export const UserAutocomplete: React.FC<UserAutocompleteProps> = ({
   const { pending } = useFormStatus();
 
   const [input, setInput] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [options, setOptions] = useState<User[]>([]);
 
   useEffect(() => {
-    (async () => {
-      const users = await query(input, filters);
-      setOptions(users);
-    })();
+    setLoading(true);
+
+    query(input, filters)
+      .then((users) => setOptions(users))
+      .finally(() => setLoading(false));
   }, [input, filters]);
 
   const getOptionLabel = (option: string | User) =>
@@ -47,6 +49,7 @@ export const UserAutocomplete: React.FC<UserAutocompleteProps> = ({
 
   return (
     <Autocomplete
+      loading={loading}
       disabled={pending}
       options={options}
       isOptionEqualToValue={(option, value) => option.id === value.id}

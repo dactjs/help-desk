@@ -8,6 +8,12 @@ import {
   GridColDef,
   GridRowParams,
 } from "@mui/x-data-grid";
+import AssignIcon from "@mui/icons-material/AssignmentInd";
+import TransferIcon from "@mui/icons-material/SwapHoriz";
+import OpenIcon from "@mui/icons-material/HourglassBottom";
+import ResolveIcon from "@mui/icons-material/CheckCircle";
+import CloseIcon from "@mui/icons-material/Verified";
+import CancelIcon from "@mui/icons-material/Cancel";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
@@ -55,6 +61,48 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
       field: "actions",
       headerName: dictionary.actions,
       getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          key={`${params.id}-assign`}
+          showInMenu
+          icon={<AssignIcon color="warning" />}
+          label={dictionary["actions--assign"]}
+          aria-label={dictionary["actions--assign"]}
+        />,
+        <GridActionsCellItem
+          key={`${params.id}-transfer`}
+          showInMenu
+          icon={<TransferIcon color="info" />}
+          label={dictionary["actions--transfer"]}
+          aria-label={dictionary["actions--transfer"]}
+        />,
+        <GridActionsCellItem
+          key={`${params.id}-open`}
+          showInMenu
+          icon={<OpenIcon color="disabled" />}
+          label={dictionary["actions--open"]}
+          aria-label={dictionary["actions--open"]}
+        />,
+        <GridActionsCellItem
+          key={`${params.id}-resolve`}
+          showInMenu
+          icon={<ResolveIcon color="action" />}
+          label={dictionary["actions--resolve"]}
+          aria-label={dictionary["actions--resolve"]}
+        />,
+        <GridActionsCellItem
+          key={`${params.id}-close`}
+          showInMenu
+          icon={<CloseIcon color="success" />}
+          label={dictionary["actions--close"]}
+          aria-label={dictionary["actions--close"]}
+        />,
+        <GridActionsCellItem
+          key={`${params.id}-cancel`}
+          showInMenu
+          icon={<CancelIcon color="error" />}
+          label={dictionary["actions--cancel"]}
+          aria-label={dictionary["actions--cancel"]}
+        />,
         <GridActionsCellItem
           key={`${params.id}-delete`}
           showInMenu

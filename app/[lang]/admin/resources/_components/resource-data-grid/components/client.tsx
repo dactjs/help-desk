@@ -7,6 +7,11 @@ import {
   GridColDef,
   GridRowParams,
 } from "@mui/x-data-grid";
+import AssignIcon from "@mui/icons-material/Assignment";
+import TransferIcon from "@mui/icons-material/SwapHoriz";
+import UnassignIcon from "@mui/icons-material/AssignmentReturn";
+import RepairIcon from "@mui/icons-material/Hardware";
+import OutputIcon from "@mui/icons-material/Output";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
@@ -54,6 +59,41 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
       field: "actions",
       headerName: dictionary.actions,
       getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          key={`${params.id}-assign`}
+          showInMenu
+          icon={<AssignIcon color="success" />}
+          label={dictionary["actions--assign"]}
+          aria-label={dictionary["actions--assign"]}
+        />,
+        <GridActionsCellItem
+          key={`${params.id}-transfer`}
+          showInMenu
+          icon={<TransferIcon color="info" />}
+          label={dictionary["actions--transfer"]}
+          aria-label={dictionary["actions--transfer"]}
+        />,
+        <GridActionsCellItem
+          key={`${params.id}-unassign`}
+          showInMenu
+          icon={<UnassignIcon color="action" />}
+          label={dictionary["actions--unassign"]}
+          aria-label={dictionary["actions--unassign"]}
+        />,
+        <GridActionsCellItem
+          key={`${params.id}-repair`}
+          showInMenu
+          icon={<RepairIcon color="disabled" />}
+          label={dictionary["actions--repair"]}
+          aria-label={dictionary["actions--repair"]}
+        />,
+        <GridActionsCellItem
+          key={`${params.id}-output`}
+          showInMenu
+          icon={<OutputIcon color="warning" />}
+          label={dictionary["actions--output"]}
+          aria-label={dictionary["actions--output"]}
+        />,
         <GridActionsCellItem
           key={`${params.id}-delete`}
           showInMenu

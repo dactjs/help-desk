@@ -17,5 +17,11 @@
   "updatedAt": "Updated At",
 
   "actions": "Actions",
-  "actions--delete": "Delete Ticket"
+  "actions--assign": "Assign",
+  "actions--transfer": "Transfer",
+  "actions--open": "Open",
+  "actions--resolve": "Resolve",
+  "actions--close": "Close",
+  "actions--cancel": "Cancel",
+  "actions--delete": "Delete"
 }

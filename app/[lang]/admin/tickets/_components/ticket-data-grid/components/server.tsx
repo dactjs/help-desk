@@ -11,7 +11,10 @@ export const ServerTicketDataGrid: React.FC = async () => {
 
   // TODO: add authorization and pagination
   const [tickets, dictionary] = await Promise.all([
-    prisma.ticket.findMany({ select: NECESSARY_TICKET_FIELDS }),
+    prisma.ticket.findMany({
+      orderBy: { createdAt: "desc" },
+      select: NECESSARY_TICKET_FIELDS,
+    }),
     getDictionary(language),
   ]);
 

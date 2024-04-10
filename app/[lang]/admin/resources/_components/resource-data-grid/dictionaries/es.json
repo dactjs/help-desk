@@ -8,5 +8,10 @@
   "updatedAt": "Actualizado En",
 
   "actions": "Acciones",
-  "actions--delete": "Borrar Recurso"
+  "actions--assign": "Asignar",
+  "actions--transfer": "Transferir",
+  "actions--unassign": "Desasignar",
+  "actions--repair": "Reparar",
+  "actions--output": "Desechar",
+  "actions--delete": "Borrar"
 }

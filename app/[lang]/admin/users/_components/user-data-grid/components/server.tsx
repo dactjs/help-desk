@@ -11,7 +11,10 @@ export const ServerUserDataGrid: React.FC = async () => {
 
   // TODO: add authorization and pagination
   const [users, dictionary] = await Promise.all([
-    prisma.user.findMany({ select: NECESSARY_USER_FIELDS }),
+    prisma.user.findMany({
+      orderBy: { createdAt: "desc" },
+      select: NECESSARY_USER_FIELDS,
+    }),
     getDictionary(language),
   ]);
 

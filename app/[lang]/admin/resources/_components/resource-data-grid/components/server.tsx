@@ -11,7 +11,10 @@ export const ServerResourceDataGrid: React.FC = async () => {
 
   // TODO: add authorization and pagination
   const [resources, dictionary] = await Promise.all([
-    prisma.resource.findMany({ select: NECESSARY_RESOURCE_FIELDS }),
+    prisma.resource.findMany({
+      orderBy: { createdAt: "desc" },
+      select: NECESSARY_RESOURCE_FIELDS,
+    }),
     getDictionary(language),
   ]);
 
