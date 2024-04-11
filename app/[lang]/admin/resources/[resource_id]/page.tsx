@@ -8,16 +8,15 @@ import { replacePlaceholders } from "@/internationalization/utils/replace-placeh
 import { getShortUUID } from "@/utils/get-short-uuid";
 import { PageParams } from "@/types/page-params";
 
-import { getDictionary } from "./_dictionaries";
+import { ResourceCard } from "@/features/resources/resource-card";
+import { ResourceTraceTimeline } from "@/features/resources/resource-trace-timeline";
 
-type Params = PageParams & {
-  resource_id: string;
-};
+import { getDictionary } from "./_dictionaries";
 
 export async function generateMetadata({
   params: { lang, resource_id },
 }: {
-  params: Params;
+  params: ResourcePageParams;
 }): Promise<Metadata> {
   const { title } = await getDictionary(lang);
 
@@ -28,12 +27,30 @@ export async function generateMetadata({
   return { title: replaced };
 }
 
-export default function ResourcePage() {
+type ResourcePageParams = PageParams & {
+  resource_id: string;
+};
+
+export interface ResourcePageProps {
+  params: ResourcePageParams;
+}
+
+export default function ResourcePage({
+  params: { resource_id },
+}: ResourcePageProps) {
   return (
     <Container fixed sx={{ paddingY: 2 }}>
-      <Grid container justifyContent="center" alignItems="center">
-        <Grid xs={12}>
-          <Widget />
+      <Grid container justifyContent="center" alignItems="center" spacing={2}>
+        <Grid xs={4}>
+          <Widget>
+            <ResourceCard resourceId={resource_id} />
+          </Widget>
+        </Grid>
+
+        <Grid xs={8}>
+          <Widget>
+            <ResourceTraceTimeline resourceId={resource_id} />
+          </Widget>
         </Grid>
       </Grid>
     </Container>

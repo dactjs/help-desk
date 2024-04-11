@@ -8,16 +8,15 @@ import { replacePlaceholders } from "@/internationalization/utils/replace-placeh
 import { getShortUUID } from "@/utils/get-short-uuid";
 import { PageParams } from "@/types/page-params";
 
-import { getDictionary } from "./_dictionaries";
+import { TicketCard } from "@/features/tickets/ticket-card";
+import { TicketTraceTimeline } from "@/features/tickets/ticket-trace-timeline";
 
-type Params = PageParams & {
-  ticket_id: string;
-};
+import { getDictionary } from "./_dictionaries";
 
 export async function generateMetadata({
   params: { lang, ticket_id },
 }: {
-  params: Params;
+  params: TicketPageParams;
 }): Promise<Metadata> {
   const { title } = await getDictionary(lang);
 
@@ -28,12 +27,28 @@ export async function generateMetadata({
   return { title: replaced };
 }
 
-export default function TicketPage() {
+type TicketPageParams = PageParams & {
+  ticket_id: string;
+};
+
+export interface TicketPageProps {
+  params: TicketPageParams;
+}
+
+export default function TicketPage({ params: { ticket_id } }: TicketPageProps) {
   return (
     <Container fixed sx={{ paddingY: 2 }}>
-      <Grid container justifyContent="center" alignItems="center">
-        <Grid xs={12}>
-          <Widget />
+      <Grid container justifyContent="center" alignItems="center" spacing={2}>
+        <Grid xs={4}>
+          <Widget>
+            <TicketCard ticketId={ticket_id} />
+          </Widget>
+        </Grid>
+
+        <Grid xs={8}>
+          <Widget>
+            <TicketTraceTimeline ticketId={ticket_id} />
+          </Widget>
         </Grid>
       </Grid>
     </Container>

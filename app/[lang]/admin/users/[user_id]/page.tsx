@@ -8,16 +8,14 @@ import { replacePlaceholders } from "@/internationalization/utils/replace-placeh
 import { getShortUUID } from "@/utils/get-short-uuid";
 import { PageParams } from "@/types/page-params";
 
-import { getDictionary } from "./_dictionaries";
+import { UserCard } from "@/features/users/user-card";
 
-type Params = PageParams & {
-  user_id: string;
-};
+import { getDictionary } from "./_dictionaries";
 
 export async function generateMetadata({
   params: { lang, user_id },
 }: {
-  params: Params;
+  params: UserPageParams;
 }): Promise<Metadata> {
   const { title } = await getDictionary(lang);
 
@@ -28,12 +26,22 @@ export async function generateMetadata({
   return { title: replaced };
 }
 
-export default function UserPage() {
+type UserPageParams = PageParams & {
+  user_id: string;
+};
+
+export interface UserPageProps {
+  params: UserPageParams;
+}
+
+export default function UserPage({ params: { user_id } }: UserPageProps) {
   return (
     <Container fixed sx={{ paddingY: 2 }}>
       <Grid container justifyContent="center" alignItems="center">
         <Grid xs={12}>
-          <Widget />
+          <Widget>
+            <UserCard userId={user_id} />
+          </Widget>
         </Grid>
       </Grid>
     </Container>
