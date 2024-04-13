@@ -1,0 +1,20 @@
+{
+  "model": {
+    "id": "ID",
+    "brand": "Marca",
+    "model": "Modelo",
+    "serial": "Serial °",
+    "assignedTo": "Asignado A",
+    "createdAt": "Creado En",
+    "updatedAt": "Actualizado En"
+  },
+
+  "not_found": {
+    "heading": "Recurso no encontrado",
+    "description": "El servidor web no pudo encontrar el recurso solicitado"
+  },
+
+  "resource_card": {
+    "heading": "Detalles del recurso"
+  }
+}

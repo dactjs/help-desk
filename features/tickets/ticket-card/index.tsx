@@ -1,16 +1,15 @@
 import { Suspense } from "react";
 
+import { CardSkeleton } from "@/components/templates/card-skeleton";
+
 import { ServerTicketCard } from "./server";
-import { TicketCardSkeleton } from "./skeleton";
 
 export interface TicketCardProps {
   ticketId: string;
 }
 
-export function TicketCard({ ticketId }: TicketCardProps): React.ReactElement {
-  return (
-    <Suspense fallback={<TicketCardSkeleton />}>
-      <ServerTicketCard ticketId={ticketId} />
-    </Suspense>
-  );
-}
+export const TicketCard: React.FC<TicketCardProps> = ({ ticketId }) => (
+  <Suspense fallback={<CardSkeleton items={5} />}>
+    <ServerTicketCard ticketId={ticketId} />
+  </Suspense>
+);

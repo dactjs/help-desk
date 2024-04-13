@@ -1,18 +1,15 @@
 import { Suspense } from "react";
 
+import { CardSkeleton } from "@/components/templates/card-skeleton";
+
 import { ServerResourceCard } from "./server";
-import { ResourceCardSkeleton } from "./skeleton";
 
 export interface ResourceCardProps {
   resourceId: string;
 }
 
-export function ResourceCard({
-  resourceId,
-}: ResourceCardProps): React.ReactElement {
-  return (
-    <Suspense fallback={<ResourceCardSkeleton />}>
-      <ServerResourceCard resourceId={resourceId} />
-    </Suspense>
-  );
-}
+export const ResourceCard: React.FC<ResourceCardProps> = ({ resourceId }) => (
+  <Suspense fallback={<CardSkeleton items={5} />}>
+    <ServerResourceCard resourceId={resourceId} />
+  </Suspense>
+);

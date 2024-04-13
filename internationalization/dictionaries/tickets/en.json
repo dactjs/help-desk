@@ -1,0 +1,31 @@
+{
+  "model": {
+    "id": "ID",
+    "issue": "Issue",
+    "solution": "Solution",
+
+    "status": "Status",
+    "status--unassigned": "Unassigned",
+    "status--assigned": "Assigned",
+    "status--in-progress": "In Progress",
+    "status--resolved": "Resolved",
+    "status--closed": "Closed",
+    "status--cancelled": "Cancelled",
+
+    "service": "Service",
+    "sentBy": "Sent By",
+    "assignedTo": "Assigned To",
+
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
+  },
+
+  "not_found": {
+    "heading": "Ticket not found",
+    "description": "The web server could not find the requested ticket"
+  },
+
+  "ticket_card": {
+    "heading": "Ticket details"
+  }
+}

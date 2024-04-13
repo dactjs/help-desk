@@ -1,0 +1,31 @@
+{
+  "model": {
+    "id": "ID",
+    "username": "Usuario",
+    "email": "Correo Electrónico",
+    "name": "Nombre",
+
+    "status": "Estado",
+    "status--enabled": "Habilitado",
+    "status--disabled": "Deshabilitado",
+
+    "role": "Rol",
+    "role--admin": "Administrador",
+    "role--technician": "Técnico",
+    "role--user": "Usuario",
+
+    "createdAt": "Creado En",
+    "updatedAt": "Actualizado En"
+  },
+
+  "not_found": {
+    "heading": "Usuario no encontrado",
+    "description": "El servidor web no pudo encontrar el usuario solicitado"
+  },
+
+  "user_card": {
+    "heading--admin": "Detalles del administrador",
+    "heading--technician": "Detalles del técnico",
+    "heading--user": "Detalles del usuario"
+  }
+}

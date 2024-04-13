@@ -1,0 +1,31 @@
+{
+  "model": {
+    "id": "ID",
+    "issue": "Descripción del problema",
+    "solution": "Solución",
+
+    "status": "Estado",
+    "status--unassigned": "Sin Asignar",
+    "status--assigned": "Asignado",
+    "status--in-progress": "En Proceso",
+    "status--resolved": "Resuelto",
+    "status--closed": "Cerrado",
+    "status--cancelled": "Cancelado",
+
+    "service": "Servicio",
+    "sentBy": "Enviado Por",
+    "assignedTo": "Asignado A",
+
+    "createdAt": "Creado En",
+    "updatedAt": "Actualizado En"
+  },
+
+  "not_found": {
+    "heading": "Ticket no encontrado",
+    "description": "El servidor web no pudo encontrar el ticket solicitado"
+  },
+
+  "ticket_card": {
+    "heading": "Detalles del ticket"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "model": {
+    "id": "ID",
+    "username": "Username",
+    "email": "Email",
+    "name": "Name",
+
+    "status": "Status",
+    "status--enabled": "Enabled",
+    "status--disabled": "Disabled",
+
+    "role": "Role",
+    "role--admin": "Admin",
+    "role--technician": "Technician",
+    "role--user": "User",
+
+    "createdAt": "Creado En",
+    "updatedAt": "Actualizado En"
+  },
+
+  "not_found": {
+    "heading": "User not found",
+    "description": "The web server could not find the requested user"
+  },
+
+  "user_card": {
+    "heading--admin": "Admin details",
+    "heading--technician": "Technician details",
+    "heading--user": "User details"
+  }
+}

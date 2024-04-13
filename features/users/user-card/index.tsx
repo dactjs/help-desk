@@ -1,16 +1,20 @@
 import { Suspense } from "react";
+import { UserRole } from "@prisma/client";
+
+import { CardSkeleton } from "@/components/templates/card-skeleton";
 
 import { ServerUserCard } from "./server";
-import { UserCardSkeleton } from "./skeleton";
 
 export interface UserCardProps {
+  variant?: UserRole;
   userId: string;
 }
 
-export function UserCard({ userId }: UserCardProps): React.ReactElement {
-  return (
-    <Suspense fallback={<UserCardSkeleton />}>
-      <ServerUserCard userId={userId} />
-    </Suspense>
-  );
-}
+export const UserCard: React.FC<UserCardProps> = ({
+  variant = UserRole.USER,
+  userId,
+}) => (
+  <Suspense fallback={<CardSkeleton items={7} />}>
+    <ServerUserCard variant={variant} userId={userId} />
+  </Suspense>
+);
