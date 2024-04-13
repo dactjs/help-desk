@@ -15,7 +15,7 @@ import { User } from "./types";
 
 export type ClientUserCardDictionary = Pick<
   Dictionary,
-  "model" | "not_found" | "user_card"
+  "user_model" | "not_found" | "user_card"
 >;
 
 export interface ClientUserCardProps {
@@ -29,31 +29,31 @@ export const ClientUserCard: React.FC<ClientUserCardProps> = ({
   variant,
   user,
   language,
-  dictionary,
+  dictionary: { user_model, user_card, not_found },
 }) => {
   const heading: Record<UserRole, string> = {
-    ADMIN: dictionary.user_card["heading--admin"],
-    TECHNICIAN: dictionary.user_card["heading--technician"],
-    USER: dictionary.user_card["heading--user"],
+    ADMIN: user_card["heading--admin"],
+    TECHNICIAN: user_card["heading--technician"],
+    USER: user_card["heading--user"],
   };
 
   const status: Record<UserStatus, string> = {
-    ENABLED: dictionary.model["status--enabled"],
-    DISABLED: dictionary.model["status--disabled"],
+    ENABLED: user_model["status--enabled"],
+    DISABLED: user_model["status--disabled"],
   };
 
   const role: Record<UserRole, string> = {
-    ADMIN: dictionary.model["role--admin"],
-    TECHNICIAN: dictionary.model["role--technician"],
-    USER: dictionary.model["role--user"],
+    ADMIN: user_model["role--admin"],
+    TECHNICIAN: user_model["role--technician"],
+    USER: user_model["role--user"],
   };
 
   if (!user) {
     return (
       <Paper sx={{ placeContent: "center", height: "100%" }}>
         <NotFound
-          heading={dictionary.not_found.heading}
-          description={dictionary.not_found.description}
+          heading={not_found.heading}
+          description={not_found.description}
         />
       </Paper>
     );
@@ -74,49 +74,43 @@ export const ClientUserCard: React.FC<ClientUserCardProps> = ({
         <List disablePadding>
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.username}
+              primary={user_model.username}
               secondary={user.username}
             />
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemText
-              primary={dictionary.model.name}
-              secondary={user.name}
-            />
+            <ListItemText primary={user_model.name} secondary={user.name} />
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemText primary={user_model.email} secondary={user.email} />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.email}
-              secondary={user.email}
-            />
-          </ListItem>
-
-          <ListItem disablePadding>
-            <ListItemText
-              primary={dictionary.model.status}
+              primary={user_model.status}
               secondary={status[user.status]}
             />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.role}
+              primary={user_model.role}
               secondary={role[user.role]}
             />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.createdAt}
+              primary={user_model.createdAt}
               secondary={new Date(user.createdAt).toLocaleString(language)}
             />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.updatedAt}
+              primary={user_model.updatedAt}
               secondary={new Date(user.updatedAt).toLocaleString(language)}
             />
           </ListItem>

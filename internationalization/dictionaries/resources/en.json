@@ -1,5 +1,5 @@
 {
-  "model": {
+  "resource_model": {
     "id": "ID",
     "brand": "Brand",
     "model": "Model",
@@ -9,6 +9,15 @@
     "updatedAt": "Updated At"
   },
 
+  "resource_trace_model": {
+    "type--input": "Input",
+    "type--assignment": "Assignment",
+    "type--transfer": "Transfer",
+    "type--unassignment": "Unassignment",
+    "type--repair": "Repair",
+    "type--output": "Output"
+  },
+
   "not_found": {
     "heading": "Resource not found",
     "description": "The web server could not find the requested resource"
@@ -16,5 +25,10 @@
 
   "resource_card": {
     "heading": "Resource details"
+  },
+
+  "resource_trace_timeline": {
+    "heading": "Traceability",
+    "made_by": "Made By:"
   }
 }

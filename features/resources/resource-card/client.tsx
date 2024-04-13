@@ -14,7 +14,7 @@ import { Resource } from "./types";
 
 export type ClientResourceCardDictionary = Pick<
   Dictionary,
-  "model" | "not_found" | "resource_card"
+  "resource_model" | "not_found" | "resource_card"
 >;
 
 export interface ClientResourceCardProps {
@@ -26,14 +26,14 @@ export interface ClientResourceCardProps {
 export const ClientResourceCard: React.FC<ClientResourceCardProps> = ({
   resource,
   language,
-  dictionary,
+  dictionary: { resource_model, resource_card, not_found },
 }) => {
   if (!resource) {
     return (
       <Paper sx={{ placeContent: "center", height: "100%" }}>
         <NotFound
-          heading={dictionary.not_found.heading}
-          description={dictionary.not_found.description}
+          heading={not_found.heading}
+          description={not_found.description}
         />
       </Paper>
     );
@@ -41,7 +41,7 @@ export const ClientResourceCard: React.FC<ClientResourceCardProps> = ({
 
   return (
     <Card sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <CardHeader subheader={dictionary.resource_card.heading} />
+      <CardHeader subheader={resource_card.heading} />
 
       <CardContent
         sx={{
@@ -54,35 +54,35 @@ export const ClientResourceCard: React.FC<ClientResourceCardProps> = ({
         <List disablePadding>
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.brand}
+              primary={resource_model.brand}
               secondary={resource.brand}
             />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.model}
+              primary={resource_model.model}
               secondary={resource.model}
             />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.serial}
+              primary={resource_model.serial}
               secondary={resource.serial}
             />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.createdAt}
+              primary={resource_model.createdAt}
               secondary={new Date(resource.createdAt).toLocaleString(language)}
             />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.updatedAt}
+              primary={resource_model.updatedAt}
               secondary={new Date(resource.updatedAt).toLocaleString(language)}
             />
           </ListItem>

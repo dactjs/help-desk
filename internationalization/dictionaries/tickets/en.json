@@ -1,5 +1,5 @@
 {
-  "model": {
+  "ticket_model": {
     "id": "ID",
     "issue": "Issue",
     "solution": "Solution",
@@ -20,6 +20,17 @@
     "updatedAt": "Updated At"
   },
 
+  "ticket_trace_model": {
+    "type": "Type",
+    "type--reception": "Reception",
+    "type--assignment": "Assignment",
+    "type--opened": "Opened",
+    "type--transfer": "Transfer",
+    "type--resolved": "Resolved",
+    "type--closed": "Closed",
+    "type--cancelled": "Cancelled"
+  },
+
   "not_found": {
     "heading": "Ticket not found",
     "description": "The web server could not find the requested ticket"
@@ -27,5 +38,10 @@
 
   "ticket_card": {
     "heading": "Ticket details"
+  },
+
+  "ticket_trace_timeline": {
+    "heading": "Traceability",
+    "made_by": "Made By:"
   }
 }

@@ -1,40 +1,58 @@
 "use client";
 
-import {
-  Paper,
-  Stack,
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-} from "@mui/material";
-import {
-  AddCircle as AddIcon,
-  Input as InputIcon,
-  AssignmentInd as AssignmentIcon,
-  SwapHoriz as TransferIcon,
-  AssignmentReturn as UnassignmentIcon,
-  Hardware as RepairIcon,
-  Output as OutputIcon,
-} from "@mui/icons-material";
-import {
-  Timeline,
-  TimelineItem,
-  TimelineContent,
-  TimelineOppositeContent,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineDot,
-} from "@mui/lab";
-import { ResourceTrace, ResourceTraceType } from "@prisma/client";
+import Paper from "@mui/material/Paper";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import InputIcon from "@mui/icons-material/Input";
+import AssignmentIcon from "@mui/icons-material/AssignmentInd";
+import TransferIcon from "@mui/icons-material/SwapHoriz";
+import UnassignmentIcon from "@mui/icons-material/AssignmentReturn";
+import RepairIcon from "@mui/icons-material/Hardware";
+import OutputIcon from "@mui/icons-material/Output";
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineDot from "@mui/lab/TimelineDot";
+import { ResourceTraceType } from "@prisma/client";
 
-interface ClientResourceTraceTimelineProps {
+import { Dictionary } from "@/internationalization/dictionaries/resources";
+import { SupportedLanguage } from "@/internationalization/types";
+
+import { ResourceTrace } from "./types";
+
+export type ClientResourceTraceTimelineDictionary = Pick<
+  Dictionary,
+  "resource_trace_model" | "resource_trace_timeline"
+>;
+
+export interface ClientResourceTraceTimelineProps {
   traces: ResourceTrace[];
+  language: SupportedLanguage;
+  dictionary: ClientResourceTraceTimelineDictionary;
 }
 
-export function ClientResourceTraceTimeline({
+export const ClientResourceTraceTimeline: React.FC<
+  ClientResourceTraceTimelineProps
+> = ({
   traces,
-}: ClientResourceTraceTimelineProps): React.ReactElement {
+  language,
+  dictionary: { resource_trace_model, resource_trace_timeline },
+}) => {
+  const type: Record<ResourceTraceType, string> = {
+    [ResourceTraceType.INPUT]: resource_trace_model["type--input"],
+    [ResourceTraceType.ASSIGNMENT]: resource_trace_model["type--assignment"],
+    [ResourceTraceType.TRANSFER]: resource_trace_model["type--transfer"],
+    [ResourceTraceType.UNASSIGNMENT]:
+      resource_trace_model["type--unassignment"],
+    [ResourceTraceType.REPAIR]: resource_trace_model["type--repair"],
+    [ResourceTraceType.OUTPUT]: resource_trace_model["type--output"],
+  };
+
   const icons: Record<ResourceTraceType, React.ReactElement> = {
     [ResourceTraceType.INPUT]: <InputIcon color="success" />,
     [ResourceTraceType.ASSIGNMENT]: <AssignmentIcon color="warning" />,
@@ -45,58 +63,50 @@ export function ClientResourceTraceTimeline({
   };
 
   return (
-    <>
-      <Paper sx={{ height: "100%" }}>
-        <AppBar position="static" sx={{ borderRadius: "inherit" }}>
-          <Stack
-            component={Toolbar}
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={1}
-          >
-            <Typography fontWeight="bolder">Trazabilidad</Typography>
+    <Paper sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <AppBar position="static" sx={{ borderRadius: "inherit" }}>
+        <Toolbar>
+          <Typography component="h2" variant="body1" fontWeight="bolder">
+            {resource_trace_timeline.heading}
+          </Typography>
+        </Toolbar>
+      </AppBar>
 
-            <IconButton size="small">
-              <AddIcon />
-            </IconButton>
-          </Stack>
-        </AppBar>
+      <Timeline sx={{ height: "100%", overflowY: "auto" }}>
+        {traces.map((trace) => (
+          <TimelineItem key={trace.id}>
+            <TimelineOppositeContent>
+              <Typography fontWeight="bolder">
+                {type[trace.type] ?? trace.type}
+              </Typography>
 
-        <Stack sx={{ height: "calc(100% - 64px)", overflowY: "auto" }}>
-          <Timeline>
-            {traces.map((trace) => (
-              <TimelineItem key={trace.id}>
-                <TimelineOppositeContent>
-                  <Typography fontWeight="bolder">{trace.type}</Typography>
+              <Typography variant="caption" color="text.secondary">
+                {new Date(trace.createdAt).toLocaleString(language)}
+              </Typography>
+            </TimelineOppositeContent>
 
-                  <Typography variant="caption" color="text.secondary">
-                    {new Date(trace.createdAt).toLocaleString("es-do")}
-                  </Typography>
-                </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineConnector />
 
-                <TimelineSeparator>
-                  <TimelineConnector />
+              <TimelineDot variant="outlined">
+                <IconButton size="small">{icons[trace.type]}</IconButton>
+              </TimelineDot>
 
-                  <TimelineDot variant="outlined">
-                    <IconButton size="small">{icons[trace.type]}</IconButton>
-                  </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
 
-                  <TimelineConnector />
-                </TimelineSeparator>
+            <TimelineContent sx={{ paddingX: 2, paddingY: 1.5 }}>
+              <Typography fontWeight="bolder">
+                {resource_trace_timeline.made_by}
+              </Typography>
 
-                <TimelineContent sx={{ paddingX: 2, paddingY: 1.5 }}>
-                  <Typography fontWeight="bolder">Realizado por:</Typography>
-
-                  <Typography variant="caption" color="text.secondary">
-                    Manuel Brioso
-                  </Typography>
-                </TimelineContent>
-              </TimelineItem>
-            ))}
-          </Timeline>
-        </Stack>
-      </Paper>
-    </>
+              <Typography variant="caption" color="text.secondary">
+                {trace.madeBy.name}
+              </Typography>
+            </TimelineContent>
+          </TimelineItem>
+        ))}
+      </Timeline>
+    </Paper>
   );
-}
+};

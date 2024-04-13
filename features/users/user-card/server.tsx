@@ -33,7 +33,7 @@ export const ServerUserCard: React.FC<ServerUserCardProps> = async ({
       user={user}
       language={language}
       dictionary={{
-        model: dictionary.model,
+        user_model: dictionary.user_model,
         user_card: dictionary.user_card,
         not_found: dictionary.not_found,
       }}

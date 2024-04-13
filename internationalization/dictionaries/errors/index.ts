@@ -2,6 +2,8 @@ import "server-only";
 
 import { SupportedLanguage } from "../../types";
 
+export type Dictionary = Awaited<ReturnType<typeof getErrorsDictionary>>;
+
 export async function getErrorsDictionary(language: SupportedLanguage) {
   const dictionaries = {
     en: () => import("./en.json").then((module) => module.default),

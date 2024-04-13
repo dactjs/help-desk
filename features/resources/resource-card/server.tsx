@@ -28,7 +28,7 @@ export const ServerResourceCard: React.FC<ServerResourceCardProps> = async ({
       resource={resource}
       language={language}
       dictionary={{
-        model: dictionary.model,
+        resource_model: dictionary.resource_model,
         resource_card: dictionary.resource_card,
         not_found: dictionary.not_found,
       }}

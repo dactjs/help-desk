@@ -1,5 +1,5 @@
 {
-  "model": {
+  "user_model": {
     "id": "ID",
     "username": "Username",
     "email": "Email",

@@ -1,5 +1,5 @@
 {
-  "model": {
+  "ticket_model": {
     "id": "ID",
     "issue": "Descripción del problema",
     "solution": "Solución",
@@ -20,6 +20,17 @@
     "updatedAt": "Actualizado En"
   },
 
+  "ticket_trace_model": {
+    "type": "Tipo",
+    "type--reception": "Recepción",
+    "type--assignment": "Asignación",
+    "type--opened": "Apertura",
+    "type--transfer": "Transferencia",
+    "type--resolved": "Resolución",
+    "type--closed": "Cierre",
+    "type--cancelled": "Cancelación"
+  },
+
   "not_found": {
     "heading": "Ticket no encontrado",
     "description": "El servidor web no pudo encontrar el ticket solicitado"
@@ -27,5 +38,10 @@
 
   "ticket_card": {
     "heading": "Detalles del ticket"
+  },
+
+  "ticket_trace_timeline": {
+    "heading": "Trazabilidad",
+    "made_by": "Realizado por:"
   }
 }

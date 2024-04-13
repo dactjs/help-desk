@@ -1,18 +1,17 @@
 import { Suspense } from "react";
 
+import { TimelineSkeleton } from "@/components/templates/timeline-skeleton";
+
 import { ServerResourceTraceTimeline } from "./server";
-import { ResourceTraceTimelineSkeleton } from "./skeleton";
 
 export interface ResourceTraceTimelineProps {
   resourceId: string;
 }
 
-export function ResourceTraceTimeline({
+export const ResourceTraceTimeline: React.FC<ResourceTraceTimelineProps> = ({
   resourceId,
-}: ResourceTraceTimelineProps): React.ReactElement {
-  return (
-    <Suspense fallback={<ResourceTraceTimelineSkeleton />}>
-      <ServerResourceTraceTimeline resourceId={resourceId} />
-    </Suspense>
-  );
-}
+}) => (
+  <Suspense fallback={<TimelineSkeleton />}>
+    <ServerResourceTraceTimeline resourceId={resourceId} />
+  </Suspense>
+);

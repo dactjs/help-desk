@@ -28,7 +28,7 @@ export const ServerTicketCard: React.FC<ServerTicketCardProps> = async ({
       ticket={ticket}
       language={language}
       dictionary={{
-        model: dictionary.model,
+        ticket_model: dictionary.ticket_model,
         ticket_card: dictionary.ticket_card,
         not_found: dictionary.not_found,
       }}

@@ -15,7 +15,7 @@ import { Ticket } from "./types";
 
 export type ClientTicketCardDictionary = Pick<
   Dictionary,
-  "model" | "not_found" | "ticket_card"
+  "ticket_model" | "not_found" | "ticket_card"
 >;
 
 export interface ClientTicketCardProps {
@@ -27,23 +27,23 @@ export interface ClientTicketCardProps {
 export const ClientTicketCard: React.FC<ClientTicketCardProps> = ({
   ticket,
   language,
-  dictionary,
+  dictionary: { ticket_model, ticket_card, not_found },
 }) => {
   const status: Record<TicketStatus, string> = {
-    UNASSIGNED: dictionary.model["status--unassigned"],
-    ASSIGNED: dictionary.model["status--assigned"],
-    IN_PROGRESS: dictionary.model["status--in-progress"],
-    RESOLVED: dictionary.model["status--resolved"],
-    CLOSED: dictionary.model["status--closed"],
-    CANCELLED: dictionary.model["status--cancelled"],
+    UNASSIGNED: ticket_model["status--unassigned"],
+    ASSIGNED: ticket_model["status--assigned"],
+    IN_PROGRESS: ticket_model["status--in-progress"],
+    RESOLVED: ticket_model["status--resolved"],
+    CLOSED: ticket_model["status--closed"],
+    CANCELLED: ticket_model["status--cancelled"],
   };
 
   if (!ticket) {
     return (
       <Paper sx={{ placeContent: "center", height: "100%" }}>
         <NotFound
-          heading={dictionary.not_found.heading}
-          description={dictionary.not_found.description}
+          heading={not_found.heading}
+          description={not_found.description}
         />
       </Paper>
     );
@@ -51,7 +51,7 @@ export const ClientTicketCard: React.FC<ClientTicketCardProps> = ({
 
   return (
     <Card sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <CardHeader subheader={dictionary.ticket_card.heading} />
+      <CardHeader subheader={ticket_card.heading} />
 
       <CardContent
         sx={{
@@ -64,21 +64,21 @@ export const ClientTicketCard: React.FC<ClientTicketCardProps> = ({
         <List disablePadding>
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.service}
+              primary={ticket_model.service}
               secondary={`${ticket.service.category.name} - ${ticket.service.name}`}
             />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.status}
+              primary={ticket_model.status}
               secondary={status[ticket.status]}
             />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.issue}
+              primary={ticket_model.issue}
               secondary={ticket.issue}
               secondaryTypographyProps={{
                 component: "pre",
@@ -90,7 +90,7 @@ export const ClientTicketCard: React.FC<ClientTicketCardProps> = ({
           {ticket.solution && (
             <ListItem disablePadding>
               <ListItemText
-                primary={dictionary.model.solution}
+                primary={ticket_model.solution}
                 secondary={ticket.solution}
                 secondaryTypographyProps={{
                   component: "pre",
@@ -102,14 +102,14 @@ export const ClientTicketCard: React.FC<ClientTicketCardProps> = ({
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.createdAt}
+              primary={ticket_model.createdAt}
               secondary={new Date(ticket.createdAt).toLocaleString(language)}
             />
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemText
-              primary={dictionary.model.updatedAt}
+              primary={ticket_model.updatedAt}
               secondary={new Date(ticket.updatedAt).toLocaleString(language)}
             />
           </ListItem>

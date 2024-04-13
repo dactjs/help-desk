@@ -1,5 +1,5 @@
 {
-  "model": {
+  "resource_model": {
     "id": "ID",
     "brand": "Marca",
     "model": "Modelo",
@@ -9,6 +9,15 @@
     "updatedAt": "Actualizado En"
   },
 
+  "resource_trace_model": {
+    "type--input": "Entrada",
+    "type--assignment": "Asignación",
+    "type--transfer": "Transferencia",
+    "type--unassignment": "Desasignación",
+    "type--repair": "Reparación",
+    "type--output": "Salida"
+  },
+
   "not_found": {
     "heading": "Recurso no encontrado",
     "description": "El servidor web no pudo encontrar el recurso solicitado"
@@ -16,5 +25,10 @@
 
   "resource_card": {
     "heading": "Detalles del recurso"
+  },
+
+  "resource_trace_timeline": {
+    "heading": "Trazabilidad",
+    "made_by": "Realizado por:"
   }
 }

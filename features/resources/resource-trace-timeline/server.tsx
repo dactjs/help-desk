@@ -1,18 +1,36 @@
 import { prisma } from "@/lib/prisma";
+import { getAppLanguage } from "@/internationalization/utils/get-app-language";
+import { getDictionary } from "@/internationalization/dictionaries/resources";
 
 import { ClientResourceTraceTimeline } from "./client";
+import { NECESSARY_RESOURCE_TRACE_FIELDS } from "./constants";
 
 export interface ServerResourceTraceTimelineProps {
   resourceId: string;
 }
 
-export async function ServerResourceTraceTimeline({
-  resourceId,
-}: ServerResourceTraceTimelineProps): Promise<React.ReactElement> {
-  // TODO: Fetch data from the server
-  const traces = await prisma.resourceTrace.findMany({
-    where: { resourceId },
-  });
+export const ServerResourceTraceTimeline: React.FC<
+  ServerResourceTraceTimelineProps
+> = async ({ resourceId }) => {
+  const language = getAppLanguage();
 
-  return <ClientResourceTraceTimeline traces={traces} />;
-}
+  // TODO: Fetch data from the server
+  const [traces, dictionary] = await Promise.all([
+    prisma.resourceTrace.findMany({
+      where: { resourceId },
+      select: NECESSARY_RESOURCE_TRACE_FIELDS,
+    }),
+    getDictionary(language),
+  ]);
+
+  return (
+    <ClientResourceTraceTimeline
+      traces={traces}
+      language={language}
+      dictionary={{
+        resource_trace_model: dictionary.resource_trace_model,
+        resource_trace_timeline: dictionary.resource_trace_timeline,
+      }}
+    />
+  );
+};

@@ -1,18 +1,17 @@
 import { Suspense } from "react";
 
+import { TimelineSkeleton } from "@/components/templates/timeline-skeleton";
+
 import { ServerTicketTraceTimeline } from "./server";
-import { TicketTraceTimelineSkeleton } from "./skeleton";
 
 export interface TicketTraceTimelineProps {
   ticketId: string;
 }
 
-export function TicketTraceTimeline({
+export const TicketTraceTimeline: React.FC<TicketTraceTimelineProps> = ({
   ticketId,
-}: TicketTraceTimelineProps): React.ReactElement {
-  return (
-    <Suspense fallback={<TicketTraceTimelineSkeleton />}>
-      <ServerTicketTraceTimeline ticketId={ticketId} />
-    </Suspense>
-  );
-}
+}) => (
+  <Suspense fallback={<TimelineSkeleton />}>
+    <ServerTicketTraceTimeline ticketId={ticketId} />
+  </Suspense>
+);
