@@ -12,6 +12,8 @@ import { UserCard } from "@/features/users/user-card";
 
 import { getDictionary } from "./_dictionaries";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params: { lang, user_id },
 }: {

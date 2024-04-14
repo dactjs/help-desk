@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Paper from "@mui/material/Paper";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -5,6 +6,8 @@ import CardContent from "@mui/material/CardContent";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import IconButton from "@mui/material/IconButton";
+import Launch from "@mui/icons-material/Launch";
 
 import { NotFound } from "@/components/templates/not-found";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
@@ -41,7 +44,17 @@ export const ClientResourceCard: React.FC<ClientResourceCardProps> = ({
 
   return (
     <Card sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <CardHeader subheader={resource_card.heading} />
+      <CardHeader
+        subheader={resource_card.heading}
+        action={
+          <IconButton
+            LinkComponent={Link}
+            href={`/${language}/admin/resources/${resource.id}`}
+          >
+            <Launch />
+          </IconButton>
+        }
+      />
 
       <CardContent
         sx={{

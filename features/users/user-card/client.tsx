@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Paper from "@mui/material/Paper";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -5,6 +6,8 @@ import CardContent from "@mui/material/CardContent";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import IconButton from "@mui/material/IconButton";
+import Launch from "@mui/icons-material/Launch";
 import { UserStatus, UserRole } from "@prisma/client";
 
 import { NotFound } from "@/components/templates/not-found";
@@ -61,7 +64,17 @@ export const ClientUserCard: React.FC<ClientUserCardProps> = ({
 
   return (
     <Card sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <CardHeader subheader={heading[variant]} />
+      <CardHeader
+        subheader={heading[variant]}
+        action={
+          <IconButton
+            LinkComponent={Link}
+            href={`/${language}/admin/users/${user.id}`}
+          >
+            <Launch />
+          </IconButton>
+        }
+      />
 
       <CardContent
         sx={{
