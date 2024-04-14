@@ -3,12 +3,12 @@
 import { UserStatus, UserRole } from "@prisma/client";
 
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
+import { getDictionary } from "@/internationalization/dictionaries/users";
 import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 
 import { NECESSARY_USER_FIELDS } from "../constants";
-import { getDictionary } from "../dictionaries";
 import { User } from "../types";
 
 // TODO: add authorization
@@ -30,9 +30,9 @@ export async function updateUser(data: unknown): Promise<User> {
     const result = schema.safeParse(data);
 
     if (!result.success) {
-      const { id, username, email, name, status, role } = await getDictionary(
-        language
-      );
+      const {
+        user_model: { id, username, email, name, status, role },
+      } = await getDictionary(language);
 
       const errors = {
         [id]: result.error.flatten().fieldErrors.id,

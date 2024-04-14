@@ -1,12 +1,12 @@
 "use server";
 
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
+import { getDictionary } from "@/internationalization/dictionaries/resources";
 import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 
 import { NECESSARY_RESOURCE_FIELDS } from "../constants";
-import { getDictionary } from "../dictionaries";
 import { Resource } from "../types";
 
 // TODO: add authorization
@@ -26,7 +26,9 @@ export async function updateResource(data: unknown): Promise<Resource> {
     const result = schema.safeParse(data);
 
     if (!result.success) {
-      const { id, brand, model, serial } = await getDictionary(language);
+      const {
+        resource_model: { id, brand, model, serial },
+      } = await getDictionary(language);
 
       const errors = {
         [id]: result.error.flatten().fieldErrors.id,

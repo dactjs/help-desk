@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
 import Chip, { ChipProps } from "@mui/material/Chip";
 import {
   DataGrid,
@@ -16,26 +16,30 @@ import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
 import { UserStatus, UserRole } from "@prisma/client";
 
+import { Dictionary } from "@/internationalization/dictionaries/users";
+import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
 
-import { updateUser } from "../actions/update";
-import { deleteUser } from "../actions/delete";
-import { Dictionary } from "../dictionaries";
-import { User } from "../types";
+import { updateUser } from "./actions/update";
+import { deleteUser } from "./actions/delete";
+import { User } from "./types";
+
+export type ClientUserDataGridDictionary = Pick<
+  Dictionary,
+  "user_model" | "user_data_grid"
+>;
 
 export interface ClientUserDataGridProps {
   users: User[];
-  dictionary: Dictionary;
+  language: SupportedLanguage;
+  dictionary: ClientUserDataGridDictionary;
 }
 
 export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
   users,
-  dictionary,
+  language,
+  dictionary: { user_model, user_data_grid },
 }) => {
-  const router = useRouter();
-
-  const { lang } = useParams();
-
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -61,35 +65,36 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
     {
       type: "actions",
       field: "actions",
-      headerName: dictionary.actions,
+      headerName: user_data_grid.actions,
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-view-details`}
+          LinkComponent={Link}
+          href={`/${language}/admin/users/${params.row.id}`}
           icon={<LaunchIcon />}
-          label={dictionary["actions--view-details"]}
-          aria-label={dictionary["actions--view-details"]}
-          onClick={() => router.push(`/${lang}/admin/users/${params.row.id}`)}
+          label={user_data_grid["actions--view-details"]}
+          aria-label={user_data_grid["actions--view-details"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-reset-password`}
           showInMenu
           icon={<SyncLockIcon />}
-          label={dictionary["actions--reset-password"]}
-          aria-label={dictionary["actions--reset-password"]}
+          label={user_data_grid["actions--reset-password"]}
+          aria-label={user_data_grid["actions--reset-password"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-delete`}
           showInMenu
           icon={<DeleteIcon color="error" />}
-          label={dictionary["actions--delete"]}
-          aria-label={dictionary["actions--delete"]}
+          label={user_data_grid["actions--delete"]}
+          aria-label={user_data_grid["actions--delete"]}
           onClick={() => handleDelete(params.row.id)}
         />,
       ],
     },
     {
       field: "id",
-      headerName: dictionary.id,
+      headerName: user_model.id,
       headerAlign: "center",
       align: "center",
       width: 75,
@@ -98,7 +103,7 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
     {
       editable: true,
       field: "username",
-      headerName: dictionary.username,
+      headerName: user_model.username,
       headerAlign: "center",
       align: "center",
       minWidth: 150,
@@ -106,7 +111,7 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
     {
       editable: true,
       field: "email",
-      headerName: dictionary.email,
+      headerName: user_model.email,
       headerAlign: "center",
       align: "center",
       minWidth: 225,
@@ -114,7 +119,7 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
     {
       editable: true,
       field: "name",
-      headerName: dictionary.name,
+      headerName: user_model.name,
       headerAlign: "center",
       align: "center",
       minWidth: 225,
@@ -124,14 +129,14 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
       type: "singleSelect",
       valueOptions: [UserStatus.ENABLED, UserStatus.DISABLED],
       field: "status",
-      headerName: dictionary.status,
+      headerName: user_model.status,
       headerAlign: "center",
       align: "center",
       width: 150,
       renderCell: (params) => {
-        const dict: Record<UserStatus, string> = {
-          ENABLED: dictionary["status--enabled"],
-          DISABLED: dictionary["status--disabled"],
+        const status: Record<UserStatus, string> = {
+          ENABLED: user_model["status--enabled"],
+          DISABLED: user_model["status--disabled"],
         };
 
         const colors: Record<UserStatus, ChipProps["color"]> = {
@@ -142,7 +147,7 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
         return (
           <Chip
             variant="filled"
-            label={dict[params.row.status] ?? "???"}
+            label={status[params.row.status] ?? "???"}
             color={colors[params.row.status] ?? "default"}
           />
         );
@@ -153,15 +158,15 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
       type: "singleSelect",
       valueOptions: [UserRole.ADMIN, UserRole.TECHNICIAN, UserRole.USER],
       field: "role",
-      headerName: dictionary.role,
+      headerName: user_model.role,
       headerAlign: "center",
       align: "center",
       width: 150,
       renderCell: (params) => {
-        const dict: Record<UserRole, string> = {
-          ADMIN: dictionary["role--admin"],
-          TECHNICIAN: dictionary["role--technician"],
-          USER: dictionary["role--user"],
+        const role: Record<UserRole, string> = {
+          ADMIN: user_model["role--admin"],
+          TECHNICIAN: user_model["role--technician"],
+          USER: user_model["role--user"],
         };
 
         const colors: Record<UserRole, ChipProps["color"]> = {
@@ -173,7 +178,7 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
         return (
           <Chip
             variant="filled"
-            label={dict[params.row.role] ?? "???"}
+            label={role[params.row.role] ?? "???"}
             color={colors[params.row.role] ?? "default"}
           />
         );
@@ -182,7 +187,7 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
     {
       type: "dateTime",
       field: "createdAt",
-      headerName: dictionary.createdAt,
+      headerName: user_model.createdAt,
       headerAlign: "center",
       align: "center",
       minWidth: 180,
@@ -190,7 +195,7 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
     {
       type: "dateTime",
       field: "updatedAt",
-      headerName: dictionary.updatedAt,
+      headerName: user_model.updatedAt,
       headerAlign: "center",
       align: "center",
       minWidth: 180,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
 import Chip, { ChipProps } from "@mui/material/Chip";
 import {
   DataGrid,
@@ -21,25 +21,29 @@ import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
 import { TicketStatus } from "@prisma/client";
 
+import { Dictionary } from "@/internationalization/dictionaries/tickets";
+import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
 
-import { deleteTicket } from "../actions/delete";
-import { Dictionary } from "../dictionaries";
-import { Ticket } from "../types";
+import { deleteTicket } from "./actions/delete";
+import { Ticket } from "./types";
+
+export type ClientResourceDataGridDictionary = Pick<
+  Dictionary,
+  "ticket_model" | "ticket_data_grid"
+>;
 
 export interface ClientTicketDataGridProps {
   tickets: Ticket[];
-  dictionary: Dictionary;
+  language: SupportedLanguage;
+  dictionary: ClientResourceDataGridDictionary;
 }
 
 export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
   tickets,
-  dictionary,
+  language,
+  dictionary: { ticket_model, ticket_data_grid },
 }) => {
-  const router = useRouter();
-
-  const { lang } = useParams();
-
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -65,70 +69,71 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
     {
       type: "actions",
       field: "actions",
-      headerName: dictionary.actions,
+      headerName: ticket_data_grid.actions,
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-view-details`}
+          LinkComponent={Link}
+          href={`/${language}/admin/tickets/${params.row.id}`}
           icon={<LaunchIcon />}
-          label={dictionary["actions--view-details"]}
-          aria-label={dictionary["actions--view-details"]}
-          onClick={() => router.push(`/${lang}/admin/tickets/${params.row.id}`)}
+          label={ticket_data_grid["actions--view-details"]}
+          aria-label={ticket_data_grid["actions--view-details"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-assign`}
           showInMenu
           icon={<AssignIcon color="warning" />}
-          label={dictionary["actions--assign"]}
-          aria-label={dictionary["actions--assign"]}
+          label={ticket_data_grid["actions--assign"]}
+          aria-label={ticket_data_grid["actions--assign"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-transfer`}
           showInMenu
           icon={<TransferIcon color="info" />}
-          label={dictionary["actions--transfer"]}
-          aria-label={dictionary["actions--transfer"]}
+          label={ticket_data_grid["actions--transfer"]}
+          aria-label={ticket_data_grid["actions--transfer"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-open`}
           showInMenu
           icon={<OpenIcon color="disabled" />}
-          label={dictionary["actions--open"]}
-          aria-label={dictionary["actions--open"]}
+          label={ticket_data_grid["actions--open"]}
+          aria-label={ticket_data_grid["actions--open"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-resolve`}
           showInMenu
           icon={<ResolveIcon color="action" />}
-          label={dictionary["actions--resolve"]}
-          aria-label={dictionary["actions--resolve"]}
+          label={ticket_data_grid["actions--resolve"]}
+          aria-label={ticket_data_grid["actions--resolve"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-close`}
           showInMenu
           icon={<CloseIcon color="success" />}
-          label={dictionary["actions--close"]}
-          aria-label={dictionary["actions--close"]}
+          label={ticket_data_grid["actions--close"]}
+          aria-label={ticket_data_grid["actions--close"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-cancel`}
           showInMenu
           icon={<CancelIcon color="error" />}
-          label={dictionary["actions--cancel"]}
-          aria-label={dictionary["actions--cancel"]}
+          label={ticket_data_grid["actions--cancel"]}
+          aria-label={ticket_data_grid["actions--cancel"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-delete`}
           showInMenu
           icon={<DeleteIcon color="error" />}
-          label={dictionary["actions--delete"]}
-          aria-label={dictionary["actions--delete"]}
+          label={ticket_data_grid["actions--delete"]}
+          aria-label={ticket_data_grid["actions--delete"]}
           onClick={() => handleDelete(params.row.id)}
         />,
       ],
     },
     {
       field: "id",
-      headerName: dictionary.id,
+      headerName: ticket_model.id,
       headerAlign: "center",
       align: "center",
       width: 75,
@@ -136,7 +141,7 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
     },
     {
       field: "service",
-      headerName: dictionary.service,
+      headerName: ticket_model.service,
       headerAlign: "center",
       align: "center",
       minWidth: 225,
@@ -144,18 +149,18 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
     },
     {
       field: "status",
-      headerName: dictionary.status,
+      headerName: ticket_model.status,
       headerAlign: "center",
       align: "center",
       width: 150,
       renderCell: (params) => {
-        const dict: Record<TicketStatus, string> = {
-          UNASSIGNED: dictionary["status--unassigned"],
-          ASSIGNED: dictionary["status--assigned"],
-          IN_PROGRESS: dictionary["status--in-progress"],
-          RESOLVED: dictionary["status--resolved"],
-          CLOSED: dictionary["status--closed"],
-          CANCELLED: dictionary["status--cancelled"],
+        const status: Record<TicketStatus, string> = {
+          UNASSIGNED: ticket_model["status--unassigned"],
+          ASSIGNED: ticket_model["status--assigned"],
+          IN_PROGRESS: ticket_model["status--in-progress"],
+          RESOLVED: ticket_model["status--resolved"],
+          CLOSED: ticket_model["status--closed"],
+          CANCELLED: ticket_model["status--cancelled"],
         };
 
         const colors: Record<TicketStatus, ChipProps["color"]> = {
@@ -170,7 +175,7 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
         return (
           <Chip
             variant="filled"
-            label={dict[params.row.status] ?? "???"}
+            label={status[params.row.status] ?? "???"}
             color={colors[params.row.status] ?? "default"}
           />
         );
@@ -178,7 +183,7 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
     },
     {
       field: "sentBy",
-      headerName: dictionary.sentBy,
+      headerName: ticket_model.sentBy,
       headerAlign: "center",
       align: "center",
       minWidth: 225,
@@ -186,7 +191,7 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
     },
     {
       field: "assignedTo",
-      headerName: dictionary.assignedTo,
+      headerName: ticket_model.assignedTo,
       headerAlign: "center",
       align: "center",
       minWidth: 225,
@@ -195,7 +200,7 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
     {
       type: "dateTime",
       field: "createdAt",
-      headerName: dictionary.createdAt,
+      headerName: ticket_model.createdAt,
       headerAlign: "center",
       align: "center",
       minWidth: 180,
@@ -203,7 +208,7 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
     {
       type: "dateTime",
       field: "updatedAt",
-      headerName: dictionary.updatedAt,
+      headerName: ticket_model.updatedAt,
       headerAlign: "center",
       align: "center",
       minWidth: 180,

@@ -31,9 +31,30 @@
     "type--cancelled": "Cancelled"
   },
 
+  "tickets_page": {
+    "title": "Tickets",
+    "toolbar_button--create": "Crear Ticket"
+  },
+
+  "ticket_page": {
+    "title": "Ticket {{id}}"
+  },
+
   "not_found": {
     "heading": "Ticket not found",
     "description": "The web server could not find the requested ticket"
+  },
+
+  "ticket_data_grid": {
+    "actions": "Actions",
+    "actions--view-details": "View Details",
+    "actions--assign": "Assign",
+    "actions--transfer": "Transfer",
+    "actions--open": "Open",
+    "actions--resolve": "Resolve",
+    "actions--close": "Close",
+    "actions--cancel": "Cancel",
+    "actions--delete": "Delete"
   },
 
   "ticket_card": {

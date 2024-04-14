@@ -18,9 +18,25 @@
     "updatedAt": "Actualizado En"
   },
 
+  "users_page": {
+    "title": "Users",
+    "toolbar_button--create": "Create User"
+  },
+
+  "user_page": {
+    "title": "User {{id}}"
+  },
+
   "not_found": {
     "heading": "User not found",
     "description": "The web server could not find the requested user"
+  },
+
+  "user_data_grid": {
+    "actions": "Actions",
+    "actions--view-details": "View Details",
+    "actions--reset-password": "Reset Password",
+    "actions--delete": "Delete User"
   },
 
   "user_card": {

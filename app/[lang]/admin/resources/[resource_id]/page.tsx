@@ -3,17 +3,15 @@ import { Metadata } from "next";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 
+import { ResourceCard } from "@/features/resources/resource-card";
+import { ResourceTraceTimeline } from "@/features/resources/resource-trace-timeline";
+import { UserCard } from "@/features/users/user-card";
 import { Widget } from "@/components/templates/widget";
+import { getDictionary } from "@/internationalization/dictionaries/resources";
 import { replacePlaceholders } from "@/internationalization/utils/replace-placeholders";
 import { getShortUUID } from "@/utils/get-short-uuid";
 import { prisma } from "@/lib/prisma";
 import { PageParams } from "@/types/page-params";
-
-import { ResourceCard } from "@/features/resources/resource-card";
-import { ResourceTraceTimeline } from "@/features/resources/resource-trace-timeline";
-import { UserCard } from "@/features/users/user-card";
-
-import { getDictionary } from "./_dictionaries";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +20,9 @@ export async function generateMetadata({
 }: {
   params: ResourcePageParams;
 }): Promise<Metadata> {
-  const { title } = await getDictionary(lang);
+  const {
+    resource_page: { title },
+  } = await getDictionary(lang);
 
   const replaced = replacePlaceholders(title, {
     id: getShortUUID(resource_id),

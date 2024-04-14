@@ -31,9 +31,30 @@
     "type--cancelled": "Cancelación"
   },
 
+  "tickets_page": {
+    "title": "Tickets",
+    "toolbar_button--create": "Create Ticket"
+  },
+
+  "ticket_page": {
+    "title": "Ticket {{id}}"
+  },
+
   "not_found": {
     "heading": "Ticket no encontrado",
     "description": "El servidor web no pudo encontrar el ticket solicitado"
+  },
+
+  "ticket_data_grid": {
+    "actions": "Acciones",
+    "actions--view-details": "Ver Detalles",
+    "actions--assign": "Asignar",
+    "actions--transfer": "Transferir",
+    "actions--open": "Abrir",
+    "actions--resolve": "Resolver",
+    "actions--close": "Cerrar",
+    "actions--cancel": "Cancelar",
+    "actions--delete": "Borrar"
   },
 
   "ticket_card": {

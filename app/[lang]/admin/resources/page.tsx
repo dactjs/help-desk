@@ -6,18 +6,19 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 
+import { ResourceDataGrid } from "@/features/resources/resource-data-grid";
 import { Widget } from "@/components/templates/widget";
+import { getDictionary } from "@/internationalization/dictionaries/resources";
 import { PageParams } from "@/types/page-params";
-
-import { ResourceDataGrid } from "./_components/resource-data-grid";
-import { getDictionary } from "./_dictionaries";
 
 export async function generateMetadata({
   params: { lang },
 }: {
   params: PageParams;
 }): Promise<Metadata> {
-  const { title } = await getDictionary(lang);
+  const {
+    resources_page: { title },
+  } = await getDictionary(lang);
 
   return { title };
 }
@@ -29,7 +30,7 @@ export interface ResourcesPageProps {
 export default async function ResourcesPage({
   params: { lang },
 }: ResourcesPageProps) {
-  const dictionary = await getDictionary(lang);
+  const { resources_page } = await getDictionary(lang);
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
@@ -42,7 +43,7 @@ export default async function ResourcesPage({
               variant="contained"
               color="primary"
             >
-              {dictionary["toolbar_button--create"]}
+              {resources_page["toolbar_button--create"]}
             </Button>
           </Toolbar>
         </Grid>

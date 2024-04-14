@@ -4,17 +4,15 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import { UserRole } from "@prisma/client";
 
+import { TicketCard } from "@/features/tickets/ticket-card";
+import { TicketTraceTimeline } from "@/features/tickets/ticket-trace-timeline";
+import { UserCard } from "@/features/users/user-card";
 import { Widget } from "@/components/templates/widget";
+import { getDictionary } from "@/internationalization/dictionaries/tickets";
 import { replacePlaceholders } from "@/internationalization/utils/replace-placeholders";
 import { getShortUUID } from "@/utils/get-short-uuid";
 import { prisma } from "@/lib/prisma";
 import { PageParams } from "@/types/page-params";
-
-import { TicketCard } from "@/features/tickets/ticket-card";
-import { TicketTraceTimeline } from "@/features/tickets/ticket-trace-timeline";
-import { UserCard } from "@/features/users/user-card";
-
-import { getDictionary } from "./_dictionaries";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +21,9 @@ export async function generateMetadata({
 }: {
   params: TicketPageParams;
 }): Promise<Metadata> {
-  const { title } = await getDictionary(lang);
+  const {
+    ticket_page: { title },
+  } = await getDictionary(lang);
 
   const replaced = replacePlaceholders(title, {
     id: getShortUUID(ticket_id),

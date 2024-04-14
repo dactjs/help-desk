@@ -18,9 +18,29 @@
     "type--output": "Salida"
   },
 
+  "resources_page": {
+    "title": "Recursos",
+    "toolbar_button--create": "Crear Recurso"
+  },
+
+  "resource_page": {
+    "title": "Recurso {{id}}"
+  },
+
   "not_found": {
     "heading": "Recurso no encontrado",
     "description": "El servidor web no pudo encontrar el recurso solicitado"
+  },
+
+  "resource_data_grid": {
+    "actions": "Actions",
+    "actions--view-details": "View Details",
+    "actions--assign": "Assign",
+    "actions--transfer": "Transfer",
+    "actions--unassign": "Unassign",
+    "actions--repair": "Repair",
+    "actions--output": "Discard",
+    "actions--delete": "Delete"
   },
 
   "resource_card": {

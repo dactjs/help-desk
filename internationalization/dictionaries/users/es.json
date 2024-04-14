@@ -18,9 +18,25 @@
     "updatedAt": "Actualizado En"
   },
 
+  "users_page": {
+    "title": "Usuarios",
+    "toolbar_button--create": "Crear Usuario"
+  },
+
+  "user_page": {
+    "title": "Usuario {{id}}"
+  },
+
   "not_found": {
     "heading": "Usuario no encontrado",
     "description": "El servidor web no pudo encontrar el usuario solicitado"
+  },
+
+  "user_data_grid": {
+    "actions": "Acciones",
+    "actions--view-details": "Ver Detalles",
+    "actions--reset-password": "Restablecer Contraseña",
+    "actions--delete": "Borrar Usuario"
   },
 
   "user_card": {

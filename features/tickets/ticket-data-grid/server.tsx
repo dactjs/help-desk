@@ -1,10 +1,9 @@
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
+import { getDictionary } from "@/internationalization/dictionaries/tickets";
 import { prisma } from "@/lib/prisma";
 
-import { NECESSARY_TICKET_FIELDS } from "../constants";
-import { getDictionary } from "../dictionaries";
-
 import { ClientTicketDataGrid } from "./client";
+import { NECESSARY_TICKET_FIELDS } from "./constants";
 
 export const ServerTicketDataGrid: React.FC = async () => {
   const language = getAppLanguage();
@@ -18,5 +17,14 @@ export const ServerTicketDataGrid: React.FC = async () => {
     getDictionary(language),
   ]);
 
-  return <ClientTicketDataGrid tickets={tickets} dictionary={dictionary} />;
+  return (
+    <ClientTicketDataGrid
+      tickets={tickets}
+      language={language}
+      dictionary={{
+        ticket_model: dictionary.ticket_model,
+        ticket_data_grid: dictionary.ticket_data_grid,
+      }}
+    />
+  );
 };

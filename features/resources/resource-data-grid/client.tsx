@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
 import {
   DataGrid,
   GridToolbar,
@@ -18,26 +18,30 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
 
+import { Dictionary } from "@/internationalization/dictionaries/resources";
+import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
 
-import { updateResource } from "../actions/update";
-import { deleteResource } from "../actions/delete";
-import { Dictionary } from "../dictionaries";
-import { Resource } from "../types";
+import { updateResource } from "./actions/update";
+import { deleteResource } from "./actions/delete";
+import { Resource } from "./types";
+
+export type ClientResourceDataGridDictionary = Pick<
+  Dictionary,
+  "resource_model" | "resource_data_grid"
+>;
 
 export interface ClientResourceDataGridProps {
   resources: Resource[];
-  dictionary: Dictionary;
+  language: SupportedLanguage;
+  dictionary: ClientResourceDataGridDictionary;
 }
 
 export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
   resources,
-  dictionary,
+  language,
+  dictionary: { resource_model, resource_data_grid },
 }) => {
-  const router = useRouter();
-
-  const { lang } = useParams();
-
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -63,65 +67,64 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
     {
       type: "actions",
       field: "actions",
-      headerName: dictionary.actions,
+      headerName: resource_data_grid.actions,
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-view-details`}
+          LinkComponent={Link}
+          href={`/${language}/admin/resources/${params.row.id}`}
           icon={<LaunchIcon />}
-          label={dictionary["actions--view-details"]}
-          aria-label={dictionary["actions--view-details"]}
-          onClick={() =>
-            router.push(`/${lang}/admin/resources/${params.row.id}`)
-          }
+          label={resource_data_grid["actions--view-details"]}
+          aria-label={resource_data_grid["actions--view-details"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-assign`}
           showInMenu
           icon={<AssignIcon color="success" />}
-          label={dictionary["actions--assign"]}
-          aria-label={dictionary["actions--assign"]}
+          label={resource_data_grid["actions--assign"]}
+          aria-label={resource_data_grid["actions--assign"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-transfer`}
           showInMenu
           icon={<TransferIcon color="info" />}
-          label={dictionary["actions--transfer"]}
-          aria-label={dictionary["actions--transfer"]}
+          label={resource_data_grid["actions--transfer"]}
+          aria-label={resource_data_grid["actions--transfer"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-unassign`}
           showInMenu
           icon={<UnassignIcon color="action" />}
-          label={dictionary["actions--unassign"]}
-          aria-label={dictionary["actions--unassign"]}
+          label={resource_data_grid["actions--unassign"]}
+          aria-label={resource_data_grid["actions--unassign"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-repair`}
           showInMenu
           icon={<RepairIcon color="disabled" />}
-          label={dictionary["actions--repair"]}
-          aria-label={dictionary["actions--repair"]}
+          label={resource_data_grid["actions--repair"]}
+          aria-label={resource_data_grid["actions--repair"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-output`}
           showInMenu
           icon={<OutputIcon color="warning" />}
-          label={dictionary["actions--output"]}
-          aria-label={dictionary["actions--output"]}
+          label={resource_data_grid["actions--output"]}
+          aria-label={resource_data_grid["actions--output"]}
         />,
         <GridActionsCellItem
           key={`${params.id}-delete`}
           showInMenu
           icon={<DeleteIcon color="error" />}
-          label={dictionary["actions--delete"]}
-          aria-label={dictionary["actions--delete"]}
+          label={resource_data_grid["actions--delete"]}
+          aria-label={resource_data_grid["actions--delete"]}
           onClick={() => handleDelete(params.row.id)}
         />,
       ],
     },
     {
       field: "id",
-      headerName: dictionary.id,
+      headerName: resource_model.id,
       headerAlign: "center",
       align: "center",
       width: 75,
@@ -130,7 +133,7 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
     {
       editable: true,
       field: "brand",
-      headerName: dictionary.brand,
+      headerName: resource_model.brand,
       headerAlign: "center",
       align: "center",
       minWidth: 175,
@@ -138,7 +141,7 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
     {
       editable: true,
       field: "model",
-      headerName: dictionary.model,
+      headerName: resource_model.model,
       headerAlign: "center",
       align: "center",
       minWidth: 175,
@@ -146,14 +149,14 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
     {
       editable: true,
       field: "serial",
-      headerName: dictionary.serial,
+      headerName: resource_model.serial,
       headerAlign: "center",
       align: "center",
       minWidth: 225,
     },
     {
       field: "assignedTo",
-      headerName: dictionary.assignedTo,
+      headerName: resource_model.assignedTo,
       headerAlign: "center",
       align: "center",
       minWidth: 225,
@@ -162,7 +165,7 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
     {
       type: "dateTime",
       field: "createdAt",
-      headerName: dictionary.createdAt,
+      headerName: resource_model.createdAt,
       headerAlign: "center",
       align: "center",
       minWidth: 180,
@@ -170,7 +173,7 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
     {
       type: "dateTime",
       field: "updatedAt",
-      headerName: dictionary.updatedAt,
+      headerName: resource_model.updatedAt,
       headerAlign: "center",
       align: "center",
       minWidth: 180,

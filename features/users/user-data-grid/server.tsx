@@ -1,10 +1,9 @@
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
+import { getDictionary } from "@/internationalization/dictionaries/users";
 import { prisma } from "@/lib/prisma";
 
-import { NECESSARY_USER_FIELDS } from "../constants";
-import { getDictionary } from "../dictionaries";
-
 import { ClientUserDataGrid } from "./client";
+import { NECESSARY_USER_FIELDS } from "./constants";
 
 export const ServerUserDataGrid: React.FC = async () => {
   const language = getAppLanguage();
@@ -18,5 +17,14 @@ export const ServerUserDataGrid: React.FC = async () => {
     getDictionary(language),
   ]);
 
-  return <ClientUserDataGrid users={users} dictionary={dictionary} />;
+  return (
+    <ClientUserDataGrid
+      users={users}
+      language={language}
+      dictionary={{
+        user_model: dictionary.user_model,
+        user_data_grid: dictionary.user_data_grid,
+      }}
+    />
+  );
 };

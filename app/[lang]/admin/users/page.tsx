@@ -6,18 +6,19 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 
+import { UserDataGrid } from "@/features/users/user-data-grid";
 import { Widget } from "@/components/templates/widget";
+import { getDictionary } from "@/internationalization/dictionaries/users";
 import { PageParams } from "@/types/page-params";
-
-import { UserDataGrid } from "./_components/user-data-grid";
-import { getDictionary } from "./_dictionaries";
 
 export async function generateMetadata({
   params: { lang },
 }: {
   params: PageParams;
 }): Promise<Metadata> {
-  const { title } = await getDictionary(lang);
+  const {
+    users_page: { title },
+  } = await getDictionary(lang);
 
   return { title };
 }
@@ -27,7 +28,7 @@ export interface UsersPageProps {
 }
 
 export default async function UsersPage({ params: { lang } }: UsersPageProps) {
-  const dictionary = await getDictionary(lang);
+  const { users_page } = await getDictionary(lang);
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
@@ -40,7 +41,7 @@ export default async function UsersPage({ params: { lang } }: UsersPageProps) {
               variant="contained"
               color="primary"
             >
-              {dictionary["toolbar_button--create"]}
+              {users_page["toolbar_button--create"]}
             </Button>
           </Toolbar>
         </Grid>

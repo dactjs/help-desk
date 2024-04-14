@@ -2,12 +2,12 @@ import { Suspense } from "react";
 
 import { DataGridSkeleton } from "@/components/templates/data-grid-skeleton";
 
-import { ServerResourceDataGrid } from "./components/server";
+import { ServerUserDataGrid } from "./server";
 
-export const ResourceDataGrid: React.FC = () => {
+export const UserDataGrid: React.FC = () => {
   return (
     <Suspense fallback={<DataGridSkeleton />}>
-      <ServerResourceDataGrid />
+      <ServerUserDataGrid />
     </Suspense>
   );
 };
