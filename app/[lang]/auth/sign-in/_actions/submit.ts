@@ -7,7 +7,7 @@ import { signIn } from "@/auth";
 import { AuthError } from "@/auth/errors";
 import { SignInCredentials } from "@/auth/types";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
-import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
+import { getDictionary } from "@/internationalization/dictionaries/errors";
 import { zod } from "@/lib/zod";
 
 export type SubmitActionState = {
@@ -48,7 +48,7 @@ export async function submit(
       redirect: false,
     });
   } catch (error) {
-    const errors = await getErrorsDictionary(language);
+    const errors = await getDictionary(language);
 
     if (error instanceof AuthError) {
       return {

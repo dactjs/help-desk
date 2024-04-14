@@ -1,9 +1,0 @@
-{
-  "title": "Crear Ticket",
-  "heading": "Crear Ticket",
-  "issue_input_label": "Descripción del problema",
-  "service_input_label": "Servicio",
-  "user_input_label": "Usuario",
-  "technician_input_label": "Técnico Asignado",
-  "submit_button_text": "Crear"
-}

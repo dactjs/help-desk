@@ -4,7 +4,7 @@ import { UserStatus, UserRole } from "@prisma/client";
 
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/users";
-import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
+import { getDictionary as getErrorsDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 

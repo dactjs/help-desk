@@ -18,6 +18,11 @@
     "updatedAt": "Actualizado En"
   },
 
+  "not_found": {
+    "heading": "Usuario no encontrado",
+    "description": "El servidor web no pudo encontrar el usuario solicitado"
+  },
+
   "users_page": {
     "title": "Usuarios",
     "toolbar_button--create": "Crear Usuario"
@@ -27,9 +32,14 @@
     "title": "Usuario {{id}}"
   },
 
-  "not_found": {
-    "heading": "Usuario no encontrado",
-    "description": "El servidor web no pudo encontrar el usuario solicitado"
+  "create_user_page": {
+    "title": "Crear Usuario",
+    "heading": "Crear Usuario",
+    "username_input_label": "Usuario",
+    "email_input_label": "Correo Electrónico",
+    "password_input_label": "Contraseña",
+    "name_input_label": "Nombre Completo",
+    "submit_button_text": "Crear"
   },
 
   "user_data_grid": {

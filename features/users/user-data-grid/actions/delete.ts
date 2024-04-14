@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
-import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
+import { getDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 
 // TODO: add authorization
@@ -17,7 +17,7 @@ export async function deleteUser(id: string): Promise<void> {
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message);
 
-    const errors = await getErrorsDictionary(language);
+    const errors = await getDictionary(language);
 
     throw new Error(errors.UNEXPECTED_ERROR);
   }

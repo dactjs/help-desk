@@ -6,19 +6,24 @@ import Alert from "@mui/material/Alert";
 
 import { FormTextField } from "@/components/forms/form-text-field";
 import { SubmitButton } from "@/components/forms/submit-button";
+import { Dictionary } from "@/internationalization/dictionaries/auth";
 
 import { submit } from "../../_actions/submit";
 
+type SignInFormDictionary = Pick<Dictionary, "sign_in_page">;
+
 export interface SignInFormProps {
-  username_input_label: string;
-  password_input_label: string;
-  submit_button_text: string;
+  dictionary: SignInFormDictionary;
 }
 
 export const SignInForm: React.FC<SignInFormProps> = ({
-  username_input_label,
-  password_input_label,
-  submit_button_text,
+  dictionary: {
+    sign_in_page: {
+      username_input_label,
+      password_input_label,
+      submit_button_text,
+    },
+  },
 }) => {
   const [state, action] = useFormState(submit, {
     errors: { api: null, fields: null },

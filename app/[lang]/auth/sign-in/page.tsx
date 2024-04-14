@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import Stack from "@mui/material/Stack";
@@ -5,11 +7,23 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import LockIcon from "@mui/icons-material/LockOutlined";
 
+import { getDictionary } from "@/internationalization/dictionaries/auth";
 import { PageParams } from "@/types/page-params";
 import Banner from "@/public/sign-in-banner.avif";
 
 import { SignInForm } from "./_components/form";
-import { getDictionary } from "./_dictionaries";
+
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: PageParams;
+}): Promise<Metadata> {
+  const {
+    sign_in_page: { title },
+  } = await getDictionary(lang);
+
+  return { title };
+}
 
 export interface SignInPageProps {
   params: PageParams;
@@ -18,12 +32,7 @@ export interface SignInPageProps {
 export default async function SignInPage({
   params: { lang },
 }: SignInPageProps) {
-  const {
-    heading,
-    username_input_label,
-    password_input_label,
-    submit_button_text,
-  } = await getDictionary(lang);
+  const { sign_in_page } = await getDictionary(lang);
 
   return (
     <Grid component="main" container sx={{ height: "100vh" }}>
@@ -46,15 +55,11 @@ export default async function SignInPage({
             </Avatar>
 
             <Typography component="h1" variant="h5">
-              {heading}
+              {sign_in_page.heading}
             </Typography>
           </Stack>
 
-          <SignInForm
-            username_input_label={username_input_label}
-            password_input_label={password_input_label}
-            submit_button_text={submit_button_text}
-          />
+          <SignInForm dictionary={{ sign_in_page }} />
         </Stack>
       </Grid>
     </Grid>

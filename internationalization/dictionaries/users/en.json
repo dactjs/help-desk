@@ -18,6 +18,11 @@
     "updatedAt": "Actualizado En"
   },
 
+  "not_found": {
+    "heading": "User not found",
+    "description": "The web server could not find the requested user"
+  },
+
   "users_page": {
     "title": "Users",
     "toolbar_button--create": "Create User"
@@ -27,9 +32,14 @@
     "title": "User {{id}}"
   },
 
-  "not_found": {
-    "heading": "User not found",
-    "description": "The web server could not find the requested user"
+  "create_user_page": {
+    "title": "Create User",
+    "heading": "Create User",
+    "username_input_label": "Username",
+    "email_input_label": "Email",
+    "password_input_label": "Password",
+    "name_input_label": "Full Name",
+    "submit_button_text": "Create"
   },
 
   "user_data_grid": {

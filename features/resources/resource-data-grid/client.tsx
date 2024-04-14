@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   DataGrid,
   GridToolbar,
@@ -42,6 +42,8 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
   language,
   dictionary: { resource_model, resource_data_grid },
 }) => {
+  const router = useRouter();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -71,11 +73,12 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-view-details`}
-          LinkComponent={Link}
-          href={`/${language}/admin/resources/${params.row.id}`}
           icon={<LaunchIcon />}
           label={resource_data_grid["actions--view-details"]}
           aria-label={resource_data_grid["actions--view-details"]}
+          onClick={() =>
+            router.push(`/${language}/admin/resources/${params.row.id}`)
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-assign`}

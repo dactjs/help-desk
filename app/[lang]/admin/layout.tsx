@@ -5,9 +5,8 @@ import UsersIcon from "@mui/icons-material/Group";
 
 import { Dashboard } from "@/components/templates/dashboard";
 import { DashboardNavigationType } from "@/components/templates/dashboard/types";
+import { getDictionary } from "@/internationalization/dictionaries/common";
 import { PageParams } from "@/types/page-params";
-
-import { getDictionary } from "./_dictionaries";
 
 export interface AdminLayoutProps {
   params: PageParams;
@@ -19,10 +18,12 @@ export default async function AdminLayout({
   children,
 }: AdminLayoutProps) {
   const {
-    dashboard_item_text,
-    tickets_item_text,
-    resources_item_text,
-    users_item_text,
+    admin_root: {
+      dashboard_item_text,
+      tickets_item_text,
+      resources_item_text,
+      users_item_text,
+    },
   } = await getDictionary(lang);
 
   return (

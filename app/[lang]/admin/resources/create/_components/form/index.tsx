@@ -9,24 +9,27 @@ import { FormTextField } from "@/components/forms/form-text-field";
 import { UserAutocomplete } from "@/components/forms/user-autocomplete";
 import { User } from "@/components/forms/user-autocomplete/types";
 import { SubmitButton } from "@/components/forms/submit-button";
+import { Dictionary } from "@/internationalization/dictionaries/resources";
 
 import { submit } from "../../_actions/submit";
 import { CreateResourceData } from "../../_types";
 
+type CreateResourceFormDictionary = Pick<Dictionary, "create_resource_page">;
+
 export interface CreateResourceFormProps {
-  brand_input_label: string;
-  model_input_label: string;
-  serial_input_label: string;
-  user_input_label: string;
-  submit_button_text: string;
+  dictionary: CreateResourceFormDictionary;
 }
 
 export const CreateResourceForm: React.FC<CreateResourceFormProps> = ({
-  brand_input_label,
-  model_input_label,
-  serial_input_label,
-  user_input_label,
-  submit_button_text,
+  dictionary: {
+    create_resource_page: {
+      brand_input_label,
+      model_input_label,
+      serial_input_label,
+      user_input_label,
+      submit_button_text,
+    },
+  },
 }) => {
   const [state, action] = useFormState(submit, {
     errors: { api: null, fields: null },

@@ -1,9 +1,0 @@
-{
-  "title": "Help Desk",
-
-  "confirm_dialog_title": "¿Estás seguro de que quieres realizar esta acción?",
-  "confirm_dialog_description": "Esta acción puede tener consecuencias permanentes, así que asegúrate de estar seguro de lo que estás haciendo antes de proceder. Si estás seguro, adelante, ¡sigue adelante!",
-
-  "not_found_heading": "Recurso no encontrado",
-  "not_found_description": "El servidor web no pudo encontrar el recurso solicitado"
-}

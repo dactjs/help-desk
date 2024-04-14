@@ -1,0 +1,42 @@
+{
+  "root": {
+    "title": "Help Desk"
+  },
+
+  "root_not_found": {
+    "heading": "Resource not found",
+    "description": "The web server could not find the requested resource",
+    "call_to_action_text": "Back to dashboard"
+  },
+
+  "admin_root": {
+    "title": "Dashboard",
+    "heading": "Welcome to your dashboard 💻",
+    "hint": "To get started, select an option from the sidebar.",
+
+    "dashboard_item_text": "Dashboard",
+    "tickets_item_text": "Tickets",
+    "resources_item_text": "Resources",
+    "users_item_text": "Users"
+  },
+
+  "technicians_root": {
+    "title": "Dashboard",
+    "heading": "Welcome to your dashboard 💻",
+    "hint": "To get started, select an option from the sidebar.",
+
+    "dashboard_item_text": "Dashboard",
+    "tickets_item_text": "Tickets",
+    "resources_item_text": "Resources",
+    "users_item_text": "Users"
+  },
+
+  "dashboard_root": {
+    "title": "Dashboard"
+  },
+
+  "confirm_dialog": {
+    "title": "Are you sure you want to perform this action?",
+    "description": "This action can have permanent consequences, so make sure you are sure of what you are doing before proceeding. If you're sure, go ahead, keep going!"
+  }
+}

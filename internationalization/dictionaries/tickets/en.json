@@ -31,6 +31,11 @@
     "type--cancelled": "Cancelled"
   },
 
+  "not_found": {
+    "heading": "Ticket not found",
+    "description": "The web server could not find the requested ticket"
+  },
+
   "tickets_page": {
     "title": "Tickets",
     "toolbar_button--create": "Crear Ticket"
@@ -40,9 +45,14 @@
     "title": "Ticket {{id}}"
   },
 
-  "not_found": {
-    "heading": "Ticket not found",
-    "description": "The web server could not find the requested ticket"
+  "create_ticket_page": {
+    "title": "Create Ticket",
+    "heading": "Create Ticket",
+    "issue_input_label": "Issue",
+    "service_input_label": "Service",
+    "user_input_label": "User",
+    "technician_input_label": "Assigned Technician",
+    "submit_button_text": "Create"
   },
 
   "ticket_data_grid": {

@@ -1,9 +1,0 @@
-{
-  "title": "Create User",
-  "heading": "Create User",
-  "username_input_label": "Username",
-  "email_input_label": "Email",
-  "name_input_label": "Full Name",
-  "password_input_label": "Password",
-  "submit_button_text": "Create"
-}

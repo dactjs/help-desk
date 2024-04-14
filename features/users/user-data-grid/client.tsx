@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Chip, { ChipProps } from "@mui/material/Chip";
 import {
   DataGrid,
@@ -40,6 +40,8 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
   language,
   dictionary: { user_model, user_data_grid },
 }) => {
+  const router = useRouter();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -69,11 +71,12 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-view-details`}
-          LinkComponent={Link}
-          href={`/${language}/admin/users/${params.row.id}`}
           icon={<LaunchIcon />}
           label={user_data_grid["actions--view-details"]}
           aria-label={user_data_grid["actions--view-details"]}
+          onClick={() =>
+            router.push(`/${language}/admin/users/${params.row.id}`)
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-reset-password`}

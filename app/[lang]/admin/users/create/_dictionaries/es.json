@@ -1,9 +1,0 @@
-{
-  "title": "Crear Usuario",
-  "heading": "Crear Usuario",
-  "username_input_label": "Usuario",
-  "email_input_label": "Correo Electrónico",
-  "name_input_label": "Nombre Completo",
-  "password_input_label": "Contraseña",
-  "submit_button_text": "Crear"
-}

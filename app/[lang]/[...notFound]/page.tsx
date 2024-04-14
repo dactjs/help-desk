@@ -1,9 +1,8 @@
 import Container from "@mui/material/Container";
 
 import { NotFound } from "@/components/templates/not-found";
+import { getDictionary } from "@/internationalization/dictionaries/common";
 import { PageParams } from "@/types/page-params";
-
-import { getDictionary } from "../_dictionaries";
 
 export interface RootNotFoundProps {
   params: PageParams;
@@ -12,9 +11,9 @@ export interface RootNotFoundProps {
 export default async function RootNotFound({
   params: { lang },
 }: RootNotFoundProps) {
-  const { not_found_heading, not_found_description } = await getDictionary(
-    lang
-  );
+  const {
+    root_not_found: { heading, description },
+  } = await getDictionary(lang);
 
   return (
     <Container
@@ -22,10 +21,7 @@ export default async function RootNotFound({
       fixed
       sx={{ height: "100vh", placeContent: "center" }}
     >
-      <NotFound
-        heading={not_found_heading}
-        description={not_found_description}
-      />
+      <NotFound heading={heading} description={description} />
     </Container>
   );
 }

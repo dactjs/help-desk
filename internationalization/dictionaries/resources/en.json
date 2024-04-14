@@ -18,6 +18,11 @@
     "type--output": "Output"
   },
 
+  "not_found": {
+    "heading": "Resource not found",
+    "description": "The web server could not find the requested resource"
+  },
+
   "resources_page": {
     "title": "Resources",
     "toolbar_button--create": "Create Resource"
@@ -27,9 +32,14 @@
     "title": "Resource {{id}}"
   },
 
-  "not_found": {
-    "heading": "Resource not found",
-    "description": "The web server could not find the requested resource"
+  "create_resource_page": {
+    "title": "Create Resource",
+    "heading": "Create Resource",
+    "brand_input_label": "Brand",
+    "model_input_label": "Model",
+    "serial_input_label": "Serial Number",
+    "user_input_label": "Assigned User",
+    "submit_button_text": "Create"
   },
 
   "resource_data_grid": {

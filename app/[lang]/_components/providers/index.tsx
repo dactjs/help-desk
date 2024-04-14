@@ -8,6 +8,7 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import { SnackbarProvider } from "notistack";
 import { ConfirmProvider } from "material-ui-confirm";
 
+import { Dictionary } from "@/internationalization/dictionaries/common";
 import { getMuiTranslations } from "@/internationalization/utils/get-mui-translations";
 import { SupportedLanguage } from "@/internationalization/types";
 
@@ -17,16 +18,16 @@ const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
 });
 
+type ProvidersDictionary = Pick<Dictionary, "confirm_dialog">;
+
 export interface ProvidersProps {
   lang: SupportedLanguage;
-  confirm_dialog_title: string;
-  confirm_dialog_description: string;
+  dictionary: ProvidersDictionary;
 }
 
 export const Providers: React.FC<React.PropsWithChildren<ProvidersProps>> = ({
   lang,
-  confirm_dialog_title,
-  confirm_dialog_description,
+  dictionary: { confirm_dialog },
   children,
 }) => {
   const translations = getMuiTranslations(lang);
@@ -44,8 +45,8 @@ export const Providers: React.FC<React.PropsWithChildren<ProvidersProps>> = ({
       <SnackbarProvider>
         <ConfirmProvider
           defaultOptions={{
-            title: confirm_dialog_title,
-            description: confirm_dialog_description,
+            title: confirm_dialog.title,
+            description: confirm_dialog.description,
             confirmationButtonProps: {
               variant: "contained",
               color: "warning",

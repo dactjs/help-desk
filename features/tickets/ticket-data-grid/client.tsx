@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Chip, { ChipProps } from "@mui/material/Chip";
 import {
   DataGrid,
@@ -44,6 +44,8 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
   language,
   dictionary: { ticket_model, ticket_data_grid },
 }) => {
+  const router = useRouter();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -73,11 +75,12 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-view-details`}
-          LinkComponent={Link}
-          href={`/${language}/admin/tickets/${params.row.id}`}
           icon={<LaunchIcon />}
           label={ticket_data_grid["actions--view-details"]}
           aria-label={ticket_data_grid["actions--view-details"]}
+          onClick={() =>
+            router.push(`/${language}/admin/tickets/${params.row.id}`)
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-assign`}

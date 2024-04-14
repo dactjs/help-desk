@@ -1,32 +1,35 @@
 import { Metadata } from "next";
 
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Unstable_Grid2";
 
+import { UserDataGrid } from "@/features/users/user-data-grid";
+import { Widget } from "@/components/templates/widget";
+import { getDictionary } from "@/internationalization/dictionaries/users";
 import { PageParams } from "@/types/page-params";
-
-import { getDictionary } from "./_dictionaries";
 
 export async function generateMetadata({
   params: { lang },
 }: {
   params: PageParams;
 }): Promise<Metadata> {
-  const { title } = await getDictionary(lang);
+  const {
+    users_page: { title },
+  } = await getDictionary(lang);
 
   return { title };
 }
 
-export interface UsersPageProps {
-  params: PageParams;
-}
-
-export default async function UsersPage({ params: { lang } }: UsersPageProps) {
-  const { title } = await getDictionary(lang);
-
+export default function UsersPage() {
   return (
-    <Container>
-      <Typography>{title}</Typography>
+    <Container fixed sx={{ paddingY: 2 }}>
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid xs={12}>
+          <Widget>
+            <UserDataGrid />
+          </Widget>
+        </Grid>
+      </Grid>
     </Container>
   );
 }

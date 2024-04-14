@@ -18,6 +18,11 @@
     "type--output": "Salida"
   },
 
+  "not_found": {
+    "heading": "Recurso no encontrado",
+    "description": "El servidor web no pudo encontrar el recurso solicitado"
+  },
+
   "resources_page": {
     "title": "Recursos",
     "toolbar_button--create": "Crear Recurso"
@@ -27,9 +32,14 @@
     "title": "Recurso {{id}}"
   },
 
-  "not_found": {
-    "heading": "Recurso no encontrado",
-    "description": "El servidor web no pudo encontrar el recurso solicitado"
+  "create_resource_page": {
+    "title": "Crear Recurso",
+    "heading": "Crear Recurso",
+    "brand_input_label": "Marca",
+    "model_input_label": "Modelo",
+    "serial_input_label": "Serial °",
+    "user_input_label": "Usuario Asignado",
+    "submit_button_text": "Crear"
   },
 
   "resource_data_grid": {

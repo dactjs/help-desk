@@ -12,24 +12,27 @@ import { User } from "@/components/forms/user-autocomplete/types";
 import { TicketServiceAutocomplete } from "@/components/forms/ticket-service-autocomplete";
 import { TicketService } from "@/components/forms/ticket-service-autocomplete/types";
 import { SubmitButton } from "@/components/forms/submit-button";
+import { Dictionary } from "@/internationalization/dictionaries/tickets";
 
 import { submit } from "../../_actions/submit";
 import { CreateTicketData } from "../../_types";
 
+type CreateTicketFormDictionary = Pick<Dictionary, "create_ticket_page">;
+
 export interface CreateTicketFormProps {
-  issue_input_label: string;
-  service_input_label: string;
-  user_input_label: string;
-  technician_input_label: string;
-  submit_button_text: string;
+  dictionary: CreateTicketFormDictionary;
 }
 
 export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
-  issue_input_label,
-  service_input_label,
-  user_input_label,
-  technician_input_label,
-  submit_button_text,
+  dictionary: {
+    create_ticket_page: {
+      issue_input_label,
+      service_input_label,
+      user_input_label,
+      technician_input_label,
+      submit_button_text,
+    },
+  },
 }) => {
   const [state, action] = useFormState(submit, {
     errors: { api: null, fields: null },

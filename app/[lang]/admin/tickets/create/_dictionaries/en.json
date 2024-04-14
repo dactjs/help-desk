@@ -1,9 +1,0 @@
-{
-  "title": "Create Ticket",
-  "heading": "Create Ticket",
-  "issue_input_label": "Issue",
-  "service_input_label": "Service",
-  "user_input_label": "User",
-  "technician_input_label": "Assigned Technician",
-  "submit_button_text": "Create"
-}

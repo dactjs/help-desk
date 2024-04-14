@@ -3,16 +3,17 @@ import { Metadata } from "next";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
+import { getDictionary } from "@/internationalization/dictionaries/common";
 import { PageParams } from "@/types/page-params";
-
-import { getDictionary } from "./_dictionaries";
 
 export async function generateMetadata({
   params: { lang },
 }: {
   params: PageParams;
 }): Promise<Metadata> {
-  const { title } = await getDictionary(lang);
+  const {
+    technicians_root: { title },
+  } = await getDictionary(lang);
 
   return { title };
 }
@@ -24,7 +25,9 @@ export interface TechniciansPageProps {
 export default async function TechniciansPage({
   params: { lang },
 }: TechniciansPageProps) {
-  const { heading, hint } = await getDictionary(lang);
+  const {
+    technicians_root: { heading, hint },
+  } = await getDictionary(lang);
 
   return (
     <Container fixed sx={{ minHeight: "100%", placeContent: "center" }}>

@@ -1,0 +1,42 @@
+{
+  "root": {
+    "title": "Help Desk"
+  },
+
+  "root_not_found": {
+    "heading": "Recurso no encontrado",
+    "description": "El servidor web no pudo encontrar el recurso solicitado",
+    "call_to_action_text": "Volver al dashboard"
+  },
+
+  "admin_root": {
+    "title": "Dashboard",
+    "heading": "Bienvenido a tu dashboard 💻",
+    "hint": "Para comenzar, selecciona una opción del menú lateral.",
+
+    "dashboard_item_text": "Dashboard",
+    "tickets_item_text": "Tickets",
+    "resources_item_text": "Recursos",
+    "users_item_text": "Usuarios"
+  },
+
+  "technicians_root": {
+    "title": "Dashboard",
+    "heading": "Bienvenido a tu dashboard 💻",
+    "hint": "Para comenzar, selecciona una opción del menú lateral.",
+
+    "dashboard_item_text": "Dashboard",
+    "tickets_item_text": "Tickets",
+    "resources_item_text": "Recursos",
+    "users_item_text": "Usuarios"
+  },
+
+  "dashboard_root": {
+    "title": "Dashboard"
+  },
+
+  "confirm_dialog": {
+    "title": "¿Estás seguro de que quieres realizar esta acción?",
+    "description": "Esta acción puede tener consecuencias permanentes, así que asegúrate de estar seguro de lo que estás haciendo antes de proceder. Si estás seguro, adelante, ¡sigue adelante!"
+  }
+}

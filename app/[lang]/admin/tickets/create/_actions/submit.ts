@@ -6,7 +6,7 @@ import { typeToFlattenedError } from "zod";
 
 import { auth } from "@/auth";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
-import { getErrorsDictionary } from "@/internationalization/dictionaries/errors";
+import { getDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 
@@ -78,7 +78,7 @@ export async function submit(
       },
     });
   } catch (error) {
-    const errors = await getErrorsDictionary(language);
+    const errors = await getDictionary(language);
 
     if (error instanceof Error) {
       return {

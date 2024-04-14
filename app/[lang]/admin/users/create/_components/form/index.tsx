@@ -6,24 +6,27 @@ import Alert from "@mui/material/Alert";
 
 import { FormTextField } from "@/components/forms/form-text-field";
 import { SubmitButton } from "@/components/forms/submit-button";
+import { Dictionary } from "@/internationalization/dictionaries/users";
 
 import { submit } from "../../_actions/submit";
 import { CreateUserData } from "../../_types";
 
+type CreateUserFormDictionary = Pick<Dictionary, "create_user_page">;
+
 export interface CreateUserFormProps {
-  username_input_label: string;
-  email_input_label: string;
-  password_input_label: string;
-  name_input_label: string;
-  submit_button_text: string;
+  dictionary: CreateUserFormDictionary;
 }
 
 export const CreateUserForm: React.FC<CreateUserFormProps> = ({
-  username_input_label,
-  email_input_label,
-  password_input_label,
-  name_input_label,
-  submit_button_text,
+  dictionary: {
+    create_user_page: {
+      username_input_label,
+      email_input_label,
+      password_input_label,
+      name_input_label,
+      submit_button_text,
+    },
+  },
 }) => {
   const [state, action] = useFormState(submit, {
     errors: { api: null, fields: null },
