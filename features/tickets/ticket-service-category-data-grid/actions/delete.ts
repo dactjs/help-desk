@@ -11,7 +11,7 @@ export async function deleteTicketServiceCategory(id: string): Promise<void> {
   const language = getAppLanguage();
 
   try {
-    await prisma.ticket.delete({ where: { id } });
+    await prisma.ticketServiceCategory.delete({ where: { id } });
 
     revalidatePath("/[lang]/admin/tickets/services", "page");
   } catch (error) {

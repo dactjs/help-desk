@@ -23,6 +23,7 @@
   "ticket_service_model": {
     "id": "ID",
     "name": "Name",
+    "category": "Category",
 
     "createdAt": "Created At",
     "updatedAt": "Updated At"

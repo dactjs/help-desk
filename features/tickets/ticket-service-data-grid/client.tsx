@@ -14,8 +14,9 @@ import { useConfirm } from "material-ui-confirm";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
 import { getShortUUID } from "@/utils/get-short-uuid";
 
+import { updateTicketService } from "./actions/update";
 import { deleteTicketService } from "./actions/delete";
-import { TicketService } from "./types";
+import { TicketService, TicketServiceCategory } from "./types";
 
 export type ClientTicketServiceDataGridDictionary = Pick<
   Dictionary,
@@ -24,6 +25,7 @@ export type ClientTicketServiceDataGridDictionary = Pick<
 
 export interface ClientTicketServiceDataGridProps {
   services: TicketService[];
+  categories: TicketServiceCategory[];
   dictionary: ClientTicketServiceDataGridDictionary;
 }
 
@@ -31,6 +33,7 @@ export const ClientTicketServiceDataGrid: React.FC<
   ClientTicketServiceDataGridProps
 > = ({
   services,
+  categories,
   dictionary: { ticket_service_model, ticket_service_data_grid },
 }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -86,6 +89,20 @@ export const ClientTicketServiceDataGrid: React.FC<
       minWidth: 225,
     },
     {
+      editable: true,
+      type: "singleSelect",
+      valueOptions: categories.map(({ id, name }) => ({
+        value: id,
+        label: name,
+      })),
+      field: "category",
+      headerName: ticket_service_model.category,
+      headerAlign: "center",
+      align: "center",
+      minWidth: 225,
+      valueGetter: (value: TicketService["category"]) => value.id,
+    },
+    {
       type: "dateTime",
       field: "createdAt",
       headerName: ticket_service_model.createdAt,
@@ -103,6 +120,15 @@ export const ClientTicketServiceDataGrid: React.FC<
     },
   ];
 
+  const handleOnProcessRowUpdateError = (error: unknown) => {
+    if (error instanceof Error) {
+      enqueueSnackbar(error.message, {
+        variant: "error",
+        style: { whiteSpace: "pre-line" },
+      });
+    }
+  };
+
   return (
     <DataGrid
       disableRowSelectionOnClick
@@ -110,6 +136,8 @@ export const ClientTicketServiceDataGrid: React.FC<
       rows={services}
       slots={{ toolbar: GridToolbar }}
       slotProps={{ toolbar: { showQuickFilter: true } }}
+      processRowUpdate={updateTicketService}
+      onProcessRowUpdateError={handleOnProcessRowUpdateError}
     />
   );
 };
