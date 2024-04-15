@@ -28,7 +28,7 @@ import { getShortUUID } from "@/utils/get-short-uuid";
 import { deleteTicket } from "./actions/delete";
 import { Ticket } from "./types";
 
-export type ClientResourceDataGridDictionary = Pick<
+export type ClientTicketDataGridDictionary = Pick<
   Dictionary,
   "ticket_model" | "ticket_data_grid"
 >;
@@ -36,7 +36,7 @@ export type ClientResourceDataGridDictionary = Pick<
 export interface ClientTicketDataGridProps {
   tickets: Ticket[];
   language: SupportedLanguage;
-  dictionary: ClientResourceDataGridDictionary;
+  dictionary: ClientTicketDataGridDictionary;
 }
 
 export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({

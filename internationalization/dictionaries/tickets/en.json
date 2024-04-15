@@ -20,6 +20,22 @@
     "updatedAt": "Updated At"
   },
 
+  "ticket_service_model": {
+    "id": "ID",
+    "name": "Name",
+
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
+  },
+
+  "ticket_service_category_model": {
+    "id": "ID",
+    "name": "Name",
+
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
+  },
+
   "ticket_trace_model": {
     "type": "Type",
     "type--reception": "Reception",
@@ -38,7 +54,8 @@
 
   "tickets_page": {
     "title": "Tickets",
-    "toolbar_button--create": "Crear Ticket"
+    "toolbar_button--create": "Create Ticket",
+    "toolbar_button--manage-services": "Manage Services"
   },
 
   "ticket_page": {
@@ -57,6 +74,31 @@
     "actions--created-successfully": "Ticket created successfully"
   },
 
+  "ticket_services_page": {
+    "title": "Services",
+    "toolbar_button--create-service": "Create Service",
+    "toolbar_button--create-category": "Create Category"
+  },
+
+  "create_ticket_service_page": {
+    "title": "Create Service",
+    "heading": "Create Service",
+    "name_input_label": "Name",
+    "category_input_label": "Category",
+    "submit_button_text": "Create",
+
+    "actions--created-successfully": "Service created successfully"
+  },
+
+  "create_ticket_service_category_page": {
+    "title": "Create Category",
+    "heading": "Create Category",
+    "name_input_label": "Name",
+    "submit_button_text": "Create",
+
+    "actions--created-successfully": "Category created successfully"
+  },
+
   "ticket_data_grid": {
     "actions": "Actions",
     "actions--view-details": "View Details",
@@ -66,6 +108,16 @@
     "actions--resolve": "Resolve",
     "actions--close": "Close",
     "actions--cancel": "Cancel",
+    "actions--delete": "Delete"
+  },
+
+  "ticket_service_data_grid": {
+    "actions": "Actions",
+    "actions--delete": "Delete"
+  },
+
+  "ticket_service_category_data_grid": {
+    "actions": "Actions",
     "actions--delete": "Delete"
   },
 

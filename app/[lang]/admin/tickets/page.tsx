@@ -38,7 +38,16 @@ export default async function TicketsPage({
     <Container fixed sx={{ paddingY: 2 }}>
       <Grid container justifyContent="center" alignItems="center">
         <Grid xs={12}>
-          <Toolbar sx={{ justifyContent: "flex-end" }}>
+          <Toolbar sx={{ justifyContent: "flex-end", gap: 1 }}>
+            <Button
+              LinkComponent={Link}
+              href={`/${lang}/admin/tickets/services`}
+              variant="outlined"
+              color="secondary"
+            >
+              {tickets_page["toolbar_button--manage-services"]}
+            </Button>
+
             <Button
               LinkComponent={Link}
               href={`/${lang}/admin/tickets/create`}

@@ -20,6 +20,22 @@
     "updatedAt": "Actualizado En"
   },
 
+  "ticket_service_model": {
+    "id": "ID",
+    "name": "Nombre",
+
+    "createdAt": "Creado En",
+    "updatedAt": "Actualizado En"
+  },
+
+  "ticket_service_category_model": {
+    "id": "ID",
+    "name": "Nombre",
+
+    "createdAt": "Creado En",
+    "updatedAt": "Actualizado En"
+  },
+
   "ticket_trace_model": {
     "type": "Tipo",
     "type--reception": "Recepción",
@@ -38,7 +54,8 @@
 
   "tickets_page": {
     "title": "Tickets",
-    "toolbar_button--create": "Create Ticket"
+    "toolbar_button--create": "Crear Ticket",
+    "toolbar_button--manage-services": "Gestionar Servicios"
   },
 
   "ticket_page": {
@@ -57,6 +74,31 @@
     "actions--created-successfully": "Ticket creado exitosamente"
   },
 
+  "ticket_services_page": {
+    "title": "Servicios",
+    "toolbar_button--create-service": "Crear Servicio",
+    "toolbar_button--create-category": "Crear Categoría"
+  },
+
+  "create_ticket_service_page": {
+    "title": "Crear Servicio",
+    "heading": "Crear Servicio",
+    "name_input_label": "Nombre",
+    "category_input_label": "Categoría",
+    "submit_button_text": "Crear",
+
+    "actions--created-successfully": "Servicio creado exitosamente"
+  },
+
+  "create_ticket_service_category_page": {
+    "title": "Crear Categoría",
+    "heading": "Crear Categoría",
+    "name_input_label": "Nombre",
+    "submit_button_text": "Crear",
+
+    "actions--created-successfully": "Categoría creada exitosamente"
+  },
+
   "ticket_data_grid": {
     "actions": "Acciones",
     "actions--view-details": "Ver Detalles",
@@ -66,6 +108,16 @@
     "actions--resolve": "Resolver",
     "actions--close": "Cerrar",
     "actions--cancel": "Cancelar",
+    "actions--delete": "Borrar"
+  },
+
+  "ticket_service_data_grid": {
+    "actions": "Acciones",
+    "actions--delete": "Borrar"
+  },
+
+  "ticket_service_category_data_grid": {
+    "actions": "Acciones",
     "actions--delete": "Borrar"
   },
 

@@ -46,6 +46,17 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
 
   const confirm = useConfirm();
 
+  const status: Record<UserStatus, string> = {
+    ENABLED: user_model["status--enabled"],
+    DISABLED: user_model["status--disabled"],
+  };
+
+  const role: Record<UserRole, string> = {
+    ADMIN: user_model["role--admin"],
+    TECHNICIAN: user_model["role--technician"],
+    USER: user_model["role--user"],
+  };
+
   const handleDelete = (id: string) => {
     confirm()
       .then(async () => {
@@ -130,18 +141,16 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
     {
       editable: true,
       type: "singleSelect",
-      valueOptions: [UserStatus.ENABLED, UserStatus.DISABLED],
+      valueOptions: [
+        { value: UserStatus.ENABLED, label: status.ENABLED },
+        { value: UserStatus.DISABLED, label: status.DISABLED },
+      ],
       field: "status",
       headerName: user_model.status,
       headerAlign: "center",
       align: "center",
       width: 150,
       renderCell: (params) => {
-        const status: Record<UserStatus, string> = {
-          ENABLED: user_model["status--enabled"],
-          DISABLED: user_model["status--disabled"],
-        };
-
         const colors: Record<UserStatus, ChipProps["color"]> = {
           ENABLED: "success",
           DISABLED: "error",
@@ -159,19 +168,17 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
     {
       editable: true,
       type: "singleSelect",
-      valueOptions: [UserRole.ADMIN, UserRole.TECHNICIAN, UserRole.USER],
+      valueOptions: [
+        { value: UserRole.ADMIN, label: role.ADMIN },
+        { value: UserRole.TECHNICIAN, label: role.TECHNICIAN },
+        { value: UserRole.USER, label: role.USER },
+      ],
       field: "role",
       headerName: user_model.role,
       headerAlign: "center",
       align: "center",
       width: 150,
       renderCell: (params) => {
-        const role: Record<UserRole, string> = {
-          ADMIN: user_model["role--admin"],
-          TECHNICIAN: user_model["role--technician"],
-          USER: user_model["role--user"],
-        };
-
         const colors: Record<UserRole, ChipProps["color"]> = {
           ADMIN: "warning",
           TECHNICIAN: "info",
