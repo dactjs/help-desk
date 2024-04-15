@@ -7,8 +7,8 @@ import Alert from "@mui/material/Alert";
 import { useSnackbar } from "notistack";
 
 import { FormTextField } from "@/components/forms/form-text-field";
-import { TicketServiceCategoryAutocomplete } from "@/components/forms/ticket-service-category-autocomplete";
-import { TicketServiceCategory } from "@/components/forms/ticket-service-category-autocomplete/types";
+import { TicketServiceCategoryAutocomplete } from "@/features/tickets/ticket-service-category-autocomplete";
+import { TicketServiceCategory } from "@/features/tickets/ticket-service-category-autocomplete/types";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";

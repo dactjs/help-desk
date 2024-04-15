@@ -7,8 +7,8 @@ import Alert from "@mui/material/Alert";
 import { useSnackbar } from "notistack";
 
 import { FormTextField } from "@/components/forms/form-text-field";
-import { UserAutocomplete } from "@/components/forms/user-autocomplete";
-import { User } from "@/components/forms/user-autocomplete/types";
+import { UserAutocomplete } from "@/features/users/user-autocomplete";
+import { User } from "@/features/users/user-autocomplete/types";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
