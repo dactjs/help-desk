@@ -1,11 +1,11 @@
 "use client";
 
-import { useFormState } from "react-dom";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 
 import { FormTextField } from "@/components/forms/form-text-field";
 import { SubmitButton } from "@/components/forms/submit-button";
+import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/auth";
 
 import { submit } from "../../_actions/submit";
@@ -25,9 +25,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
     },
   },
 }) => {
-  const [state, action] = useFormState(submit, {
-    errors: { api: null, fields: null },
-  });
+  const { state, action } = useFormAction({ action: submit });
 
   return (
     <Stack component="form" action={action} spacing={2}>
@@ -56,7 +54,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
         {submit_button_text}
       </SubmitButton>
 
-      {state.errors.api && <Alert severity="error">{state.errors.api}</Alert>}
+      {state.errors.server && (
+        <Alert severity="error">{state.errors.server}</Alert>
+      )}
     </Stack>
   );
 };

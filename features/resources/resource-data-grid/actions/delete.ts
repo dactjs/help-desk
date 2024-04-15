@@ -13,7 +13,7 @@ export async function deleteResource(id: string): Promise<void> {
   try {
     await prisma.resource.delete({ where: { id } });
 
-    revalidatePath("/[lang]/admin/resources");
+    revalidatePath("/[lang]/admin/resources", "page");
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message);
 

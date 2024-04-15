@@ -1,26 +1,15 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { typeToFlattenedError } from "zod";
 
 import { signIn } from "@/auth";
 import { AuthError } from "@/auth/errors";
-import { SignInCredentials } from "@/auth/types";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/errors";
 import { zod } from "@/lib/zod";
+import { FormAction } from "@/types/form-action";
 
-export type SubmitActionState = {
-  errors: {
-    api: string | null;
-    fields: typeToFlattenedError<SignInCredentials>["fieldErrors"] | null;
-  };
-};
-
-export async function submit(
-  _: SubmitActionState,
-  formData: FormData
-): Promise<SubmitActionState> {
+export const submit: FormAction = async (_, formData) => {
   const language = getAppLanguage();
 
   try {
@@ -35,8 +24,9 @@ export async function submit(
 
     if (!result.success) {
       return {
+        complete: false,
         errors: {
-          api: null,
+          server: null,
           fields: result.error.flatten().fieldErrors,
         },
       };
@@ -52,20 +42,22 @@ export async function submit(
 
     if (error instanceof AuthError) {
       return {
+        complete: false,
         errors: {
-          api: errors[error.code] ?? errors.UNEXPECTED_ERROR,
+          server: errors[error.code] ?? errors.UNEXPECTED_ERROR,
           fields: null,
         },
       };
     }
 
     return {
+      complete: false,
       errors: {
-        api: errors.UNEXPECTED_ERROR,
+        server: errors.UNEXPECTED_ERROR,
         fields: null,
       },
     };
   }
 
   redirect(`/${language}/dashboard`);
-}
+};

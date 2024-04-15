@@ -2,28 +2,16 @@
 
 import { redirect } from "next/navigation";
 import { TicketStatus, TicketTraceType } from "@prisma/client";
-import { typeToFlattenedError } from "zod";
 
 import { auth } from "@/auth";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
-
-import { CreateTicketData } from "../_types";
-
-export type SubmitActionState = {
-  errors: {
-    api: string | null;
-    fields: typeToFlattenedError<CreateTicketData>["fieldErrors"] | null;
-  };
-};
+import { FormAction } from "@/types/form-action";
 
 // TODO: add authorization
-export async function submit(
-  _: SubmitActionState,
-  data: CreateTicketData
-): Promise<SubmitActionState> {
+export const submit: FormAction = async (_, formData) => {
   const language = getAppLanguage();
 
   const session = await auth();
@@ -37,15 +25,16 @@ export async function submit(
       issue: z.string(),
       service: z.string().uuid(),
       user: z.string().uuid(),
-      technician: z.string().uuid().nullish(),
+      technician: z.string().uuid().optional(),
     });
 
-    const result = schema.safeParse(data);
+    const result = schema.safeParse(Object.fromEntries(formData));
 
     if (!result.success) {
       return {
+        complete: false,
         errors: {
-          api: null,
+          server: null,
           fields: result.error.flatten().fieldErrors,
         },
       };
@@ -77,25 +66,33 @@ export async function submit(
         }),
       },
     });
+
+    return {
+      complete: true,
+      errors: {
+        server: null,
+        fields: null,
+      },
+    };
   } catch (error) {
     const errors = await getDictionary(language);
 
     if (error instanceof Error) {
       return {
+        complete: false,
         errors: {
-          api: error.message,
+          server: error.message,
           fields: null,
         },
       };
     }
 
     return {
+      complete: false,
       errors: {
-        api: errors.UNEXPECTED_ERROR,
+        server: errors.UNEXPECTED_ERROR,
         fields: null,
       },
     };
   }
-
-  redirect(`/${language}/admin/tickets`);
-}
+};

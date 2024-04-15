@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useFormState } from "react-dom";
+import { redirect } from "next/navigation";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
+import { useSnackbar } from "notistack";
 import { UserRole } from "@prisma/client";
 
 import { FormTextField } from "@/components/forms/form-text-field";
@@ -12,62 +13,56 @@ import { User } from "@/components/forms/user-autocomplete/types";
 import { TicketServiceAutocomplete } from "@/components/forms/ticket-service-autocomplete";
 import { TicketService } from "@/components/forms/ticket-service-autocomplete/types";
 import { SubmitButton } from "@/components/forms/submit-button";
+import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
+import { SupportedLanguage } from "@/internationalization/types";
 
 import { submit } from "../../_actions/submit";
-import { CreateTicketData } from "../../_types";
 
 type CreateTicketFormDictionary = Pick<Dictionary, "create_ticket_page">;
 
 export interface CreateTicketFormProps {
+  language: SupportedLanguage;
   dictionary: CreateTicketFormDictionary;
 }
 
 export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
-  dictionary: {
-    create_ticket_page: {
-      issue_input_label,
-      service_input_label,
-      user_input_label,
-      technician_input_label,
-      submit_button_text,
-    },
-  },
+  language,
+  dictionary: { create_ticket_page },
 }) => {
-  const [state, action] = useFormState(submit, {
-    errors: { api: null, fields: null },
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { state, action } = useFormAction({
+    action: submit,
+    onComplete: () => {
+      enqueueSnackbar(create_ticket_page["actions--created-successfully"], {
+        variant: "success",
+      });
+
+      redirect(`/${language}/admin/tickets`);
+    },
   });
 
   const [service, setService] = useState<TicketService | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [technician, setTechnician] = useState<User | null>(null);
 
-  const handleAction = (formData: FormData) => {
-    if (!service || !user) return;
-
-    const data: CreateTicketData = {
-      issue: String(formData.get("issue")),
-      service: service.id,
-      user: user.id,
-      technician: technician?.id || null,
-    };
-
-    return action(data);
-  };
-
   return (
-    <Stack
-      component="form"
-      autoComplete="off"
-      action={handleAction}
-      spacing={2}
-    >
+    <Stack component="form" autoComplete="off" action={action} spacing={2}>
+      {service && <input type="hidden" name="service" value={service.id} />}
+
+      {user && <input type="hidden" name="user" value={user.id} />}
+
+      {technician && (
+        <input type="hidden" name="technician" value={technician.id} />
+      )}
+
       <TicketServiceAutocomplete
         required
         fullWidth
         value={service}
         onChange={(_, value) => setService(value as TicketService)}
-        label={service_input_label}
+        label={create_ticket_page.service_input_label}
         error={Boolean(state.errors.fields?.service)}
         helperText={state.errors.fields?.service}
       />
@@ -78,7 +73,7 @@ export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
         fullWidth
         autoComplete="off"
         name="issue"
-        label={issue_input_label}
+        label={create_ticket_page.issue_input_label}
         error={Boolean(state.errors.fields?.issue)}
         helperText={state.errors.fields?.issue}
       />
@@ -88,7 +83,7 @@ export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
         fullWidth
         value={user}
         onChange={(_, value) => setUser(value as User)}
-        label={user_input_label}
+        label={create_ticket_page.user_input_label}
         error={Boolean(state.errors.fields?.user)}
         helperText={state.errors.fields?.user}
       />
@@ -98,16 +93,18 @@ export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
         filters={{ roles: [UserRole.TECHNICIAN] }}
         value={technician}
         onChange={(_, value) => setTechnician(value as User)}
-        label={technician_input_label}
+        label={create_ticket_page.technician_input_label}
         error={Boolean(state.errors.fields?.technician)}
         helperText={state.errors.fields?.technician}
       />
 
       <SubmitButton fullWidth type="submit" variant="contained">
-        {submit_button_text}
+        {create_ticket_page.submit_button_text}
       </SubmitButton>
 
-      {state.errors.api && <Alert severity="error">{state.errors.api}</Alert>}
+      {state.errors.server && (
+        <Alert severity="error">{state.errors.server}</Alert>
+      )}
     </Stack>
   );
 };

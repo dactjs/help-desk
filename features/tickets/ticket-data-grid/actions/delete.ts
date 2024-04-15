@@ -13,7 +13,7 @@ export async function deleteTicket(id: string): Promise<void> {
   try {
     await prisma.ticket.delete({ where: { id } });
 
-    revalidatePath("/[lang]/admin/tickets");
+    revalidatePath("/[lang]/admin/tickets", "page");
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message);
 

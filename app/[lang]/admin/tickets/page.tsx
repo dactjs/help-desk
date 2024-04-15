@@ -11,6 +11,8 @@ import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/tickets";
 import { PageParams } from "@/types/page-params";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params: { lang },
 }: {

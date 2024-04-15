@@ -13,7 +13,7 @@ export async function deleteUser(id: string): Promise<void> {
   try {
     await prisma.user.delete({ where: { id } });
 
-    revalidatePath("/[lang]/admin/users");
+    revalidatePath("/[lang]/admin/users", "page");
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message);
 

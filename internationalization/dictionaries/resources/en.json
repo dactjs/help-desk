@@ -39,7 +39,9 @@
     "model_input_label": "Model",
     "serial_input_label": "Serial Number",
     "user_input_label": "Assigned User",
-    "submit_button_text": "Create"
+    "submit_button_text": "Create",
+
+    "actions--created-successfully": "Resource created successfully"
   },
 
   "resource_data_grid": {

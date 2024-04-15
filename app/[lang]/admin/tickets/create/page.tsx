@@ -38,7 +38,7 @@ export default async function CreateTicketPage({
           {create_ticket_page.heading}
         </Typography>
 
-        <CreateTicketForm dictionary={{ create_ticket_page }} />
+        <CreateTicketForm language={lang} dictionary={{ create_ticket_page }} />
       </Stack>
     </Container>
   );

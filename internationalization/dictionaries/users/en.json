@@ -39,7 +39,9 @@
     "email_input_label": "Email",
     "password_input_label": "Password",
     "name_input_label": "Full Name",
-    "submit_button_text": "Create"
+    "submit_button_text": "Create",
+
+    "actions--created-successfully": "User created successfully"
   },
 
   "user_data_grid": {

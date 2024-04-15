@@ -39,7 +39,9 @@
     "model_input_label": "Modelo",
     "serial_input_label": "Serial °",
     "user_input_label": "Usuario Asignado",
-    "submit_button_text": "Crear"
+    "submit_button_text": "Crear",
+
+    "actions--created-successfully": "Recurso creado exitosamente"
   },
 
   "resource_data_grid": {

@@ -39,7 +39,9 @@
     "email_input_label": "Correo Electrónico",
     "password_input_label": "Contraseña",
     "name_input_label": "Nombre Completo",
-    "submit_button_text": "Crear"
+    "submit_button_text": "Crear",
+
+    "actions--created-successfully": "Usuario creado exitosamente"
   },
 
   "user_data_grid": {

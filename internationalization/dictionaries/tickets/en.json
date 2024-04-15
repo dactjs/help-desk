@@ -52,7 +52,9 @@
     "service_input_label": "Service",
     "user_input_label": "User",
     "technician_input_label": "Assigned Technician",
-    "submit_button_text": "Create"
+    "submit_button_text": "Create",
+
+    "actions--created-successfully": "Ticket created successfully"
   },
 
   "ticket_data_grid": {

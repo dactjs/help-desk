@@ -38,7 +38,10 @@ export default async function CreateResourcePage({
           {create_resource_page.heading}
         </Typography>
 
-        <CreateResourceForm dictionary={{ create_resource_page }} />
+        <CreateResourceForm
+          language={lang}
+          dictionary={{ create_resource_page }}
+        />
       </Stack>
     </Container>
   );

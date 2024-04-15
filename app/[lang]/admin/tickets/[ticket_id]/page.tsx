@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-
+import { notFound } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import { UserRole } from "@prisma/client";
@@ -44,10 +44,12 @@ export default async function TicketPage({
   params: { ticket_id },
 }: TicketPageProps) {
   // TODO: add authorization
-  const { sentById, assignedToId } = await prisma.ticket.findUniqueOrThrow({
+  const ticket = await prisma.ticket.findUniqueOrThrow({
     where: { id: ticket_id },
     select: { sentById: true, assignedToId: true },
   });
+
+  if (!ticket) notFound();
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
@@ -66,14 +68,17 @@ export default async function TicketPage({
 
         <Grid xs={12} md={6}>
           <Widget>
-            <UserCard userId={sentById} />
+            <UserCard userId={ticket.sentById} />
           </Widget>
         </Grid>
 
-        {assignedToId && (
+        {ticket.assignedToId && (
           <Grid xs={12} md={6}>
             <Widget>
-              <UserCard variant={UserRole.TECHNICIAN} userId={assignedToId} />
+              <UserCard
+                variant={UserRole.TECHNICIAN}
+                userId={ticket.assignedToId}
+              />
             </Widget>
           </Grid>
         )}

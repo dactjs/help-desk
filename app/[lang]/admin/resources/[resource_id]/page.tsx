@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-
+import { notFound } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 
@@ -43,10 +43,12 @@ export default async function ResourcePage({
   params: { resource_id },
 }: ResourcePageProps) {
   // TODO: add authorization
-  const { assignedToId } = await prisma.resource.findUniqueOrThrow({
+  const resource = await prisma.resource.findUnique({
     where: { id: resource_id },
     select: { assignedToId: true },
   });
+
+  if (!resource) notFound();
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
@@ -63,10 +65,10 @@ export default async function ResourcePage({
           </Widget>
         </Grid>
 
-        {assignedToId && (
+        {resource.assignedToId && (
           <Grid xs={12} md={6}>
             <Widget>
-              <UserCard userId={assignedToId} />
+              <UserCard userId={resource.assignedToId} />
             </Widget>
           </Grid>
         )}

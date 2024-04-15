@@ -38,7 +38,7 @@ export default async function CreateUserPage({
           {create_user_page.heading}
         </Typography>
 
-        <CreateUserForm dictionary={{ create_user_page }} />
+        <CreateUserForm language={lang} dictionary={{ create_user_page }} />
       </Stack>
     </Container>
   );
