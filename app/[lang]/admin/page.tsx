@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
@@ -12,7 +11,7 @@ export async function generateMetadata({
   params: PageParams;
 }): Promise<Metadata> {
   const {
-    admin_root: { title },
+    admin_page: { title },
   } = await getDictionary(lang);
 
   return { title };
@@ -24,7 +23,7 @@ export interface AdminPageProps {
 
 export default async function AdminPage({ params: { lang } }: AdminPageProps) {
   const {
-    admin_root: { heading, hint },
+    admin_page: { heading, hint },
   } = await getDictionary(lang);
 
   return (

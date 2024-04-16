@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
@@ -29,16 +28,19 @@ export interface CreateTicketPageProps {
 export default async function CreateTicketPage({
   params: { lang },
 }: CreateTicketPageProps) {
-  const { create_ticket_page } = await getDictionary(lang);
+  const {
+    create_ticket_page: { heading },
+    create_ticket_form,
+  } = await getDictionary(lang);
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
       <Stack spacing={2} divider={<Divider flexItem />}>
         <Typography component="h1" variant="h5">
-          {create_ticket_page.heading}
+          {heading}
         </Typography>
 
-        <CreateTicketForm language={lang} dictionary={{ create_ticket_page }} />
+        <CreateTicketForm language={lang} dictionary={{ create_ticket_form }} />
       </Stack>
     </Container>
   );

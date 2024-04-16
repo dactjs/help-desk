@@ -16,15 +16,10 @@ import { SupportedLanguage } from "@/internationalization/types";
 
 import { Ticket } from "./types";
 
-export type ClientTicketCardDictionary = Pick<
-  Dictionary,
-  "ticket_model" | "not_found" | "ticket_card"
->;
-
 export interface ClientTicketCardProps {
   ticket: Ticket | null;
   language: SupportedLanguage;
-  dictionary: ClientTicketCardDictionary;
+  dictionary: Pick<Dictionary, "ticket_model" | "ticket_card" | "not_found">;
 }
 
 export const ClientTicketCard: React.FC<ClientTicketCardProps> = ({

@@ -18,7 +18,7 @@ export default async function TechniciansLayout({
   children,
 }: TechniciansLayoutProps) {
   const {
-    technicians_root: {
+    technicians_layout: {
       dashboard_item_text,
       tickets_item_text,
       resources_item_text,

@@ -2,13 +2,15 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 import { signOut } from "@/auth";
 import { SubmitButton } from "@/components/forms/submit-button";
-import { getDictionary } from "@/internationalization/dictionaries/auth";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
+import { getDictionary } from "@/internationalization/dictionaries/common";
 
 export const SignOutButton: React.FC = async () => {
   const language = getAppLanguage();
 
-  const { sign_out_button_text } = await getDictionary(language);
+  const {
+    layout: { sign_out_button_text },
+  } = await getDictionary(language);
 
   const handleSignOut = async () => {
     "use server";

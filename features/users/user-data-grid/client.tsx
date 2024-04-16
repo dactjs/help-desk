@@ -24,15 +24,10 @@ import { updateUser } from "./actions/update";
 import { deleteUser } from "./actions/delete";
 import { User } from "./types";
 
-export type ClientUserDataGridDictionary = Pick<
-  Dictionary,
-  "user_model" | "user_data_grid"
->;
-
 export interface ClientUserDataGridProps {
   users: User[];
   language: SupportedLanguage;
-  dictionary: ClientUserDataGridDictionary;
+  dictionary: Pick<Dictionary, "user_model" | "user_data_grid">;
 }
 
 export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({

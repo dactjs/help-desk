@@ -65,13 +65,15 @@
 
   "create_ticket_page": {
     "title": "Create Ticket",
-    "heading": "Create Ticket",
+    "heading": "Create Ticket"
+  },
+
+  "create_ticket_form": {
     "issue_input_label": "Issue",
     "service_input_label": "Service",
     "user_input_label": "User",
     "technician_input_label": "Assigned Technician",
     "submit_button_text": "Create",
-
     "actions--created-successfully": "Ticket created successfully"
   },
 
@@ -83,20 +85,24 @@
 
   "create_ticket_service_page": {
     "title": "Create Service",
-    "heading": "Create Service",
+    "heading": "Create Service"
+  },
+
+  "create_ticket_service_form": {
     "name_input_label": "Name",
     "category_input_label": "Category",
     "submit_button_text": "Create",
-
     "actions--created-successfully": "Service created successfully"
   },
 
   "create_ticket_service_category_page": {
     "title": "Create Category",
-    "heading": "Create Category",
+    "heading": "Create Category"
+  },
+
+  "create_ticket_service_category_form": {
     "name_input_label": "Name",
     "submit_button_text": "Create",
-
     "actions--created-successfully": "Category created successfully"
   },
 

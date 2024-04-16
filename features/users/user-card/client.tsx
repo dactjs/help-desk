@@ -16,16 +16,11 @@ import { SupportedLanguage } from "@/internationalization/types";
 
 import { User } from "./types";
 
-export type ClientUserCardDictionary = Pick<
-  Dictionary,
-  "user_model" | "not_found" | "user_card"
->;
-
 export interface ClientUserCardProps {
   variant: UserRole;
   user: User | null;
   language: SupportedLanguage;
-  dictionary: ClientUserCardDictionary;
+  dictionary: Pick<Dictionary, "user_model" | "user_card" | "not_found">;
 }
 
 export const ClientUserCard: React.FC<ClientUserCardProps> = ({

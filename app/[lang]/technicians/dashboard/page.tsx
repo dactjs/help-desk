@@ -1,8 +1,8 @@
 import { Metadata } from "next";
-
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
+import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/common";
 import { PageParams } from "@/types/page-params";
 
@@ -12,26 +12,20 @@ export async function generateMetadata({
   params: PageParams;
 }): Promise<Metadata> {
   const {
-    technicians_root: { title },
+    technicians_dashboard_page: { title },
   } = await getDictionary(lang);
 
   return { title };
 }
 
-export interface DashboardPageProps {
-  params: PageParams;
-}
-
-export default async function DashboardPage({
-  params: { lang },
-}: DashboardPageProps) {
-  const {
-    technicians_root: { title },
-  } = await getDictionary(lang);
-
+export default function DashboardPage() {
   return (
-    <Container>
-      <Typography>{title}</Typography>
+    <Container fixed sx={{ paddingY: 2 }}>
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid xs={12}>
+          <Widget />
+        </Grid>
+      </Grid>
     </Container>
   );
 }

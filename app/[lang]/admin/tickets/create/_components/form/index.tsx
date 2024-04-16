@@ -7,11 +7,11 @@ import Alert from "@mui/material/Alert";
 import { useSnackbar } from "notistack";
 import { UserRole } from "@prisma/client";
 
-import { FormTextField } from "@/components/forms/form-text-field";
-import { UserAutocomplete } from "@/features/users/user-autocomplete";
-import { User } from "@/features/users/user-autocomplete/types";
 import { TicketServiceAutocomplete } from "@/features/tickets/ticket-service-autocomplete";
 import { TicketService } from "@/features/tickets/ticket-service-autocomplete/types";
+import { UserAutocomplete } from "@/features/users/user-autocomplete";
+import { User } from "@/features/users/user-autocomplete/types";
+import { FormTextField } from "@/components/forms/form-text-field";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
@@ -19,23 +19,21 @@ import { SupportedLanguage } from "@/internationalization/types";
 
 import { submit } from "../../_actions/submit";
 
-type CreateTicketFormDictionary = Pick<Dictionary, "create_ticket_page">;
-
 export interface CreateTicketFormProps {
   language: SupportedLanguage;
-  dictionary: CreateTicketFormDictionary;
+  dictionary: Pick<Dictionary, "create_ticket_form">;
 }
 
 export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
   language,
-  dictionary: { create_ticket_page },
+  dictionary: { create_ticket_form },
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const { state, action } = useFormAction({
     action: submit,
     onComplete: () => {
-      enqueueSnackbar(create_ticket_page["actions--created-successfully"], {
+      enqueueSnackbar(create_ticket_form["actions--created-successfully"], {
         variant: "success",
       });
 
@@ -62,7 +60,7 @@ export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
         fullWidth
         value={service}
         onChange={(_, value) => setService(value as TicketService)}
-        label={create_ticket_page.service_input_label}
+        label={create_ticket_form.service_input_label}
         error={Boolean(state.errors.fields?.service)}
         helperText={state.errors.fields?.service}
       />
@@ -73,7 +71,7 @@ export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
         fullWidth
         autoComplete="off"
         name="issue"
-        label={create_ticket_page.issue_input_label}
+        label={create_ticket_form.issue_input_label}
         error={Boolean(state.errors.fields?.issue)}
         helperText={state.errors.fields?.issue}
       />
@@ -83,7 +81,7 @@ export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
         fullWidth
         value={user}
         onChange={(_, value) => setUser(value as User)}
-        label={create_ticket_page.user_input_label}
+        label={create_ticket_form.user_input_label}
         error={Boolean(state.errors.fields?.user)}
         helperText={state.errors.fields?.user}
       />
@@ -93,13 +91,13 @@ export const CreateTicketForm: React.FC<CreateTicketFormProps> = ({
         filters={{ roles: [UserRole.TECHNICIAN] }}
         value={technician}
         onChange={(_, value) => setTechnician(value as User)}
-        label={create_ticket_page.technician_input_label}
+        label={create_ticket_form.technician_input_label}
         error={Boolean(state.errors.fields?.technician)}
         helperText={state.errors.fields?.technician}
       />
 
       <SubmitButton fullWidth type="submit" variant="contained">
-        {create_ticket_page.submit_button_text}
+        {create_ticket_form.submit_button_text}
       </SubmitButton>
 
       {state.errors.server && (

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
@@ -12,7 +11,7 @@ export async function generateMetadata({
   params: PageParams;
 }): Promise<Metadata> {
   const {
-    technicians_root: { title },
+    technicians_page: { title },
   } = await getDictionary(lang);
 
   return { title };
@@ -26,7 +25,7 @@ export default async function TechniciansPage({
   params: { lang },
 }: TechniciansPageProps) {
   const {
-    technicians_root: { heading, hint },
+    technicians_page: { heading, hint },
   } = await getDictionary(lang);
 
   return (

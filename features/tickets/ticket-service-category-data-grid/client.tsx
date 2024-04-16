@@ -17,14 +17,12 @@ import { getShortUUID } from "@/utils/get-short-uuid";
 import { deleteTicketServiceCategory } from "./actions/delete";
 import { TicketServiceCategory } from "./types";
 
-export type ClientTicketServiceCategoryDataGridDictionary = Pick<
-  Dictionary,
-  "ticket_service_category_model" | "ticket_service_category_data_grid"
->;
-
 export interface ClientTicketServiceCategoryDataGridProps {
   categories: TicketServiceCategory[];
-  dictionary: ClientTicketServiceCategoryDataGridDictionary;
+  dictionary: Pick<
+    Dictionary,
+    "ticket_service_category_model" | "ticket_service_category_data_grid"
+  >;
 }
 
 export const ClientTicketServiceCategoryDataGrid: React.FC<

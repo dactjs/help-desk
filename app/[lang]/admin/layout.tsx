@@ -18,7 +18,7 @@ export default async function AdminLayout({
   children,
 }: AdminLayoutProps) {
   const {
-    admin_root: {
+    admin_layout: {
       dashboard_item_text,
       tickets_item_text,
       resources_item_text,

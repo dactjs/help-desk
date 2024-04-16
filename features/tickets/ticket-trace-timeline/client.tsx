@@ -26,15 +26,10 @@ import { SupportedLanguage } from "@/internationalization/types";
 
 import { TicketTrace } from "./types";
 
-export type ClientTicketTraceTimelineDictionary = Pick<
-  Dictionary,
-  "ticket_trace_model" | "ticket_trace_timeline"
->;
-
 export interface ClientTicketTraceTimelineProps {
   traces: TicketTrace[];
   language: SupportedLanguage;
-  dictionary: ClientTicketTraceTimelineDictionary;
+  dictionary: Pick<Dictionary, "ticket_trace_model" | "ticket_trace_timeline">;
 }
 
 export const ClientTicketTraceTimeline: React.FC<

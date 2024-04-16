@@ -1,11 +1,12 @@
 {
   "sign_in_page": {
     "title": "Iniciar Sesión",
-    "heading": "Iniciar Sesión",
+    "heading": "Iniciar Sesión"
+  },
+
+  "sign_in_form": {
     "username_input_label": "Usuario",
     "password_input_label": "Contraseña",
     "submit_button_text": "Iniciar Sesión"
-  },
-
-  "sign_out_button_text": "Cerrar Sesión"
+  }
 }

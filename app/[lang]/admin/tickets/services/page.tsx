@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Link from "next/link";
-
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";

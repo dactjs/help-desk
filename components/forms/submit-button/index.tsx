@@ -1,7 +1,6 @@
 "use client";
 
 import { useFormStatus } from "react-dom";
-
 import LoadingButton, { LoadingButtonProps } from "@mui/lab/LoadingButton";
 
 export const SubmitButton: React.FC<LoadingButtonProps> = ({

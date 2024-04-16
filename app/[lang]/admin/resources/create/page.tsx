@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
@@ -29,18 +28,21 @@ export interface CreateResourcePageProps {
 export default async function CreateResourcePage({
   params: { lang },
 }: CreateResourcePageProps) {
-  const { create_resource_page } = await getDictionary(lang);
+  const {
+    create_resource_page: { heading },
+    create_resource_form,
+  } = await getDictionary(lang);
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
       <Stack spacing={2} divider={<Divider flexItem />}>
         <Typography component="h1" variant="h5">
-          {create_resource_page.heading}
+          {heading}
         </Typography>
 
         <CreateResourceForm
           language={lang}
-          dictionary={{ create_resource_page }}
+          dictionary={{ create_resource_form }}
         />
       </Stack>
     </Container>

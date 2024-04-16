@@ -34,13 +34,15 @@
 
   "create_resource_page": {
     "title": "Create Resource",
-    "heading": "Create Resource",
+    "heading": "Create Resource"
+  },
+
+  "create_resource_form": {
     "brand_input_label": "Brand",
     "model_input_label": "Model",
     "serial_input_label": "Serial Number",
     "user_input_label": "Assigned User",
     "submit_button_text": "Create",
-
     "actions--created-successfully": "Resource created successfully"
   },
 

@@ -9,34 +9,54 @@
     "call_to_action_text": "Back to dashboard"
   },
 
-  "admin_root": {
-    "title": "Dashboard",
-    "heading": "Welcome to your dashboard 💻",
-    "hint": "To get started, select an option from the sidebar.",
+  "confirm_dialog": {
+    "title": "Are you sure you want to perform this action?",
+    "description": "This action can have permanent consequences, so make sure you are sure of what you are doing before proceeding. If you're sure, go ahead, keep going!"
+  },
 
+  "layout": {
+    "sign_out_button_text": "Sign Out"
+  },
+
+  "dashboard": {
+    "sign_out_button_text": "Sign Out"
+  },
+
+  "admin_layout": {
     "dashboard_item_text": "Dashboard",
     "tickets_item_text": "Tickets",
     "resources_item_text": "Resources",
     "users_item_text": "Users"
   },
 
-  "technicians_root": {
+  "admin_page": {
     "title": "Dashboard",
     "heading": "Welcome to your dashboard 💻",
-    "hint": "To get started, select an option from the sidebar.",
+    "hint": "To get started, select an option from the sidebar."
+  },
 
+  "admin_dashboard_page": {
+    "title": "Dashboard"
+  },
+
+  "technicians_layout": {
     "dashboard_item_text": "Dashboard",
     "tickets_item_text": "Tickets",
     "resources_item_text": "Resources",
     "users_item_text": "Users"
+  },
+
+  "technicians_page": {
+    "title": "Dashboard",
+    "heading": "Welcome to your dashboard 💻",
+    "hint": "To get started, select an option from the sidebar."
+  },
+
+  "technicians_dashboard_page": {
+    "title": "Dashboard"
   },
 
   "dashboard_root": {
     "title": "Dashboard"
-  },
-
-  "confirm_dialog": {
-    "title": "Are you sure you want to perform this action?",
-    "description": "This action can have permanent consequences, so make sure you are sure of what you are doing before proceeding. If you're sure, go ahead, keep going!"
   }
 }

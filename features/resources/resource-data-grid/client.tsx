@@ -26,15 +26,10 @@ import { updateResource } from "./actions/update";
 import { deleteResource } from "./actions/delete";
 import { Resource } from "./types";
 
-export type ClientResourceDataGridDictionary = Pick<
-  Dictionary,
-  "resource_model" | "resource_data_grid"
->;
-
 export interface ClientResourceDataGridProps {
   resources: Resource[];
   language: SupportedLanguage;
-  dictionary: ClientResourceDataGridDictionary;
+  dictionary: Pick<Dictionary, "resource_model" | "resource_data_grid">;
 }
 
 export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({

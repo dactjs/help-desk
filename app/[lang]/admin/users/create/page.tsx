@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
@@ -29,16 +28,19 @@ export interface CreateUserPageProps {
 export default async function CreateUserPage({
   params: { lang },
 }: CreateUserPageProps) {
-  const { create_user_page } = await getDictionary(lang);
+  const {
+    create_user_page: { heading },
+    create_user_form,
+  } = await getDictionary(lang);
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
       <Stack spacing={2} divider={<Divider flexItem />}>
         <Typography component="h1" variant="h5">
-          {create_user_page.heading}
+          {heading}
         </Typography>
 
-        <CreateUserForm language={lang} dictionary={{ create_user_page }} />
+        <CreateUserForm language={lang} dictionary={{ create_user_form }} />
       </Stack>
     </Container>
   );

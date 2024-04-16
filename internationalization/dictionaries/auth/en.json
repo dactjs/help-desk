@@ -1,11 +1,12 @@
 {
   "sign_in_page": {
     "title": "Sign In",
-    "heading": "Sign In",
+    "heading": "Sign In"
+  },
+
+  "sign_in_form": {
     "username_input_label": "Username",
     "password_input_label": "Password",
     "submit_button_text": "Sign In"
-  },
-
-  "sign_out_button_text": "Sign Out"
+  }
 }

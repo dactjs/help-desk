@@ -18,15 +18,13 @@ import { updateTicketService } from "./actions/update";
 import { deleteTicketService } from "./actions/delete";
 import { TicketService, TicketServiceCategory } from "./types";
 
-export type ClientTicketServiceDataGridDictionary = Pick<
-  Dictionary,
-  "ticket_service_model" | "ticket_service_data_grid"
->;
-
 export interface ClientTicketServiceDataGridProps {
   services: TicketService[];
   categories: TicketServiceCategory[];
-  dictionary: ClientTicketServiceDataGridDictionary;
+  dictionary: Pick<
+    Dictionary,
+    "ticket_service_model" | "ticket_service_data_grid"
+  >;
 }
 
 export const ClientTicketServiceDataGrid: React.FC<

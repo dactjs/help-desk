@@ -25,15 +25,13 @@ import { SupportedLanguage } from "@/internationalization/types";
 
 import { ResourceTrace } from "./types";
 
-export type ClientResourceTraceTimelineDictionary = Pick<
-  Dictionary,
-  "resource_trace_model" | "resource_trace_timeline"
->;
-
 export interface ClientResourceTraceTimelineProps {
   traces: ResourceTrace[];
   language: SupportedLanguage;
-  dictionary: ClientResourceTraceTimelineDictionary;
+  dictionary: Pick<
+    Dictionary,
+    "resource_trace_model" | "resource_trace_timeline"
+  >;
 }
 
 export const ClientResourceTraceTimeline: React.FC<

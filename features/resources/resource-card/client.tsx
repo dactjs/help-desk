@@ -15,15 +15,13 @@ import { SupportedLanguage } from "@/internationalization/types";
 
 import { Resource } from "./types";
 
-export type ClientResourceCardDictionary = Pick<
-  Dictionary,
-  "resource_model" | "not_found" | "resource_card"
->;
-
 export interface ClientResourceCardProps {
   resource: Resource | null;
   language: SupportedLanguage;
-  dictionary: ClientResourceCardDictionary;
+  dictionary: Pick<
+    Dictionary,
+    "resource_model" | "resource_card" | "not_found"
+  >;
 }
 
 export const ClientResourceCard: React.FC<ClientResourceCardProps> = ({

@@ -6,9 +6,9 @@ import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import { useSnackbar } from "notistack";
 
-import { FormTextField } from "@/components/forms/form-text-field";
 import { TicketServiceCategoryAutocomplete } from "@/features/tickets/ticket-service-category-autocomplete";
 import { TicketServiceCategory } from "@/features/tickets/ticket-service-category-autocomplete/types";
+import { FormTextField } from "@/components/forms/form-text-field";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
@@ -16,26 +16,21 @@ import { SupportedLanguage } from "@/internationalization/types";
 
 import { submit } from "../../_actions/submit";
 
-type CreateTicketServiceFormDictionary = Pick<
-  Dictionary,
-  "create_ticket_service_page"
->;
-
 export interface CreateTicketServiceFormProps {
   language: SupportedLanguage;
-  dictionary: CreateTicketServiceFormDictionary;
+  dictionary: Pick<Dictionary, "create_ticket_service_form">;
 }
 
 export const CreateTicketServiceForm: React.FC<
   CreateTicketServiceFormProps
-> = ({ language, dictionary: { create_ticket_service_page } }) => {
+> = ({ language, dictionary: { create_ticket_service_form } }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const { state, action } = useFormAction({
     action: submit,
     onComplete: () => {
       enqueueSnackbar(
-        create_ticket_service_page["actions--created-successfully"],
+        create_ticket_service_form["actions--created-successfully"],
         { variant: "success" }
       );
 
@@ -43,7 +38,7 @@ export const CreateTicketServiceForm: React.FC<
     },
   });
 
-  const [category, set] = useState<TicketServiceCategory | null>(null);
+  const [category, setCategory] = useState<TicketServiceCategory | null>(null);
 
   return (
     <Stack component="form" autoComplete="off" action={action} spacing={2}>
@@ -52,11 +47,11 @@ export const CreateTicketServiceForm: React.FC<
       <TicketServiceCategoryAutocomplete
         required
         fullWidth
-        value={category}
-        onChange={(_, value) => set(value as TicketServiceCategory)}
-        label={create_ticket_service_page.category_input_label}
+        label={create_ticket_service_form.category_input_label}
         error={Boolean(state.errors.fields?.category)}
         helperText={state.errors.fields?.category}
+        value={category}
+        onChange={(_, value) => setCategory(value as TicketServiceCategory)}
       />
 
       <FormTextField
@@ -64,13 +59,13 @@ export const CreateTicketServiceForm: React.FC<
         fullWidth
         autoComplete="off"
         name="name"
-        label={create_ticket_service_page.name_input_label}
+        label={create_ticket_service_form.name_input_label}
         error={Boolean(state.errors.fields?.name)}
         helperText={state.errors.fields?.name}
       />
 
       <SubmitButton fullWidth type="submit" variant="contained">
-        {create_ticket_service_page.submit_button_text}
+        {create_ticket_service_form.submit_button_text}
       </SubmitButton>
 
       {state.errors.server && (

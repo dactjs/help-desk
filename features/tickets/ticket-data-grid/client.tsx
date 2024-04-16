@@ -28,15 +28,10 @@ import { getShortUUID } from "@/utils/get-short-uuid";
 import { deleteTicket } from "./actions/delete";
 import { Ticket } from "./types";
 
-export type ClientTicketDataGridDictionary = Pick<
-  Dictionary,
-  "ticket_model" | "ticket_data_grid"
->;
-
 export interface ClientTicketDataGridProps {
   tickets: Ticket[];
   language: SupportedLanguage;
-  dictionary: ClientTicketDataGridDictionary;
+  dictionary: Pick<Dictionary, "ticket_model" | "ticket_data_grid">;
 }
 
 export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
@@ -49,6 +44,15 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
+
+  const status: Record<TicketStatus, string> = {
+    UNASSIGNED: ticket_model["status--unassigned"],
+    ASSIGNED: ticket_model["status--assigned"],
+    IN_PROGRESS: ticket_model["status--in-progress"],
+    RESOLVED: ticket_model["status--resolved"],
+    CLOSED: ticket_model["status--closed"],
+    CANCELLED: ticket_model["status--cancelled"],
+  };
 
   const handleDelete = (id: string) => {
     confirm()
@@ -157,15 +161,6 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
       align: "center",
       width: 150,
       renderCell: (params) => {
-        const status: Record<TicketStatus, string> = {
-          UNASSIGNED: ticket_model["status--unassigned"],
-          ASSIGNED: ticket_model["status--assigned"],
-          IN_PROGRESS: ticket_model["status--in-progress"],
-          RESOLVED: ticket_model["status--resolved"],
-          CLOSED: ticket_model["status--closed"],
-          CANCELLED: ticket_model["status--cancelled"],
-        };
-
         const colors: Record<TicketStatus, ChipProps["color"]> = {
           UNASSIGNED: "warning",
           ASSIGNED: "info",

@@ -10,15 +10,13 @@ import { Dictionary } from "@/internationalization/dictionaries/auth";
 
 import { submit } from "../../_actions/submit";
 
-type SignInFormDictionary = Pick<Dictionary, "sign_in_page">;
-
 export interface SignInFormProps {
-  dictionary: SignInFormDictionary;
+  dictionary: Pick<Dictionary, "sign_in_form">;
 }
 
 export const SignInForm: React.FC<SignInFormProps> = ({
   dictionary: {
-    sign_in_page: {
+    sign_in_form: {
       username_input_label,
       password_input_label,
       submit_button_text,

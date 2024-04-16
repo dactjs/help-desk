@@ -34,13 +34,15 @@
 
   "create_user_page": {
     "title": "Create User",
-    "heading": "Create User",
+    "heading": "Create User"
+  },
+
+  "create_user_form": {
     "username_input_label": "Username",
     "email_input_label": "Email",
     "password_input_label": "Password",
     "name_input_label": "Full Name",
     "submit_button_text": "Create",
-
     "actions--created-successfully": "User created successfully"
   },
 

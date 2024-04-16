@@ -13,23 +13,21 @@ import { SupportedLanguage } from "@/internationalization/types";
 
 import { submit } from "../../_actions/submit";
 
-type CreateUserFormDictionary = Pick<Dictionary, "create_user_page">;
-
 export interface CreateUserFormProps {
   language: SupportedLanguage;
-  dictionary: CreateUserFormDictionary;
+  dictionary: Pick<Dictionary, "create_user_form">;
 }
 
 export const CreateUserForm: React.FC<CreateUserFormProps> = ({
   language,
-  dictionary: { create_user_page },
+  dictionary: { create_user_form },
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const { state, action } = useFormAction({
     action: submit,
     onComplete: () => {
-      enqueueSnackbar(create_user_page["actions--created-successfully"], {
+      enqueueSnackbar(create_user_form["actions--created-successfully"], {
         variant: "success",
       });
 
@@ -44,7 +42,7 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({
         fullWidth
         autoComplete="off"
         name="name"
-        label={create_user_page.name_input_label}
+        label={create_user_form.name_input_label}
         error={Boolean(state.errors.fields?.name)}
         helperText={state.errors.fields?.name}
       />
@@ -54,7 +52,7 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({
         fullWidth
         autoComplete="off"
         name="username"
-        label={create_user_page.username_input_label}
+        label={create_user_form.username_input_label}
         error={Boolean(state.errors.fields?.username)}
         helperText={state.errors.fields?.username}
       />
@@ -65,7 +63,7 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({
         autoComplete="off"
         type="email"
         name="email"
-        label={create_user_page.email_input_label}
+        label={create_user_form.email_input_label}
         error={Boolean(state.errors.fields?.email)}
         helperText={state.errors.fields?.email}
       />
@@ -76,13 +74,13 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({
         autoComplete="off"
         type="password"
         name="password"
-        label={create_user_page.password_input_label}
+        label={create_user_form.password_input_label}
         error={Boolean(state.errors.fields?.password)}
         helperText={state.errors.fields?.password}
       />
 
       <SubmitButton fullWidth type="submit" variant="contained">
-        {create_user_page.submit_button_text}
+        {create_user_form.submit_button_text}
       </SubmitButton>
 
       {state.errors.server && (

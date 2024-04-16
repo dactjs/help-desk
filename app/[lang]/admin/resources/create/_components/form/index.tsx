@@ -6,9 +6,9 @@ import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import { useSnackbar } from "notistack";
 
-import { FormTextField } from "@/components/forms/form-text-field";
 import { UserAutocomplete } from "@/features/users/user-autocomplete";
 import { User } from "@/features/users/user-autocomplete/types";
+import { FormTextField } from "@/components/forms/form-text-field";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
@@ -16,23 +16,21 @@ import { SupportedLanguage } from "@/internationalization/types";
 
 import { submit } from "../../_actions/submit";
 
-type CreateResourceFormDictionary = Pick<Dictionary, "create_resource_page">;
-
 export interface CreateResourceFormProps {
   language: SupportedLanguage;
-  dictionary: CreateResourceFormDictionary;
+  dictionary: Pick<Dictionary, "create_resource_form">;
 }
 
 export const CreateResourceForm: React.FC<CreateResourceFormProps> = ({
   language,
-  dictionary: { create_resource_page },
+  dictionary: { create_resource_form },
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const { state, action } = useFormAction({
     action: submit,
     onComplete: () => {
-      enqueueSnackbar(create_resource_page["actions--created-successfully"], {
+      enqueueSnackbar(create_resource_form["actions--created-successfully"], {
         variant: "success",
       });
 
@@ -51,7 +49,7 @@ export const CreateResourceForm: React.FC<CreateResourceFormProps> = ({
         fullWidth
         autoComplete="off"
         name="brand"
-        label={create_resource_page.brand_input_label}
+        label={create_resource_form.brand_input_label}
         error={Boolean(state.errors.fields?.brand)}
         helperText={state.errors.fields?.brand}
       />
@@ -61,7 +59,7 @@ export const CreateResourceForm: React.FC<CreateResourceFormProps> = ({
         fullWidth
         autoComplete="off"
         name="model"
-        label={create_resource_page.model_input_label}
+        label={create_resource_form.model_input_label}
         error={Boolean(state.errors.fields?.model)}
         helperText={state.errors.fields?.model}
       />
@@ -71,7 +69,7 @@ export const CreateResourceForm: React.FC<CreateResourceFormProps> = ({
         fullWidth
         autoComplete="off"
         name="serial"
-        label={create_resource_page.serial_input_label}
+        label={create_resource_form.serial_input_label}
         error={Boolean(state.errors.fields?.serial)}
         helperText={state.errors.fields?.serial}
       />
@@ -80,13 +78,13 @@ export const CreateResourceForm: React.FC<CreateResourceFormProps> = ({
         fullWidth
         value={user}
         onChange={(_, value) => setUser(value as User)}
-        label={create_resource_page.user_input_label}
+        label={create_resource_form.user_input_label}
         error={Boolean(state.errors.fields?.user)}
         helperText={state.errors.fields?.user}
       />
 
       <SubmitButton fullWidth type="submit" variant="contained">
-        {create_resource_page.submit_button_text}
+        {create_resource_form.submit_button_text}
       </SubmitButton>
 
       {state.errors.server && (

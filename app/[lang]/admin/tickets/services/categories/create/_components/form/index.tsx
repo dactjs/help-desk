@@ -13,26 +13,21 @@ import { SupportedLanguage } from "@/internationalization/types";
 
 import { submit } from "../../_actions/submit";
 
-type CreateTicketServiceCategoryFormDictionary = Pick<
-  Dictionary,
-  "create_ticket_service_category_page"
->;
-
 export interface CreateTicketServiceCategoryFormProps {
   language: SupportedLanguage;
-  dictionary: CreateTicketServiceCategoryFormDictionary;
+  dictionary: Pick<Dictionary, "create_ticket_service_category_form">;
 }
 
 export const CreateTicketServiceCategoryForm: React.FC<
   CreateTicketServiceCategoryFormProps
-> = ({ language, dictionary: { create_ticket_service_category_page } }) => {
+> = ({ language, dictionary: { create_ticket_service_category_form } }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const { state, action } = useFormAction({
     action: submit,
     onComplete: () => {
       enqueueSnackbar(
-        create_ticket_service_category_page["actions--created-successfully"],
+        create_ticket_service_category_form["actions--created-successfully"],
         { variant: "success" }
       );
 
@@ -47,13 +42,13 @@ export const CreateTicketServiceCategoryForm: React.FC<
         fullWidth
         autoComplete="off"
         name="name"
-        label={create_ticket_service_category_page.name_input_label}
+        label={create_ticket_service_category_form.name_input_label}
         error={Boolean(state.errors.fields?.name)}
         helperText={state.errors.fields?.name}
       />
 
       <SubmitButton fullWidth type="submit" variant="contained">
-        {create_ticket_service_category_page.submit_button_text}
+        {create_ticket_service_category_form.submit_button_text}
       </SubmitButton>
 
       {state.errors.server && (

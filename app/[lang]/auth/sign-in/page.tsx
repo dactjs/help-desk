@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import Stack from "@mui/material/Stack";
@@ -32,7 +31,10 @@ export interface SignInPageProps {
 export default async function SignInPage({
   params: { lang },
 }: SignInPageProps) {
-  const { sign_in_page } = await getDictionary(lang);
+  const {
+    sign_in_page: { heading },
+    sign_in_form,
+  } = await getDictionary(lang);
 
   return (
     <Grid component="main" container sx={{ height: "100vh" }}>
@@ -55,11 +57,11 @@ export default async function SignInPage({
             </Avatar>
 
             <Typography component="h1" variant="h5">
-              {sign_in_page.heading}
+              {heading}
             </Typography>
           </Stack>
 
-          <SignInForm dictionary={{ sign_in_page }} />
+          <SignInForm dictionary={{ sign_in_form }} />
         </Stack>
       </Grid>
     </Grid>
