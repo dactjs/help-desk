@@ -30,11 +30,11 @@ export interface ClientUserDataGridProps {
   dictionary: Pick<Dictionary, "user_model" | "user_data_grid">;
 }
 
-export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
+export function ClientUserDataGrid({
   users,
   language,
   dictionary: { user_model, user_data_grid },
-}) => {
+}: ClientUserDataGridProps) {
   const router = useRouter();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -227,4 +227,4 @@ export const ClientUserDataGrid: React.FC<ClientUserDataGridProps> = ({
       onProcessRowUpdateError={handleOnProcessRowUpdateError}
     />
   );
-};
+}

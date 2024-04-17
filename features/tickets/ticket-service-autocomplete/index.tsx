@@ -18,9 +18,13 @@ export type TicketServiceAutocompleteProps = Omit<
   helperText?: TextFieldProps["helperText"];
 };
 
-export const TicketServiceAutocomplete: React.FC<
-  TicketServiceAutocompleteProps
-> = ({ required, error, label, helperText, ...rest }) => {
+export function TicketServiceAutocomplete({
+  required,
+  error,
+  label,
+  helperText,
+  ...rest
+}: TicketServiceAutocompleteProps) {
   const { pending } = useFormStatus();
 
   const [input, setInput] = useState<string>("");
@@ -59,4 +63,4 @@ export const TicketServiceAutocomplete: React.FC<
       {...rest}
     />
   );
-};
+}

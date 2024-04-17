@@ -9,9 +9,9 @@ export interface ServerResourceCardProps {
   resourceId: string;
 }
 
-export const ServerResourceCard: React.FC<ServerResourceCardProps> = async ({
+export async function ServerResourceCard({
   resourceId,
-}) => {
+}: ServerResourceCardProps) {
   const language = getAppLanguage();
 
   // TODO: Fetch data from the server
@@ -34,4 +34,4 @@ export const ServerResourceCard: React.FC<ServerResourceCardProps> = async ({
       }}
     />
   );
-};
+}

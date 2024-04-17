@@ -9,9 +9,9 @@ export interface ServerTicketTraceTimelineProps {
   ticketId: string;
 }
 
-export const ServerTicketTraceTimeline: React.FC<
-  ServerTicketTraceTimelineProps
-> = async ({ ticketId }) => {
+export async function ServerTicketTraceTimeline({
+  ticketId,
+}: ServerTicketTraceTimelineProps) {
   const language = getAppLanguage();
 
   // TODO: Fetch data from the server
@@ -33,4 +33,4 @@ export const ServerTicketTraceTimeline: React.FC<
       }}
     />
   );
-};
+}

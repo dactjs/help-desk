@@ -12,10 +12,7 @@ export interface ServerUserCardProps {
   userId: string;
 }
 
-export const ServerUserCard: React.FC<ServerUserCardProps> = async ({
-  variant,
-  userId,
-}) => {
+export async function ServerUserCard({ variant, userId }: ServerUserCardProps) {
   const language = getAppLanguage();
 
   // TODO: Fetch data from the server
@@ -39,4 +36,4 @@ export const ServerUserCard: React.FC<ServerUserCardProps> = async ({
       }}
     />
   );
-};
+}

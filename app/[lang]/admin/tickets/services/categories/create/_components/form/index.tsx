@@ -18,9 +18,10 @@ export interface CreateTicketServiceCategoryFormProps {
   dictionary: Pick<Dictionary, "create_ticket_service_category_form">;
 }
 
-export const CreateTicketServiceCategoryForm: React.FC<
-  CreateTicketServiceCategoryFormProps
-> = ({ language, dictionary: { create_ticket_service_category_form } }) => {
+export function CreateTicketServiceCategoryForm({
+  language,
+  dictionary: { create_ticket_service_category_form },
+}: CreateTicketServiceCategoryFormProps) {
   const { enqueueSnackbar } = useSnackbar();
 
   const { state, action } = useFormAction({
@@ -56,4 +57,4 @@ export const CreateTicketServiceCategoryForm: React.FC<
       )}
     </Stack>
   );
-};
+}

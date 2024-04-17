@@ -5,7 +5,7 @@ import { SubmitButton } from "@/components/forms/submit-button";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/common";
 
-export const SignOutButton: React.FC = async () => {
+export async function SignOutButton() {
   const language = getAppLanguage();
 
   const {
@@ -34,4 +34,4 @@ export const SignOutButton: React.FC = async () => {
       </SubmitButton>
     </form>
   );
-};
+}

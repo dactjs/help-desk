@@ -3,10 +3,7 @@
 import { useFormStatus } from "react-dom";
 import LoadingButton, { LoadingButtonProps } from "@mui/lab/LoadingButton";
 
-export const SubmitButton: React.FC<LoadingButtonProps> = ({
-  children,
-  ...rest
-}) => {
+export function SubmitButton({ children, ...rest }: LoadingButtonProps) {
   const { pending } = useFormStatus();
 
   return (
@@ -14,4 +11,4 @@ export const SubmitButton: React.FC<LoadingButtonProps> = ({
       {children}
     </LoadingButton>
   );
-};
+}

@@ -18,10 +18,10 @@ export interface CreateUserFormProps {
   dictionary: Pick<Dictionary, "create_user_form">;
 }
 
-export const CreateUserForm: React.FC<CreateUserFormProps> = ({
+export function CreateUserForm({
   language,
   dictionary: { create_user_form },
-}) => {
+}: CreateUserFormProps) {
   const { enqueueSnackbar } = useSnackbar();
 
   const { state, action } = useFormAction({
@@ -88,4 +88,4 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({
       )}
     </Stack>
   );
-};
+}

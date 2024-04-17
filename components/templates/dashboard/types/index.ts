@@ -9,13 +9,13 @@ export const DashboardNavigationType = {
 export type DashboardNavigationItem = {
   type: typeof DashboardNavigationType.ITEM;
   href: string;
-  icon: React.ReactElement;
+  icon: React.ReactNode;
   text: string;
 };
 
 export type DashboardNavigationGroup = {
   type: typeof DashboardNavigationType.GROUP;
-  icon: React.ReactElement;
+  icon: React.ReactNode;
   heading: string;
   items: DashboardNavigationItem[];
 };

@@ -16,11 +16,11 @@ import { DashboardNavigationGroup } from "../../types";
 
 import { NavigationItem } from "../navigation-item";
 
-export const NavigationGroup: React.FC<DashboardNavigationGroup> = ({
+export function NavigationGroup({
   icon,
   heading,
   items,
-}) => {
+}: DashboardNavigationGroup) {
   const pathname = usePathname();
 
   const isMobile = useMediaQuery<Theme>((theme) =>
@@ -55,4 +55,4 @@ export const NavigationGroup: React.FC<DashboardNavigationGroup> = ({
       </Collapse>
     </>
   );
-};
+}

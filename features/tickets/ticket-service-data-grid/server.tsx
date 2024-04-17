@@ -8,7 +8,7 @@ import {
   NECESSARY_TICKET_SERVICE_CATEGORY_FIELDS,
 } from "./constants";
 
-export const ServerTicketServiceDataGrid: React.FC = async () => {
+export async function ServerTicketServiceDataGrid() {
   const language = getAppLanguage();
 
   // TODO: add authorization and pagination
@@ -34,4 +34,4 @@ export const ServerTicketServiceDataGrid: React.FC = async () => {
       }}
     />
   );
-};
+}

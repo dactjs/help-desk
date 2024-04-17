@@ -32,11 +32,11 @@ export interface ClientResourceDataGridProps {
   dictionary: Pick<Dictionary, "resource_model" | "resource_data_grid">;
 }
 
-export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
+export function ClientResourceDataGrid({
   resources,
   language,
   dictionary: { resource_model, resource_data_grid },
-}) => {
+}: ClientResourceDataGridProps) {
   const router = useRouter();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -198,4 +198,4 @@ export const ClientResourceDataGrid: React.FC<ClientResourceDataGridProps> = ({
       onProcessRowUpdateError={handleOnProcessRowUpdateError}
     />
   );
-};
+}

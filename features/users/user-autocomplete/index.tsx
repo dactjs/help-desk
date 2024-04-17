@@ -21,14 +21,14 @@ export type UserAutocompleteProps = Omit<
   helperText?: TextFieldProps["helperText"];
 };
 
-export const UserAutocomplete: React.FC<UserAutocompleteProps> = ({
+export function UserAutocomplete({
   filters,
   required,
   error,
   label,
   helperText,
   ...rest
-}) => {
+}: UserAutocompleteProps) {
   const { pending } = useFormStatus();
 
   const [input, setInput] = useState<string>("");
@@ -82,4 +82,4 @@ export const UserAutocomplete: React.FC<UserAutocompleteProps> = ({
       {...rest}
     />
   );
-};
+}

@@ -13,50 +13,52 @@ import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineDot from "@mui/lab/TimelineDot";
 
-export const TimelineSkeleton: React.FC = () => (
-  <Paper sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-    <AppBar position="static" sx={{ borderRadius: "inherit" }}>
-      <Toolbar>
-        <Typography component="h2" variant="body1" fontWeight="bolder">
-          <Skeleton width="20ch" />
-        </Typography>
-      </Toolbar>
-    </AppBar>
+export function TimelineSkeleton() {
+  return (
+    <Paper sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <AppBar position="static" sx={{ borderRadius: "inherit" }}>
+        <Toolbar>
+          <Typography component="h2" variant="body1" fontWeight="bolder">
+            <Skeleton width="20ch" />
+          </Typography>
+        </Toolbar>
+      </AppBar>
 
-    <Timeline sx={{ height: "100%", overflowY: "auto" }}>
-      {Array.from({ length: 10 }).map((_, index) => (
-        <TimelineItem key={index}>
-          <TimelineOppositeContent>
-            <Typography fontWeight="bolder">
-              <Skeleton />
-            </Typography>
+      <Timeline sx={{ height: "100%", overflowY: "auto" }}>
+        {Array.from({ length: 10 }).map((_, index) => (
+          <TimelineItem key={index}>
+            <TimelineOppositeContent>
+              <Typography fontWeight="bolder">
+                <Skeleton />
+              </Typography>
 
-            <Typography variant="caption" color="text.secondary">
-              <Skeleton />
-            </Typography>
-          </TimelineOppositeContent>
+              <Typography variant="caption" color="text.secondary">
+                <Skeleton />
+              </Typography>
+            </TimelineOppositeContent>
 
-          <TimelineSeparator>
-            <TimelineConnector />
+            <TimelineSeparator>
+              <TimelineConnector />
 
-            <TimelineDot variant="outlined">
-              <Skeleton variant="circular" width={30} height={30} />
-            </TimelineDot>
+              <TimelineDot variant="outlined">
+                <Skeleton variant="circular" width={30} height={30} />
+              </TimelineDot>
 
-            <TimelineConnector />
-          </TimelineSeparator>
+              <TimelineConnector />
+            </TimelineSeparator>
 
-          <TimelineContent sx={{ paddingX: 2, paddingY: 1.5 }}>
-            <Typography fontWeight="bolder">
-              <Skeleton />
-            </Typography>
+            <TimelineContent sx={{ paddingX: 2, paddingY: 1.5 }}>
+              <Typography fontWeight="bolder">
+                <Skeleton />
+              </Typography>
 
-            <Typography variant="caption" color="text.secondary">
-              <Skeleton />
-            </Typography>
-          </TimelineContent>
-        </TimelineItem>
-      ))}
-    </Timeline>
-  </Paper>
-);
+              <Typography variant="caption" color="text.secondary">
+                <Skeleton />
+              </Typography>
+            </TimelineContent>
+          </TimelineItem>
+        ))}
+      </Timeline>
+    </Paper>
+  );
+}

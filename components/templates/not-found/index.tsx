@@ -14,11 +14,11 @@ export interface NotFoundProps {
   };
 }
 
-export const NotFound: React.FC<NotFoundProps> = ({
+export function NotFound({
   heading,
   description,
   callToAction,
-}) => {
+}: NotFoundProps) {
   return (
     <Stack
       justifyContent="center"
@@ -59,4 +59,4 @@ export const NotFound: React.FC<NotFoundProps> = ({
       )}
     </Stack>
   );
-};
+}

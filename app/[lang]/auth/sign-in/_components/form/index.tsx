@@ -14,7 +14,7 @@ export interface SignInFormProps {
   dictionary: Pick<Dictionary, "sign_in_form">;
 }
 
-export const SignInForm: React.FC<SignInFormProps> = ({
+export function SignInForm({
   dictionary: {
     sign_in_form: {
       username_input_label,
@@ -22,7 +22,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       submit_button_text,
     },
   },
-}) => {
+}: SignInFormProps) {
   const { state, action } = useFormAction({ action: submit });
 
   return (
@@ -57,4 +57,4 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       )}
     </Stack>
   );
-};
+}

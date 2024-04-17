@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { ClientResourceDataGrid } from "./client";
 import { NECESSARY_RESOURCE_FIELDS } from "./constants";
 
-export const ServerResourceDataGrid: React.FC = async () => {
+export async function ServerResourceDataGrid() {
   const language = getAppLanguage();
 
   // TODO: add authorization and pagination
@@ -27,4 +27,4 @@ export const ServerResourceDataGrid: React.FC = async () => {
       }}
     />
   );
-};
+}

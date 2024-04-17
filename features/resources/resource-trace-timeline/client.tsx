@@ -34,13 +34,11 @@ export interface ClientResourceTraceTimelineProps {
   >;
 }
 
-export const ClientResourceTraceTimeline: React.FC<
-  ClientResourceTraceTimelineProps
-> = ({
+export function ClientResourceTraceTimeline({
   traces,
   language,
   dictionary: { resource_trace_model, resource_trace_timeline },
-}) => {
+}: ClientResourceTraceTimelineProps) {
   const type: Record<ResourceTraceType, string> = {
     [ResourceTraceType.INPUT]: resource_trace_model["type--input"],
     [ResourceTraceType.ASSIGNMENT]: resource_trace_model["type--assignment"],
@@ -51,7 +49,7 @@ export const ClientResourceTraceTimeline: React.FC<
     [ResourceTraceType.OUTPUT]: resource_trace_model["type--output"],
   };
 
-  const icons: Record<ResourceTraceType, React.ReactElement> = {
+  const icons: Record<ResourceTraceType, React.ReactNode> = {
     [ResourceTraceType.INPUT]: <InputIcon color="success" />,
     [ResourceTraceType.ASSIGNMENT]: <AssignmentIcon color="warning" />,
     [ResourceTraceType.TRANSFER]: <TransferIcon color="info" />,
@@ -107,4 +105,4 @@ export const ClientResourceTraceTimeline: React.FC<
       </Timeline>
     </Paper>
   );
-};
+}

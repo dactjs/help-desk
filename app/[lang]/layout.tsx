@@ -25,7 +25,7 @@ export async function generateMetadata({
 
 export interface RootLayoutProps {
   params: PageParams;
-  children: React.ReactElement;
+  children: React.ReactNode;
 }
 
 export default async function RootLayout({
@@ -38,7 +38,7 @@ export default async function RootLayout({
     <html lang={lang}>
       <body>
         <AppRouterCacheProvider>
-          <Providers lang={lang} dictionary={{ confirm_dialog }}>
+          <Providers language={lang} dictionary={{ confirm_dialog }}>
             {children}
             <SpeedInsights />
           </Providers>

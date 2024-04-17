@@ -25,15 +25,13 @@ export interface ClientTicketServiceCategoryDataGridProps {
   >;
 }
 
-export const ClientTicketServiceCategoryDataGrid: React.FC<
-  ClientTicketServiceCategoryDataGridProps
-> = ({
+export function ClientTicketServiceCategoryDataGrid({
   categories,
   dictionary: {
     ticket_service_category_model,
     ticket_service_category_data_grid,
   },
-}) => {
+}: ClientTicketServiceCategoryDataGridProps) {
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -113,4 +111,4 @@ export const ClientTicketServiceCategoryDataGrid: React.FC<
       slotProps={{ toolbar: { showQuickFilter: true } }}
     />
   );
-};
+}

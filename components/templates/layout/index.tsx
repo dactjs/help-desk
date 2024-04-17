@@ -8,9 +8,11 @@ import { auth } from "@/auth";
 
 import { SignOutButton } from "./components/sign-out-button";
 
-export const Layout: React.FC<React.PropsWithChildren> = async ({
-  children,
-}) => {
+export interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export async function Layout({ children }: LayoutProps) {
   const session = await auth();
 
   return (
@@ -82,4 +84,4 @@ export const Layout: React.FC<React.PropsWithChildren> = async ({
       </Box>
     </Box>
   );
-};
+}

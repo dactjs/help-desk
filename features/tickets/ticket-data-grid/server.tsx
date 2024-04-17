@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { ClientTicketDataGrid } from "./client";
 import { NECESSARY_TICKET_FIELDS } from "./constants";
 
-export const ServerTicketDataGrid: React.FC = async () => {
+export async function ServerTicketDataGrid() {
   const language = getAppLanguage();
 
   // TODO: add authorization and pagination
@@ -27,4 +27,4 @@ export const ServerTicketDataGrid: React.FC = async () => {
       }}
     />
   );
-};
+}

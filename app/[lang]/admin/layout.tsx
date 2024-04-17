@@ -10,7 +10,7 @@ import { PageParams } from "@/types/page-params";
 
 export interface AdminLayoutProps {
   params: PageParams;
-  children: React.ReactElement;
+  children: React.ReactNode;
 }
 
 export default async function AdminLayout({

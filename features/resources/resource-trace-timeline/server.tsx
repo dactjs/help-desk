@@ -9,9 +9,9 @@ export interface ServerResourceTraceTimelineProps {
   resourceId: string;
 }
 
-export const ServerResourceTraceTimeline: React.FC<
-  ServerResourceTraceTimelineProps
-> = async ({ resourceId }) => {
+export async function ServerResourceTraceTimeline({
+  resourceId,
+}: ServerResourceTraceTimelineProps) {
   const language = getAppLanguage();
 
   // TODO: Fetch data from the server
@@ -33,4 +33,4 @@ export const ServerResourceTraceTimeline: React.FC<
       }}
     />
   );
-};
+}

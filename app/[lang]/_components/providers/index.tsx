@@ -18,19 +18,18 @@ const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
 });
 
-type ProvidersDictionary = Pick<Dictionary, "confirm_dialog">;
-
 export interface ProvidersProps {
-  lang: SupportedLanguage;
-  dictionary: ProvidersDictionary;
+  language: SupportedLanguage;
+  dictionary: Pick<Dictionary, "confirm_dialog">;
+  children: React.ReactNode;
 }
 
-export const Providers: React.FC<React.PropsWithChildren<ProvidersProps>> = ({
-  lang,
+export function Providers({
+  language,
   dictionary: { confirm_dialog },
   children,
-}) => {
-  const translations = getMuiTranslations(lang);
+}: ProvidersProps) {
+  const translations = getMuiTranslations(language);
 
   const theme = createTheme(
     {
@@ -73,4 +72,4 @@ export const Providers: React.FC<React.PropsWithChildren<ProvidersProps>> = ({
       </SnackbarProvider>
     </ThemeProvider>
   );
-};
+}

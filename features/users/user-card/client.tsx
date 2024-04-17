@@ -23,12 +23,12 @@ export interface ClientUserCardProps {
   dictionary: Pick<Dictionary, "user_model" | "user_card" | "not_found">;
 }
 
-export const ClientUserCard: React.FC<ClientUserCardProps> = ({
+export function ClientUserCard({
   variant,
   user,
   language,
   dictionary: { user_model, user_card, not_found },
-}) => {
+}: ClientUserCardProps) {
   const heading: Record<UserRole, string> = {
     ADMIN: user_card["heading--admin"],
     TECHNICIAN: user_card["heading--technician"],
@@ -126,4 +126,4 @@ export const ClientUserCard: React.FC<ClientUserCardProps> = ({
       </CardContent>
     </Card>
   );
-};
+}

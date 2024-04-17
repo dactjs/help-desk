@@ -10,11 +10,10 @@ export interface UserCardProps {
   userId: string;
 }
 
-export const UserCard: React.FC<UserCardProps> = ({
-  variant = UserRole.USER,
-  userId,
-}) => (
-  <Suspense fallback={<CardSkeleton items={7} />}>
-    <ServerUserCard variant={variant} userId={userId} />
-  </Suspense>
-);
+export function UserCard({ variant = UserRole.USER, userId }: UserCardProps) {
+  return (
+    <Suspense fallback={<CardSkeleton items={7} />}>
+      <ServerUserCard variant={variant} userId={userId} />
+    </Suspense>
+  );
+}

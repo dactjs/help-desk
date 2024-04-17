@@ -18,9 +18,13 @@ export type TicketServiceCategoryAutocompleteProps = Omit<
   helperText?: TextFieldProps["helperText"];
 };
 
-export const TicketServiceCategoryAutocomplete: React.FC<
-  TicketServiceCategoryAutocompleteProps
-> = ({ required, error, label, helperText, ...rest }) => {
+export function TicketServiceCategoryAutocomplete({
+  required,
+  error,
+  label,
+  helperText,
+  ...rest
+}: TicketServiceCategoryAutocompleteProps) {
   const { pending } = useFormStatus();
 
   const [input, setInput] = useState<string>("");
@@ -58,4 +62,4 @@ export const TicketServiceCategoryAutocomplete: React.FC<
       {...rest}
     />
   );
-};
+}

@@ -21,10 +21,10 @@ export interface CreateResourceFormProps {
   dictionary: Pick<Dictionary, "create_resource_form">;
 }
 
-export const CreateResourceForm: React.FC<CreateResourceFormProps> = ({
+export function CreateResourceForm({
   language,
   dictionary: { create_resource_form },
-}) => {
+}: CreateResourceFormProps) {
   const { enqueueSnackbar } = useSnackbar();
 
   const { state, action } = useFormAction({
@@ -92,4 +92,4 @@ export const CreateResourceForm: React.FC<CreateResourceFormProps> = ({
       )}
     </Stack>
   );
-};
+}

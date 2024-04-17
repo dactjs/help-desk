@@ -22,11 +22,11 @@ export interface ClientTicketCardProps {
   dictionary: Pick<Dictionary, "ticket_model" | "ticket_card" | "not_found">;
 }
 
-export const ClientTicketCard: React.FC<ClientTicketCardProps> = ({
+export function ClientTicketCard({
   ticket,
   language,
   dictionary: { ticket_model, ticket_card, not_found },
-}) => {
+}: ClientTicketCardProps) {
   const status: Record<TicketStatus, string> = {
     UNASSIGNED: ticket_model["status--unassigned"],
     ASSIGNED: ticket_model["status--assigned"],
@@ -125,4 +125,4 @@ export const ClientTicketCard: React.FC<ClientTicketCardProps> = ({
       </CardContent>
     </Card>
   );
-};
+}

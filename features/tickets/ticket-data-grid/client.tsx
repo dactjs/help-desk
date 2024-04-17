@@ -34,11 +34,11 @@ export interface ClientTicketDataGridProps {
   dictionary: Pick<Dictionary, "ticket_model" | "ticket_data_grid">;
 }
 
-export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
+export function ClientTicketDataGrid({
   tickets,
   language,
   dictionary: { ticket_model, ticket_data_grid },
-}) => {
+}: ClientTicketDataGridProps) {
   const router = useRouter();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -222,4 +222,4 @@ export const ClientTicketDataGrid: React.FC<ClientTicketDataGridProps> = ({
       slotProps={{ toolbar: { showQuickFilter: true } }}
     />
   );
-};
+}

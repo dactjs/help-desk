@@ -24,11 +24,11 @@ export interface ClientResourceCardProps {
   >;
 }
 
-export const ClientResourceCard: React.FC<ClientResourceCardProps> = ({
+export function ClientResourceCard({
   resource,
   language,
   dictionary: { resource_model, resource_card, not_found },
-}) => {
+}: ClientResourceCardProps) {
   if (!resource) {
     return (
       <Paper sx={{ placeContent: "center", height: "100%" }}>
@@ -101,4 +101,4 @@ export const ClientResourceCard: React.FC<ClientResourceCardProps> = ({
       </CardContent>
     </Card>
   );
-};
+}

@@ -9,9 +9,7 @@ export interface ServerTicketCardProps {
   ticketId: string;
 }
 
-export const ServerTicketCard: React.FC<ServerTicketCardProps> = async ({
-  ticketId,
-}) => {
+export async function ServerTicketCard({ ticketId }: ServerTicketCardProps) {
   const language = getAppLanguage();
 
   // TODO: Fetch data from the server
@@ -34,4 +32,4 @@ export const ServerTicketCard: React.FC<ServerTicketCardProps> = async ({
       }}
     />
   );
-};
+}

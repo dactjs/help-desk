@@ -3,8 +3,8 @@
 import { useFormStatus } from "react-dom";
 import TextField, { TextFieldProps } from "@mui/material/TextField";
 
-export const FormTextField: React.FC<TextFieldProps> = (props) => {
+export function FormTextField(props: TextFieldProps) {
   const { pending } = useFormStatus();
 
   return <TextField disabled={pending} {...props} />;
-};
+}

@@ -32,13 +32,11 @@ export interface ClientTicketTraceTimelineProps {
   dictionary: Pick<Dictionary, "ticket_trace_model" | "ticket_trace_timeline">;
 }
 
-export const ClientTicketTraceTimeline: React.FC<
-  ClientTicketTraceTimelineProps
-> = ({
+export function ClientTicketTraceTimeline({
   traces,
   language,
   dictionary: { ticket_trace_model, ticket_trace_timeline },
-}) => {
+}: ClientTicketTraceTimelineProps) {
   const type: Record<TicketTraceType, string> = {
     [TicketTraceType.RECEPTION]: ticket_trace_model["type--reception"],
     [TicketTraceType.ASSIGNMENT]: ticket_trace_model["type--assignment"],
@@ -49,7 +47,7 @@ export const ClientTicketTraceTimeline: React.FC<
     [TicketTraceType.CANCELLED]: ticket_trace_model["type--cancelled"],
   };
 
-  const icons: Record<TicketTraceType, React.ReactElement> = {
+  const icons: Record<TicketTraceType, React.ReactNode> = {
     [TicketTraceType.RECEPTION]: <ReceptionIcon color="success" />,
     [TicketTraceType.ASSIGNMENT]: <AssignmentIcon color="warning" />,
     [TicketTraceType.TRANSFER]: <TransferIcon color="info" />,
@@ -106,4 +104,4 @@ export const ClientTicketTraceTimeline: React.FC<
       </Timeline>
     </Paper>
   );
-};
+}

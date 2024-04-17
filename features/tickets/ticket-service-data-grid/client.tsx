@@ -27,13 +27,11 @@ export interface ClientTicketServiceDataGridProps {
   >;
 }
 
-export const ClientTicketServiceDataGrid: React.FC<
-  ClientTicketServiceDataGridProps
-> = ({
+export function ClientTicketServiceDataGrid({
   services,
   categories,
   dictionary: { ticket_service_model, ticket_service_data_grid },
-}) => {
+}: ClientTicketServiceDataGridProps) {
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -138,4 +136,4 @@ export const ClientTicketServiceDataGrid: React.FC<
       onProcessRowUpdateError={handleOnProcessRowUpdateError}
     />
   );
-};
+}

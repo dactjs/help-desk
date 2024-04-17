@@ -15,12 +15,12 @@ export interface NavigationItemProps extends DashboardNavigationItem {
   nested?: boolean;
 }
 
-export const NavigationItem: React.FC<NavigationItemProps> = ({
+export function NavigationItem({
   href,
   icon,
   text,
   nested,
-}) => {
+}: NavigationItemProps) {
   const pathname = usePathname();
 
   const isMobile = useMediaQuery<Theme>((theme) =>
@@ -45,4 +45,4 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       </ListItemButton>
     </ListItem>
   );
-};
+}

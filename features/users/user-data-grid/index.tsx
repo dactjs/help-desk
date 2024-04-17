@@ -4,10 +4,10 @@ import { DataGridSkeleton } from "@/components/templates/data-grid-skeleton";
 
 import { ServerUserDataGrid } from "./server";
 
-export const UserDataGrid: React.FC = () => {
+export function UserDataGrid() {
   return (
     <Suspense fallback={<DataGridSkeleton />}>
       <ServerUserDataGrid />
     </Suspense>
   );
-};
+}

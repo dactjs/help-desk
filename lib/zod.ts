@@ -15,8 +15,8 @@ i18next.init({
   },
 });
 
-export function zod(lang: SupportedLanguage = ENV.FALLBACK_LANGUAGE) {
-  i18next.changeLanguage(lang);
+export function zod(language: SupportedLanguage = ENV.FALLBACK_LANGUAGE) {
+  i18next.changeLanguage(language);
 
   z.setErrorMap(zodI18nMap);
 

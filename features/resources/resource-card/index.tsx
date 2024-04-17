@@ -8,8 +8,10 @@ export interface ResourceCardProps {
   resourceId: string;
 }
 
-export const ResourceCard: React.FC<ResourceCardProps> = ({ resourceId }) => (
-  <Suspense fallback={<CardSkeleton items={5} />}>
-    <ServerResourceCard resourceId={resourceId} />
-  </Suspense>
-);
+export function ResourceCard({ resourceId }: ResourceCardProps) {
+  return (
+    <Suspense fallback={<CardSkeleton items={5} />}>
+      <ServerResourceCard resourceId={resourceId} />
+    </Suspense>
+  );
+}

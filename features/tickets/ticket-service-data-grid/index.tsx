@@ -4,8 +4,10 @@ import { DataGridSkeleton } from "@/components/templates/data-grid-skeleton";
 
 import { ServerTicketServiceDataGrid } from "./server";
 
-export const TicketServiceDataGrid: React.FC = () => (
-  <Suspense fallback={<DataGridSkeleton />}>
-    <ServerTicketServiceDataGrid />
-  </Suspense>
-);
+export function TicketServiceDataGrid() {
+  return (
+    <Suspense fallback={<DataGridSkeleton />}>
+      <ServerTicketServiceDataGrid />
+    </Suspense>
+  );
+}

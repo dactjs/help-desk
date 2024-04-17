@@ -8,10 +8,12 @@ export interface ResourceTraceTimelineProps {
   resourceId: string;
 }
 
-export const ResourceTraceTimeline: React.FC<ResourceTraceTimelineProps> = ({
+export function ResourceTraceTimeline({
   resourceId,
-}) => (
-  <Suspense fallback={<TimelineSkeleton />}>
-    <ServerResourceTraceTimeline resourceId={resourceId} />
-  </Suspense>
-);
+}: ResourceTraceTimelineProps) {
+  return (
+    <Suspense fallback={<TimelineSkeleton />}>
+      <ServerResourceTraceTimeline resourceId={resourceId} />
+    </Suspense>
+  );
+}
