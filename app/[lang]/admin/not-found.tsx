@@ -1,19 +1,15 @@
 import Container from "@mui/material/Container";
 
 import { NotFound } from "@/components/templates/not-found";
+import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/common";
-import { PageParams } from "@/types/page-params";
 
-export interface TechniciansNotFoundProps {
-  params: PageParams;
-}
+export default async function AdminNotFound() {
+  const language = getAppLanguage();
 
-export default async function TechniciansNotFound({
-  params: { lang },
-}: TechniciansNotFoundProps) {
   const {
     root_not_found: { heading, description, call_to_action_text },
-  } = await getDictionary(lang);
+  } = await getDictionary(language);
 
   return (
     <Container fixed sx={{ minHeight: "100%", placeContent: "center" }}>
@@ -21,7 +17,7 @@ export default async function TechniciansNotFound({
         heading={heading}
         description={description}
         callToAction={{
-          href: `/${lang}/technicians`,
+          href: `/${language}/admin`,
           text: call_to_action_text,
         }}
       />

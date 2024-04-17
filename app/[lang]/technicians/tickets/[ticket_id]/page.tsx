@@ -44,7 +44,7 @@ export default async function TicketPage({
   params: { ticket_id },
 }: TicketPageProps) {
   // TODO: add authorization
-  const ticket = await prisma.ticket.findUniqueOrThrow({
+  const ticket = await prisma.ticket.findUnique({
     where: { id: ticket_id },
     select: { sentById: true, assignedToId: true },
   });
