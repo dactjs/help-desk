@@ -1,3 +1,7 @@
+import { accessibleBy } from "@casl/prisma";
+
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/tickets";
 import { prisma } from "@/lib/prisma";
@@ -11,13 +15,18 @@ import {
 export async function ServerTicketServiceDataGrid() {
   const language = getAppLanguage();
 
-  // TODO: add authorization and pagination
+  const session = await auth();
+
+  const ability = createAbilityFor(session);
+
   const [services, categories, dictionary] = await Promise.all([
     prisma.ticketService.findMany({
+      where: accessibleBy(ability).TicketService,
       orderBy: { name: "desc" },
       select: NECESSARY_TICKET_SERVICE_FIELDS,
     }),
     prisma.ticketServiceCategory.findMany({
+      where: accessibleBy(ability).TicketServiceCategory,
       orderBy: { name: "desc" },
       select: NECESSARY_TICKET_SERVICE_CATEGORY_FIELDS,
     }),

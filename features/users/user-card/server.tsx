@@ -1,8 +1,11 @@
+import { subject } from "@casl/ability";
 import { UserRole } from "@prisma/client";
 
-import { prisma } from "@/lib/prisma";
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/users";
+import { prisma } from "@/lib/prisma";
 
 import { ClientUserCard } from "./client";
 import { NECESSARY_USER_FIELDS } from "./constants";
@@ -15,8 +18,8 @@ export interface ServerUserCardProps {
 export async function ServerUserCard({ variant, userId }: ServerUserCardProps) {
   const language = getAppLanguage();
 
-  // TODO: Fetch data from the server
-  const [user, dictionary] = await Promise.all([
+  const [session, user, dictionary] = await Promise.all([
+    auth(),
     prisma.user.findUnique({
       where: { id: userId },
       select: NECESSARY_USER_FIELDS,
@@ -24,10 +27,14 @@ export async function ServerUserCard({ variant, userId }: ServerUserCardProps) {
     getDictionary(language),
   ]);
 
+  const ability = createAbilityFor(session);
+
+  const data = user && ability.can("read", subject("User", user)) ? user : null;
+
   return (
     <ClientUserCard
       variant={variant}
-      user={user}
+      user={data}
       language={language}
       dictionary={{
         user_model: dictionary.user_model,

@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 
+import { Can } from "@/auth/ability";
 import { UserDataGrid } from "@/features/users/user-data-grid";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/users";
@@ -33,20 +34,20 @@ export default async function UsersPage({ params: { lang } }: UsersPageProps) {
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
-      <Grid container justifyContent="center" alignItems="center">
-        <Grid xs={12}>
-          <Toolbar sx={{ justifyContent: "flex-end" }}>
-            <Button
-              LinkComponent={Link}
-              href={`/${lang}/admin/users/create`}
-              variant="contained"
-              color="primary"
-            >
-              {users_page["toolbar_button--create"]}
-            </Button>
-          </Toolbar>
-        </Grid>
+      <Toolbar sx={{ justifyContent: "flex-end" }}>
+        <Can I="create" a="User">
+          <Button
+            LinkComponent={Link}
+            href={`/${lang}/admin/users/create`}
+            variant="contained"
+            color="primary"
+          >
+            {users_page["toolbar_button--create"]}
+          </Button>
+        </Can>
+      </Toolbar>
 
+      <Grid container justifyContent="center" alignItems="center" spacing={2}>
         <Grid xs={12}>
           <Widget>
             <UserDataGrid />

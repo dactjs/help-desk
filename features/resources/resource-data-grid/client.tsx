@@ -17,7 +17,9 @@ import OutputIcon from "@mui/icons-material/Output";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
+import { subject } from "@casl/ability";
 
+import { useAppAbility } from "@/auth/ability";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
 import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
@@ -38,6 +40,8 @@ export function ClientResourceDataGrid({
   dictionary: { resource_model, resource_data_grid },
 }: ClientResourceDataGridProps) {
   const router = useRouter();
+
+  const ability = useAppAbility();
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -68,6 +72,7 @@ export function ClientResourceDataGrid({
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-view-details`}
+          disabled={!ability.can("read", subject("Resource", params.row))}
           icon={<LaunchIcon />}
           label={resource_data_grid["actions--view-details"]}
           aria-label={resource_data_grid["actions--view-details"]}
@@ -78,6 +83,7 @@ export function ClientResourceDataGrid({
         <GridActionsCellItem
           key={`${params.id}-assign`}
           showInMenu
+          disabled={!ability.can("assign", subject("Resource", params.row))}
           icon={<AssignIcon color="success" />}
           label={resource_data_grid["actions--assign"]}
           aria-label={resource_data_grid["actions--assign"]}
@@ -85,6 +91,7 @@ export function ClientResourceDataGrid({
         <GridActionsCellItem
           key={`${params.id}-transfer`}
           showInMenu
+          disabled={!ability.can("transfer", subject("Resource", params.row))}
           icon={<TransferIcon color="info" />}
           label={resource_data_grid["actions--transfer"]}
           aria-label={resource_data_grid["actions--transfer"]}
@@ -92,6 +99,7 @@ export function ClientResourceDataGrid({
         <GridActionsCellItem
           key={`${params.id}-unassign`}
           showInMenu
+          disabled={!ability.can("unassign", subject("Resource", params.row))}
           icon={<UnassignIcon color="action" />}
           label={resource_data_grid["actions--unassign"]}
           aria-label={resource_data_grid["actions--unassign"]}
@@ -99,6 +107,7 @@ export function ClientResourceDataGrid({
         <GridActionsCellItem
           key={`${params.id}-repair`}
           showInMenu
+          disabled={!ability.can("repair", subject("Resource", params.row))}
           icon={<RepairIcon color="disabled" />}
           label={resource_data_grid["actions--repair"]}
           aria-label={resource_data_grid["actions--repair"]}
@@ -106,6 +115,7 @@ export function ClientResourceDataGrid({
         <GridActionsCellItem
           key={`${params.id}-output`}
           showInMenu
+          disabled={!ability.can("output", subject("Resource", params.row))}
           icon={<OutputIcon color="warning" />}
           label={resource_data_grid["actions--output"]}
           aria-label={resource_data_grid["actions--output"]}
@@ -113,6 +123,7 @@ export function ClientResourceDataGrid({
         <GridActionsCellItem
           key={`${params.id}-delete`}
           showInMenu
+          disabled={!ability.can("delete", subject("Resource", params.row))}
           icon={<DeleteIcon color="error" />}
           label={resource_data_grid["actions--delete"]}
           aria-label={resource_data_grid["actions--delete"]}
@@ -129,7 +140,7 @@ export function ClientResourceDataGrid({
       valueGetter: (value) => getShortUUID(value),
     },
     {
-      editable: true,
+      editable: ability.can("update", "Resource", "brand"),
       field: "brand",
       headerName: resource_model.brand,
       headerAlign: "center",
@@ -137,7 +148,7 @@ export function ClientResourceDataGrid({
       minWidth: 175,
     },
     {
-      editable: true,
+      editable: ability.can("update", "Resource", "model"),
       field: "model",
       headerName: resource_model.model,
       headerAlign: "center",
@@ -145,7 +156,7 @@ export function ClientResourceDataGrid({
       minWidth: 175,
     },
     {
-      editable: true,
+      editable: ability.can("update", "Resource", "serial"),
       field: "serial",
       headerName: resource_model.serial,
       headerAlign: "center",

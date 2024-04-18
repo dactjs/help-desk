@@ -2,7 +2,10 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
+import { subject } from "@casl/ability";
 
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { ResourceCard } from "@/features/resources/resource-card";
 import { ResourceTraceTimeline } from "@/features/resources/resource-trace-timeline";
 import { UserCard } from "@/features/users/user-card";
@@ -31,9 +34,9 @@ export async function generateMetadata({
   return { title: replaced };
 }
 
-type ResourcePageParams = PageParams & {
+type ResourcePageParams = PageParams<{
   resource_id: string;
-};
+}>;
 
 export interface ResourcePageProps {
   params: ResourcePageParams;
@@ -42,13 +45,15 @@ export interface ResourcePageProps {
 export default async function ResourcePage({
   params: { resource_id },
 }: ResourcePageProps) {
-  // TODO: add authorization
-  const resource = await prisma.resource.findUnique({
-    where: { id: resource_id },
-    select: { assignedToId: true },
-  });
+  const [session, resource] = await Promise.all([
+    auth(),
+    prisma.resource.findUnique({ where: { id: resource_id } }),
+  ]);
 
-  if (!resource) notFound();
+  const ability = createAbilityFor(session);
+
+  if (!resource || !ability.can("read", subject("Resource", resource)))
+    notFound();
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>

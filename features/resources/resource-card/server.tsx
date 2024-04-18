@@ -1,6 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { subject } from "@casl/ability";
+
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/resources";
+import { prisma } from "@/lib/prisma";
 
 import { ClientResourceCard } from "./client";
 import { NECESSARY_RESOURCE_FIELDS } from "./constants";
@@ -14,8 +18,8 @@ export async function ServerResourceCard({
 }: ServerResourceCardProps) {
   const language = getAppLanguage();
 
-  // TODO: Fetch data from the server
-  const [resource, dictionary] = await Promise.all([
+  const [session, resource, dictionary] = await Promise.all([
+    auth(),
     prisma.resource.findUnique({
       where: { id: resourceId },
       select: NECESSARY_RESOURCE_FIELDS,
@@ -23,9 +27,16 @@ export async function ServerResourceCard({
     getDictionary(language),
   ]);
 
+  const ability = createAbilityFor(session);
+
+  const data =
+    resource && ability.can("read", subject("Resource", resource))
+      ? resource
+      : null;
+
   return (
     <ClientResourceCard
-      resource={resource}
+      resource={data}
       language={language}
       dictionary={{
         resource_model: dictionary.resource_model,

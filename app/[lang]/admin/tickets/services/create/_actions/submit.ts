@@ -1,14 +1,22 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 import { FormAction } from "@/types/form-action";
 
-// TODO: add authorization
 export const submit: FormAction = async (_, formData) => {
   const language = getAppLanguage();
+
+  const [session, errors] = await Promise.all([
+    auth(),
+    getDictionary(language),
+  ]);
 
   try {
     const z = zod(language);
@@ -30,12 +38,19 @@ export const submit: FormAction = async (_, formData) => {
       };
     }
 
+    const ability = createAbilityFor(session);
+
+    if (!ability.can("create", "TicketService"))
+      throw new Error(errors.FORBIDDEN_ERROR);
+
     await prisma.ticketService.create({
       data: {
         name: result.data.name,
         categoryId: result.data.category,
       },
     });
+
+    revalidatePath("/[lang]/admin/tickets/services", "page");
 
     return {
       complete: true,
@@ -45,8 +60,6 @@ export const submit: FormAction = async (_, formData) => {
       },
     };
   } catch (error) {
-    const errors = await getDictionary(language);
-
     if (error instanceof Error) {
       return {
         complete: false,

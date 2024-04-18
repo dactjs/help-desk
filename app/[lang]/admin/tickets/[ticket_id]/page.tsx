@@ -2,8 +2,11 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
+import { subject } from "@casl/ability";
 import { UserRole } from "@prisma/client";
 
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { TicketCard } from "@/features/tickets/ticket-card";
 import { TicketTraceTimeline } from "@/features/tickets/ticket-trace-timeline";
 import { UserCard } from "@/features/users/user-card";
@@ -32,9 +35,9 @@ export async function generateMetadata({
   return { title: replaced };
 }
 
-type TicketPageParams = PageParams & {
+type TicketPageParams = PageParams<{
   ticket_id: string;
-};
+}>;
 
 export interface TicketPageProps {
   params: TicketPageParams;
@@ -43,13 +46,14 @@ export interface TicketPageProps {
 export default async function TicketPage({
   params: { ticket_id },
 }: TicketPageProps) {
-  // TODO: add authorization
-  const ticket = await prisma.ticket.findUnique({
-    where: { id: ticket_id },
-    select: { sentById: true, assignedToId: true },
-  });
+  const [session, ticket] = await Promise.all([
+    auth(),
+    prisma.ticket.findUnique({ where: { id: ticket_id } }),
+  ]);
 
-  if (!ticket) notFound();
+  const ability = createAbilityFor(session);
+
+  if (!ticket || !ability.can("read", subject("Ticket", ticket))) notFound();
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>

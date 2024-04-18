@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 
+import { Can } from "@/auth/ability";
 import { TicketServiceDataGrid } from "@/features/tickets/ticket-service-data-grid";
 import { TicketServiceCategoryDataGrid } from "@/features/tickets/ticket-service-category-data-grid";
 import { Widget } from "@/components/templates/widget";
@@ -37,23 +38,27 @@ export default async function TicketServicesPage({
   return (
     <Container fixed sx={{ paddingY: 2 }}>
       <Toolbar sx={{ justifyContent: "flex-end", gap: 1 }}>
-        <Button
-          LinkComponent={Link}
-          href={`/${lang}/admin/tickets/services/categories/create`}
-          variant="outlined"
-          color="secondary"
-        >
-          {ticket_services_page["toolbar_button--create-category"]}
-        </Button>
+        <Can I="create" a="TicketServiceCategory">
+          <Button
+            LinkComponent={Link}
+            href={`/${lang}/admin/tickets/services/categories/create`}
+            variant="outlined"
+            color="secondary"
+          >
+            {ticket_services_page["toolbar_button--create-category"]}
+          </Button>
+        </Can>
 
-        <Button
-          LinkComponent={Link}
-          href={`/${lang}/admin/tickets/services/create`}
-          variant="contained"
-          color="primary"
-        >
-          {ticket_services_page["toolbar_button--create-service"]}
-        </Button>
+        <Can I="create" a="TicketService">
+          <Button
+            LinkComponent={Link}
+            href={`/${lang}/admin/tickets/services/create`}
+            variant="contained"
+            color="primary"
+          >
+            {ticket_services_page["toolbar_button--create-service"]}
+          </Button>
+        </Can>
       </Toolbar>
 
       <Grid container justifyContent="center" alignItems="center" spacing={2}>

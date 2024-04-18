@@ -1,6 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { accessibleBy } from "@casl/prisma";
+
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/tickets";
+import { prisma } from "@/lib/prisma";
 
 import { ClientTicketTraceTimeline } from "./client";
 import { NECESSARY_TICKET_TRACE_FIELDS } from "./constants";
@@ -14,10 +18,13 @@ export async function ServerTicketTraceTimeline({
 }: ServerTicketTraceTimelineProps) {
   const language = getAppLanguage();
 
-  // TODO: Fetch data from the server
+  const session = await auth();
+
+  const ability = createAbilityFor(session);
+
   const [traces, dictionary] = await Promise.all([
     prisma.ticketTrace.findMany({
-      where: { ticketId },
+      where: { AND: [accessibleBy(ability).TicketTrace, { ticketId }] },
       select: NECESSARY_TICKET_TRACE_FIELDS,
     }),
     getDictionary(language),

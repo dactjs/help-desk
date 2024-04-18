@@ -1,3 +1,7 @@
+import { accessibleBy } from "@casl/prisma";
+
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/resources";
 import { prisma } from "@/lib/prisma";
@@ -8,9 +12,13 @@ import { NECESSARY_RESOURCE_FIELDS } from "./constants";
 export async function ServerResourceDataGrid() {
   const language = getAppLanguage();
 
-  // TODO: add authorization and pagination
+  const session = await auth();
+
+  const ability = createAbilityFor(session);
+
   const [resources, dictionary] = await Promise.all([
     prisma.resource.findMany({
+      where: accessibleBy(ability).Resource,
       orderBy: { createdAt: "desc" },
       select: NECESSARY_RESOURCE_FIELDS,
     }),

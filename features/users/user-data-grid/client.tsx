@@ -14,8 +14,10 @@ import SyncLockIcon from "@mui/icons-material/SyncLock";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
+import { subject } from "@casl/ability";
 import { UserStatus, UserRole } from "@prisma/client";
 
+import { useAppAbility } from "@/auth/ability";
 import { Dictionary } from "@/internationalization/dictionaries/users";
 import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
@@ -36,6 +38,8 @@ export function ClientUserDataGrid({
   dictionary: { user_model, user_data_grid },
 }: ClientUserDataGridProps) {
   const router = useRouter();
+
+  const ability = useAppAbility();
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -77,6 +81,7 @@ export function ClientUserDataGrid({
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-view-details`}
+          disabled={!ability.can("read", subject("User", params.row))}
           icon={<LaunchIcon />}
           label={user_data_grid["actions--view-details"]}
           aria-label={user_data_grid["actions--view-details"]}
@@ -87,6 +92,7 @@ export function ClientUserDataGrid({
         <GridActionsCellItem
           key={`${params.id}-reset-password`}
           showInMenu
+          disabled={!ability.can("reset-password", subject("User", params.row))}
           icon={<SyncLockIcon />}
           label={user_data_grid["actions--reset-password"]}
           aria-label={user_data_grid["actions--reset-password"]}
@@ -94,6 +100,7 @@ export function ClientUserDataGrid({
         <GridActionsCellItem
           key={`${params.id}-delete`}
           showInMenu
+          disabled={!ability.can("delete", subject("User", params.row))}
           icon={<DeleteIcon color="error" />}
           label={user_data_grid["actions--delete"]}
           aria-label={user_data_grid["actions--delete"]}
@@ -110,7 +117,7 @@ export function ClientUserDataGrid({
       valueGetter: (value) => getShortUUID(value),
     },
     {
-      editable: true,
+      editable: ability.can("update", "User", "username"),
       field: "username",
       headerName: user_model.username,
       headerAlign: "center",
@@ -118,7 +125,7 @@ export function ClientUserDataGrid({
       minWidth: 150,
     },
     {
-      editable: true,
+      editable: ability.can("update", "User", "email"),
       field: "email",
       headerName: user_model.email,
       headerAlign: "center",
@@ -126,7 +133,7 @@ export function ClientUserDataGrid({
       minWidth: 225,
     },
     {
-      editable: true,
+      editable: ability.can("update", "User", "name"),
       field: "name",
       headerName: user_model.name,
       headerAlign: "center",
@@ -134,7 +141,7 @@ export function ClientUserDataGrid({
       minWidth: 225,
     },
     {
-      editable: true,
+      editable: ability.can("update", "User", "status"),
       type: "singleSelect",
       valueOptions: [
         { value: UserStatus.ENABLED, label: status.ENABLED },
@@ -161,7 +168,7 @@ export function ClientUserDataGrid({
       },
     },
     {
-      editable: true,
+      editable: ability.can("update", "User", "role"),
       type: "singleSelect",
       valueOptions: [
         { value: UserRole.ADMIN, label: role.ADMIN },

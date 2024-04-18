@@ -11,9 +11,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
 
+import { useAppAbility } from "@/auth/ability";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
 import { getShortUUID } from "@/utils/get-short-uuid";
 
+import { updateTicketServiceCategory } from "./actions/update";
 import { deleteTicketServiceCategory } from "./actions/delete";
 import { TicketServiceCategory } from "./types";
 
@@ -32,6 +34,8 @@ export function ClientTicketServiceCategoryDataGrid({
     ticket_service_category_data_grid,
   },
 }: ClientTicketServiceCategoryDataGridProps) {
+  const ability = useAppAbility();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -62,6 +66,7 @@ export function ClientTicketServiceCategoryDataGrid({
         <GridActionsCellItem
           key={`${params.id}-delete`}
           showInMenu
+          disabled={!ability.can("delete", "TicketServiceCategory")}
           icon={<DeleteIcon color="error" />}
           label={ticket_service_category_data_grid["actions--delete"]}
           aria-label={ticket_service_category_data_grid["actions--delete"]}
@@ -78,6 +83,7 @@ export function ClientTicketServiceCategoryDataGrid({
       valueGetter: (value) => getShortUUID(value),
     },
     {
+      editable: ability.can("update", "TicketServiceCategory", "name"),
       field: "name",
       headerName: ticket_service_category_model.name,
       headerAlign: "center",
@@ -102,6 +108,15 @@ export function ClientTicketServiceCategoryDataGrid({
     },
   ];
 
+  const handleOnProcessRowUpdateError = (error: unknown) => {
+    if (error instanceof Error) {
+      enqueueSnackbar(error.message, {
+        variant: "error",
+        style: { whiteSpace: "pre-line" },
+      });
+    }
+  };
+
   return (
     <DataGrid
       disableRowSelectionOnClick
@@ -109,6 +124,8 @@ export function ClientTicketServiceCategoryDataGrid({
       rows={categories}
       slots={{ toolbar: GridToolbar }}
       slotProps={{ toolbar: { showQuickFilter: true } }}
+      processRowUpdate={updateTicketServiceCategory}
+      onProcessRowUpdateError={handleOnProcessRowUpdateError}
     />
   );
 }

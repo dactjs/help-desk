@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+import { auth } from "@/auth";
 import { getDictionary } from "@/internationalization/dictionaries/common";
 import { PageParams } from "@/types/page-params";
 
@@ -32,13 +33,20 @@ export default async function RootLayout({
   params: { lang },
   children,
 }: RootLayoutProps) {
-  const { confirm_dialog } = await getDictionary(lang);
+  const [session, { confirm_dialog }] = await Promise.all([
+    auth(),
+    getDictionary(lang),
+  ]);
 
   return (
     <html lang={lang}>
       <body>
         <AppRouterCacheProvider>
-          <Providers language={lang} dictionary={{ confirm_dialog }}>
+          <Providers
+            session={session}
+            language={lang}
+            dictionary={{ confirm_dialog }}
+          >
             {children}
             <SpeedInsights />
           </Providers>

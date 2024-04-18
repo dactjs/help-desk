@@ -1,17 +1,29 @@
 "use server";
 
+import { accessibleBy } from "@casl/prisma";
+
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { prisma } from "@/lib/prisma";
 
 import { NECESSARY_TICKET_SERVICE_FIELDS } from "../constants";
 import { TicketService } from "../types";
 
-// TODO: add authorization
 export async function query(input: string): Promise<TicketService[]> {
+  const session = await auth();
+
+  const ability = createAbilityFor(session);
+
   const services = await prisma.ticketService.findMany({
     where: {
-      OR: [
-        { name: { mode: "insensitive", contains: input } },
-        { category: { name: { mode: "insensitive", contains: input } } },
+      AND: [
+        accessibleBy(ability).TicketService,
+        {
+          OR: [
+            { name: { mode: "insensitive", contains: input } },
+            { category: { name: { mode: "insensitive", contains: input } } },
+          ],
+        },
       ],
     },
     orderBy: [{ category: { name: "desc" } }, { name: "desc" }],

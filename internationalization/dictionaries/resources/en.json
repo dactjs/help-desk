@@ -47,14 +47,14 @@
   },
 
   "resource_data_grid": {
-    "actions": "Acciones",
-    "actions--view-details": "Ver Detalles",
-    "actions--assign": "Asignar",
-    "actions--transfer": "Transferir",
-    "actions--unassign": "Desasignar",
-    "actions--repair": "Reparar",
-    "actions--output": "Desechar",
-    "actions--delete": "Borrar"
+    "actions": "Actions",
+    "actions--view-details": "View Details",
+    "actions--assign": "Assign",
+    "actions--transfer": "Transfer",
+    "actions--unassign": "Unassign",
+    "actions--repair": "Repair",
+    "actions--output": "Discard",
+    "actions--delete": "Delete"
   },
 
   "resource_card": {

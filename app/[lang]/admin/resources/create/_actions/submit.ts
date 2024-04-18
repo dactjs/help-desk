@@ -1,20 +1,24 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { ResourceTraceType } from "@prisma/client";
 
 import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 import { FormAction } from "@/types/form-action";
 
-// TODO: add authorization
 export const submit: FormAction = async (_, formData) => {
   const language = getAppLanguage();
 
-  const session = await auth();
+  const [session, errors] = await Promise.all([
+    auth(),
+    getDictionary(language),
+  ]);
 
   if (!session?.user?.id) redirect(`/${language}/auth/sign-in`);
 
@@ -39,6 +43,11 @@ export const submit: FormAction = async (_, formData) => {
         },
       };
     }
+
+    const ability = createAbilityFor(session);
+
+    if (!ability.can("create", "Resource"))
+      throw new Error(errors.FORBIDDEN_ERROR);
 
     await prisma.resource.create({
       data: {
@@ -72,6 +81,8 @@ export const submit: FormAction = async (_, formData) => {
       },
     });
 
+    revalidatePath("/[lang]/admin/resources", "page");
+
     return {
       complete: true,
       errors: {
@@ -80,8 +91,6 @@ export const submit: FormAction = async (_, formData) => {
       },
     };
   } catch (error) {
-    const errors = await getDictionary(language);
-
     if (error instanceof Error) {
       return {
         complete: false,

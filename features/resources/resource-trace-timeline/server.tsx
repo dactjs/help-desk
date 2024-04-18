@@ -1,6 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { accessibleBy } from "@casl/prisma";
+
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/resources";
+import { prisma } from "@/lib/prisma";
 
 import { ClientResourceTraceTimeline } from "./client";
 import { NECESSARY_RESOURCE_TRACE_FIELDS } from "./constants";
@@ -14,10 +18,13 @@ export async function ServerResourceTraceTimeline({
 }: ServerResourceTraceTimelineProps) {
   const language = getAppLanguage();
 
-  // TODO: Fetch data from the server
+  const session = await auth();
+
+  const ability = createAbilityFor(session);
+
   const [traces, dictionary] = await Promise.all([
     prisma.resourceTrace.findMany({
-      where: { resourceId },
+      where: { AND: [accessibleBy(ability).ResourceTrace, { resourceId }] },
       select: NECESSARY_RESOURCE_TRACE_FIELDS,
     }),
     getDictionary(language),

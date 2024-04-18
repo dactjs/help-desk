@@ -1,6 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { subject } from "@casl/ability";
+
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/tickets";
+import { prisma } from "@/lib/prisma";
 
 import { ClientTicketCard } from "./client";
 import { NECESSARY_TICKET_FIELDS } from "./constants";
@@ -12,8 +16,8 @@ export interface ServerTicketCardProps {
 export async function ServerTicketCard({ ticketId }: ServerTicketCardProps) {
   const language = getAppLanguage();
 
-  // TODO: Fetch data from the server
-  const [ticket, dictionary] = await Promise.all([
+  const [session, ticket, dictionary] = await Promise.all([
+    auth(),
     prisma.ticket.findUnique({
       where: { id: ticketId },
       select: NECESSARY_TICKET_FIELDS,
@@ -21,9 +25,14 @@ export async function ServerTicketCard({ ticketId }: ServerTicketCardProps) {
     getDictionary(language),
   ]);
 
+  const ability = createAbilityFor(session);
+
+  const data =
+    ticket && ability.can("read", subject("Ticket", ticket)) ? ticket : null;
+
   return (
     <ClientTicketCard
-      ticket={ticket}
+      ticket={data}
       language={language}
       dictionary={{
         ticket_model: dictionary.ticket_model,

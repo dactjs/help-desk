@@ -11,6 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
 
+import { useAppAbility } from "@/auth/ability";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
 import { getShortUUID } from "@/utils/get-short-uuid";
 
@@ -32,6 +33,8 @@ export function ClientTicketServiceDataGrid({
   categories,
   dictionary: { ticket_service_model, ticket_service_data_grid },
 }: ClientTicketServiceDataGridProps) {
+  const ability = useAppAbility();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
@@ -62,6 +65,7 @@ export function ClientTicketServiceDataGrid({
         <GridActionsCellItem
           key={`${params.id}-delete`}
           showInMenu
+          disabled={!ability.can("delete", "TicketService")}
           icon={<DeleteIcon color="error" />}
           label={ticket_service_data_grid["actions--delete"]}
           aria-label={ticket_service_data_grid["actions--delete"]}
@@ -78,6 +82,7 @@ export function ClientTicketServiceDataGrid({
       valueGetter: (value) => getShortUUID(value),
     },
     {
+      editable: ability.can("update", "TicketService", "name"),
       field: "name",
       headerName: ticket_service_model.name,
       headerAlign: "center",
@@ -85,7 +90,7 @@ export function ClientTicketServiceDataGrid({
       minWidth: 225,
     },
     {
-      editable: true,
+      editable: ability.can("update", "TicketService", "categoryId"),
       type: "singleSelect",
       valueOptions: categories.map(({ id, name }) => ({
         value: id,

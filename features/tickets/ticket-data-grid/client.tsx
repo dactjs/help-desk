@@ -19,8 +19,10 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
+import { subject } from "@casl/ability";
 import { TicketStatus } from "@prisma/client";
 
+import { useAppAbility } from "@/auth/ability";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
 import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
@@ -40,6 +42,8 @@ export function ClientTicketDataGrid({
   dictionary: { ticket_model, ticket_data_grid },
 }: ClientTicketDataGridProps) {
   const router = useRouter();
+
+  const ability = useAppAbility();
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -79,6 +83,7 @@ export function ClientTicketDataGrid({
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key={`${params.id}-view-details`}
+          disabled={!ability.can("read", subject("Ticket", params.row))}
           icon={<LaunchIcon />}
           label={ticket_data_grid["actions--view-details"]}
           aria-label={ticket_data_grid["actions--view-details"]}
@@ -89,6 +94,7 @@ export function ClientTicketDataGrid({
         <GridActionsCellItem
           key={`${params.id}-assign`}
           showInMenu
+          disabled={!ability.can("assign", subject("Ticket", params.row))}
           icon={<AssignIcon color="warning" />}
           label={ticket_data_grid["actions--assign"]}
           aria-label={ticket_data_grid["actions--assign"]}
@@ -96,6 +102,7 @@ export function ClientTicketDataGrid({
         <GridActionsCellItem
           key={`${params.id}-transfer`}
           showInMenu
+          disabled={!ability.can("transfer", subject("Ticket", params.row))}
           icon={<TransferIcon color="info" />}
           label={ticket_data_grid["actions--transfer"]}
           aria-label={ticket_data_grid["actions--transfer"]}
@@ -103,6 +110,7 @@ export function ClientTicketDataGrid({
         <GridActionsCellItem
           key={`${params.id}-open`}
           showInMenu
+          disabled={!ability.can("open", subject("Ticket", params.row))}
           icon={<OpenIcon color="disabled" />}
           label={ticket_data_grid["actions--open"]}
           aria-label={ticket_data_grid["actions--open"]}
@@ -110,6 +118,7 @@ export function ClientTicketDataGrid({
         <GridActionsCellItem
           key={`${params.id}-resolve`}
           showInMenu
+          disabled={!ability.can("resolve", subject("Ticket", params.row))}
           icon={<ResolveIcon color="action" />}
           label={ticket_data_grid["actions--resolve"]}
           aria-label={ticket_data_grid["actions--resolve"]}
@@ -117,6 +126,7 @@ export function ClientTicketDataGrid({
         <GridActionsCellItem
           key={`${params.id}-close`}
           showInMenu
+          disabled={!ability.can("close", subject("Ticket", params.row))}
           icon={<CloseIcon color="success" />}
           label={ticket_data_grid["actions--close"]}
           aria-label={ticket_data_grid["actions--close"]}
@@ -124,6 +134,7 @@ export function ClientTicketDataGrid({
         <GridActionsCellItem
           key={`${params.id}-cancel`}
           showInMenu
+          disabled={!ability.can("cancel", subject("Ticket", params.row))}
           icon={<CancelIcon color="error" />}
           label={ticket_data_grid["actions--cancel"]}
           aria-label={ticket_data_grid["actions--cancel"]}
@@ -131,6 +142,7 @@ export function ClientTicketDataGrid({
         <GridActionsCellItem
           key={`${params.id}-delete`}
           showInMenu
+          disabled={!ability.can("delete", subject("Ticket", params.row))}
           icon={<DeleteIcon color="error" />}
           label={ticket_data_grid["actions--delete"]}
           aria-label={ticket_data_grid["actions--delete"]}
