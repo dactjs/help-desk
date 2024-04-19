@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { subject } from "@casl/ability";
 import { ResourceStatus, ResourceTraceType } from "@prisma/client";
 
 import { auth } from "@/auth";
@@ -11,7 +12,7 @@ import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 import { FormAction } from "@/types/form-action";
 
-export const submit: FormAction = async (_, formData) => {
+export const assign: FormAction = async (_, formData) => {
   const language = getAppLanguage();
 
   const [session, errors] = await Promise.all([
@@ -23,10 +24,8 @@ export const submit: FormAction = async (_, formData) => {
     const z = zod(language);
 
     const schema = z.object({
-      brand: z.string(),
-      model: z.string(),
-      serial: z.string(),
-      user: z.string().uuid().optional(),
+      resource: z.string().uuid(),
+      destination: z.string().uuid(),
     });
 
     const result = schema.safeParse(Object.fromEntries(formData));
@@ -43,40 +42,28 @@ export const submit: FormAction = async (_, formData) => {
 
     const ability = createAbilityFor(session);
 
-    if (!ability.can("create", "Resource"))
-      throw new Error(errors.FORBIDDEN_ERROR);
+    await prisma.$transaction(async (tx) => {
+      const resource = await tx.resource.findUniqueOrThrow({
+        where: { id: result.data.resource },
+      });
 
-    await prisma.resource.create({
-      data: {
-        brand: result.data.brand,
-        model: result.data.model,
-        serial: result.data.serial,
-        traces: {
-          create: {
-            type: ResourceTraceType.INPUT,
-            madeById: String(session?.user?.id),
-          },
-        },
+      if (!ability.can("assign", subject("Resource", resource)))
+        throw new Error(errors.FORBIDDEN_ERROR);
 
-        ...(result.data.user && {
+      await tx.resource.update({
+        where: { id: result.data.resource },
+        data: {
           status: ResourceStatus.ASSIGNED,
-          assignedToId: result.data.user,
+          assignedToId: result.data.destination,
           traces: {
-            createMany: {
-              data: [
-                {
-                  type: ResourceTraceType.INPUT,
-                  madeById: String(session?.user?.id),
-                },
-                {
-                  type: ResourceTraceType.ASSIGNMENT,
-                  madeById: String(session?.user?.id),
-                },
-              ],
+            create: {
+              type: ResourceTraceType.ASSIGNMENT,
+              destinationId: result.data.destination,
+              madeById: String(session?.user?.id),
             },
           },
-        }),
-      },
+        },
+      });
     });
 
     revalidatePath("/[lang]/admin/resources", "page");

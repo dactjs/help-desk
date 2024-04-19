@@ -71,5 +71,32 @@
   "resource_trace_timeline": {
     "heading": "Trazabilidad",
     "made_by": "Realizado por:"
+  },
+
+  "resource_action_dialog": {
+    "origin_input_label": "Origen",
+    "destination_input_label": "Destino",
+
+    "heading--assign": "Asignar Recurso",
+    "submit_button_text--assign": "Asignar",
+    "actions--assign-successfully": "Recurso asignado exitosamente",
+
+    "heading--transfer": "Transferir Recurso",
+    "submit_button_text--transfer": "Transferir",
+    "actions--transfer-successfully": "Recurso transferido exitosamente",
+
+    "heading--unassign": "Desasignar Recurso",
+    "context_text--unassign": "¿Estás seguro de que deseas desasignar este recurso? Se registrará quién fue el último usuario asignado y se liberará el recurso para poder ser asignado nuevamente o descartado.",
+    "submit_button_text--unassign": "Desasignar",
+    "actions--unassign-successfully": "Recurso desasignado exitosamente",
+
+    "heading--repair": "Reparar Recurso",
+    "submit_button_text--repair": "Marcar como reparado",
+    "actions--repair-successfully": "Recurso marcado como reparado exitosamente",
+
+    "heading--output": "Descartar Recurso",
+    "context_text--output": "¿Estás seguro de que deseas descartar este recurso? Al hacerlo, no podrás asignarlo nuevamente. Esto significa que solo persistirá en la base de datos para su consulta.",
+    "submit_button_text--output": "Descartar",
+    "actions--output-successfully": "Recurso descartado exitosamente"
   }
 }

@@ -71,5 +71,32 @@
   "resource_trace_timeline": {
     "heading": "Traceability",
     "made_by": "Made By:"
+  },
+
+  "resource_action_dialog": {
+    "origin_input_label": "Origin",
+    "destination_input_label": "Destination",
+
+    "heading--assign": "Assign Resource",
+    "submit_button_text--assign": "Assign",
+    "actions--assign-successfully": "Resource assigned successfully",
+
+    "heading--transfer": "Transfer Resource",
+    "submit_button_text--transfer": "Transfer",
+    "actions--transfer-successfully": "Resource transferred successfully",
+
+    "heading--unassign": "Unassign Resource",
+    "context_text--unassign": "Are you sure you want to unassign this resource? The last assigned user will be recorded, and the resource will be freed up to be reassigned or discarded.",
+    "submit_button_text--unassign": "Unassign",
+    "actions--unassign-successfully": "Resource unassigned successfully",
+
+    "heading--repair": "Repair Resource",
+    "submit_button_text--repair": "Mark as repaired",
+    "actions--repair-successfully": "Resource marked as repaired successfully",
+
+    "heading--output": "Discard Resource",
+    "context_text--output": "Are you sure you want to discard this resource? By doing so, you won't be able to assign it again. This means it will only remain in the database for querying purposes.",
+    "submit_button_text--output": "Discard",
+    "actions--output-successfully": "Resource discarded successfully"
   }
 }

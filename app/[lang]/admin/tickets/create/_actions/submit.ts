@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { TicketStatus, TicketTraceType } from "@prisma/client";
 
 import { auth } from "@/auth";
@@ -19,8 +18,6 @@ export const submit: FormAction = async (_, formData) => {
     auth(),
     getDictionary(language),
   ]);
-
-  if (!session?.user?.id) redirect(`/${language}/auth/sign-in`);
 
   try {
     const z = zod(language);
@@ -57,7 +54,7 @@ export const submit: FormAction = async (_, formData) => {
         traces: {
           create: {
             type: TicketTraceType.RECEPTION,
-            madeById: session.user.id,
+            madeById: String(session?.user?.id),
           },
         },
 
@@ -69,11 +66,11 @@ export const submit: FormAction = async (_, formData) => {
               data: [
                 {
                   type: TicketTraceType.RECEPTION,
-                  madeById: session.user.id,
+                  madeById: String(session?.user?.id),
                 },
                 {
                   type: TicketTraceType.ASSIGNMENT,
-                  madeById: session.user.id,
+                  madeById: String(session?.user?.id),
                 },
               ],
             },

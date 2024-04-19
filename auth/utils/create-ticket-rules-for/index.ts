@@ -18,27 +18,27 @@ export function createTicketRulesFor(
   if (user?.role === UserRole.ADMIN) {
     builder.can("assign", "Ticket", {
       status: TicketStatus.UNASSIGNED,
-      assignedTo: null,
+      OR: [{ assignedTo: null }, { assignedToId: null }],
     });
 
     builder.can("transfer", "Ticket", {
       status: { in: [TicketStatus.ASSIGNED, TicketStatus.IN_PROGRESS] },
-      NOT: { assignedTo: null },
+      NOT: { OR: [{ assignedTo: null }, { assignedToId: null }] },
     });
 
     builder.can("open", "Ticket", {
       status: { in: [TicketStatus.ASSIGNED] },
-      NOT: { assignedTo: null },
+      NOT: { OR: [{ assignedTo: null }, { assignedToId: null }] },
     });
 
     builder.can("resolve", "Ticket", {
       status: { in: [TicketStatus.IN_PROGRESS] },
-      NOT: { assignedTo: null },
+      NOT: { OR: [{ assignedTo: null }, { assignedToId: null }] },
     });
 
     builder.can("close", "Ticket", {
       status: { in: [TicketStatus.RESOLVED] },
-      NOT: { assignedTo: null },
+      NOT: { OR: [{ assignedTo: null }, { assignedToId: null }] },
     });
 
     builder.can("cancel", "Ticket", {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Chip, { ChipProps } from "@mui/material/Chip";
 import {
@@ -13,7 +14,7 @@ import LaunchIcon from "@mui/icons-material/Launch";
 import AssignIcon from "@mui/icons-material/Assignment";
 import TransferIcon from "@mui/icons-material/SwapHoriz";
 import UnassignIcon from "@mui/icons-material/AssignmentReturn";
-import RepairIcon from "@mui/icons-material/Hardware";
+// import RepairIcon from "@mui/icons-material/Hardware";
 import OutputIcon from "@mui/icons-material/Output";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
@@ -22,6 +23,8 @@ import { subject } from "@casl/ability";
 import { ResourceStatus } from "@prisma/client";
 
 import { useAppAbility } from "@/auth/ability";
+import { ResourceActionDialog } from "@/features/resources/resource-action-dialog";
+import { ResourceActionDialogType } from "@/features/resources/resource-action-dialog/types";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
 import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
@@ -33,13 +36,16 @@ import { Resource } from "./types";
 export interface ClientResourceDataGridProps {
   resources: Resource[];
   language: SupportedLanguage;
-  dictionary: Pick<Dictionary, "resource_model" | "resource_data_grid">;
+  dictionary: Pick<
+    Dictionary,
+    "resource_model" | "resource_data_grid" | "resource_action_dialog"
+  >;
 }
 
 export function ClientResourceDataGrid({
   resources,
   language,
-  dictionary: { resource_model, resource_data_grid },
+  dictionary: { resource_model, resource_data_grid, resource_action_dialog },
 }: ClientResourceDataGridProps) {
   const router = useRouter();
 
@@ -48,6 +54,11 @@ export function ClientResourceDataGrid({
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
+
+  const [action, setAction] = useState<{
+    type: ResourceActionDialogType;
+    resourceId: string;
+  } | null>(null);
 
   const status: Record<ResourceStatus, string> = {
     UNASSIGNED: resource_model["status--unassigned"],
@@ -96,6 +107,12 @@ export function ClientResourceDataGrid({
           icon={<AssignIcon color="success" />}
           label={resource_data_grid["actions--assign"]}
           aria-label={resource_data_grid["actions--assign"]}
+          onClick={() =>
+            setAction({
+              type: ResourceActionDialogType.ASSIGN,
+              resourceId: params.row.id,
+            })
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-transfer`}
@@ -104,6 +121,12 @@ export function ClientResourceDataGrid({
           icon={<TransferIcon color="info" />}
           label={resource_data_grid["actions--transfer"]}
           aria-label={resource_data_grid["actions--transfer"]}
+          onClick={() =>
+            setAction({
+              type: ResourceActionDialogType.TRANSFER,
+              resourceId: params.row.id,
+            })
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-unassign`}
@@ -112,15 +135,27 @@ export function ClientResourceDataGrid({
           icon={<UnassignIcon color="action" />}
           label={resource_data_grid["actions--unassign"]}
           aria-label={resource_data_grid["actions--unassign"]}
+          onClick={() =>
+            setAction({
+              type: ResourceActionDialogType.UNASSIGN,
+              resourceId: params.row.id,
+            })
+          }
         />,
-        <GridActionsCellItem
-          key={`${params.id}-repair`}
-          showInMenu
-          disabled={!ability.can("repair", subject("Resource", params.row))}
-          icon={<RepairIcon color="disabled" />}
-          label={resource_data_grid["actions--repair"]}
-          aria-label={resource_data_grid["actions--repair"]}
-        />,
+        // <GridActionsCellItem
+        //   key={`${params.id}-repair`}
+        //   showInMenu
+        //   disabled={!ability.can("repair", subject("Resource", params.row))}
+        //   icon={<RepairIcon color="disabled" />}
+        //   label={resource_data_grid["actions--repair"]}
+        //   aria-label={resource_data_grid["actions--repair"]}
+        //   onClick={() =>
+        //     setAction({
+        //       type: ResourceActionDialogType.REPAIR,
+        //       resourceId: params.row.id,
+        //     })
+        //   }
+        // />,
         <GridActionsCellItem
           key={`${params.id}-output`}
           showInMenu
@@ -128,6 +163,12 @@ export function ClientResourceDataGrid({
           icon={<OutputIcon color="warning" />}
           label={resource_data_grid["actions--output"]}
           aria-label={resource_data_grid["actions--output"]}
+          onClick={() =>
+            setAction({
+              type: ResourceActionDialogType.OUTPUT,
+              resourceId: params.row.id,
+            })
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-delete`}
@@ -231,14 +272,27 @@ export function ClientResourceDataGrid({
   };
 
   return (
-    <DataGrid
-      disableRowSelectionOnClick
-      columns={columns}
-      rows={resources}
-      slots={{ toolbar: GridToolbar }}
-      slotProps={{ toolbar: { showQuickFilter: true } }}
-      processRowUpdate={updateResource}
-      onProcessRowUpdateError={handleOnProcessRowUpdateError}
-    />
+    <>
+      {action && (
+        <ResourceActionDialog
+          fullWidth
+          type={action.type}
+          resourceId={action.resourceId}
+          dictionary={{ resource_action_dialog }}
+          open={Boolean(action)}
+          onClose={() => setAction(null)}
+        />
+      )}
+
+      <DataGrid
+        disableRowSelectionOnClick
+        columns={columns}
+        rows={resources}
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{ toolbar: { showQuickFilter: true } }}
+        processRowUpdate={updateResource}
+        onProcessRowUpdateError={handleOnProcessRowUpdateError}
+      />
+    </>
   );
 }

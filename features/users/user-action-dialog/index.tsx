@@ -29,6 +29,18 @@ export function UserActionDialog({
   dictionary: { user_action_dialog },
   ...rest
 }: UserActionDialogProps) {
+  const heading: Record<UserActionDialogType, string> = {
+    RESET_PASSWORD: user_action_dialog["heading--reset-password"],
+  };
+
+  const submit_button_text: Record<UserActionDialogType, string> = {
+    RESET_PASSWORD: user_action_dialog["submit_button_text--reset-password"],
+  };
+
+  const action_successfully: Record<UserActionDialogType, string> = {
+    RESET_PASSWORD: user_action_dialog["actions--reset-password-successfully"],
+  };
+
   const actions: Record<UserActionDialogType, FormAction> = {
     RESET_PASSWORD: resetPassword,
   };
@@ -37,21 +49,9 @@ export function UserActionDialog({
 
   const { state, action } = useFormAction({
     action: actions[type],
-    onComplete: () => {
-      enqueueSnackbar(
-        user_action_dialog["actions--reset-password-successfully"],
-        { variant: "success" }
-      );
-    },
+    onComplete: () =>
+      enqueueSnackbar(action_successfully[type], { variant: "success" }),
   });
-
-  const heading: Record<UserActionDialogType, string> = {
-    RESET_PASSWORD: user_action_dialog["heading--reset-password"],
-  };
-
-  const submit_button_text: Record<UserActionDialogType, string> = {
-    RESET_PASSWORD: user_action_dialog["submit_button_text--reset-password"],
-  };
 
   return (
     <Dialog {...rest} PaperProps={{ component: "form", action }}>

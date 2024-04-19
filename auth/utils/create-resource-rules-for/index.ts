@@ -20,24 +20,24 @@ export function createResourceRulesFor(
 
     builder.can("assign", "Resource", {
       status: ResourceStatus.UNASSIGNED,
-      assignedTo: null,
+      OR: [{ assignedTo: null }, { assignedToId: null }],
     });
 
     builder.can("transfer", "Resource", {
       status: ResourceStatus.ASSIGNED,
-      NOT: { assignedTo: null },
+      NOT: { OR: [{ assignedTo: null }, { assignedToId: null }] },
     });
 
     builder.can("unassign", "Resource", {
       status: ResourceStatus.ASSIGNED,
-      NOT: { assignedTo: null },
+      NOT: { OR: [{ assignedTo: null }, { assignedToId: null }] },
     });
 
     builder.can("repair", "Resource");
 
     builder.can("output", "Resource", {
       status: ResourceStatus.UNASSIGNED,
-      assignedTo: null,
+      OR: [{ assignedTo: null }, { assignedToId: null }],
     });
 
     builder.can("delete", "Resource");

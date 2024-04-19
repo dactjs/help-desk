@@ -32,6 +32,7 @@ export async function ServerResourceDataGrid() {
       dictionary={{
         resource_model: dictionary.resource_model,
         resource_data_grid: dictionary.resource_data_grid,
+        resource_action_dialog: dictionary.resource_action_dialog,
       }}
     />
   );
