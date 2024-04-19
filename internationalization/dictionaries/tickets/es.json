@@ -135,5 +135,37 @@
   "ticket_trace_timeline": {
     "heading": "Trazabilidad",
     "made_by": "Realizado por:"
+  },
+
+  "ticket_action_dialog": {
+    "origin_input_label": "Origen",
+    "destination_input_label": "Destino",
+    "solution_input_label": "Solución o Razón",
+
+    "heading--assign": "Asignar Ticket",
+    "submit_button_text--assign": "Asignar",
+    "actions--assign-successfully": "Ticket asignado exitosamente",
+
+    "heading--transfer": "Transferir Ticket",
+    "submit_button_text--transfer": "Transferir",
+    "actions--transfer-successfully": "Ticket transferido exitosamente",
+
+    "heading--open": "Abrir Ticket",
+    "context_text--open": "¿Estás seguro de querer marcar este ticket como abierto? Se notificará al usuario que se comenzará a trabajar en el requerimiento y, al mismo tiempo, se iniciará el conteo de tiempo. Es decir, si no vas a empezar a trabajar en el ticket de inmediato, sería mejor abrirlo más tarde.",
+    "submit_button_text--open": "Marcar como abierto",
+    "actions--open-successfully": "Ticket marcado como abierto exitosamente",
+
+    "heading--resolve": "Resolver Ticket",
+    "submit_button_text--resolve": "Marcar como resuelto",
+    "actions--resolve-successfully": "Ticket marcado como resuelto exitosamente",
+
+    "heading--close": "Cerrar Ticket",
+    "context_text--close": "¿Estás seguro de que quieres marcar este ticket como cerrado? Al hacerlo, estás indicando que la resolución ha sido exitosa. Si necesitas asistencia con el mismo requerimiento, tendrás que abrir otro ticket.",
+    "submit_button_text--close": "Marcar como cerrado",
+    "actions--close-successfully": "Ticket marcado como cerrado exitosamente",
+
+    "heading--cancel": "Cancelar Ticket",
+    "submit_button_text--cancel": "Marcar como cancelado",
+    "actions--cancel-successfully": "Ticket marcado como cancelado exitosamente"
   }
 }

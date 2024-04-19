@@ -135,5 +135,37 @@
   "ticket_trace_timeline": {
     "heading": "Traceability",
     "made_by": "Made By:"
+  },
+
+  "ticket_action_dialog": {
+    "origin_input_label": "Origin",
+    "destination_input_label": "Destination",
+    "solution_input_label": "Solution or Reason",
+
+    "heading--assign": "Assign Ticket",
+    "submit_button_text--assign": "Assign",
+    "actions--assign-successfully": "Ticket assigned successfully",
+
+    "heading--transfer": "Transfer Ticket",
+    "submit_button_text--transfer": "Transfer",
+    "actions--transfer-successfully": "Ticket transferred successfully",
+
+    "heading--open": "Open Ticket",
+    "context_text--open": "¿Are you sure you want to mark this ticket as open? Notifying the user that the requirement will be worked on will commence, and concurrently, time will begin to be tracked. In other words, if you're not going to start working on the ticket immediately, it's better to open it later.",
+    "submit_button_text--open": "Mark as open",
+    "actions--open-successfully": "Ticket marked as open successfully",
+
+    "heading--resolve": "Resolve Ticket",
+    "submit_button_text--resolve": "Mark as resolved",
+    "actions--resolve-successfully": "Ticket marked as resolved successfully",
+
+    "heading--close": "Close Ticket",
+    "context_text--close": "Are you sure you want to mark this ticket as closed? By doing so, you are indicating that the request has been successful. If you need assistance with the same, you will have to open another ticket.",
+    "submit_button_text--close": "Mark as close",
+    "actions--close-successfully": "Ticket marked as close successfully",
+
+    "heading--cancel": "Cancel Ticket",
+    "submit_button_text--cancel": "Mark as cancelled",
+    "actions--cancel-successfully": "Ticket marked as cancelled successfully"
   }
 }

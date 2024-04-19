@@ -32,6 +32,7 @@ export async function ServerTicketDataGrid() {
       dictionary={{
         ticket_model: dictionary.ticket_model,
         ticket_data_grid: dictionary.ticket_data_grid,
+        ticket_action_dialog: dictionary.ticket_action_dialog,
       }}
     />
   );

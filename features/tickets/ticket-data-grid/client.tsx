@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Chip, { ChipProps } from "@mui/material/Chip";
 import {
@@ -23,6 +24,8 @@ import { subject } from "@casl/ability";
 import { TicketStatus } from "@prisma/client";
 
 import { useAppAbility } from "@/auth/ability";
+import { TicketActionDialog } from "@/features/tickets/ticket-action-dialog";
+import { TicketActionDialogType } from "@/features/tickets/ticket-action-dialog/types";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
 import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
@@ -33,13 +36,16 @@ import { Ticket } from "./types";
 export interface ClientTicketDataGridProps {
   tickets: Ticket[];
   language: SupportedLanguage;
-  dictionary: Pick<Dictionary, "ticket_model" | "ticket_data_grid">;
+  dictionary: Pick<
+    Dictionary,
+    "ticket_model" | "ticket_data_grid" | "ticket_action_dialog"
+  >;
 }
 
 export function ClientTicketDataGrid({
   tickets,
   language,
-  dictionary: { ticket_model, ticket_data_grid },
+  dictionary: { ticket_model, ticket_data_grid, ticket_action_dialog },
 }: ClientTicketDataGridProps) {
   const router = useRouter();
 
@@ -48,6 +54,11 @@ export function ClientTicketDataGrid({
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
+
+  const [action, setAction] = useState<{
+    type: TicketActionDialogType;
+    ticketId: string;
+  } | null>(null);
 
   const status: Record<TicketStatus, string> = {
     UNASSIGNED: ticket_model["status--unassigned"],
@@ -98,6 +109,12 @@ export function ClientTicketDataGrid({
           icon={<AssignIcon color="warning" />}
           label={ticket_data_grid["actions--assign"]}
           aria-label={ticket_data_grid["actions--assign"]}
+          onClick={() =>
+            setAction({
+              type: TicketActionDialogType.ASSIGN,
+              ticketId: params.row.id,
+            })
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-transfer`}
@@ -106,6 +123,12 @@ export function ClientTicketDataGrid({
           icon={<TransferIcon color="info" />}
           label={ticket_data_grid["actions--transfer"]}
           aria-label={ticket_data_grid["actions--transfer"]}
+          onClick={() =>
+            setAction({
+              type: TicketActionDialogType.TRANSFER,
+              ticketId: params.row.id,
+            })
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-open`}
@@ -114,6 +137,12 @@ export function ClientTicketDataGrid({
           icon={<OpenIcon color="disabled" />}
           label={ticket_data_grid["actions--open"]}
           aria-label={ticket_data_grid["actions--open"]}
+          onClick={() =>
+            setAction({
+              type: TicketActionDialogType.OPEN,
+              ticketId: params.row.id,
+            })
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-resolve`}
@@ -122,6 +151,12 @@ export function ClientTicketDataGrid({
           icon={<ResolveIcon color="action" />}
           label={ticket_data_grid["actions--resolve"]}
           aria-label={ticket_data_grid["actions--resolve"]}
+          onClick={() =>
+            setAction({
+              type: TicketActionDialogType.RESOLVE,
+              ticketId: params.row.id,
+            })
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-close`}
@@ -130,6 +165,12 @@ export function ClientTicketDataGrid({
           icon={<CloseIcon color="success" />}
           label={ticket_data_grid["actions--close"]}
           aria-label={ticket_data_grid["actions--close"]}
+          onClick={() =>
+            setAction({
+              type: TicketActionDialogType.CLOSE,
+              ticketId: params.row.id,
+            })
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-cancel`}
@@ -138,6 +179,12 @@ export function ClientTicketDataGrid({
           icon={<CancelIcon color="error" />}
           label={ticket_data_grid["actions--cancel"]}
           aria-label={ticket_data_grid["actions--cancel"]}
+          onClick={() =>
+            setAction({
+              type: TicketActionDialogType.CANCEL,
+              ticketId: params.row.id,
+            })
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-delete`}
@@ -226,12 +273,25 @@ export function ClientTicketDataGrid({
   ];
 
   return (
-    <DataGrid
-      disableRowSelectionOnClick
-      columns={columns}
-      rows={tickets}
-      slots={{ toolbar: GridToolbar }}
-      slotProps={{ toolbar: { showQuickFilter: true } }}
-    />
+    <>
+      {action && (
+        <TicketActionDialog
+          fullWidth
+          type={action.type}
+          ticketId={action.ticketId}
+          dictionary={{ ticket_action_dialog }}
+          open={Boolean(action)}
+          onClose={() => setAction(null)}
+        />
+      )}
+
+      <DataGrid
+        disableRowSelectionOnClick
+        columns={columns}
+        rows={tickets}
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{ toolbar: { showQuickFilter: true } }}
+      />
+    </>
   );
 }
