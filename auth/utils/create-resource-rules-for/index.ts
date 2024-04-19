@@ -1,6 +1,6 @@
 import { Session } from "next-auth";
 import { AbilityBuilder } from "@casl/ability";
-import { UserRole } from "@prisma/client";
+import { UserRole, ResourceStatus } from "@prisma/client";
 
 import { AppAbility } from "../../ability";
 
@@ -16,15 +16,29 @@ export function createResourceRulesFor(
   }
 
   if (user?.role === UserRole.ADMIN) {
-    builder.can("assign", "Resource", { assignedTo: null });
+    builder.can("create", "Resource");
 
-    builder.can("transfer", "Resource", { NOT: { assignedTo: null } });
+    builder.can("assign", "Resource", {
+      status: ResourceStatus.UNASSIGNED,
+      assignedTo: null,
+    });
 
-    builder.can("unassign", "Resource", { NOT: { assignedTo: null } });
+    builder.can("transfer", "Resource", {
+      status: ResourceStatus.ASSIGNED,
+      NOT: { assignedTo: null },
+    });
+
+    builder.can("unassign", "Resource", {
+      status: ResourceStatus.ASSIGNED,
+      NOT: { assignedTo: null },
+    });
 
     builder.can("repair", "Resource");
 
-    builder.can("output", "Resource", { assignedTo: null });
+    builder.can("output", "Resource", {
+      status: ResourceStatus.UNASSIGNED,
+      assignedTo: null,
+    });
 
     builder.can("delete", "Resource");
   }

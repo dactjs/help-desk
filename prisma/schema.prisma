@@ -154,6 +154,8 @@ model Resource {
   model  String
   serial String @unique
 
+  status ResourceStatus @default(UNASSIGNED)
+
   traces   ResourceTrace[]
   comments ResourceComment[]
 
@@ -162,6 +164,13 @@ model Resource {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum ResourceStatus {
+  UNASSIGNED
+  ASSIGNED
+  REPAIR_IN_PROGRESS
+  DISCARDED
 }
 
 model ResourceComment {

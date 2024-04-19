@@ -32,6 +32,7 @@ export async function ServerUserDataGrid() {
       dictionary={{
         user_model: dictionary.user_model,
         user_data_grid: dictionary.user_data_grid,
+        user_action_dialog: dictionary.user_action_dialog,
       }}
     />
   );

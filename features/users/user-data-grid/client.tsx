@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Chip, { ChipProps } from "@mui/material/Chip";
 import {
@@ -18,6 +19,8 @@ import { subject } from "@casl/ability";
 import { UserStatus, UserRole } from "@prisma/client";
 
 import { useAppAbility } from "@/auth/ability";
+import { UserActionDialog } from "@/features/users/user-action-dialog";
+import { UserActionDialogType } from "@/features/users/user-action-dialog/types";
 import { Dictionary } from "@/internationalization/dictionaries/users";
 import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
@@ -29,13 +32,16 @@ import { User } from "./types";
 export interface ClientUserDataGridProps {
   users: User[];
   language: SupportedLanguage;
-  dictionary: Pick<Dictionary, "user_model" | "user_data_grid">;
+  dictionary: Pick<
+    Dictionary,
+    "user_model" | "user_data_grid" | "user_action_dialog"
+  >;
 }
 
 export function ClientUserDataGrid({
   users,
   language,
-  dictionary: { user_model, user_data_grid },
+  dictionary: { user_model, user_data_grid, user_action_dialog },
 }: ClientUserDataGridProps) {
   const router = useRouter();
 
@@ -44,6 +50,11 @@ export function ClientUserDataGrid({
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
+
+  const [action, setAction] = useState<{
+    type: UserActionDialogType;
+    userId: string;
+  } | null>(null);
 
   const status: Record<UserStatus, string> = {
     ENABLED: user_model["status--enabled"],
@@ -96,6 +107,12 @@ export function ClientUserDataGrid({
           icon={<SyncLockIcon />}
           label={user_data_grid["actions--reset-password"]}
           aria-label={user_data_grid["actions--reset-password"]}
+          onClick={() =>
+            setAction({
+              type: UserActionDialogType.RESET_PASSWORD,
+              userId: params.row.id,
+            })
+          }
         />,
         <GridActionsCellItem
           key={`${params.id}-delete`}
@@ -224,14 +241,27 @@ export function ClientUserDataGrid({
   };
 
   return (
-    <DataGrid
-      disableRowSelectionOnClick
-      columns={columns}
-      rows={users}
-      slots={{ toolbar: GridToolbar }}
-      slotProps={{ toolbar: { showQuickFilter: true } }}
-      processRowUpdate={updateUser}
-      onProcessRowUpdateError={handleOnProcessRowUpdateError}
-    />
+    <>
+      {action && (
+        <UserActionDialog
+          fullWidth
+          type={action.type}
+          userId={action.userId}
+          dictionary={{ user_action_dialog }}
+          open={Boolean(action)}
+          onClose={() => setAction(null)}
+        />
+      )}
+
+      <DataGrid
+        disableRowSelectionOnClick
+        columns={columns}
+        rows={users}
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{ toolbar: { showQuickFilter: true } }}
+        processRowUpdate={updateUser}
+        onProcessRowUpdateError={handleOnProcessRowUpdateError}
+      />
+    </>
   );
 }

@@ -57,5 +57,15 @@
     "heading--admin": "Admin details",
     "heading--technician": "Technician details",
     "heading--user": "User details"
+  },
+
+  "user_action_dialog": {
+    "password_input_label": "Password",
+    "confirm_password_input_label": "Confirm Password",
+
+    "heading--reset-password": "Reset Password",
+    "submit_button_text--reset-password": "Reset",
+    "actions--reset-password-successfully": "Password reseted successfully",
+    "actions--reset-password-passwords-do-not-match": "Passwords do not match"
   }
 }

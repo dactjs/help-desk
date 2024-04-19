@@ -10,7 +10,7 @@ export interface ResourceCardProps {
 
 export function ResourceCard({ resourceId }: ResourceCardProps) {
   return (
-    <Suspense fallback={<CardSkeleton items={5} />}>
+    <Suspense fallback={<CardSkeleton items={6} />}>
       <ServerResourceCard resourceId={resourceId} />
     </Suspense>
   );

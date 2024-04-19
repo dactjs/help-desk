@@ -13,7 +13,10 @@ export interface CardSkeletonProps {
 export function CardSkeleton({ items }: CardSkeletonProps) {
   return (
     <Card sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <CardHeader subheader={<Skeleton width="75%" />} />
+      <CardHeader
+        subheader={<Skeleton width="75%" />}
+        action={<Skeleton variant="circular" width={40} height={40} />}
+      />
 
       <CardContent
         sx={{
