@@ -8,6 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import Launch from "@mui/icons-material/Launch";
+import { ResourceStatus } from "@prisma/client";
 
 import { NotFound } from "@/components/templates/not-found";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
@@ -29,6 +30,13 @@ export function ClientResourceCard({
   language,
   dictionary: { resource_model, resource_card, not_found },
 }: ClientResourceCardProps) {
+  const status: Record<ResourceStatus, string> = {
+    UNASSIGNED: resource_model["status--unassigned"],
+    ASSIGNED: resource_model["status--assigned"],
+    REPAIR_IN_PROGRESS: resource_model["status--repair-in-progress"],
+    DISCARDED: resource_model["status--discarded"],
+  };
+
   if (!resource) {
     return (
       <Paper sx={{ placeContent: "center", height: "100%" }}>
@@ -81,6 +89,13 @@ export function ClientResourceCard({
             <ListItemText
               primary={resource_model.serial}
               secondary={resource.serial}
+            />
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemText
+              primary={resource_model.status}
+              secondary={status[resource.status]}
             />
           </ListItem>
 

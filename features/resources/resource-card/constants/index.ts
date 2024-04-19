@@ -3,6 +3,7 @@ export const NECESSARY_RESOURCE_FIELDS = {
   brand: true,
   model: true,
   serial: true,
+  status: true,
   createdAt: true,
   updatedAt: true,
 };

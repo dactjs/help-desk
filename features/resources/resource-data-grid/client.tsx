@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Chip, { ChipProps } from "@mui/material/Chip";
 import {
   DataGrid,
   GridToolbar,
@@ -18,6 +19,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
 import { subject } from "@casl/ability";
+import { ResourceStatus } from "@prisma/client";
 
 import { useAppAbility } from "@/auth/ability";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
@@ -46,6 +48,13 @@ export function ClientResourceDataGrid({
   const { enqueueSnackbar } = useSnackbar();
 
   const confirm = useConfirm();
+
+  const status: Record<ResourceStatus, string> = {
+    UNASSIGNED: resource_model["status--unassigned"],
+    ASSIGNED: resource_model["status--assigned"],
+    REPAIR_IN_PROGRESS: resource_model["status--repair-in-progress"],
+    DISCARDED: resource_model["status--discarded"],
+  };
 
   const handleDelete = (id: string) => {
     confirm()
@@ -162,6 +171,29 @@ export function ClientResourceDataGrid({
       headerAlign: "center",
       align: "center",
       minWidth: 225,
+    },
+    {
+      field: "status",
+      headerName: resource_model.status,
+      headerAlign: "center",
+      align: "center",
+      width: 175,
+      renderCell: (params) => {
+        const colors: Record<ResourceStatus, ChipProps["color"]> = {
+          UNASSIGNED: "default",
+          ASSIGNED: "info",
+          REPAIR_IN_PROGRESS: "warning",
+          DISCARDED: "error",
+        };
+
+        return (
+          <Chip
+            variant="filled"
+            label={status[params.row.status] ?? "???"}
+            color={colors[params.row.status] ?? "default"}
+          />
+        );
+      },
     },
     {
       field: "assignedTo",

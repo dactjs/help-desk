@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { ResourceTraceType } from "@prisma/client";
+import { ResourceStatus, ResourceTraceType } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -62,6 +62,7 @@ export const submit: FormAction = async (_, formData) => {
         },
 
         ...(result.data.user && {
+          status: ResourceStatus.ASSIGNED,
           assignedToId: result.data.user,
           traces: {
             createMany: {

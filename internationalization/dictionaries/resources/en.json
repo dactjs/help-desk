@@ -4,6 +4,13 @@
     "brand": "Brand",
     "model": "Model",
     "serial": "Serial Number",
+
+    "status": "Status",
+    "status--unassigned": "Unassigned",
+    "status--assigned": "Assigned",
+    "status--repair-in-progress": "In Progress",
+    "status--discarded": "Discarded",
+
     "assignedTo": "Assigned To",
     "createdAt": "Created At",
     "updatedAt": "Updated At"

@@ -4,6 +4,13 @@
     "brand": "Marca",
     "model": "Modelo",
     "serial": "Serial °",
+
+    "status": "Estado",
+    "status--unassigned": "Sin Asignar",
+    "status--assigned": "Asignado",
+    "status--repair-in-progress": "Reparación En Proceso",
+    "status--discarded": "Descartado",
+
     "assignedTo": "Asignado A",
     "createdAt": "Creado En",
     "updatedAt": "Actualizado En"

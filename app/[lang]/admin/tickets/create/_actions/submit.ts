@@ -67,8 +67,14 @@ export const submit: FormAction = async (_, formData) => {
           traces: {
             createMany: {
               data: [
-                { type: TicketTraceType.RECEPTION, madeById: session.user.id },
-                { type: TicketTraceType.ASSIGNMENT, madeById: session.user.id },
+                {
+                  type: TicketTraceType.RECEPTION,
+                  madeById: session.user.id,
+                },
+                {
+                  type: TicketTraceType.ASSIGNMENT,
+                  madeById: session.user.id,
+                },
               ],
             },
           },

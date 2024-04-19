@@ -1,3 +1,5 @@
+import { ResourceStatus } from "@prisma/client";
+
 type User = {
   id: string;
   username: string;
@@ -10,6 +12,7 @@ export interface Resource {
   brand: string;
   model: string;
   serial: string;
+  status: ResourceStatus;
   assignedTo: User | null;
   createdAt: Date;
   updatedAt: Date;
