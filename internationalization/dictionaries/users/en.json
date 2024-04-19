@@ -14,8 +14,8 @@
     "role--technician": "Technician",
     "role--user": "User",
 
-    "createdAt": "Creado En",
-    "updatedAt": "Actualizado En"
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
   },
 
   "not_found": {

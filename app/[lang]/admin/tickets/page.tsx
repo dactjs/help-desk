@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
+import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
 import { Can } from "@/auth/ability";
@@ -36,29 +36,35 @@ export default async function TicketsPage({
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
-      <Toolbar sx={{ justifyContent: "flex-end", gap: 1 }}>
-        <Button
-          LinkComponent={Link}
-          href={`/${lang}/admin/tickets/services`}
-          variant="outlined"
-          color="secondary"
-        >
-          {tickets_page["toolbar_button--manage-services"]}
-        </Button>
-
-        <Can I="create" a="Ticket">
-          <Button
-            LinkComponent={Link}
-            href={`/${lang}/admin/tickets/create`}
-            variant="contained"
-            color="primary"
-          >
-            {tickets_page["toolbar_button--create"]}
-          </Button>
-        </Can>
-      </Toolbar>
-
       <Grid container justifyContent="center" alignItems="center" spacing={2}>
+        <Grid xs={12}>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            justifyContent={{ xs: "center", sm: "flex-end" }}
+            spacing={1}
+          >
+            <Button
+              LinkComponent={Link}
+              href={`/${lang}/admin/tickets/services`}
+              variant="outlined"
+              color="secondary"
+            >
+              {tickets_page["toolbar_button--manage-services"]}
+            </Button>
+
+            <Can I="create" a="Ticket">
+              <Button
+                LinkComponent={Link}
+                href={`/${lang}/admin/tickets/create`}
+                variant="contained"
+                color="primary"
+              >
+                {tickets_page["toolbar_button--create"]}
+              </Button>
+            </Can>
+          </Stack>
+        </Grid>
+
         <Grid xs={12}>
           <Widget>
             <TicketDataGrid />
