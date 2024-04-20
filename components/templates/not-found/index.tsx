@@ -31,7 +31,7 @@ export function NotFound({
       </Stack>
 
       <Stack>
-        <Typography component="h1" variant="h4" align="center">
+        <Typography component="h2" variant="h4" align="center">
           {heading}
         </Typography>
 

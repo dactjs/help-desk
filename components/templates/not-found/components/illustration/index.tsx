@@ -2,7 +2,6 @@ export function Illustration() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      data-name="Layer 1"
       width="860.13137"
       height="571.14799"
       viewBox="0 0 860.13137 571.14799"

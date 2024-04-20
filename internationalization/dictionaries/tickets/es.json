@@ -137,6 +137,16 @@
     "made_by": "Realizado por:"
   },
 
+  "ticket_comments": {
+    "heading": "Comentarios",
+    "written_by": "Escrito por: {{name}} en {{date}}",
+
+    "empty-caption": "Sin Comentarios",
+
+    "actions--edit": "Editar",
+    "actions--delete": "Eliminar"
+  },
+
   "ticket_action_dialog": {
     "origin_input_label": "Origen",
     "destination_input_label": "Destino",

@@ -25,7 +25,7 @@ export async function generateMetadata({
 export default function UsersPage() {
   return (
     <Container fixed sx={{ paddingY: 2 }}>
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid container justifyContent="center" alignItems="center" spacing={2}>
         <Grid xs={12}>
           <Widget>
             <UserDataGrid />

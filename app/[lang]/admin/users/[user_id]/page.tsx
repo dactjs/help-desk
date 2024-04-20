@@ -52,7 +52,7 @@ export default async function UserPage({ params: { user_id } }: UserPageProps) {
 
   return (
     <Container fixed sx={{ paddingY: 2 }}>
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid container justifyContent="center" alignItems="center" spacing={2}>
         <Grid xs={12}>
           <Widget>
             <UserCard userId={user_id} />
