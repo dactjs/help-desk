@@ -1,5 +1,7 @@
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 import Stack from "@mui/material/Stack";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
@@ -44,15 +46,9 @@ export async function Dashboard({ navigation, children }: DashboardProps) {
         overflow: "hidden",
       }}
     >
-      <Box
-        component="header"
-        sx={{
-          gridArea: "header",
-          height: 64,
-          boxShadow: 4,
-          backgroundColor: "primary.main",
-        }}
-      />
+      <AppBar position="sticky" sx={{ gridArea: "header" }}>
+        <Toolbar />
+      </AppBar>
 
       <Box
         component="aside"

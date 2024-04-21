@@ -1,5 +1,7 @@
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
@@ -30,46 +32,43 @@ export async function Layout({ children }: LayoutProps) {
         overflow: "hidden",
       }}
     >
-      <Box
-        component="header"
-        sx={{
-          gridArea: "header",
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 1,
-          padding: 1,
-          boxShadow: 4,
-          backgroundColor: "primary.main",
-        }}
-      >
-        <Box component="section">
-          <Stack
-            component={Paper}
-            direction="row"
-            alignItems="center"
-            spacing={1}
-            sx={{ padding: 1 }}
-          >
-            <Avatar alt={String(session?.user?.name)} />
+      <AppBar position="sticky" sx={{ gridArea: "header" }}>
+        <Toolbar
+          sx={{
+            flexDirection: { xs: "column", sm: "row" },
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 1,
+            padding: 1,
+          }}
+        >
+          <Box component="section">
+            <Stack
+              component={Paper}
+              direction="row"
+              alignItems="center"
+              spacing={1}
+              sx={{ padding: 1 }}
+            >
+              <Avatar alt={String(session?.user?.name)} />
 
-            <Stack>
-              <Typography component="strong" variant="subtitle2">
-                {session?.user?.name}
-              </Typography>
+              <Stack>
+                <Typography component="strong" variant="subtitle2">
+                  {session?.user?.name}
+                </Typography>
 
-              <Typography component="span" variant="caption">
-                {session?.user?.email}
-              </Typography>
+                <Typography component="span" variant="caption">
+                  {session?.user?.email}
+                </Typography>
+              </Stack>
             </Stack>
-          </Stack>
-        </Box>
+          </Box>
 
-        <Box component="section">
-          <SignOutButton />
-        </Box>
-      </Box>
+          <Box component="section">
+            <SignOutButton />
+          </Box>
+        </Toolbar>
+      </AppBar>
 
       <Box
         component="main"
