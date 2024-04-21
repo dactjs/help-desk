@@ -55,7 +55,7 @@ export default async function UsersPage({ params: { lang } }: UsersPageProps) {
         </Grid>
 
         <Grid xs={12}>
-          <Widget>
+          <Widget sx={{ height: 500 }}>
             <UserDataGrid />
           </Widget>
         </Grid>

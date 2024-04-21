@@ -27,7 +27,7 @@ export default function UsersPage() {
     <Container fixed sx={{ paddingY: 2 }}>
       <Grid container justifyContent="center" alignItems="center" spacing={2}>
         <Grid xs={12}>
-          <Widget>
+          <Widget sx={{ height: 500 }}>
             <UserDataGrid />
           </Widget>
         </Grid>

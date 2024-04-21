@@ -66,7 +66,7 @@ export default async function TicketsPage({
         </Grid>
 
         <Grid xs={12}>
-          <Widget>
+          <Widget sx={{ height: 500 }}>
             <TicketDataGrid />
           </Widget>
         </Grid>

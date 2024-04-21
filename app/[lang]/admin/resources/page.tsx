@@ -57,7 +57,7 @@ export default async function ResourcesPage({
         </Grid>
 
         <Grid xs={12}>
-          <Widget>
+          <Widget sx={{ height: 500 }}>
             <ResourceDataGrid />
           </Widget>
         </Grid>
