@@ -7,7 +7,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
-import Launch from "@mui/icons-material/Launch";
+import LaunchIcon from "@mui/icons-material/Launch";
 import { UserStatus, UserRole } from "@prisma/client";
 
 import { NotFound } from "@/components/templates/not-found";
@@ -66,7 +66,7 @@ export function ClientUserCard({
             LinkComponent={Link}
             href={`/${language}/admin/users/${user.id}`}
           >
-            <Launch />
+            <LaunchIcon />
           </IconButton>
         }
       />

@@ -70,6 +70,7 @@ export const submit: FormAction = async (_, formData) => {
                 },
                 {
                   type: ResourceTraceType.ASSIGNMENT,
+                  destinationId: result.data.user,
                   madeById: String(session?.user?.id),
                 },
               ],

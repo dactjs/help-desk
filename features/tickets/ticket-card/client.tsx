@@ -7,7 +7,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
-import Launch from "@mui/icons-material/Launch";
+import LaunchIcon from "@mui/icons-material/Launch";
 import { TicketStatus } from "@prisma/client";
 
 import { NotFound } from "@/components/templates/not-found";
@@ -56,7 +56,7 @@ export function ClientTicketCard({
             LinkComponent={Link}
             href={`/${language}/admin/tickets/${ticket.id}`}
           >
-            <Launch />
+            <LaunchIcon />
           </IconButton>
         }
       />

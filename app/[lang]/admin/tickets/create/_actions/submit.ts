@@ -70,6 +70,7 @@ export const submit: FormAction = async (_, formData) => {
                 },
                 {
                   type: TicketTraceType.ASSIGNMENT,
+                  destinationId: result.data.technician,
                   madeById: String(session?.user?.id),
                 },
               ],

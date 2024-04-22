@@ -73,6 +73,13 @@
     "made_by": "Realizado por:"
   },
 
+  "resource_trace_details_dialog": {
+    "description": "Se llevó a cabo la acción de '{{action}}' el {{timestamp}}.",
+    "origin": "Origen",
+    "destination": "Destino",
+    "made_by": "Realizado por:"
+  },
+
   "resource_comments": {
     "heading": "Comentarios",
     "written_by": "Escrito por: {{name}} en {{date}}",

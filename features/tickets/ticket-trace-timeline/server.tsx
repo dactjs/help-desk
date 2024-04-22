@@ -37,6 +37,7 @@ export async function ServerTicketTraceTimeline({
       dictionary={{
         ticket_trace_model: dictionary.ticket_trace_model,
         ticket_trace_timeline: dictionary.ticket_trace_timeline,
+        ticket_trace_details_dialog: dictionary.ticket_trace_details_dialog,
       }}
     />
   );

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { subject } from "@casl/ability";
-import { TicketTraceType } from "@prisma/client";
+import { TicketStatus, TicketTraceType } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -53,6 +53,7 @@ export const transfer: FormAction = async (_, formData) => {
       await tx.ticket.update({
         where: { id: result.data.ticket },
         data: {
+          status: TicketStatus.ASSIGNED,
           assignedToId: result.data.destination,
           traces: {
             create: {

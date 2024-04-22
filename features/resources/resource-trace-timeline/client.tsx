@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Paper from "@mui/material/Paper";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -23,6 +24,7 @@ import { ResourceTraceType } from "@prisma/client";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
 import { SupportedLanguage } from "@/internationalization/types";
 
+import { ResourceTraceDetailsDialog } from "./components/resource-trace-details-dialog";
 import { ResourceTrace } from "./types";
 
 export interface ClientResourceTraceTimelineProps {
@@ -30,15 +32,23 @@ export interface ClientResourceTraceTimelineProps {
   language: SupportedLanguage;
   dictionary: Pick<
     Dictionary,
-    "resource_trace_model" | "resource_trace_timeline"
+    | "resource_trace_model"
+    | "resource_trace_timeline"
+    | "resource_trace_details_dialog"
   >;
 }
 
 export function ClientResourceTraceTimeline({
   traces,
   language,
-  dictionary: { resource_trace_model, resource_trace_timeline },
+  dictionary: {
+    resource_trace_model,
+    resource_trace_timeline,
+    resource_trace_details_dialog,
+  },
 }: ClientResourceTraceTimelineProps) {
+  const [trace, setTrace] = useState<ResourceTrace | null>(null);
+
   const type: Record<ResourceTraceType, string> = {
     [ResourceTraceType.INPUT]: resource_trace_model["type--input"],
     [ResourceTraceType.ASSIGNMENT]: resource_trace_model["type--assignment"],
@@ -59,50 +69,65 @@ export function ClientResourceTraceTimeline({
   };
 
   return (
-    <Paper sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <AppBar position="static" sx={{ borderRadius: "inherit" }}>
-        <Toolbar>
-          <Typography component="h2" variant="body1" fontWeight="bolder">
-            {resource_trace_timeline.heading}
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <>
+      {trace && (
+        <ResourceTraceDetailsDialog
+          fullWidth
+          trace={trace}
+          language={language}
+          dictionary={{ resource_trace_model, resource_trace_details_dialog }}
+          open={Boolean(trace)}
+          onClose={() => setTrace(null)}
+        />
+      )}
 
-      <Timeline sx={{ height: "100%", overflowY: "auto" }}>
-        {traces.map((trace) => (
-          <TimelineItem key={trace.id}>
-            <TimelineOppositeContent>
-              <Typography fontWeight="bolder">
-                {type[trace.type] ?? trace.type}
-              </Typography>
+      <Paper sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <AppBar position="static" sx={{ borderRadius: "inherit" }}>
+          <Toolbar>
+            <Typography component="h2" variant="body1" fontWeight="bolder">
+              {resource_trace_timeline.heading}
+            </Typography>
+          </Toolbar>
+        </AppBar>
 
-              <Typography variant="caption" color="text.secondary">
-                {new Date(trace.createdAt).toLocaleString(language)}
-              </Typography>
-            </TimelineOppositeContent>
+        <Timeline sx={{ height: "100%", overflowY: "auto" }}>
+          {traces.map((trace) => (
+            <TimelineItem key={trace.id}>
+              <TimelineOppositeContent>
+                <Typography fontWeight="bolder">
+                  {type[trace.type] ?? trace.type}
+                </Typography>
 
-            <TimelineSeparator>
-              <TimelineConnector />
+                <Typography variant="caption" color="text.secondary">
+                  {new Date(trace.createdAt).toLocaleString(language)}
+                </Typography>
+              </TimelineOppositeContent>
 
-              <TimelineDot variant="outlined">
-                <IconButton size="small">{icons[trace.type]}</IconButton>
-              </TimelineDot>
+              <TimelineSeparator>
+                <TimelineConnector />
 
-              <TimelineConnector />
-            </TimelineSeparator>
+                <TimelineDot variant="outlined">
+                  <IconButton size="small" onClick={() => setTrace(trace)}>
+                    {icons[trace.type]}
+                  </IconButton>
+                </TimelineDot>
 
-            <TimelineContent sx={{ paddingX: 2, paddingY: 1.5 }}>
-              <Typography fontWeight="bolder">
-                {resource_trace_timeline.made_by}
-              </Typography>
+                <TimelineConnector />
+              </TimelineSeparator>
 
-              <Typography variant="caption" color="text.secondary">
-                {trace.madeBy.name}
-              </Typography>
-            </TimelineContent>
-          </TimelineItem>
-        ))}
-      </Timeline>
-    </Paper>
+              <TimelineContent sx={{ paddingX: 2, paddingY: 1.5 }}>
+                <Typography fontWeight="bolder">
+                  {resource_trace_timeline.made_by}
+                </Typography>
+
+                <Typography variant="caption" color="text.secondary">
+                  {trace.madeBy.name}
+                </Typography>
+              </TimelineContent>
+            </TimelineItem>
+          ))}
+        </Timeline>
+      </Paper>
+    </>
   );
 }

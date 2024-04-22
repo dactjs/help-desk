@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Paper from "@mui/material/Paper";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -24,19 +25,31 @@ import { TicketTraceType } from "@prisma/client";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
 import { SupportedLanguage } from "@/internationalization/types";
 
+import { TicketTraceDetailsDialog } from "./components/ticket-trace-details-dialog";
 import { TicketTrace } from "./types";
 
 export interface ClientTicketTraceTimelineProps {
   traces: TicketTrace[];
   language: SupportedLanguage;
-  dictionary: Pick<Dictionary, "ticket_trace_model" | "ticket_trace_timeline">;
+  dictionary: Pick<
+    Dictionary,
+    | "ticket_trace_model"
+    | "ticket_trace_timeline"
+    | "ticket_trace_details_dialog"
+  >;
 }
 
 export function ClientTicketTraceTimeline({
   traces,
   language,
-  dictionary: { ticket_trace_model, ticket_trace_timeline },
+  dictionary: {
+    ticket_trace_model,
+    ticket_trace_timeline,
+    ticket_trace_details_dialog,
+  },
 }: ClientTicketTraceTimelineProps) {
+  const [trace, setTrace] = useState<TicketTrace | null>(null);
+
   const type: Record<TicketTraceType, string> = {
     [TicketTraceType.RECEPTION]: ticket_trace_model["type--reception"],
     [TicketTraceType.ASSIGNMENT]: ticket_trace_model["type--assignment"],
@@ -58,50 +71,65 @@ export function ClientTicketTraceTimeline({
   };
 
   return (
-    <Paper sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <AppBar position="static" sx={{ borderRadius: "inherit" }}>
-        <Toolbar>
-          <Typography component="h2" variant="body1" fontWeight="bolder">
-            {ticket_trace_timeline.heading}
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <>
+      {trace && (
+        <TicketTraceDetailsDialog
+          fullWidth
+          trace={trace}
+          language={language}
+          dictionary={{ ticket_trace_model, ticket_trace_details_dialog }}
+          open={Boolean(trace)}
+          onClose={() => setTrace(null)}
+        />
+      )}
 
-      <Timeline sx={{ height: "100%", overflowY: "auto" }}>
-        {traces.map((trace) => (
-          <TimelineItem key={trace.id}>
-            <TimelineOppositeContent>
-              <Typography fontWeight="bolder">
-                {type[trace.type] ?? trace.type}
-              </Typography>
+      <Paper sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <AppBar position="static" sx={{ borderRadius: "inherit" }}>
+          <Toolbar>
+            <Typography component="h2" variant="body1" fontWeight="bolder">
+              {ticket_trace_timeline.heading}
+            </Typography>
+          </Toolbar>
+        </AppBar>
 
-              <Typography variant="caption" color="text.secondary">
-                {new Date(trace.createdAt).toLocaleString(language)}
-              </Typography>
-            </TimelineOppositeContent>
+        <Timeline sx={{ height: "100%", overflowY: "auto" }}>
+          {traces.map((trace) => (
+            <TimelineItem key={trace.id}>
+              <TimelineOppositeContent>
+                <Typography fontWeight="bolder">
+                  {type[trace.type] ?? trace.type}
+                </Typography>
 
-            <TimelineSeparator>
-              <TimelineConnector />
+                <Typography variant="caption" color="text.secondary">
+                  {new Date(trace.createdAt).toLocaleString(language)}
+                </Typography>
+              </TimelineOppositeContent>
 
-              <TimelineDot variant="outlined">
-                <IconButton size="small">{icons[trace.type]}</IconButton>
-              </TimelineDot>
+              <TimelineSeparator>
+                <TimelineConnector />
 
-              <TimelineConnector />
-            </TimelineSeparator>
+                <TimelineDot variant="outlined">
+                  <IconButton size="small" onClick={() => setTrace(trace)}>
+                    {icons[trace.type]}
+                  </IconButton>
+                </TimelineDot>
 
-            <TimelineContent sx={{ paddingX: 2, paddingY: 1.5 }}>
-              <Typography fontWeight="bolder">
-                {ticket_trace_timeline.made_by}
-              </Typography>
+                <TimelineConnector />
+              </TimelineSeparator>
 
-              <Typography variant="caption" color="text.secondary">
-                {trace.madeBy.name}
-              </Typography>
-            </TimelineContent>
-          </TimelineItem>
-        ))}
-      </Timeline>
-    </Paper>
+              <TimelineContent sx={{ paddingX: 2, paddingY: 1.5 }}>
+                <Typography fontWeight="bolder">
+                  {ticket_trace_timeline.made_by}
+                </Typography>
+
+                <Typography variant="caption" color="text.secondary">
+                  {trace.madeBy.name}
+                </Typography>
+              </TimelineContent>
+            </TimelineItem>
+          ))}
+        </Timeline>
+      </Paper>
+    </>
   );
 }

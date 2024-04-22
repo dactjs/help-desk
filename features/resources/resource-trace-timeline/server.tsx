@@ -37,6 +37,7 @@ export async function ServerResourceTraceTimeline({
       dictionary={{
         resource_trace_model: dictionary.resource_trace_model,
         resource_trace_timeline: dictionary.resource_trace_timeline,
+        resource_trace_details_dialog: dictionary.resource_trace_details_dialog,
       }}
     />
   );

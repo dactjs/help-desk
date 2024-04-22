@@ -7,7 +7,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
-import Launch from "@mui/icons-material/Launch";
+import LaunchIcon from "@mui/icons-material/Launch";
 import { ResourceStatus } from "@prisma/client";
 
 import { NotFound } from "@/components/templates/not-found";
@@ -57,7 +57,7 @@ export function ClientResourceCard({
             LinkComponent={Link}
             href={`/${language}/admin/resources/${resource.id}`}
           >
-            <Launch />
+            <LaunchIcon />
           </IconButton>
         }
       />
