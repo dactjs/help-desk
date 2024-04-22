@@ -9,6 +9,7 @@ import { useSnackbar } from "notistack";
 import { TicketServiceCategoryAutocomplete } from "@/features/tickets/ticket-service-category-autocomplete";
 import { TicketServiceCategory } from "@/features/tickets/ticket-service-category-autocomplete/types";
 import { FormTextField } from "@/components/forms/form-text-field";
+import { HiddenInput } from "@/components/forms/hidden-input";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
@@ -42,8 +43,14 @@ export function CreateTicketServiceForm({
   const [category, setCategory] = useState<TicketServiceCategory | null>(null);
 
   return (
-    <Stack component="form" autoComplete="off" action={action} spacing={2}>
-      {category && <input type="hidden" name="category" value={category.id} />}
+    <Stack
+      component="form"
+      autoComplete="off"
+      action={action}
+      spacing={2}
+      useFlexGap
+    >
+      <HiddenInput name="category" value={category?.id || null} />
 
       <TicketServiceCategoryAutocomplete
         required

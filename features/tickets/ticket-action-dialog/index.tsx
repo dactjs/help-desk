@@ -14,6 +14,7 @@ import { UserRole } from "@prisma/client";
 import { UserAutocomplete } from "@/features/users/user-autocomplete";
 import { User } from "@/features/users/user-autocomplete/types";
 import { FormTextField } from "@/components/forms/form-text-field";
+import { HiddenInput } from "@/components/forms/hidden-input";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
@@ -30,12 +31,14 @@ import { TicketActionDialogType } from "./types";
 export interface TicketActionDialogProps extends DialogProps {
   type: TicketActionDialogType;
   ticketId: string;
+  origin: User | null;
   dictionary: Pick<Dictionary, "ticket_action_dialog">;
 }
 
 export function TicketActionDialog({
   type,
   ticketId,
+  origin,
   dictionary: { ticket_action_dialog },
   ...rest
 }: TicketActionDialogProps) {
@@ -47,6 +50,11 @@ export function TicketActionDialog({
     CLOSE: ticket_action_dialog["heading--close"],
     CANCEL: ticket_action_dialog["heading--cancel"],
   };
+
+  const context_text = {
+    OPEN: ticket_action_dialog["context_text--open"],
+    CLOSE: ticket_action_dialog["context_text--close"],
+  } as const;
 
   const submit_button_text: Record<TicketActionDialogType, string> = {
     ASSIGN: ticket_action_dialog["submit_button_text--assign"],
@@ -90,33 +98,39 @@ export function TicketActionDialog({
       <DialogTitle>{heading[type]}</DialogTitle>
 
       <DialogContent dividers>
-        <input type="hidden" name="ticket" value={ticketId} />
-
-        {destination && (
-          <input type="hidden" name="destination" value={destination.id} />
-        )}
-
-        {type === TicketActionDialogType.OPEN && (
+        {[TicketActionDialogType.OPEN, TicketActionDialogType.CLOSE].includes(
+          type as keyof typeof context_text
+        ) && (
           <DialogContentText>
-            {ticket_action_dialog["context_text--open"]}
+            {context_text[type as keyof typeof context_text]}
           </DialogContentText>
         )}
 
-        {type === TicketActionDialogType.CLOSE && (
-          <DialogContentText>
-            {ticket_action_dialog["context_text--close"]}
-          </DialogContentText>
-        )}
+        <Stack spacing={2} useFlexGap>
+          <HiddenInput name="ticket" value={ticketId} />
+          <HiddenInput name="destination" value={destination?.id || null} />
 
-        <Stack spacing={2}>
-          {[
-            TicketActionDialogType.ASSIGN,
-            TicketActionDialogType.TRANSFER,
-          ].some((current) => current === type) && (
+          {type === TicketActionDialogType.TRANSFER && (
+            <FormTextField
+              required
+              fullWidth
+              disabled
+              label={ticket_action_dialog.origin_input_label}
+              value={`${origin?.name} (${origin?.username})`}
+            />
+          )}
+
+          {(
+            [
+              TicketActionDialogType.ASSIGN,
+              TicketActionDialogType.TRANSFER,
+            ] as TicketActionDialogType[]
+          ).includes(type) && (
             <UserAutocomplete
               required
               fullWidth
               filters={{ roles: [UserRole.TECHNICIAN] }}
+              getOptionDisabled={(option) => option.id === origin?.id}
               value={destination}
               onChange={(_, value) => setDestination(value as User)}
               label={ticket_action_dialog.destination_input_label}
@@ -125,9 +139,12 @@ export function TicketActionDialog({
             />
           )}
 
-          {[TicketActionDialogType.RESOLVE, TicketActionDialogType.CANCEL].some(
-            (current) => current === type
-          ) && (
+          {(
+            [
+              TicketActionDialogType.RESOLVE,
+              TicketActionDialogType.CANCEL,
+            ] as TicketActionDialogType[]
+          ).includes(type) && (
             <FormTextField
               multiline
               required

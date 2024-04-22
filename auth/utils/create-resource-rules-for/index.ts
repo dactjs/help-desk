@@ -42,7 +42,9 @@ export function createResourceRulesFor(
     });
 
     builder.can("output", "Resource", {
-      status: ResourceStatus.UNASSIGNED,
+      status: {
+        in: [ResourceStatus.UNASSIGNED, ResourceStatus.REPAIR_IN_PROGRESS],
+      },
       OR: [{ assignedTo: null }, { assignedToId: null }],
     });
 

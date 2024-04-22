@@ -12,6 +12,7 @@ import { TicketService } from "@/features/tickets/ticket-service-autocomplete/ty
 import { UserAutocomplete } from "@/features/users/user-autocomplete";
 import { User } from "@/features/users/user-autocomplete/types";
 import { FormTextField } from "@/components/forms/form-text-field";
+import { HiddenInput } from "@/components/forms/hidden-input";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
@@ -46,14 +47,16 @@ export function CreateTicketForm({
   const [technician, setTechnician] = useState<User | null>(null);
 
   return (
-    <Stack component="form" autoComplete="off" action={action} spacing={2}>
-      {service && <input type="hidden" name="service" value={service.id} />}
-
-      {user && <input type="hidden" name="user" value={user.id} />}
-
-      {technician && (
-        <input type="hidden" name="technician" value={technician.id} />
-      )}
+    <Stack
+      component="form"
+      autoComplete="off"
+      action={action}
+      spacing={2}
+      useFlexGap
+    >
+      <HiddenInput name="service" value={service?.id || null} />
+      <HiddenInput name="user" value={user?.id || null} />
+      <HiddenInput name="technician" value={technician?.id || null} />
 
       <TicketServiceAutocomplete
         required

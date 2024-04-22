@@ -9,6 +9,7 @@ import Alert from "@mui/material/Alert";
 import { useSnackbar } from "notistack";
 
 import { FormTextField } from "@/components/forms/form-text-field";
+import { HiddenInput } from "@/components/forms/hidden-input";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/users";
@@ -58,9 +59,9 @@ export function UserActionDialog({
       <DialogTitle>{heading[type]}</DialogTitle>
 
       <DialogContent dividers>
-        <input type="hidden" name="user" value={userId} />
+        <Stack spacing={2} useFlexGap>
+          <HiddenInput name="user" value={userId} />
 
-        <Stack spacing={2}>
           <FormTextField
             required
             fullWidth

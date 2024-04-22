@@ -12,7 +12,7 @@ import {
 } from "@mui/x-data-grid";
 import LaunchIcon from "@mui/icons-material/Launch";
 import InputIcon from "@mui/icons-material/Input";
-import AssignIcon from "@mui/icons-material/Assignment";
+import AssignIcon from "@mui/icons-material/AssignmentInd";
 import TransferIcon from "@mui/icons-material/SwapHoriz";
 import UnassignIcon from "@mui/icons-material/AssignmentReturn";
 import RepairIcon from "@mui/icons-material/Hardware";
@@ -59,6 +59,7 @@ export function ClientResourceDataGrid({
   const [action, setAction] = useState<{
     type: ResourceActionDialogType;
     resourceId: string;
+    origin: Resource["assignedTo"];
   } | null>(null);
 
   const status: Record<ResourceStatus, string> = {
@@ -112,6 +113,7 @@ export function ClientResourceDataGrid({
             setAction({
               type: ResourceActionDialogType.INPUT,
               resourceId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -119,13 +121,14 @@ export function ClientResourceDataGrid({
           key={`${params.id}-assign`}
           showInMenu
           disabled={!ability.can("assign", subject("Resource", params.row))}
-          icon={<AssignIcon color="success" />}
+          icon={<AssignIcon color="warning" />}
           label={resource_data_grid["actions--assign"]}
           aria-label={resource_data_grid["actions--assign"]}
           onClick={() =>
             setAction({
               type: ResourceActionDialogType.ASSIGN,
               resourceId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -140,6 +143,7 @@ export function ClientResourceDataGrid({
             setAction({
               type: ResourceActionDialogType.TRANSFER,
               resourceId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -154,6 +158,7 @@ export function ClientResourceDataGrid({
             setAction({
               type: ResourceActionDialogType.UNASSIGN,
               resourceId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -168,6 +173,7 @@ export function ClientResourceDataGrid({
             setAction({
               type: ResourceActionDialogType.REPAIR,
               resourceId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -175,13 +181,14 @@ export function ClientResourceDataGrid({
           key={`${params.id}-output`}
           showInMenu
           disabled={!ability.can("output", subject("Resource", params.row))}
-          icon={<OutputIcon color="warning" />}
+          icon={<OutputIcon color="error" />}
           label={resource_data_grid["actions--output"]}
           aria-label={resource_data_grid["actions--output"]}
           onClick={() =>
             setAction({
               type: ResourceActionDialogType.OUTPUT,
               resourceId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -293,6 +300,7 @@ export function ClientResourceDataGrid({
           fullWidth
           type={action.type}
           resourceId={action.resourceId}
+          origin={action.origin}
           dictionary={{ resource_action_dialog }}
           open={Boolean(action)}
           onClose={() => setAction(null)}

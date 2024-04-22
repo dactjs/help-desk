@@ -12,6 +12,8 @@ import { useSnackbar } from "notistack";
 
 import { UserAutocomplete } from "@/features/users/user-autocomplete";
 import { User } from "@/features/users/user-autocomplete/types";
+import { FormTextField } from "@/components/forms/form-text-field";
+import { HiddenInput } from "@/components/forms/hidden-input";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
@@ -28,12 +30,14 @@ import { ResourceActionDialogType } from "./types";
 export interface ResourceActionDialogProps extends DialogProps {
   type: ResourceActionDialogType;
   resourceId: string;
+  origin: User | null;
   dictionary: Pick<Dictionary, "resource_action_dialog">;
 }
 
 export function ResourceActionDialog({
   type,
   resourceId,
+  origin,
   dictionary: { resource_action_dialog },
   ...rest
 }: ResourceActionDialogProps) {
@@ -45,6 +49,12 @@ export function ResourceActionDialog({
     REPAIR: resource_action_dialog["heading--repair"],
     OUTPUT: resource_action_dialog["heading--output"],
   };
+
+  const context_text = {
+    INPUT: resource_action_dialog["context_text--input"],
+    UNASSIGN: resource_action_dialog["context_text--unassign"],
+    OUTPUT: resource_action_dialog["context_text--output"],
+  } as const;
 
   const submit_button_text: Record<ResourceActionDialogType, string> = {
     INPUT: resource_action_dialog["submit_button_text--input"],
@@ -88,38 +98,45 @@ export function ResourceActionDialog({
       <DialogTitle>{heading[type]}</DialogTitle>
 
       <DialogContent dividers>
-        <input type="hidden" name="resource" value={resourceId} />
-
-        {destination && (
-          <input type="hidden" name="destination" value={destination.id} />
-        )}
-
-        {type === ResourceActionDialogType.INPUT && (
+        {[
+          ResourceActionDialogType.INPUT,
+          ResourceActionDialogType.UNASSIGN,
+          ResourceActionDialogType.OUTPUT,
+        ].includes(type as keyof typeof context_text) && (
           <DialogContentText>
-            {resource_action_dialog["context_text--input"]}
+            {context_text[type as keyof typeof context_text]}
           </DialogContentText>
         )}
 
-        {type === ResourceActionDialogType.UNASSIGN && (
-          <DialogContentText>
-            {resource_action_dialog["context_text--unassign"]}
-          </DialogContentText>
-        )}
+        <Stack spacing={2} useFlexGap>
+          <HiddenInput name="resource" value={resourceId} />
+          <HiddenInput name="destination" value={destination?.id || null} />
 
-        {type === ResourceActionDialogType.OUTPUT && (
-          <DialogContentText>
-            {resource_action_dialog["context_text--output"]}
-          </DialogContentText>
-        )}
+          {(
+            [
+              ResourceActionDialogType.TRANSFER,
+              ResourceActionDialogType.UNASSIGN,
+            ] as ResourceActionDialogType[]
+          ).includes(type) && (
+            <FormTextField
+              required
+              fullWidth
+              disabled
+              label={resource_action_dialog.origin_input_label}
+              value={`${origin?.name} (${origin?.username})`}
+            />
+          )}
 
-        <Stack spacing={2}>
-          {[
-            ResourceActionDialogType.ASSIGN,
-            ResourceActionDialogType.TRANSFER,
-          ].some((current) => current === type) && (
+          {(
+            [
+              ResourceActionDialogType.ASSIGN,
+              ResourceActionDialogType.TRANSFER,
+            ] as ResourceActionDialogType[]
+          ).includes(type) && (
             <UserAutocomplete
               required
               fullWidth
+              getOptionDisabled={(option) => option.id === origin?.id}
               value={destination}
               onChange={(_, value) => setDestination(value as User)}
               label={resource_action_dialog.destination_input_label}

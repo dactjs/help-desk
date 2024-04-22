@@ -9,6 +9,7 @@ import { useSnackbar } from "notistack";
 import { UserAutocomplete } from "@/features/users/user-autocomplete";
 import { User } from "@/features/users/user-autocomplete/types";
 import { FormTextField } from "@/components/forms/form-text-field";
+import { HiddenInput } from "@/components/forms/hidden-input";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
@@ -41,8 +42,14 @@ export function CreateResourceForm({
   const [user, setUser] = useState<User | null>(null);
 
   return (
-    <Stack component="form" autoComplete="off" action={action} spacing={2}>
-      {user && <input type="hidden" name="user" value={user.id} />}
+    <Stack
+      component="form"
+      autoComplete="off"
+      action={action}
+      spacing={2}
+      useFlexGap
+    >
+      <HiddenInput name="user" value={user?.id || null} />
 
       <FormTextField
         required

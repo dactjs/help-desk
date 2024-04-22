@@ -58,6 +58,7 @@ export function ClientTicketDataGrid({
   const [action, setAction] = useState<{
     type: TicketActionDialogType;
     ticketId: string;
+    origin: Ticket["assignedTo"];
   } | null>(null);
 
   const status: Record<TicketStatus, string> = {
@@ -113,6 +114,7 @@ export function ClientTicketDataGrid({
             setAction({
               type: TicketActionDialogType.ASSIGN,
               ticketId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -127,6 +129,7 @@ export function ClientTicketDataGrid({
             setAction({
               type: TicketActionDialogType.TRANSFER,
               ticketId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -141,6 +144,7 @@ export function ClientTicketDataGrid({
             setAction({
               type: TicketActionDialogType.OPEN,
               ticketId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -155,6 +159,7 @@ export function ClientTicketDataGrid({
             setAction({
               type: TicketActionDialogType.RESOLVE,
               ticketId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -169,6 +174,7 @@ export function ClientTicketDataGrid({
             setAction({
               type: TicketActionDialogType.CLOSE,
               ticketId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -183,6 +189,7 @@ export function ClientTicketDataGrid({
             setAction({
               type: TicketActionDialogType.CANCEL,
               ticketId: params.row.id,
+              origin: params.row.assignedTo,
             })
           }
         />,
@@ -279,6 +286,7 @@ export function ClientTicketDataGrid({
           fullWidth
           type={action.type}
           ticketId={action.ticketId}
+          origin={action.origin}
           dictionary={{ ticket_action_dialog }}
           open={Boolean(action)}
           onClose={() => setAction(null)}
