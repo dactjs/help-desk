@@ -56,6 +56,7 @@
   "resource_data_grid": {
     "actions": "Acciones",
     "actions--view-details": "Ver Detalles",
+    "actions--input": "Entrada",
     "actions--assign": "Asignar",
     "actions--transfer": "Transferir",
     "actions--unassign": "Desasignar",
@@ -93,6 +94,11 @@
   "resource_action_dialog": {
     "origin_input_label": "Origen",
     "destination_input_label": "Destino",
+
+    "heading--input": "Ingresar Recurso",
+    "context_text--input": "¿Estás seguro de que deseas ingresar este recurso? Al hacer esto estás indicando que la reparación fue exitosa.",
+    "submit_button_text--input": "Ingresar",
+    "actions--input-successfully": "Recurso ingresado exitosamente",
 
     "heading--assign": "Asignar Recurso",
     "submit_button_text--assign": "Asignar",

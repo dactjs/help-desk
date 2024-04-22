@@ -11,10 +11,11 @@ import {
   GridRowParams,
 } from "@mui/x-data-grid";
 import LaunchIcon from "@mui/icons-material/Launch";
+import InputIcon from "@mui/icons-material/Input";
 import AssignIcon from "@mui/icons-material/Assignment";
 import TransferIcon from "@mui/icons-material/SwapHoriz";
 import UnassignIcon from "@mui/icons-material/AssignmentReturn";
-// import RepairIcon from "@mui/icons-material/Hardware";
+import RepairIcon from "@mui/icons-material/Hardware";
 import OutputIcon from "@mui/icons-material/Output";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
@@ -101,6 +102,20 @@ export function ClientResourceDataGrid({
           }
         />,
         <GridActionsCellItem
+          key={`${params.id}-input`}
+          showInMenu
+          disabled={!ability.can("input", subject("Resource", params.row))}
+          icon={<InputIcon color="success" />}
+          label={resource_data_grid["actions--input"]}
+          aria-label={resource_data_grid["actions--input"]}
+          onClick={() =>
+            setAction({
+              type: ResourceActionDialogType.INPUT,
+              resourceId: params.row.id,
+            })
+          }
+        />,
+        <GridActionsCellItem
           key={`${params.id}-assign`}
           showInMenu
           disabled={!ability.can("assign", subject("Resource", params.row))}
@@ -142,20 +157,20 @@ export function ClientResourceDataGrid({
             })
           }
         />,
-        // <GridActionsCellItem
-        //   key={`${params.id}-repair`}
-        //   showInMenu
-        //   disabled={!ability.can("repair", subject("Resource", params.row))}
-        //   icon={<RepairIcon color="disabled" />}
-        //   label={resource_data_grid["actions--repair"]}
-        //   aria-label={resource_data_grid["actions--repair"]}
-        //   onClick={() =>
-        //     setAction({
-        //       type: ResourceActionDialogType.REPAIR,
-        //       resourceId: params.row.id,
-        //     })
-        //   }
-        // />,
+        <GridActionsCellItem
+          key={`${params.id}-repair`}
+          showInMenu
+          disabled={!ability.can("repair", subject("Resource", params.row))}
+          icon={<RepairIcon color="disabled" />}
+          label={resource_data_grid["actions--repair"]}
+          aria-label={resource_data_grid["actions--repair"]}
+          onClick={() =>
+            setAction({
+              type: ResourceActionDialogType.REPAIR,
+              resourceId: params.row.id,
+            })
+          }
+        />,
         <GridActionsCellItem
           key={`${params.id}-output`}
           showInMenu

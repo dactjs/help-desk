@@ -18,6 +18,10 @@ export function createResourceRulesFor(
   if (user?.role === UserRole.ADMIN) {
     builder.can("create", "Resource");
 
+    builder.can("input", "Resource", {
+      status: ResourceStatus.REPAIR_IN_PROGRESS,
+    });
+
     builder.can("assign", "Resource", {
       status: ResourceStatus.UNASSIGNED,
       OR: [{ assignedTo: null }, { assignedToId: null }],
@@ -33,7 +37,9 @@ export function createResourceRulesFor(
       NOT: { OR: [{ assignedTo: null }, { assignedToId: null }] },
     });
 
-    builder.can("repair", "Resource");
+    builder.can("repair", "Resource", {
+      status: { in: [ResourceStatus.ASSIGNED, ResourceStatus.UNASSIGNED] },
+    });
 
     builder.can("output", "Resource", {
       status: ResourceStatus.UNASSIGNED,

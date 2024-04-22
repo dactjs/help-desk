@@ -17,6 +17,7 @@ import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
 import { FormAction } from "@/types/form-action";
 
+import { input } from "./actions/input";
 import { assign } from "./actions/assign";
 import { transfer } from "./actions/transfer";
 import { unassign } from "./actions/unassign";
@@ -37,6 +38,7 @@ export function ResourceActionDialog({
   ...rest
 }: ResourceActionDialogProps) {
   const heading: Record<ResourceActionDialogType, string> = {
+    INPUT: resource_action_dialog["heading--input"],
     ASSIGN: resource_action_dialog["heading--assign"],
     TRANSFER: resource_action_dialog["heading--transfer"],
     UNASSIGN: resource_action_dialog["heading--unassign"],
@@ -45,6 +47,7 @@ export function ResourceActionDialog({
   };
 
   const submit_button_text: Record<ResourceActionDialogType, string> = {
+    INPUT: resource_action_dialog["submit_button_text--input"],
     ASSIGN: resource_action_dialog["submit_button_text--assign"],
     TRANSFER: resource_action_dialog["submit_button_text--transfer"],
     UNASSIGN: resource_action_dialog["submit_button_text--unassign"],
@@ -53,6 +56,7 @@ export function ResourceActionDialog({
   };
 
   const action_successfully: Record<ResourceActionDialogType, string> = {
+    INPUT: resource_action_dialog["actions--input-successfully"],
     ASSIGN: resource_action_dialog["actions--assign-successfully"],
     TRANSFER: resource_action_dialog["actions--transfer-successfully"],
     UNASSIGN: resource_action_dialog["actions--unassign-successfully"],
@@ -61,6 +65,7 @@ export function ResourceActionDialog({
   };
 
   const actions: Record<ResourceActionDialogType, FormAction> = {
+    INPUT: input,
     ASSIGN: assign,
     TRANSFER: transfer,
     UNASSIGN: unassign,
@@ -87,6 +92,12 @@ export function ResourceActionDialog({
 
         {destination && (
           <input type="hidden" name="destination" value={destination.id} />
+        )}
+
+        {type === ResourceActionDialogType.INPUT && (
+          <DialogContentText>
+            {resource_action_dialog["context_text--input"]}
+          </DialogContentText>
         )}
 
         {type === ResourceActionDialogType.UNASSIGN && (
