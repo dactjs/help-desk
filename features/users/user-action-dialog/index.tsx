@@ -22,12 +22,14 @@ export interface UserActionDialogProps extends DialogProps {
   type: UserActionDialogType;
   userId: string;
   dictionary: Pick<Dictionary, "user_action_dialog">;
+  close: () => void;
 }
 
 export function UserActionDialog({
   type,
   userId,
   dictionary: { user_action_dialog },
+  close: closeDialog,
   ...rest
 }: UserActionDialogProps) {
   const heading: Record<UserActionDialogType, string> = {
@@ -51,11 +53,18 @@ export function UserActionDialog({
   const { state, action } = useFormAction({
     action: actions[type],
     onComplete: () =>
-      enqueueSnackbar(action_successfully[type], { variant: "success" }),
+      enqueueSnackbar(action_successfully[type], {
+        variant: "success",
+        onEntered: closeDialog,
+      }),
   });
 
   return (
-    <Dialog {...rest} PaperProps={{ component: "form", action }}>
+    <Dialog
+      {...rest}
+      onClose={() => closeDialog()}
+      PaperProps={{ component: "form", action }}
+    >
       <DialogTitle>{heading[type]}</DialogTitle>
 
       <DialogContent dividers>

@@ -289,7 +289,7 @@ export function ClientTicketDataGrid({
           origin={action.origin}
           dictionary={{ ticket_action_dialog }}
           open={Boolean(action)}
-          onClose={() => setAction(null)}
+          close={() => setAction(null)}
         />
       )}
 

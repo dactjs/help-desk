@@ -114,6 +114,7 @@
     "actions--unassign-successfully": "Resource unassigned successfully",
 
     "heading--repair": "Repair Resource",
+    "context_text--repair": "Are you sure you want to mark this resource as under repair? The resource will remain assigned to the current user. If you wish for the resource not to be tied to the user during the repair process, you can unassign it beforehand.",
     "submit_button_text--repair": "Mark as repaired",
     "actions--repair-successfully": "Resource marked as repaired successfully",
 

@@ -32,6 +32,7 @@ export interface ResourceActionDialogProps extends DialogProps {
   resourceId: string;
   origin: User | null;
   dictionary: Pick<Dictionary, "resource_action_dialog">;
+  close: () => void;
 }
 
 export function ResourceActionDialog({
@@ -39,6 +40,7 @@ export function ResourceActionDialog({
   resourceId,
   origin,
   dictionary: { resource_action_dialog },
+  close: closeDialog,
   ...rest
 }: ResourceActionDialogProps) {
   const heading: Record<ResourceActionDialogType, string> = {
@@ -53,6 +55,7 @@ export function ResourceActionDialog({
   const context_text = {
     INPUT: resource_action_dialog["context_text--input"],
     UNASSIGN: resource_action_dialog["context_text--unassign"],
+    REPAIR: resource_action_dialog["context_text--repair"],
     OUTPUT: resource_action_dialog["context_text--output"],
   } as const;
 
@@ -88,19 +91,30 @@ export function ResourceActionDialog({
   const { state, action } = useFormAction({
     action: actions[type],
     onComplete: () =>
-      enqueueSnackbar(action_successfully[type], { variant: "success" }),
+      enqueueSnackbar(action_successfully[type], {
+        variant: "success",
+        onEntered: closeDialog,
+      }),
   });
 
   const [destination, setDestination] = useState<User | null>(null);
 
   return (
-    <Dialog {...rest} PaperProps={{ component: "form", action }}>
+    <Dialog
+      {...rest}
+      onClose={() => closeDialog()}
+      PaperProps={{ component: "form", action }}
+    >
       <DialogTitle>{heading[type]}</DialogTitle>
 
-      <DialogContent dividers>
+      <DialogContent
+        dividers
+        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+      >
         {[
           ResourceActionDialogType.INPUT,
           ResourceActionDialogType.UNASSIGN,
+          ResourceActionDialogType.REPAIR,
           ResourceActionDialogType.OUTPUT,
         ].includes(type as keyof typeof context_text) && (
           <DialogContentText>

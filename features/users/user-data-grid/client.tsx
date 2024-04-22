@@ -249,7 +249,7 @@ export function ClientUserDataGrid({
           userId={action.userId}
           dictionary={{ user_action_dialog }}
           open={Boolean(action)}
-          onClose={() => setAction(null)}
+          close={() => setAction(null)}
         />
       )}
 

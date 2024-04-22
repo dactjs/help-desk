@@ -33,6 +33,7 @@ export interface TicketActionDialogProps extends DialogProps {
   ticketId: string;
   origin: User | null;
   dictionary: Pick<Dictionary, "ticket_action_dialog">;
+  close: () => void;
 }
 
 export function TicketActionDialog({
@@ -40,6 +41,7 @@ export function TicketActionDialog({
   ticketId,
   origin,
   dictionary: { ticket_action_dialog },
+  close: closeDialog,
   ...rest
 }: TicketActionDialogProps) {
   const heading: Record<TicketActionDialogType, string> = {
@@ -88,16 +90,26 @@ export function TicketActionDialog({
   const { state, action } = useFormAction({
     action: actions[type],
     onComplete: () =>
-      enqueueSnackbar(action_successfully[type], { variant: "success" }),
+      enqueueSnackbar(action_successfully[type], {
+        variant: "success",
+        onEntered: closeDialog,
+      }),
   });
 
   const [destination, setDestination] = useState<User | null>(null);
 
   return (
-    <Dialog {...rest} PaperProps={{ component: "form", action }}>
+    <Dialog
+      {...rest}
+      onClose={() => closeDialog()}
+      PaperProps={{ component: "form", action }}
+    >
       <DialogTitle>{heading[type]}</DialogTitle>
 
-      <DialogContent dividers>
+      <DialogContent
+        dividers
+        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+      >
         {[TicketActionDialogType.OPEN, TicketActionDialogType.CLOSE].includes(
           type as keyof typeof context_text
         ) && (

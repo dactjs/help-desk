@@ -303,7 +303,7 @@ export function ClientResourceDataGrid({
           origin={action.origin}
           dictionary={{ resource_action_dialog }}
           open={Boolean(action)}
-          onClose={() => setAction(null)}
+          close={() => setAction(null)}
         />
       )}
 

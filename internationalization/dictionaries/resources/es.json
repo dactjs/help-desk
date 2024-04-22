@@ -114,6 +114,7 @@
     "actions--unassign-successfully": "Recurso desasignado exitosamente",
 
     "heading--repair": "Reparar Recurso",
+    "context_text--repair": "¿Estás seguro de que quieres marcar este recurso como en reparación? El recurso seguirá asignado al usuario actual. Si deseas que el recurso no esté asignado al usuario durante el proceso de reparación, puedes desasignarlo antes.",
     "submit_button_text--repair": "Marcar como reparado",
     "actions--repair-successfully": "Recurso marcado como reparado exitosamente",
 
