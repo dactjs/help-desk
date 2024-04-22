@@ -9,6 +9,7 @@ export interface ResourceComment {
   id: string;
   content: string;
   writtenBy: User;
+  writtenById: string;
   createdAt: Date;
   updatedAt: Date;
 }

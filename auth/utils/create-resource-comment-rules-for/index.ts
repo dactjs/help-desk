@@ -11,11 +11,11 @@ export function createResourceCommentRulesFor(
   builder.can("create", "ResourceComment");
 
   builder.can(["read", "delete"], "ResourceComment", {
-    OR: [{ writtenBy: { id: user?.id } }, { writtenById: user?.id }],
+    writtenById: user?.id,
   });
 
   builder.can("update", "ResourceComment", ["content"], {
-    OR: [{ writtenBy: { id: user?.id } }, { writtenById: user?.id }],
+    writtenById: user?.id,
   });
 
   if (user?.role === UserRole.ADMIN || user?.role === UserRole.TECHNICIAN) {

@@ -32,9 +32,14 @@ export async function ServerResourceComments({
 
   return (
     <ClientResourceComments
+      resourceId={resourceId}
       comments={comments}
       language={language}
-      dictionary={{ resource_comments: dictionary.resource_comments }}
+      dictionary={{
+        resource_comments: dictionary.resource_comments,
+        add_resource_comment_dialog: dictionary.add_resource_comment_dialog,
+        edit_resource_comment_dialog: dictionary.edit_resource_comment_dialog,
+      }}
     />
   );
 }

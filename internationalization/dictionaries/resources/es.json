@@ -91,6 +91,20 @@
     "actions--delete": "Eliminar"
   },
 
+  "add_resource_comment_dialog": {
+    "heading": "Agregar Comentario",
+    "content_input_label": "Contenido",
+    "submit_button_text": "Agregar",
+    "actions--assign-successfully": "Comentario agregado exitosamente"
+  },
+
+  "edit_resource_comment_dialog": {
+    "heading": "Editar Comentario",
+    "content_input_label": "Contenido",
+    "submit_button_text": "Editar",
+    "actions--assign-successfully": "Comentario editado exitosamente"
+  },
+
   "resource_action_dialog": {
     "origin_input_label": "Origen",
     "destination_input_label": "Destino",

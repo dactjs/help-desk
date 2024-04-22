@@ -11,11 +11,11 @@ export function createTicketCommentRulesFor(
   builder.can("create", "TicketComment");
 
   builder.can(["read", "delete"], "TicketComment", {
-    OR: [{ writtenBy: { id: user?.id } }, { writtenById: user?.id }],
+    writtenById: user?.id,
   });
 
   builder.can("update", "TicketComment", ["content"], {
-    OR: [{ writtenBy: { id: user?.id } }, { writtenById: user?.id }],
+    writtenById: user?.id,
   });
 
   if (user?.role === UserRole.ADMIN || user?.role === UserRole.TECHNICIAN) {

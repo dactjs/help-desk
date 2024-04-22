@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import AppBar from "@mui/material/AppBar";
@@ -14,90 +15,176 @@ import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useSnackbar } from "notistack";
+import { useConfirm } from "material-ui-confirm";
+import { subject } from "@casl/ability";
 
+import { Can } from "@/auth/ability";
 import { Empty } from "@/components/templates/empty";
 import { replacePlaceholders } from "@/internationalization/utils/replace-placeholders";
 import { Dictionary } from "@/internationalization/dictionaries/resources";
 import { SupportedLanguage } from "@/internationalization/types";
 
+import { AddResourceCommentDialog } from "./components/add-comment-dialog";
+import { EditResourceCommentDialog } from "./components/edit-comment-dialog";
+import { deleteResourceComment } from "./actions/delete";
 import { ResourceComment } from "./types";
 
 export interface ClientResourceCommentsProps {
+  resourceId: string;
   comments: ResourceComment[];
   language: SupportedLanguage;
-  dictionary: Pick<Dictionary, "resource_comments">;
+  dictionary: Pick<
+    Dictionary,
+    | "resource_comments"
+    | "add_resource_comment_dialog"
+    | "edit_resource_comment_dialog"
+  >;
 }
 
 export function ClientResourceComments({
+  resourceId,
   comments,
   language,
-  dictionary: { resource_comments },
+  dictionary: {
+    resource_comments,
+    add_resource_comment_dialog,
+    edit_resource_comment_dialog,
+  },
 }: ClientResourceCommentsProps) {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const confirm = useConfirm();
+
+  const [isAddResourceCommentDialogOpen, setIsAddResourceCommentDialogOpen] =
+    useState<boolean>(false);
+
+  const [comment, setComment] = useState<ResourceComment | null>(null);
+
+  const handleDelete = (id: string) => {
+    confirm()
+      .then(async () => {
+        try {
+          await deleteResourceComment(id);
+        } catch (error) {
+          if (error instanceof Error) {
+            enqueueSnackbar(error.message, {
+              variant: "error",
+              style: { whiteSpace: "pre-line" },
+            });
+          }
+        }
+      })
+      .catch(() => null);
+  };
+
   return (
-    <Paper sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <AppBar position="static" sx={{ borderRadius: "inherit" }}>
-        <Toolbar sx={{ justifyContent: "space-between", gap: 1 }}>
-          <Typography component="h2" variant="body1" fontWeight="bolder">
-            {resource_comments.heading}
-          </Typography>
+    <>
+      {isAddResourceCommentDialogOpen && (
+        <AddResourceCommentDialog
+          fullWidth
+          resourceId={resourceId}
+          dictionary={{ add_resource_comment_dialog }}
+          open={isAddResourceCommentDialogOpen}
+          close={() => setIsAddResourceCommentDialogOpen(false)}
+        />
+      )}
 
-          <IconButton color="inherit">
-            <AddIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      {comment && (
+        <EditResourceCommentDialog
+          fullWidth
+          comment={comment}
+          dictionary={{ edit_resource_comment_dialog }}
+          open={Boolean(comment)}
+          close={() => setComment(null)}
+        />
+      )}
 
-      <Stack
-        sx={{
-          justifyContent: comments.length > 0 ? "flex-start" : "center",
-          height: "100%",
-          overflowY: "auto",
-        }}
-      >
-        {comments.length > 0 ? (
-          comments.map((comment) => (
-            <Accordion key={comment.id}>
-              <AccordionSummary>
-                <Typography
-                  component="pre"
-                  sx={{
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {comment.content}
-                </Typography>
-              </AccordionSummary>
+      <Paper sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <AppBar position="static" sx={{ borderRadius: "inherit" }}>
+          <Toolbar sx={{ justifyContent: "space-between", gap: 1 }}>
+            <Typography component="h2" variant="body1" fontWeight="bolder">
+              {resource_comments.heading}
+            </Typography>
 
-              <AccordionDetails>
-                <Typography variant="caption" color="text.secondary">
-                  {replacePlaceholders(resource_comments.written_by, {
-                    name: comment.writtenBy.name,
-                    date: comment.updatedAt.toLocaleString(language),
-                  })}
-                </Typography>
-              </AccordionDetails>
+            <Can I="create" a="ResourceComment">
+              <IconButton
+                color="inherit"
+                onClick={() => setIsAddResourceCommentDialogOpen(true)}
+              >
+                <AddIcon />
+              </IconButton>
+            </Can>
+          </Toolbar>
+        </AppBar>
 
-              <AccordionActions>
-                <Button
-                  variant="contained"
-                  size="small"
-                  color="error"
-                  endIcon={<DeleteIcon />}
-                >
-                  {resource_comments["actions--delete"]}
-                </Button>
+        <Stack
+          sx={{
+            justifyContent: comments.length > 0 ? "flex-start" : "center",
+            height: "100%",
+            padding: 2,
+            overflowY: "auto",
+          }}
+        >
+          {comments.length > 0 ? (
+            comments.map((comment) => (
+              <Accordion key={comment.id}>
+                <AccordionSummary>
+                  <Typography
+                    component="pre"
+                    sx={{
+                      whiteSpace: "pre-wrap",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    {comment.content}
+                  </Typography>
+                </AccordionSummary>
 
-                <Button variant="contained" size="small" endIcon={<EditIcon />}>
-                  {resource_comments["actions--edit"]}
-                </Button>
-              </AccordionActions>
-            </Accordion>
-          ))
-        ) : (
-          <Empty caption={resource_comments["empty-caption"]} />
-        )}
-      </Stack>
-    </Paper>
+                <AccordionDetails>
+                  <Typography variant="caption" color="text.secondary">
+                    {replacePlaceholders(resource_comments.written_by, {
+                      name: comment.writtenBy.name,
+                      date: comment.updatedAt.toLocaleString(language),
+                    })}
+                  </Typography>
+                </AccordionDetails>
+
+                <AccordionActions>
+                  <Can I="delete" this={subject("ResourceComment", comment)}>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      color="error"
+                      endIcon={<DeleteIcon />}
+                      onClick={() => handleDelete(comment.id)}
+                    >
+                      {resource_comments["actions--delete"]}
+                    </Button>
+                  </Can>
+
+                  <Can
+                    I="update"
+                    this={subject("ResourceComment", comment)}
+                    field="content"
+                  >
+                    <Button
+                      variant="contained"
+                      size="small"
+                      endIcon={<EditIcon />}
+                      onClick={() => setComment(comment)}
+                    >
+                      {resource_comments["actions--edit"]}
+                    </Button>
+                  </Can>
+                </AccordionActions>
+              </Accordion>
+            ))
+          ) : (
+            <Empty caption={resource_comments["empty-caption"]} />
+          )}
+        </Stack>
+      </Paper>
+    </>
   );
 }

@@ -32,9 +32,14 @@ export async function ServerTicketComments({
 
   return (
     <ClientTicketComments
+      ticketId={ticketId}
       comments={comments}
       language={language}
-      dictionary={{ ticket_comments: dictionary.ticket_comments }}
+      dictionary={{
+        ticket_comments: dictionary.ticket_comments,
+        add_ticket_comment_dialog: dictionary.add_ticket_comment_dialog,
+        edit_ticket_comment_dialog: dictionary.edit_ticket_comment_dialog,
+      }}
     />
   );
 }

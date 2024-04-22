@@ -9,6 +9,7 @@ export const NECESSARY_TICKET_COMMENT_FIELDS = {
       name: true,
     },
   },
+  writtenById: true,
   createdAt: true,
   updatedAt: true,
 };
