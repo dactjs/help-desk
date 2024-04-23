@@ -15,6 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ExpandIcon from "@mui/icons-material/ExpandMore";
 import { useSnackbar } from "notistack";
 import { useConfirm } from "material-ui-confirm";
 import { subject } from "@casl/ability";
@@ -129,7 +130,7 @@ export function ClientTicketComments({
           {comments.length > 0 ? (
             comments.map((comment) => (
               <Accordion key={comment.id}>
-                <AccordionSummary>
+                <AccordionSummary expandIcon={<ExpandIcon />}>
                   <Typography
                     component="pre"
                     sx={{
