@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Unstable_Grid2";
 
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/common";

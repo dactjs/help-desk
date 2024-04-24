@@ -8,6 +8,7 @@ export interface ResourceCommentsProps {
 
 export function ResourceComments({ resourceId }: ResourceCommentsProps) {
   return (
+    // TODO: add skeleton
     <Suspense fallback={null}>
       <ServerResourceComments resourceId={resourceId} />
     </Suspense>

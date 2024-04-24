@@ -198,5 +198,11 @@
     "heading--cancel": "Cancel Ticket",
     "submit_button_text--cancel": "Mark as cancelled",
     "actions--cancel-successfully": "Ticket marked as cancelled successfully"
+  },
+
+  "ticket_completion_rate_chart": {
+    "heading": "Ticket completion rate",
+    "completed_label": "Completed Tickets (unassigned, assigned, in-progress)",
+    "uncompleted_label": "Unompleted Tickets (resolved, closed, cancelled)"
   }
 }

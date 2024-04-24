@@ -198,5 +198,11 @@
     "heading--cancel": "Cancelar Ticket",
     "submit_button_text--cancel": "Marcar como cancelado",
     "actions--cancel-successfully": "Ticket marcado como cancelado exitosamente"
+  },
+
+  "ticket_completion_rate_chart": {
+    "heading": "Tasa de finalización de tickets",
+    "completed_label": "Tickets completados (no asignados, asignados, en proceso)",
+    "uncompleted_label": "Tickets no completados (resueltos, cerrados, cancelados)"
   }
 }
