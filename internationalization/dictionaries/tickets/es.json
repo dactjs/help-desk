@@ -200,6 +200,20 @@
     "actions--cancel-successfully": "Ticket marcado como cancelado exitosamente"
   },
 
+  "ticket_weekly_activity_chart": {
+    "heading": "Actividad Semanal",
+
+    "days": {
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    }
+  },
+
   "ticket_completion_rate_chart": {
     "heading": "Tasa de finalización de tickets",
     "completed_label": "Tickets completados (no asignados, asignados, en proceso)",
