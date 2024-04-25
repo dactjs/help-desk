@@ -203,6 +203,8 @@
   "ticket_completion_rate_chart": {
     "heading": "Tasa de finalización de tickets",
     "completed_label": "Tickets completados (no asignados, asignados, en proceso)",
-    "uncompleted_label": "Tickets no completados (resueltos, cerrados, cancelados)"
+    "uncompleted_label": "Tickets no completados (resueltos, cerrados, cancelados)",
+
+    "empty-caption": "Sin Tickets"
   }
 }

@@ -203,6 +203,8 @@
   "ticket_completion_rate_chart": {
     "heading": "Ticket completion rate",
     "completed_label": "Completed Tickets (unassigned, assigned, in-progress)",
-    "uncompleted_label": "Unompleted Tickets (resolved, closed, cancelled)"
+    "uncompleted_label": "Unompleted Tickets (resolved, closed, cancelled)",
+
+    "empty-caption": "No Tickets"
   }
 }
