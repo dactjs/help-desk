@@ -22,7 +22,8 @@ export function ClientTicketCompletionRateChart({
 }: ClientTicketCompletionRateChartProps) {
   const series: PieChartProps["series"] = [
     {
-      arcLabel: ({ value }) => `${(value / (completed + uncompleted)) * 100}%`,
+      arcLabel: ({ value }) =>
+        `${((value / (completed + uncompleted)) * 100).toFixed(2)}%`,
       highlightScope: { faded: "global", highlighted: "item" },
       faded: { additionalRadius: -10, color: "gray" },
       innerRadius: "50%",
