@@ -54,6 +54,7 @@ export async function ServerTicketStatGrid() {
   return (
     <ClientTicketStatGrid
       data={data}
+      language={language}
       dictionary={{ ticket_model: dictionary.ticket_model }}
     />
   );

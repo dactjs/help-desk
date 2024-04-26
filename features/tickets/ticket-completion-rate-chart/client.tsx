@@ -25,7 +25,7 @@ export function ClientTicketCompletionRateChart({
       arcLabel: ({ value }) => `${(value / (completed + uncompleted)) * 100}%`,
       highlightScope: { faded: "global", highlighted: "item" },
       faded: { additionalRadius: -10, color: "gray" },
-      innerRadius: 30,
+      innerRadius: "50%",
       data: [
         {
           id: ticket_completion_rate_chart.completed_label,

@@ -51,7 +51,7 @@ export function ClientTicketWeeklyActivityChart({
           xAxis={xAxis}
           series={series}
           dataset={data}
-          margin={{ top: 30, right: 30, bottom: 20, left: 30 }}
+          margin={{ top: 40, right: 30, bottom: 20, left: 30 }}
           slotProps={{ legend: { hidden: true } }}
         />
       </Stack>
