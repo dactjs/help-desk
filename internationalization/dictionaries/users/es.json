@@ -38,10 +38,10 @@
   },
 
   "create_user_form": {
-    "username_input_label": "Usuario",
-    "email_input_label": "Correo Electrónico",
-    "password_input_label": "Contraseña",
-    "name_input_label": "Nombre Completo",
+    "username_field_label": "Usuario",
+    "email_field_label": "Correo Electrónico",
+    "password_field_label": "Contraseña",
+    "name_field_label": "Nombre Completo",
     "submit_button_text": "Crear",
     "actions--created-successfully": "Usuario creado exitosamente"
   },
@@ -60,8 +60,8 @@
   },
 
   "user_action_dialog": {
-    "password_input_label": "Contraseña",
-    "confirm_password_input_label": "Confirmar Contraseña",
+    "password_field_label": "Contraseña",
+    "confirm_password_field_label": "Confirmar Contraseña",
 
     "heading--reset-password": "Restablecer Contraseña",
     "submit_button_text--reset-password": "Restablecer",

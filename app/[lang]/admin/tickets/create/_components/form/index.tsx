@@ -63,7 +63,7 @@ export function CreateTicketForm({
         fullWidth
         value={service}
         onChange={(_, value) => setService(value as TicketService)}
-        label={create_ticket_form.service_input_label}
+        label={create_ticket_form.service_field_label}
         error={Boolean(state.errors.fields?.service)}
         helperText={state.errors.fields?.service}
       />
@@ -74,7 +74,7 @@ export function CreateTicketForm({
         fullWidth
         autoComplete="off"
         name="issue"
-        label={create_ticket_form.issue_input_label}
+        label={create_ticket_form.issue_field_label}
         error={Boolean(state.errors.fields?.issue)}
         helperText={state.errors.fields?.issue}
       />
@@ -84,7 +84,7 @@ export function CreateTicketForm({
         fullWidth
         value={user}
         onChange={(_, value) => setUser(value as User)}
-        label={create_ticket_form.user_input_label}
+        label={create_ticket_form.user_field_label}
         error={Boolean(state.errors.fields?.user)}
         helperText={state.errors.fields?.user}
       />
@@ -94,7 +94,7 @@ export function CreateTicketForm({
         filters={{ roles: [UserRole.TECHNICIAN] }}
         value={technician}
         onChange={(_, value) => setTechnician(value as User)}
-        label={create_ticket_form.technician_input_label}
+        label={create_ticket_form.technician_field_label}
         error={Boolean(state.errors.fields?.technician)}
         helperText={state.errors.fields?.technician}
       />

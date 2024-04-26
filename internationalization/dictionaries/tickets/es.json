@@ -69,10 +69,10 @@
   },
 
   "create_ticket_form": {
-    "issue_input_label": "Descripción del problema",
-    "service_input_label": "Servicio",
-    "user_input_label": "Usuario",
-    "technician_input_label": "Técnico Asignado",
+    "issue_field_label": "Descripción del problema",
+    "service_field_label": "Servicio",
+    "user_field_label": "Usuario",
+    "technician_field_label": "Técnico Asignado",
     "submit_button_text": "Crear",
     "actions--created-successfully": "Ticket creado exitosamente"
   },
@@ -89,8 +89,8 @@
   },
 
   "create_ticket_service_form": {
-    "name_input_label": "Nombre",
-    "category_input_label": "Categoría",
+    "name_field_label": "Nombre",
+    "category_field_label": "Categoría",
     "submit_button_text": "Crear",
     "actions--created-successfully": "Servicio creado exitosamente"
   },
@@ -101,7 +101,7 @@
   },
 
   "create_ticket_service_category_form": {
-    "name_input_label": "Nombre",
+    "name_field_label": "Nombre",
     "submit_button_text": "Crear",
     "actions--created-successfully": "Categoría creada exitosamente"
   },
@@ -156,22 +156,22 @@
 
   "add_ticket_comment_dialog": {
     "heading": "Agregar Comentario",
-    "content_input_label": "Contenido",
+    "content_field_label": "Contenido",
     "submit_button_text": "Agregar",
     "actions--assign-successfully": "Comentario agregado exitosamente"
   },
 
   "edit_ticket_comment_dialog": {
     "heading": "Editar Comentario",
-    "content_input_label": "Contenido",
+    "content_field_label": "Contenido",
     "submit_button_text": "Editar",
     "actions--assign-successfully": "Comentario editado exitosamente"
   },
 
   "ticket_action_dialog": {
-    "origin_input_label": "Origen",
-    "destination_input_label": "Destino",
-    "solution_input_label": "Solución o Razón",
+    "origin_field_label": "Origen",
+    "destination_field_label": "Destino",
+    "solution_field_label": "Solución o Razón",
 
     "heading--assign": "Asignar Ticket",
     "submit_button_text--assign": "Asignar",

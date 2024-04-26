@@ -55,7 +55,7 @@ export function CreateTicketServiceForm({
       <TicketServiceCategoryAutocomplete
         required
         fullWidth
-        label={create_ticket_service_form.category_input_label}
+        label={create_ticket_service_form.category_field_label}
         error={Boolean(state.errors.fields?.category)}
         helperText={state.errors.fields?.category}
         value={category}
@@ -67,7 +67,7 @@ export function CreateTicketServiceForm({
         fullWidth
         autoComplete="off"
         name="name"
-        label={create_ticket_service_form.name_input_label}
+        label={create_ticket_service_form.name_field_label}
         error={Boolean(state.errors.fields?.name)}
         helperText={state.errors.fields?.name}
       />

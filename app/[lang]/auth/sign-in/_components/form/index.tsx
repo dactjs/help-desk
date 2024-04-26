@@ -17,8 +17,8 @@ export interface SignInFormProps {
 export function SignInForm({
   dictionary: {
     sign_in_form: {
-      username_input_label,
-      password_input_label,
+      username_field_label,
+      password_field_label,
       submit_button_text,
     },
   },
@@ -32,7 +32,7 @@ export function SignInForm({
         fullWidth
         autoComplete="username"
         name="username"
-        label={username_input_label}
+        label={username_field_label}
         error={Boolean(state.errors.fields?.username)}
         helperText={state.errors.fields?.username}
       />
@@ -43,7 +43,7 @@ export function SignInForm({
         type="password"
         autoComplete="current-password"
         name="password"
-        label={password_input_label}
+        label={password_field_label}
         error={Boolean(state.errors.fields?.password)}
         helperText={state.errors.fields?.password}
       />

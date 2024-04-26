@@ -5,8 +5,8 @@
   },
 
   "sign_in_form": {
-    "username_input_label": "Username",
-    "password_input_label": "Password",
+    "username_field_label": "Username",
+    "password_field_label": "Password",
     "submit_button_text": "Sign In"
   }
 }

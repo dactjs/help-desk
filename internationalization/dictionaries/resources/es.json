@@ -45,10 +45,10 @@
   },
 
   "create_resource_form": {
-    "brand_input_label": "Marca",
-    "model_input_label": "Modelo",
-    "serial_input_label": "Serial °",
-    "user_input_label": "Usuario Asignado",
+    "brand_field_label": "Marca",
+    "model_field_label": "Modelo",
+    "serial_field_label": "Serial °",
+    "user_field_label": "Usuario Asignado",
     "submit_button_text": "Crear",
     "actions--created-successfully": "Recurso creado exitosamente"
   },
@@ -93,21 +93,21 @@
 
   "add_resource_comment_dialog": {
     "heading": "Agregar Comentario",
-    "content_input_label": "Contenido",
+    "content_field_label": "Contenido",
     "submit_button_text": "Agregar",
     "actions--assign-successfully": "Comentario agregado exitosamente"
   },
 
   "edit_resource_comment_dialog": {
     "heading": "Editar Comentario",
-    "content_input_label": "Contenido",
+    "content_field_label": "Contenido",
     "submit_button_text": "Editar",
     "actions--assign-successfully": "Comentario editado exitosamente"
   },
 
   "resource_action_dialog": {
-    "origin_input_label": "Origen",
-    "destination_input_label": "Destino",
+    "origin_field_label": "Origen",
+    "destination_field_label": "Destino",
 
     "heading--input": "Ingresar Recurso",
     "context_text--input": "¿Estás seguro de que deseas ingresar este recurso? Al hacer esto estás indicando que la reparación fue exitosa.",

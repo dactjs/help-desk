@@ -42,7 +42,7 @@ export function CreateUserForm({
         fullWidth
         autoComplete="off"
         name="name"
-        label={create_user_form.name_input_label}
+        label={create_user_form.name_field_label}
         error={Boolean(state.errors.fields?.name)}
         helperText={state.errors.fields?.name}
       />
@@ -52,7 +52,7 @@ export function CreateUserForm({
         fullWidth
         autoComplete="off"
         name="username"
-        label={create_user_form.username_input_label}
+        label={create_user_form.username_field_label}
         error={Boolean(state.errors.fields?.username)}
         helperText={state.errors.fields?.username}
       />
@@ -63,7 +63,7 @@ export function CreateUserForm({
         autoComplete="off"
         type="email"
         name="email"
-        label={create_user_form.email_input_label}
+        label={create_user_form.email_field_label}
         error={Boolean(state.errors.fields?.email)}
         helperText={state.errors.fields?.email}
       />
@@ -74,7 +74,7 @@ export function CreateUserForm({
         autoComplete="off"
         type="password"
         name="password"
-        label={create_user_form.password_input_label}
+        label={create_user_form.password_field_label}
         error={Boolean(state.errors.fields?.password)}
         helperText={state.errors.fields?.password}
       />

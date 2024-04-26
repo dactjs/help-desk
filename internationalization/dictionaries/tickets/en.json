@@ -69,10 +69,10 @@
   },
 
   "create_ticket_form": {
-    "issue_input_label": "Issue",
-    "service_input_label": "Service",
-    "user_input_label": "User",
-    "technician_input_label": "Assigned Technician",
+    "issue_field_label": "Issue",
+    "service_field_label": "Service",
+    "user_field_label": "User",
+    "technician_field_label": "Assigned Technician",
     "submit_button_text": "Create",
     "actions--created-successfully": "Ticket created successfully"
   },
@@ -89,8 +89,8 @@
   },
 
   "create_ticket_service_form": {
-    "name_input_label": "Name",
-    "category_input_label": "Category",
+    "name_field_label": "Name",
+    "category_field_label": "Category",
     "submit_button_text": "Create",
     "actions--created-successfully": "Service created successfully"
   },
@@ -101,7 +101,7 @@
   },
 
   "create_ticket_service_category_form": {
-    "name_input_label": "Name",
+    "name_field_label": "Name",
     "submit_button_text": "Create",
     "actions--created-successfully": "Category created successfully"
   },
@@ -156,22 +156,22 @@
 
   "add_ticket_comment_dialog": {
     "heading": "Add Comment",
-    "content_input_label": "Content",
+    "content_field_label": "Content",
     "submit_button_text": "Add",
     "actions--assign-successfully": "Comment added successfully"
   },
 
   "edit_ticket_comment_dialog": {
     "heading": "Edit Comment",
-    "content_input_label": "Content",
+    "content_field_label": "Content",
     "submit_button_text": "Edit",
     "actions--assign-successfully": "Comment edited successfully"
   },
 
   "ticket_action_dialog": {
-    "origin_input_label": "Origin",
-    "destination_input_label": "Destination",
-    "solution_input_label": "Solution or Reason",
+    "origin_field_label": "Origin",
+    "destination_field_label": "Destination",
+    "solution_field_label": "Solution or Reason",
 
     "heading--assign": "Assign Ticket",
     "submit_button_text--assign": "Assign",

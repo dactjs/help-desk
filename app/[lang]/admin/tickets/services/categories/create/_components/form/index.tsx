@@ -43,7 +43,7 @@ export function CreateTicketServiceCategoryForm({
         fullWidth
         autoComplete="off"
         name="name"
-        label={create_ticket_service_category_form.name_input_label}
+        label={create_ticket_service_category_form.name_field_label}
         error={Boolean(state.errors.fields?.name)}
         helperText={state.errors.fields?.name}
       />

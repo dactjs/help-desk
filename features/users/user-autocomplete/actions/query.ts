@@ -38,7 +38,6 @@ export async function query(
         },
       ],
     },
-
     orderBy: { name: "desc" },
     select: NECESSARY_USER_FIELDS,
   });

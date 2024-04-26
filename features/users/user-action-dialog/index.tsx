@@ -77,7 +77,7 @@ export function UserActionDialog({
             type="password"
             autoComplete="off"
             name="password"
-            label={user_action_dialog.password_input_label}
+            label={user_action_dialog.password_field_label}
             error={Boolean(state.errors.fields?.password)}
             helperText={state.errors.fields?.password}
           />
@@ -88,7 +88,7 @@ export function UserActionDialog({
             type="password"
             autoComplete="off"
             name="confirm_password"
-            label={user_action_dialog.confirm_password_input_label}
+            label={user_action_dialog.confirm_password_field_label}
             error={Boolean(state.errors.fields?.confirm_password)}
             helperText={state.errors.fields?.confirm_password}
           />

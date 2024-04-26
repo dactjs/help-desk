@@ -62,7 +62,7 @@ export function EditResourceCommentDialog({
             autoComplete="off"
             name="content"
             defaultValue={comment.content}
-            label={edit_resource_comment_dialog.content_input_label}
+            label={edit_resource_comment_dialog.content_field_label}
             error={Boolean(state.errors.fields?.content)}
             helperText={state.errors.fields?.content}
           />

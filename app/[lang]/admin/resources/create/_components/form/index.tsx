@@ -56,7 +56,7 @@ export function CreateResourceForm({
         fullWidth
         autoComplete="off"
         name="brand"
-        label={create_resource_form.brand_input_label}
+        label={create_resource_form.brand_field_label}
         error={Boolean(state.errors.fields?.brand)}
         helperText={state.errors.fields?.brand}
       />
@@ -66,7 +66,7 @@ export function CreateResourceForm({
         fullWidth
         autoComplete="off"
         name="model"
-        label={create_resource_form.model_input_label}
+        label={create_resource_form.model_field_label}
         error={Boolean(state.errors.fields?.model)}
         helperText={state.errors.fields?.model}
       />
@@ -76,7 +76,7 @@ export function CreateResourceForm({
         fullWidth
         autoComplete="off"
         name="serial"
-        label={create_resource_form.serial_input_label}
+        label={create_resource_form.serial_field_label}
         error={Boolean(state.errors.fields?.serial)}
         helperText={state.errors.fields?.serial}
       />
@@ -85,7 +85,7 @@ export function CreateResourceForm({
         fullWidth
         value={user}
         onChange={(_, value) => setUser(value as User)}
-        label={create_resource_form.user_input_label}
+        label={create_resource_form.user_field_label}
         error={Boolean(state.errors.fields?.user)}
         helperText={state.errors.fields?.user}
       />

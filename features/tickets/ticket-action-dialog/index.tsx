@@ -127,7 +127,7 @@ export function TicketActionDialog({
               required
               fullWidth
               disabled
-              label={ticket_action_dialog.origin_input_label}
+              label={ticket_action_dialog.origin_field_label}
               value={`${origin?.name} (${origin?.username})`}
             />
           )}
@@ -145,7 +145,7 @@ export function TicketActionDialog({
               getOptionDisabled={(option) => option.id === origin?.id}
               value={destination}
               onChange={(_, value) => setDestination(value as User)}
-              label={ticket_action_dialog.destination_input_label}
+              label={ticket_action_dialog.destination_field_label}
               error={Boolean(state.errors.fields?.destination)}
               helperText={state.errors.fields?.destination}
             />
@@ -163,7 +163,7 @@ export function TicketActionDialog({
               fullWidth
               autoComplete="off"
               name="solution"
-              label={ticket_action_dialog.solution_input_label}
+              label={ticket_action_dialog.solution_field_label}
               error={Boolean(state.errors.fields?.solution)}
               helperText={state.errors.fields?.solution}
             />

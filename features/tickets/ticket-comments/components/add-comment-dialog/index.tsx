@@ -60,7 +60,7 @@ export function AddTicketCommentDialog({
             fullWidth
             autoComplete="off"
             name="content"
-            label={add_ticket_comment_dialog.content_input_label}
+            label={add_ticket_comment_dialog.content_field_label}
             error={Boolean(state.errors.fields?.content)}
             helperText={state.errors.fields?.content}
           />

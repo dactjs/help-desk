@@ -5,8 +5,8 @@
   },
 
   "sign_in_form": {
-    "username_input_label": "Usuario",
-    "password_input_label": "Contraseña",
+    "username_field_label": "Usuario",
+    "password_field_label": "Contraseña",
     "submit_button_text": "Iniciar Sesión"
   }
 }

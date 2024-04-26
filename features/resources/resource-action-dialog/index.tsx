@@ -136,7 +136,7 @@ export function ResourceActionDialog({
               required
               fullWidth
               disabled
-              label={resource_action_dialog.origin_input_label}
+              label={resource_action_dialog.origin_field_label}
               value={`${origin?.name} (${origin?.username})`}
             />
           )}
@@ -153,7 +153,7 @@ export function ResourceActionDialog({
               getOptionDisabled={(option) => option.id === origin?.id}
               value={destination}
               onChange={(_, value) => setDestination(value as User)}
-              label={resource_action_dialog.destination_input_label}
+              label={resource_action_dialog.destination_field_label}
               error={Boolean(state.errors.fields?.destination)}
               helperText={state.errors.fields?.destination}
             />

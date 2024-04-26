@@ -45,10 +45,10 @@
   },
 
   "create_resource_form": {
-    "brand_input_label": "Brand",
-    "model_input_label": "Model",
-    "serial_input_label": "Serial Number",
-    "user_input_label": "Assigned User",
+    "brand_field_label": "Brand",
+    "model_field_label": "Model",
+    "serial_field_label": "Serial Number",
+    "user_field_label": "Assigned User",
     "submit_button_text": "Create",
     "actions--created-successfully": "Resource created successfully"
   },
@@ -93,21 +93,21 @@
 
   "add_resource_comment_dialog": {
     "heading": "Add Comment",
-    "content_input_label": "Content",
+    "content_field_label": "Content",
     "submit_button_text": "Add",
     "actions--assign-successfully": "Comment added successfully"
   },
 
   "edit_resource_comment_dialog": {
     "heading": "Edit Comment",
-    "content_input_label": "Content",
+    "content_field_label": "Content",
     "submit_button_text": "Edit",
     "actions--assign-successfully": "Comment edited successfully"
   },
 
   "resource_action_dialog": {
-    "origin_input_label": "Origin",
-    "destination_input_label": "Destination",
+    "origin_field_label": "Origin",
+    "destination_field_label": "Destination",
 
     "heading--input": "Enter Resource",
     "context_text--input": "Are you sure you want to enter this resource? By doing this, you are indicating that the repair was successful.",

@@ -29,7 +29,7 @@ export const resetPassword: FormAction = async (_, formData) => {
       .object({
         user: z.string().uuid(),
         password: z.string(),
-        ["confirm_password"]: z.string(),
+        confirm_password: z.string(),
       })
       .refine((data) => data.password === data["confirm_password"], {
         path: ["confirm_password"],
