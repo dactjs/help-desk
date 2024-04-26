@@ -45,6 +45,7 @@ export function ClientTicketCompletionRateChart({
   return (
     <Stack
       component={Paper}
+      spacing={1}
       divider={<Divider flexItem />}
       sx={{ height: "100%", padding: 2 }}
     >

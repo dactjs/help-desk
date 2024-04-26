@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 
 import { ServerTicketCompletionRateChart } from "./server";
+import { TicketCompletionRateChartSkeleton } from "./skeleton";
 
 export function TicketCompletionRateChart() {
   return (
-    // TODO: add skeleton
-    <Suspense fallback={null}>
+    <Suspense fallback={<TicketCompletionRateChartSkeleton />}>
       <ServerTicketCompletionRateChart />
     </Suspense>
   );

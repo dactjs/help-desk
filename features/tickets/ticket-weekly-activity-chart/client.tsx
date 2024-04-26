@@ -39,6 +39,7 @@ export function ClientTicketWeeklyActivityChart({
   return (
     <Stack
       component={Paper}
+      spacing={1}
       divider={<Divider flexItem />}
       sx={{ height: "100%", padding: 2 }}
     >
@@ -51,7 +52,7 @@ export function ClientTicketWeeklyActivityChart({
           xAxis={xAxis}
           series={series}
           dataset={data}
-          margin={{ top: 40, right: 30, bottom: 20, left: 30 }}
+          margin={{ top: 20, right: 30, bottom: 20, left: 30 }}
           slotProps={{ legend: { hidden: true } }}
         />
       </Stack>

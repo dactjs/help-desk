@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 
+import { CommentsSkeleton } from "@/components/templates/comments-skeleton";
+
 import { ServerResourceComments } from "./server";
 
 export interface ResourceCommentsProps {
@@ -8,8 +10,7 @@ export interface ResourceCommentsProps {
 
 export function ResourceComments({ resourceId }: ResourceCommentsProps) {
   return (
-    // TODO: add skeleton
-    <Suspense fallback={null}>
+    <Suspense fallback={<CommentsSkeleton />}>
       <ServerResourceComments resourceId={resourceId} />
     </Suspense>
   );

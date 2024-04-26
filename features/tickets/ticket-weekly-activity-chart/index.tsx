@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 
 import { ServerTicketWeeklyActivityChart } from "./server";
+import { TicketWeeklyActivityChartSkeleton } from "./skeleton";
 
 export function TicketWeeklyActivityChart() {
   return (
-    // TODO: add skeleton
-    <Suspense fallback={null}>
+    <Suspense fallback={<TicketWeeklyActivityChartSkeleton />}>
       <ServerTicketWeeklyActivityChart />
     </Suspense>
   );

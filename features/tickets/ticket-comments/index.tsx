@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 
+import { CommentsSkeleton } from "@/components/templates/comments-skeleton";
+
 import { ServerTicketComments } from "./server";
 
 export interface TicketCommentsProps {
@@ -7,9 +9,8 @@ export interface TicketCommentsProps {
 }
 
 export function TicketComments({ ticketId }: TicketCommentsProps) {
-  // TODO: add skeleton
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<CommentsSkeleton />}>
       <ServerTicketComments ticketId={ticketId} />
     </Suspense>
   );
