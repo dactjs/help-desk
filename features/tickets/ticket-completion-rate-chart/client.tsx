@@ -53,7 +53,7 @@ export function ClientTicketCompletionRateChart({
         {ticket_completion_rate_chart.heading}
       </Typography>
 
-      <Stack sx={{ flex: 1, placeContent: "center", padding: 4 }}>
+      <Stack sx={{ flex: 1, placeContent: "center", padding: 2 }}>
         {completed || uncompleted ? (
           <PieChart
             series={series}

@@ -16,7 +16,7 @@ export function TicketCompletionRateChartSkeleton() {
         <Skeleton width="15ch" />
       </Typography>
 
-      <Stack sx={{ flex: 1, placeContent: "center", padding: 4 }}>
+      <Stack sx={{ flex: 1, placeContent: "center", padding: 2 }}>
         <Skeleton variant="circular" sx={{ height: "100%" }} />
       </Stack>
     </Stack>

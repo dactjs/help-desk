@@ -26,7 +26,8 @@
     "dashboard_item_text": "Dashboard",
     "tickets_item_text": "Tickets",
     "resources_item_text": "Recursos",
-    "users_item_text": "Usuarios"
+    "users_item_text": "Usuarios",
+    "settings_item_text": "Configuración"
   },
 
   "admin_page": {
@@ -43,7 +44,8 @@
     "dashboard_item_text": "Dashboard",
     "tickets_item_text": "Tickets",
     "resources_item_text": "Recursos",
-    "users_item_text": "Usuarios"
+    "users_item_text": "Usuarios",
+    "settings_item_text": "Configuración"
   },
 
   "technicians_page": {
