@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 
+import { ThemeSettings } from "@/features/settings/theme-settings";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/settings";
 import { PageParams } from "@/types/page-params";
@@ -25,7 +26,9 @@ export default function SettingsPage() {
     <Container fixed sx={{ paddingY: 2 }}>
       <Grid container justifyContent="center" alignItems="center" spacing={2}>
         <Grid xs={12}>
-          <Widget />
+          <Widget>
+            <ThemeSettings />
+          </Widget>
         </Grid>
       </Grid>
     </Container>

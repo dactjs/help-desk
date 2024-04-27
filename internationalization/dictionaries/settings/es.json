@@ -1,5 +1,9 @@
 {
   "settings_page": {
     "title": "Configuración"
+  },
+
+  "theme_settings": {
+    "heading": "Apariencia"
   }
 }
