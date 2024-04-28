@@ -9,6 +9,9 @@
   },
 
   "theme_settings": {
-    "heading": "Apariencia"
+    "heading": "Apariencia",
+    "theme_field_label": "Tema",
+    "primary_color_field_label": "Color Principal",
+    "secondary_color_field_label": "Color Secundario"
   }
 }

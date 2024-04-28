@@ -59,7 +59,7 @@ export function ClientInternationalizationSettings({
         alignItems="center"
         spacing={1}
       >
-        <Typography component="h3" variant="subtitle2">
+        <Typography component="h3" variant="subtitle2" color="text.secondary">
           {language_field_label}
         </Typography>
 

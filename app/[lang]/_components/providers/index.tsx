@@ -1,8 +1,7 @@
 "use client";
 
 import { Roboto } from "next/font/google";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { brown } from "@mui/material/colors";
+import { ThemeProvider, createTheme, PaletteMode } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { SnackbarProvider } from "notistack";
@@ -14,6 +13,7 @@ import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { Dictionary } from "@/internationalization/dictionaries/common";
 import { getMuiTranslations } from "@/internationalization/utils/get-mui-translations";
 import { SupportedLanguage } from "@/internationalization/types";
+import { DEFAULT_THEME } from "@/config/theme";
 
 const roboto = Roboto({
   display: "swap",
@@ -38,9 +38,23 @@ export function Providers({
 
   const translations = getMuiTranslations(language);
 
+  const mode: PaletteMode =
+    (window.localStorage.getItem("mode") as PaletteMode) ?? DEFAULT_THEME.MODE;
+
+  const primaryColor =
+    window.localStorage.getItem("primary_color") ?? DEFAULT_THEME.PRIMARY_COLOR;
+
+  const secondaryColor =
+    window.localStorage.getItem("secondary_color") ??
+    DEFAULT_THEME.SECONDARY_COLOR;
+
   const theme = createTheme(
     {
-      palette: { primary: { main: "#429440" }, secondary: brown },
+      palette: {
+        mode,
+        primary: { main: primaryColor },
+        secondary: { main: secondaryColor },
+      },
       typography: { fontFamily: roboto.style.fontFamily },
     },
     ...translations

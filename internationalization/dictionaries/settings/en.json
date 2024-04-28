@@ -9,6 +9,9 @@
   },
 
   "theme_settings": {
-    "heading": "Appearance"
+    "heading": "Appearance",
+    "theme_field_label": "Theme",
+    "primary_color_field_label": "Primary Color",
+    "secondary_color_field_label": "Secondary Color"
   }
 }
