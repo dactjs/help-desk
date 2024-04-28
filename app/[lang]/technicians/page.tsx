@@ -29,7 +29,14 @@ export default async function TechniciansPage({
   } = await getDictionary(lang);
 
   return (
-    <Container fixed sx={{ minHeight: "100%", placeContent: "center" }}>
+    <Container
+      fixed
+      sx={{
+        display: "grid",
+        minHeight: "100%",
+        placeContent: "center",
+      }}
+    >
       <Typography
         component="h1"
         variant="h4"

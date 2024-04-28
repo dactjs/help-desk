@@ -12,7 +12,14 @@ export default async function TechniciansNotFound() {
   } = await getDictionary(language);
 
   return (
-    <Container fixed sx={{ minHeight: "100%", placeContent: "center" }}>
+    <Container
+      fixed
+      sx={{
+        display: "grid",
+        minHeight: "100%",
+        placeContent: "center",
+      }}
+    >
       <NotFound
         heading={heading}
         description={description}
