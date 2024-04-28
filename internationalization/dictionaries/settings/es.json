@@ -3,6 +3,11 @@
     "title": "Configuración"
   },
 
+  "internationalization_settings": {
+    "heading": "Internacionalización",
+    "language_field_label": "Idioma"
+  },
+
   "theme_settings": {
     "heading": "Apariencia"
   }

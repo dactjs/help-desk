@@ -2,5 +2,6 @@
   "UNEXPECTED_ERROR": "An unexpected error has occurred, please try again.",
   "INVALID_CREDENTIALS": "Invalid credentials or non-existent user",
   "DISABLED_USER": "Disabled user",
-  "FORBIDDEN_ERROR": "You do not have permissions to perform this action"
+  "FORBIDDEN_ERROR": "You do not have permissions to perform this action",
+  "UNSUPPORTED_LANGUAGE": "Unsupported language"
 }
