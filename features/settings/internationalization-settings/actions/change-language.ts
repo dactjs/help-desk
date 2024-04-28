@@ -23,11 +23,11 @@ export async function changeLanguage(
     const { set } = cookies();
 
     set(LANGUAGE_COOKIE_KEY, language);
-
-    redirect(`/${language}/admin/settings`);
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message);
 
     throw new Error(errors.UNEXPECTED_ERROR);
   }
+
+  redirect(`/${language}/admin/settings`);
 }

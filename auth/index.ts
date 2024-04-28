@@ -80,7 +80,7 @@ export const {
         auth.user.role === UserRole.ADMIN &&
         !pathname.startsWith(adminPath)
       ) {
-        request.nextUrl.pathname = adminPath;
+        request.nextUrl.pathname = `${adminPath}/dashboard`;
 
         return NextResponse.redirect(request.nextUrl);
       }
@@ -89,7 +89,7 @@ export const {
         auth.user.role === UserRole.TECHNICIAN &&
         !pathname.startsWith(techniciansPath)
       ) {
-        request.nextUrl.pathname = techniciansPath;
+        request.nextUrl.pathname = `${techniciansPath}/dashboard`;
 
         return NextResponse.redirect(request.nextUrl);
       }
