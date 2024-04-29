@@ -1,23 +1,23 @@
 import { TicketStatus } from "@prisma/client";
 
-type Category = {
+type Service = {
   id: string;
   name: string;
 };
 
-type Service = {
+type User = {
   id: string;
   name: string;
-  category: Category;
+  username: string;
+  email: string;
 };
 
 export interface Ticket {
   id: string;
-  issue: string;
-  solution: string | null;
   status: TicketStatus;
-  sentById: string;
   service: Service;
+  sentById: string;
+  assignedTo: User | null;
   createdAt: Date;
   updatedAt: Date;
 }
