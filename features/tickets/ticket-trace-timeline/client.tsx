@@ -30,6 +30,7 @@ import { TicketTrace } from "./types";
 
 export interface ClientTicketTraceTimelineProps {
   traces: TicketTrace[];
+  context: string | null;
   language: SupportedLanguage;
   dictionary: Pick<
     Dictionary,
@@ -41,6 +42,7 @@ export interface ClientTicketTraceTimelineProps {
 
 export function ClientTicketTraceTimeline({
   traces,
+  context,
   language,
   dictionary: {
     ticket_trace_model,
@@ -76,6 +78,7 @@ export function ClientTicketTraceTimeline({
         <TicketTraceDetailsDialog
           fullWidth
           trace={trace}
+          context={context}
           language={language}
           dictionary={{ ticket_trace_model, ticket_trace_details_dialog }}
           open={Boolean(trace)}

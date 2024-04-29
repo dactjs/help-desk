@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { UserRole } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -51,7 +52,15 @@ export const createResourceComment: FormAction = async (_, formData) => {
       },
     });
 
-    revalidatePath(`/[lang]/admin/resources/${result.data.resource}`, "page");
+    const CONTEXT: Record<UserRole, string | null> = {
+      [UserRole.ADMIN]: `/[lang]/admin/resources/${result.data.resource}`,
+      [UserRole.TECHNICIAN]: `/[lang]/technicians/resources/${result.data.resource}`,
+      [UserRole.USER]: null,
+    };
+
+    const path = session?.user ? CONTEXT[session.user.role] : null;
+
+    if (path) revalidatePath(path, "page");
 
     return {
       complete: true,

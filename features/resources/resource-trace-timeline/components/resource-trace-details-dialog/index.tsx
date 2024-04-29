@@ -20,6 +20,7 @@ import { ResourceTrace } from "../../types";
 
 export interface ResourceTraceDetailsDialogProps extends DialogProps {
   trace: ResourceTrace;
+  context: string | null;
   language: SupportedLanguage;
   dictionary: Pick<
     Dictionary,
@@ -29,6 +30,7 @@ export interface ResourceTraceDetailsDialogProps extends DialogProps {
 
 export function ResourceTraceDetailsDialog({
   trace,
+  context,
   language,
   dictionary: { resource_trace_model, resource_trace_details_dialog },
   ...rest
@@ -77,12 +79,14 @@ export function ResourceTraceDetailsDialog({
                   <CardHeader
                     subheader={heading}
                     action={
-                      <IconButton
-                        LinkComponent={Link}
-                        href={`/${language}/admin/users/${user?.id}`}
-                      >
-                        <LaunchIcon />
-                      </IconButton>
+                      context && (
+                        <IconButton
+                          LinkComponent={Link}
+                          href={`${context}/users/${user?.id}`}
+                        >
+                          <LaunchIcon />
+                        </IconButton>
+                      )
                     }
                   />
 

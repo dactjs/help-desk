@@ -19,6 +19,7 @@ import { User } from "./types";
 export interface ClientUserCardProps {
   variant: UserRole;
   user: User | null;
+  href: string | null;
   language: SupportedLanguage;
   dictionary: Pick<Dictionary, "user_model" | "user_card" | "not_found">;
 }
@@ -26,6 +27,7 @@ export interface ClientUserCardProps {
 export function ClientUserCard({
   variant,
   user,
+  href,
   language,
   dictionary: { user_model, user_card, not_found },
 }: ClientUserCardProps) {
@@ -62,12 +64,11 @@ export function ClientUserCard({
       <CardHeader
         subheader={heading[variant]}
         action={
-          <IconButton
-            LinkComponent={Link}
-            href={`/${language}/admin/users/${user.id}`}
-          >
-            <LaunchIcon />
-          </IconButton>
+          href && (
+            <IconButton LinkComponent={Link} href={href}>
+              <LaunchIcon />
+            </IconButton>
+          )
         }
       />
 

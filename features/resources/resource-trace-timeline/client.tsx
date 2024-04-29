@@ -29,6 +29,7 @@ import { ResourceTrace } from "./types";
 
 export interface ClientResourceTraceTimelineProps {
   traces: ResourceTrace[];
+  context: string | null;
   language: SupportedLanguage;
   dictionary: Pick<
     Dictionary,
@@ -40,6 +41,7 @@ export interface ClientResourceTraceTimelineProps {
 
 export function ClientResourceTraceTimeline({
   traces,
+  context,
   language,
   dictionary: {
     resource_trace_model,
@@ -74,6 +76,7 @@ export function ClientResourceTraceTimeline({
         <ResourceTraceDetailsDialog
           fullWidth
           trace={trace}
+          context={context}
           language={language}
           dictionary={{ resource_trace_model, resource_trace_details_dialog }}
           open={Boolean(trace)}

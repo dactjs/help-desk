@@ -6,10 +6,11 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
 import { Can } from "@/auth/ability";
-import { TicketDataGrid } from "@/features/tickets/ticket-data-grid";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/tickets";
 import { PageParams } from "@/types/page-params";
+
+import { TicketDataGrid } from "./_components/ticket-data-grid";
 
 export const dynamic = "force-dynamic";
 

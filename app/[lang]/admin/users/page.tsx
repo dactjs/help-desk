@@ -6,10 +6,11 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
 import { Can } from "@/auth/ability";
-import { UserDataGrid } from "@/features/users/user-data-grid";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/users";
 import { PageParams } from "@/types/page-params";
+
+import { UserDataGrid } from "./_components/user-data-grid";
 
 export const dynamic = "force-dynamic";
 

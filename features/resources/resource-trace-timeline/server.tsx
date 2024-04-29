@@ -1,4 +1,5 @@
 import { accessibleBy } from "@casl/prisma";
+import { UserRole } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -30,9 +31,16 @@ export async function ServerResourceTraceTimeline({
     getDictionary(language),
   ]);
 
+  const CONTEXT: Record<UserRole, string | null> = {
+    [UserRole.ADMIN]: `/${language}/admin`,
+    [UserRole.TECHNICIAN]: `/${language}/technicians`,
+    [UserRole.USER]: null,
+  };
+
   return (
     <ClientResourceTraceTimeline
       traces={traces}
+      context={session?.user ? CONTEXT[session.user.role] : null}
       language={language}
       dictionary={{
         resource_trace_model: dictionary.resource_trace_model,

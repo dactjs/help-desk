@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import Autocomplete, { AutocompleteProps } from "@mui/material/Autocomplete";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import TextField, { TextFieldProps } from "@mui/material/TextField";
 
-import { query, QueryFilters } from "./actions/query";
+import { useOptions } from "./hooks/use-options";
+import { QueryFilters } from "./actions/query";
 import { User } from "./types";
 
 export type UserAutocompleteProps = Omit<
@@ -32,16 +33,8 @@ export function UserAutocomplete({
   const { pending } = useFormStatus();
 
   const [input, setInput] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [options, setOptions] = useState<User[]>([]);
 
-  useEffect(() => {
-    setLoading(true);
-
-    query(input, filters)
-      .then((users) => setOptions(users))
-      .finally(() => setLoading(false));
-  }, [input, filters]);
+  const { loading, options } = useOptions(input, filters);
 
   const getOptionLabel = (option: string | User) =>
     typeof option !== "string" ? `${option.name} (${option.username})` : option;

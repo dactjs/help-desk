@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { UserRole } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -51,7 +52,15 @@ export const createTicketComment: FormAction = async (_, formData) => {
       },
     });
 
-    revalidatePath(`/[lang]/admin/tickets/${result.data.ticket}`, "page");
+    const CONTEXT: Record<UserRole, string | null> = {
+      [UserRole.ADMIN]: `/[lang]/admin/tickets/${result.data.ticket}`,
+      [UserRole.TECHNICIAN]: `/[lang]/technicians/tickets/${result.data.ticket}`,
+      [UserRole.USER]: `/[lang]/dashboard/tickets/${result.data.ticket}`,
+    };
+
+    const path = session?.user ? CONTEXT[session.user.role] : null;
+
+    if (path) revalidatePath(path, "page");
 
     return {
       complete: true,

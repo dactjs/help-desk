@@ -71,14 +71,14 @@
 
   "resource_trace_timeline": {
     "heading": "Traceability",
-    "made_by": "Made By:"
+    "made_by": "Made By"
   },
 
   "resource_trace_details_dialog": {
     "description": "The action of '{{action}}' was carried out at {{timestamp}}.",
     "origin": "Origin",
     "destination": "Destination",
-    "made_by": "Made By:"
+    "made_by": "Made By"
   },
 
   "resource_comments": {
@@ -129,8 +129,8 @@
 
     "heading--repair": "Repair Resource",
     "context_text--repair": "Are you sure you want to mark this resource as under repair? The resource will remain assigned to the current user. If you wish for the resource not to be tied to the user during the repair process, you can unassign it beforehand.",
-    "submit_button_text--repair": "Mark as repaired",
-    "actions--repair-successfully": "Resource marked as repaired successfully",
+    "submit_button_text--repair": "Mark as under repair",
+    "actions--repair-successfully": "Resource marked as under repair successfully",
 
     "heading--output": "Discard Resource",
     "context_text--output": "Are you sure you want to discard this resource? By doing so, you won't be able to assign it again. This means it will only remain in the database for querying purposes.",

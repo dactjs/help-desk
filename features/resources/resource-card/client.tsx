@@ -18,6 +18,7 @@ import { Resource } from "./types";
 
 export interface ClientResourceCardProps {
   resource: Resource | null;
+  href: string | null;
   language: SupportedLanguage;
   dictionary: Pick<
     Dictionary,
@@ -27,6 +28,7 @@ export interface ClientResourceCardProps {
 
 export function ClientResourceCard({
   resource,
+  href,
   language,
   dictionary: { resource_model, resource_card, not_found },
 }: ClientResourceCardProps) {
@@ -53,12 +55,11 @@ export function ClientResourceCard({
       <CardHeader
         subheader={resource_card.heading}
         action={
-          <IconButton
-            LinkComponent={Link}
-            href={`/${language}/admin/resources/${resource.id}`}
-          >
-            <LaunchIcon />
-          </IconButton>
+          href && (
+            <IconButton LinkComponent={Link} href={href}>
+              <LaunchIcon />
+            </IconButton>
+          )
         }
       />
 

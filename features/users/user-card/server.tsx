@@ -31,10 +31,19 @@ export async function ServerUserCard({ variant, userId }: ServerUserCardProps) {
 
   const data = user && ability.can("read", subject("User", user)) ? user : null;
 
+  const CONTEXT: Record<UserRole, string | null> = {
+    [UserRole.ADMIN]: `/${language}/admin/users/${data?.id}`,
+    [UserRole.TECHNICIAN]: `/${language}/technicians/users/${data?.id}`,
+    [UserRole.USER]: null,
+  };
+
+  const href = session?.user && data ? CONTEXT[session.user.role] : null;
+
   return (
     <ClientUserCard
       variant={variant}
       user={data}
+      href={href}
       language={language}
       dictionary={{
         user_model: dictionary.user_model,

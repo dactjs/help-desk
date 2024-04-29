@@ -1,4 +1,5 @@
 import { subject } from "@casl/ability";
+import { UserRole } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -34,9 +35,18 @@ export async function ServerResourceCard({
       ? resource
       : null;
 
+  const CONTEXT: Record<UserRole, string | null> = {
+    [UserRole.ADMIN]: `/${language}/admin/resources/${data?.id}`,
+    [UserRole.TECHNICIAN]: `/${language}/technicians/resources/${data?.id}`,
+    [UserRole.USER]: null,
+  };
+
+  const href = session?.user && data ? CONTEXT[session.user.role] : null;
+
   return (
     <ClientResourceCard
       resource={data}
+      href={href}
       language={language}
       dictionary={{
         resource_model: dictionary.resource_model,

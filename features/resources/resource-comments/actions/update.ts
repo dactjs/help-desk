@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { subject } from "@casl/ability";
+import { UserRole } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -59,7 +60,15 @@ export const updateResourceComment: FormAction = async (_, formData) => {
       return resourceId;
     });
 
-    revalidatePath(`/[lang]/admin/resources/${resource}`, "page");
+    const CONTEXT: Record<UserRole, string | null> = {
+      [UserRole.ADMIN]: `/[lang]/admin/resources/${resource}`,
+      [UserRole.TECHNICIAN]: `/[lang]/technicians/resources/${resource}`,
+      [UserRole.USER]: null,
+    };
+
+    const path = session?.user ? CONTEXT[session.user.role] : null;
+
+    if (path) revalidatePath(path, "page");
 
     return {
       complete: true,

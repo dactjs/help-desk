@@ -2,10 +2,11 @@ import { Metadata } from "next";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import { UserDataGrid } from "@/features/users/user-data-grid";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/users";
 import { PageParams } from "@/types/page-params";
+
+import { UserDataGrid } from "./_components/user-data-grid";
 
 export const dynamic = "force-dynamic";
 

@@ -20,6 +20,7 @@ import { TicketTrace } from "../../types";
 
 export interface TicketTraceDetailsDialogProps extends DialogProps {
   trace: TicketTrace;
+  context: string | null;
   language: SupportedLanguage;
   dictionary: Pick<
     Dictionary,
@@ -29,6 +30,7 @@ export interface TicketTraceDetailsDialogProps extends DialogProps {
 
 export function TicketTraceDetailsDialog({
   trace,
+  context,
   language,
   dictionary: { ticket_trace_model, ticket_trace_details_dialog },
   ...rest
@@ -77,12 +79,14 @@ export function TicketTraceDetailsDialog({
                   <CardHeader
                     subheader={heading}
                     action={
-                      <IconButton
-                        LinkComponent={Link}
-                        href={`/${language}/admin/users/${user?.id}`}
-                      >
-                        <LaunchIcon />
-                      </IconButton>
+                      context && (
+                        <IconButton
+                          LinkComponent={Link}
+                          href={`${context}/users/${user?.id}`}
+                        >
+                          <LaunchIcon />
+                        </IconButton>
+                      )
                     }
                   />
 

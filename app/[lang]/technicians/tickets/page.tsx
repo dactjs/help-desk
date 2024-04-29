@@ -2,10 +2,11 @@ import { Metadata } from "next";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import { TicketDataGrid } from "@/features/tickets/ticket-data-grid";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/tickets";
 import { PageParams } from "@/types/page-params";
+
+import { TicketDataGrid } from "./_components/ticket-data-grid";
 
 export const dynamic = "force-dynamic";
 

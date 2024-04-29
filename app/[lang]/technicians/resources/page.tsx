@@ -2,10 +2,11 @@ import { Metadata } from "next";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import { ResourceDataGrid } from "@/features/resources/resource-data-grid";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/resources";
 import { PageParams } from "@/types/page-params";
+
+import { ResourceDataGrid } from "./_components/resource-data-grid";
 
 export const dynamic = "force-dynamic";
 

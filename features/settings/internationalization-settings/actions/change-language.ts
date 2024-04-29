@@ -2,7 +2,9 @@
 
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { UserRole } from "@prisma/client";
 
+import { auth } from "@/auth";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/errors";
 import {
@@ -29,5 +31,17 @@ export async function changeLanguage(
     throw new Error(errors.UNEXPECTED_ERROR);
   }
 
-  redirect(`/${language}/admin/settings`);
+  const CONTEXT: Record<UserRole, string> = {
+    [UserRole.ADMIN]: `/${language}/admin/settings`,
+    [UserRole.TECHNICIAN]: `/${language}/technicians/settings`,
+    [UserRole.USER]: `/${language}/dashboard/settings`,
+  };
+
+  const session = await auth();
+
+  const url = session?.user
+    ? CONTEXT[session.user.role]
+    : `/${language}/auth/sign-in`;
+
+  redirect(url);
 }

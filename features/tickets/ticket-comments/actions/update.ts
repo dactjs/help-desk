@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { subject } from "@casl/ability";
+import { UserRole } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -57,7 +58,15 @@ export const updateTicketComment: FormAction = async (_, formData) => {
       return ticketId;
     });
 
-    revalidatePath(`/[lang]/admin/tickets/${ticket}`, "page");
+    const CONTEXT: Record<UserRole, string | null> = {
+      [UserRole.ADMIN]: `/[lang]/admin/tickets/${ticket}`,
+      [UserRole.TECHNICIAN]: `/[lang]/technicians/tickets/${ticket}`,
+      [UserRole.USER]: `/[lang]/dashboard/tickets/${ticket}`,
+    };
+
+    const path = session?.user ? CONTEXT[session.user.role] : null;
+
+    if (path) revalidatePath(path, "page");
 
     return {
       complete: true,

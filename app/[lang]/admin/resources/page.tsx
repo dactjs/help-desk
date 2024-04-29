@@ -6,10 +6,11 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
 import { Can } from "@/auth/ability";
-import { ResourceDataGrid } from "@/features/resources/resource-data-grid";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/resources";
 import { PageParams } from "@/types/page-params";
+
+import { ResourceDataGrid } from "./_components/resource-data-grid";
 
 export const dynamic = "force-dynamic";
 

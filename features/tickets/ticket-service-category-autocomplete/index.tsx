@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import Autocomplete, { AutocompleteProps } from "@mui/material/Autocomplete";
 import TextField, { TextFieldProps } from "@mui/material/TextField";
 
-import { query } from "./actions/query";
+import { useOptions } from "./hooks/use-options";
 import { TicketServiceCategory } from "./types";
 
 export type TicketServiceCategoryAutocompleteProps = Omit<
@@ -28,16 +28,8 @@ export function TicketServiceCategoryAutocomplete({
   const { pending } = useFormStatus();
 
   const [input, setInput] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [options, setOptions] = useState<TicketServiceCategory[]>([]);
 
-  useEffect(() => {
-    setLoading(true);
-
-    query(input)
-      .then((categories) => setOptions(categories))
-      .finally(() => setLoading(false));
-  }, [input]);
+  const { loading, options } = useOptions(input);
 
   const getOptionLabel = (option: string | TicketServiceCategory) =>
     typeof option !== "string" ? option.name : option;

@@ -1,4 +1,5 @@
 import { subject } from "@casl/ability";
+import { UserRole } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -30,9 +31,18 @@ export async function ServerTicketCard({ ticketId }: ServerTicketCardProps) {
   const data =
     ticket && ability.can("read", subject("Ticket", ticket)) ? ticket : null;
 
+  const CONTEXT: Record<UserRole, string | null> = {
+    [UserRole.ADMIN]: `/${language}/admin/tickets/${data?.id}`,
+    [UserRole.TECHNICIAN]: `/${language}/technicians/tickets/${data?.id}`,
+    [UserRole.USER]: null,
+  };
+
+  const href = session?.user && data ? CONTEXT[session.user.role] : null;
+
   return (
     <ClientTicketCard
       ticket={data}
+      href={href}
       language={language}
       dictionary={{
         ticket_model: dictionary.ticket_model,

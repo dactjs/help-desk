@@ -134,14 +134,14 @@
 
   "ticket_trace_timeline": {
     "heading": "Trazabilidad",
-    "made_by": "Realizado por:"
+    "made_by": "Realizado por"
   },
 
   "ticket_trace_details_dialog": {
     "description": "Se llevó a cabo la acción de '{{action}}' el {{timestamp}}.",
     "origin": "Origen",
     "destination": "Destino",
-    "made_by": "Realizado por:"
+    "made_by": "Realizado por"
   },
 
   "ticket_comments": {

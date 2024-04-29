@@ -18,12 +18,14 @@ import { Ticket } from "./types";
 
 export interface ClientTicketCardProps {
   ticket: Ticket | null;
+  href: string | null;
   language: SupportedLanguage;
   dictionary: Pick<Dictionary, "ticket_model" | "ticket_card" | "not_found">;
 }
 
 export function ClientTicketCard({
   ticket,
+  href,
   language,
   dictionary: { ticket_model, ticket_card, not_found },
 }: ClientTicketCardProps) {
@@ -52,12 +54,11 @@ export function ClientTicketCard({
       <CardHeader
         subheader={ticket_card.heading}
         action={
-          <IconButton
-            LinkComponent={Link}
-            href={`/${language}/admin/tickets/${ticket.id}`}
-          >
-            <LaunchIcon />
-          </IconButton>
+          href && (
+            <IconButton LinkComponent={Link} href={href}>
+              <LaunchIcon />
+            </IconButton>
+          )
         }
       />
 

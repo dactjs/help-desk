@@ -184,7 +184,7 @@ export function ClientThemeSettings({
             defaultValue={primaryColor}
             onChange={handleOnPrimaryColorChange}
             sx={{
-              width: 40,
+              width: 35,
               height: 40,
               padding: 0,
               border: "none",
@@ -212,7 +212,7 @@ export function ClientThemeSettings({
             defaultValue={secondaryColor}
             onChange={handleOnSecondaryColorChange}
             sx={{
-              width: 40,
+              width: 35,
               height: 40,
               padding: 0,
               border: "none",
