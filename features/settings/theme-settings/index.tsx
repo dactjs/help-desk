@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 
 import { ServerThemeSettings } from "./server";
+import { ThemeSettingsSkeleton } from "./skeleton";
 
 export function ThemeSettings() {
-  // TODO: add skeleton
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<ThemeSettingsSkeleton />}>
       <ServerThemeSettings />
     </Suspense>
   );

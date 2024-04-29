@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 
 import { ServerInternationalizationSettings } from "./server";
+import { InternationalizationSettingsSkeleton } from "./skeleton";
 
 export function InternationalizationSettings() {
-  // TODO: add skeleton
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<InternationalizationSettingsSkeleton />}>
       <ServerInternationalizationSettings />
     </Suspense>
   );
