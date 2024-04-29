@@ -10,6 +10,7 @@
 
   "theme_settings": {
     "heading": "Apariencia",
+    "reset_button_text": "Restablecer",
     "theme_field_label": "Tema",
     "primary_color_field_label": "Color Principal",
     "secondary_color_field_label": "Color Secundario"
