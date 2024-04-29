@@ -84,7 +84,7 @@ export function Providers({
               styles={{
                 "*": {
                   scrollbarWidth: "thin",
-                  scrollbarColor: "chocolate transparent",
+                  scrollbarColor: `${secondaryColor} transparent`,
                 },
               }}
             />
