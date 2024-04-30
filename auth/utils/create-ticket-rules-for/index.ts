@@ -39,11 +39,13 @@ export function createTicketRulesFor(
     });
 
     builder.can("open", "Ticket", {
+      assignedToId: user?.id,
       status: { in: [TicketStatus.ASSIGNED] },
       NOT: { OR: [{ assignedTo: null }, { assignedToId: null }] },
     });
 
     builder.can("resolve", "Ticket", {
+      assignedToId: user?.id,
       status: { in: [TicketStatus.IN_PROGRESS] },
       NOT: { OR: [{ assignedTo: null }, { assignedToId: null }] },
     });

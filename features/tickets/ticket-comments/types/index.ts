@@ -1,3 +1,7 @@
+type Ticket = {
+  sentById: string;
+};
+
 type User = {
   id: string;
   username: string;
@@ -8,6 +12,7 @@ type User = {
 export interface TicketComment {
   id: string;
   content: string;
+  ticket: Ticket;
   writtenBy: User;
   writtenById: string;
   createdAt: Date;

@@ -34,7 +34,7 @@ export async function ServerTicketCard({ ticketId }: ServerTicketCardProps) {
   const CONTEXT: Record<UserRole, string | null> = {
     [UserRole.ADMIN]: `/${language}/admin/tickets/${data?.id}`,
     [UserRole.TECHNICIAN]: `/${language}/technicians/tickets/${data?.id}`,
-    [UserRole.USER]: null,
+    [UserRole.USER]: `/${language}/dashboard/tickets/${data?.id}`,
   };
 
   const href = session?.user && data ? CONTEXT[session.user.role] : null;

@@ -45,6 +45,21 @@ export function ResourceTraceDetailsDialog({
     [ResourceTraceType.OUTPUT]: resource_trace_model["type--output"],
   };
 
+  const content = [
+    {
+      heading: resource_trace_details_dialog.made_by,
+      user: trace.madeBy,
+    },
+    {
+      heading: resource_trace_details_dialog.origin,
+      user: trace.origin,
+    },
+    {
+      heading: resource_trace_details_dialog.destination,
+      user: trace.destination,
+    },
+  ].filter(({ user }) => Boolean(user));
+
   return (
     <Dialog {...rest}>
       <DialogContent>
@@ -58,50 +73,35 @@ export function ResourceTraceDetailsDialog({
         <Divider sx={{ marginY: 2 }} />
 
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
-          {[
-            {
-              heading: resource_trace_details_dialog.made_by,
-              user: trace.madeBy,
-            },
-            {
-              heading: resource_trace_details_dialog.origin,
-              user: trace.origin,
-            },
-            {
-              heading: resource_trace_details_dialog.destination,
-              user: trace.destination,
-            },
-          ]
-            .filter(({ user }) => Boolean(user))
-            .map(({ heading, user }) => (
-              <Grid key={heading} xs={6}>
-                <Card>
-                  <CardHeader
-                    subheader={heading}
-                    action={
-                      context && (
-                        <IconButton
-                          LinkComponent={Link}
-                          href={`${context}/users/${user?.id}`}
-                        >
-                          <LaunchIcon />
-                        </IconButton>
-                      )
-                    }
-                  />
+          {content.map(({ heading, user }) => (
+            <Grid key={heading} xs={6}>
+              <Card>
+                <CardHeader
+                  subheader={heading}
+                  action={
+                    context && (
+                      <IconButton
+                        LinkComponent={Link}
+                        href={`${context}/users/${user?.id}`}
+                      >
+                        <LaunchIcon />
+                      </IconButton>
+                    )
+                  }
+                />
 
-                  <CardContent sx={{ borderTop: 1, borderTopColor: "divider" }}>
-                    <Typography noWrap>
-                      {`${user?.name} (${user?.username})`}
-                    </Typography>
+                <CardContent sx={{ borderTop: 1, borderTopColor: "divider" }}>
+                  <Typography noWrap>
+                    {`${user?.name} (${user?.username})`}
+                  </Typography>
 
-                    <Typography noWrap variant="caption">
-                      {user?.email}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+                  <Typography noWrap variant="caption">
+                    {user?.email}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       </DialogContent>
     </Dialog>

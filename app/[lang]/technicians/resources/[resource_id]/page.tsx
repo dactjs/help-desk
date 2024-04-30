@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { ResourceCard } from "@/features/resources/resource-card";
 import { ResourceTraceTimeline } from "@/features/resources/resource-trace-timeline";
+import { ResourceComments } from "@/features/resources/resource-comments";
 import { UserCard } from "@/features/users/user-card";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/resources";
@@ -77,6 +78,12 @@ export default async function ResourcePage({
             </Widget>
           </Grid>
         )}
+
+        <Grid xs={12} md={resource.assignedToId ? 6 : 12}>
+          <Widget>
+            <ResourceComments resourceId={resource.id} />
+          </Widget>
+        </Grid>
       </Grid>
     </Container>
   );

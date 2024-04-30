@@ -1,7 +1,7 @@
+import { Session } from "next-auth";
 import { AbilityBuilder } from "@casl/ability";
 import { createPrismaAbility } from "@casl/prisma";
 import { UserStatus } from "@prisma/client";
-import { Session } from "next-auth";
 
 import { AppAbility } from "../../ability";
 

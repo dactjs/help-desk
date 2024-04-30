@@ -1,6 +1,11 @@
 export const NECESSARY_TICKET_COMMENT_FIELDS = {
   id: true,
   content: true,
+  ticket: {
+    select: {
+      sentById: true,
+    },
+  },
   writtenBy: {
     select: {
       id: true,

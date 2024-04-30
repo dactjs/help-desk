@@ -12,14 +12,9 @@ import {
 } from "@mui/x-data-grid";
 import LaunchIcon from "@mui/icons-material/Launch";
 import AssignIcon from "@mui/icons-material/AssignmentInd";
-import TransferIcon from "@mui/icons-material/SwapHoriz";
 import OpenIcon from "@mui/icons-material/HourglassBottom";
 import ResolveIcon from "@mui/icons-material/CheckCircle";
-import CloseIcon from "@mui/icons-material/Verified";
 import CancelIcon from "@mui/icons-material/Cancel";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { useSnackbar } from "notistack";
-import { useConfirm } from "material-ui-confirm";
 import { subject } from "@casl/ability";
 import { TicketStatus } from "@prisma/client";
 
@@ -30,7 +25,6 @@ import { Dictionary } from "@/internationalization/dictionaries/tickets";
 import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
 
-import { deleteTicket } from "./actions/delete";
 import { Ticket } from "./types";
 
 export interface ClientTicketDataGridProps {
@@ -51,10 +45,6 @@ export function ClientTicketDataGrid({
 
   const ability = useAppAbility();
 
-  const { enqueueSnackbar } = useSnackbar();
-
-  const confirm = useConfirm();
-
   const [action, setAction] = useState<{
     type: TicketActionDialogType;
     ticketId: string;
@@ -70,23 +60,6 @@ export function ClientTicketDataGrid({
     CANCELLED: ticket_model["status--cancelled"],
   };
 
-  const handleDelete = (id: string) => {
-    confirm()
-      .then(async () => {
-        try {
-          await deleteTicket(id);
-        } catch (error) {
-          if (error instanceof Error) {
-            enqueueSnackbar(error.message, {
-              variant: "error",
-              style: { whiteSpace: "pre-line" },
-            });
-          }
-        }
-      })
-      .catch(() => null);
-  };
-
   const columns: GridColDef<Ticket>[] = [
     {
       type: "actions",
@@ -100,34 +73,19 @@ export function ClientTicketDataGrid({
           label={ticket_data_grid["actions--view-details"]}
           aria-label={ticket_data_grid["actions--view-details"]}
           onClick={() =>
-            router.push(`/${language}/admin/tickets/${params.row.id}`)
+            router.push(`/${language}/technicians/tickets/${params.row.id}`)
           }
         />,
         <GridActionsCellItem
-          key={`${params.id}-assign`}
+          key={`${params.id}-take`}
           showInMenu
-          disabled={!ability.can("assign", subject("Ticket", params.row))}
+          disabled={!ability.can("take", subject("Ticket", params.row))}
           icon={<AssignIcon color="warning" />}
-          label={ticket_data_grid["actions--assign"]}
-          aria-label={ticket_data_grid["actions--assign"]}
+          label={ticket_data_grid["actions--take"]}
+          aria-label={ticket_data_grid["actions--take"]}
           onClick={() =>
             setAction({
-              type: TicketActionDialogType.ASSIGN,
-              ticketId: params.row.id,
-              origin: params.row.assignedTo,
-            })
-          }
-        />,
-        <GridActionsCellItem
-          key={`${params.id}-transfer`}
-          showInMenu
-          disabled={!ability.can("transfer", subject("Ticket", params.row))}
-          icon={<TransferIcon color="info" />}
-          label={ticket_data_grid["actions--transfer"]}
-          aria-label={ticket_data_grid["actions--transfer"]}
-          onClick={() =>
-            setAction({
-              type: TicketActionDialogType.TRANSFER,
+              type: TicketActionDialogType.TAKE,
               ticketId: params.row.id,
               origin: params.row.assignedTo,
             })
@@ -164,21 +122,6 @@ export function ClientTicketDataGrid({
           }
         />,
         <GridActionsCellItem
-          key={`${params.id}-close`}
-          showInMenu
-          disabled={!ability.can("close", subject("Ticket", params.row))}
-          icon={<CloseIcon color="success" />}
-          label={ticket_data_grid["actions--close"]}
-          aria-label={ticket_data_grid["actions--close"]}
-          onClick={() =>
-            setAction({
-              type: TicketActionDialogType.CLOSE,
-              ticketId: params.row.id,
-              origin: params.row.assignedTo,
-            })
-          }
-        />,
-        <GridActionsCellItem
           key={`${params.id}-cancel`}
           showInMenu
           disabled={!ability.can("cancel", subject("Ticket", params.row))}
@@ -192,15 +135,6 @@ export function ClientTicketDataGrid({
               origin: params.row.assignedTo,
             })
           }
-        />,
-        <GridActionsCellItem
-          key={`${params.id}-delete`}
-          showInMenu
-          disabled={!ability.can("delete", subject("Ticket", params.row))}
-          icon={<DeleteIcon color="error" />}
-          label={ticket_data_grid["actions--delete"]}
-          aria-label={ticket_data_grid["actions--delete"]}
-          onClick={() => handleDelete(params.row.id)}
         />,
       ],
     },

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { subject } from "@casl/ability";
-import { TicketStatus, TicketTraceType } from "@prisma/client";
+import { UserRole, TicketStatus, TicketTraceType } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -67,7 +67,15 @@ export const transfer: FormAction = async (_, formData) => {
       });
     });
 
-    revalidatePath("/[lang]/admin/tickets", "page");
+    const CONTEXT: Record<UserRole, string | null> = {
+      [UserRole.ADMIN]: "/[lang]/admin/tickets",
+      [UserRole.TECHNICIAN]: "/[lang]/technicians/tickets",
+      [UserRole.USER]: null,
+    };
+
+    const path = session?.user ? CONTEXT[session.user.role] : null;
+
+    if (path) revalidatePath(path, "page");
 
     return {
       complete: true,

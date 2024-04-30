@@ -1,6 +1,11 @@
 export const NECESSARY_RESOURCE_COMMENT_FIELDS = {
   id: true,
   content: true,
+  resource: {
+    select: {
+      assignedToId: true,
+    },
+  },
   writtenBy: {
     select: {
       id: true,

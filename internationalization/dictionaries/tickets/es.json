@@ -109,6 +109,7 @@
   "ticket_data_grid": {
     "actions": "Acciones",
     "actions--view-details": "Ver Detalles",
+    "actions--take": "Tomar",
     "actions--assign": "Asignar",
     "actions--transfer": "Transferir",
     "actions--open": "Abrir",
@@ -172,6 +173,11 @@
     "origin_field_label": "Origen",
     "destination_field_label": "Destino",
     "solution_field_label": "Solución o Razón",
+
+    "heading--take": "Tomar Ticket",
+    "context_text--take": "¿Estás seguro de querer tomar este ticket? Se notificará al usuario que se ha asignado un técnico para trabajar en su solicitud.",
+    "submit_button_text--take": "Tomar",
+    "actions--take-successfully": "Ticket tomado exitosamente",
 
     "heading--assign": "Asignar Ticket",
     "submit_button_text--assign": "Asignar",

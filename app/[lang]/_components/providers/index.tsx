@@ -38,15 +38,16 @@ export function Providers({
 
   const translations = getMuiTranslations(language);
 
+  const { MODE, PRIMARY_COLOR, SECONDARY_COLOR } = DEFAULT_THEME;
+
   const mode: PaletteMode =
-    (window.localStorage.getItem("mode") as PaletteMode) ?? DEFAULT_THEME.MODE;
+    (window.localStorage.getItem("mode") as PaletteMode) ?? MODE;
 
   const primaryColor =
-    window.localStorage.getItem("primary_color") ?? DEFAULT_THEME.PRIMARY_COLOR;
+    window.localStorage.getItem("primary_color") ?? PRIMARY_COLOR;
 
   const secondaryColor =
-    window.localStorage.getItem("secondary_color") ??
-    DEFAULT_THEME.SECONDARY_COLOR;
+    window.localStorage.getItem("secondary_color") ?? SECONDARY_COLOR;
 
   const theme = createTheme(
     {

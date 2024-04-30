@@ -40,8 +40,6 @@ export async function deleteResourceComment(id: string): Promise<void> {
       [UserRole.USER]: null,
     };
 
-    const session = await auth();
-
     const path = session?.user ? CONTEXT[session.user.role] : null;
 
     if (path) revalidatePath(path, "page");
