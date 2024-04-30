@@ -5,7 +5,7 @@ export async function PUT(request: Request) {
   const session = await request.json();
 
   const user: AuthenticatedUser | null = await prisma.user.findUnique({
-    where: { id: session?.user?.id },
+    where: { id: String(session?.user?.id) },
     select: {
       id: true,
       username: true,
