@@ -20,6 +20,7 @@ import { useFormAction } from "@/hooks/use-form-action";
 import { Dictionary } from "@/internationalization/dictionaries/tickets";
 import { FormAction } from "@/types/form-action";
 
+import { take } from "./actions/take";
 import { assign } from "./actions/assign";
 import { transfer } from "./actions/transfer";
 import { open } from "./actions/open";
@@ -45,6 +46,7 @@ export function TicketActionDialog({
   ...rest
 }: TicketActionDialogProps) {
   const heading: Record<TicketActionDialogType, string> = {
+    TAKE: ticket_action_dialog["heading--take"],
     ASSIGN: ticket_action_dialog["heading--assign"],
     TRANSFER: ticket_action_dialog["heading--transfer"],
     OPEN: ticket_action_dialog["heading--open"],
@@ -54,11 +56,13 @@ export function TicketActionDialog({
   };
 
   const context_text = {
+    TAKE: ticket_action_dialog["context_text--take"],
     OPEN: ticket_action_dialog["context_text--open"],
     CLOSE: ticket_action_dialog["context_text--close"],
   } as const;
 
   const submit_button_text: Record<TicketActionDialogType, string> = {
+    TAKE: ticket_action_dialog["submit_button_text--take"],
     ASSIGN: ticket_action_dialog["submit_button_text--assign"],
     TRANSFER: ticket_action_dialog["submit_button_text--transfer"],
     OPEN: ticket_action_dialog["submit_button_text--open"],
@@ -68,6 +72,7 @@ export function TicketActionDialog({
   };
 
   const action_successfully: Record<TicketActionDialogType, string> = {
+    TAKE: ticket_action_dialog["actions--take-successfully"],
     ASSIGN: ticket_action_dialog["actions--assign-successfully"],
     TRANSFER: ticket_action_dialog["actions--transfer-successfully"],
     OPEN: ticket_action_dialog["actions--open-successfully"],
@@ -77,6 +82,7 @@ export function TicketActionDialog({
   };
 
   const actions: Record<TicketActionDialogType, FormAction> = {
+    TAKE: take,
     ASSIGN: assign,
     TRANSFER: transfer,
     OPEN: open,
@@ -110,9 +116,11 @@ export function TicketActionDialog({
         dividers
         sx={{ display: "flex", flexDirection: "column", gap: 2 }}
       >
-        {[TicketActionDialogType.OPEN, TicketActionDialogType.CLOSE].includes(
-          type as keyof typeof context_text
-        ) && (
+        {[
+          TicketActionDialogType.TAKE,
+          TicketActionDialogType.OPEN,
+          TicketActionDialogType.CLOSE,
+        ].includes(type as keyof typeof context_text) && (
           <DialogContentText>
             {context_text[type as keyof typeof context_text]}
           </DialogContentText>

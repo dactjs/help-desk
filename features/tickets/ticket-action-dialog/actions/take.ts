@@ -2,41 +2,30 @@
 
 import { revalidatePath } from "next/cache";
 import { subject } from "@casl/ability";
-import { UserRole } from "@prisma/client";
-import * as bcrypt from "bcryptjs";
+import { UserRole, TicketStatus, TicketTraceType } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
-import { getDictionary } from "@/internationalization/dictionaries/users";
-import { getDictionary as getErrorsDictionary } from "@/internationalization/dictionaries/errors";
+import { getDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 import { zod } from "@/lib/zod";
 import { FormAction } from "@/types/form-action";
 
-export const resetPassword: FormAction = async (_, formData) => {
+export const take: FormAction = async (_, formData) => {
   const language = getAppLanguage();
 
-  const [session, { user_action_dialog }, errors] = await Promise.all([
+  const [session, errors] = await Promise.all([
     auth(),
     getDictionary(language),
-    getErrorsDictionary(language),
   ]);
 
   try {
     const z = zod(language);
 
-    const schema = z
-      .object({
-        user: z.string().uuid(),
-        password: z.string(),
-        confirm_password: z.string(),
-      })
-      .refine((data) => data.password === data["confirm_password"], {
-        path: ["confirm_password"],
-        message:
-          user_action_dialog["actions--reset-password-passwords-do-not-match"],
-      });
+    const schema = z.object({
+      ticket: z.string().uuid(),
+    });
 
     const result = schema.safeParse(Object.fromEntries(formData));
 
@@ -53,25 +42,32 @@ export const resetPassword: FormAction = async (_, formData) => {
     const ability = createAbilityFor(session);
 
     await prisma.$transaction(async (tx) => {
-      const user = await tx.user.findUniqueOrThrow({
-        where: { id: result.data.user },
+      const ticket = await tx.ticket.findUniqueOrThrow({
+        where: { id: result.data.ticket },
       });
 
-      if (!ability.can("reset-password", subject("User", user)))
+      if (!ability.can("take", subject("Ticket", ticket)))
         throw new Error(errors.FORBIDDEN_ERROR);
 
-      const salt = bcrypt.genSaltSync();
-      const hash = bcrypt.hashSync(result.data.password, salt);
-
-      await tx.user.update({
-        where: { id: result.data.user },
-        data: { password: hash },
+      await tx.ticket.update({
+        where: { id: result.data.ticket },
+        data: {
+          status: TicketStatus.ASSIGNED,
+          assignedToId: String(session?.user?.id),
+          traces: {
+            create: {
+              type: TicketTraceType.ASSIGNMENT,
+              destinationId: String(session?.user?.id),
+              madeById: String(session?.user?.id),
+            },
+          },
+        },
       });
     });
 
     const CONTEXT: Record<UserRole, string | null> = {
-      [UserRole.ADMIN]: "/[lang]/admin/users",
-      [UserRole.TECHNICIAN]: "/[lang]/technicians/users",
+      [UserRole.ADMIN]: "/[lang]/admin/tickets",
+      [UserRole.TECHNICIAN]: "/[lang]/technicians/tickets",
       [UserRole.USER]: null,
     };
 

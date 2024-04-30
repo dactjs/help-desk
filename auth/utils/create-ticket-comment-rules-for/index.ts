@@ -10,11 +10,15 @@ export function createTicketCommentRulesFor(
 ) {
   builder.can("create", "TicketComment");
 
-  builder.can(["read", "delete"], "TicketComment", {
-    writtenById: user?.id,
+  builder.can("read", "TicketComment", {
+    OR: [{ ticket: { sentById: user?.id } }, { writtenById: user?.id }],
   });
 
   builder.can("update", "TicketComment", ["content"], {
+    writtenById: user?.id,
+  });
+
+  builder.can("delete", "TicketComment", {
     writtenById: user?.id,
   });
 

@@ -10,11 +10,15 @@ export function createResourceCommentRulesFor(
 ) {
   builder.can("create", "ResourceComment");
 
-  builder.can(["read", "delete"], "ResourceComment", {
-    writtenById: user?.id,
+  builder.can("read", "ResourceComment", {
+    OR: [{ resource: { assignedToId: user?.id } }, { writtenById: user?.id }],
   });
 
   builder.can("update", "ResourceComment", ["content"], {
+    writtenById: user?.id,
+  });
+
+  builder.can("delete", "ResourceComment", {
     writtenById: user?.id,
   });
 

@@ -71,12 +71,6 @@ export default async function TicketPage({
           </Widget>
         </Grid>
 
-        <Grid xs={12} md={6}>
-          <Widget>
-            <UserCard userId={ticket.sentById} />
-          </Widget>
-        </Grid>
-
         {ticket.assignedToId && (
           <Grid xs={12} md={6}>
             <Widget>
@@ -88,7 +82,7 @@ export default async function TicketPage({
           </Grid>
         )}
 
-        <Grid xs={12} md={ticket.assignedToId ? 12 : 6}>
+        <Grid xs={12} md={ticket.assignedToId ? 6 : 12}>
           <Widget>
             <TicketComments ticketId={ticket.id} />
           </Widget>

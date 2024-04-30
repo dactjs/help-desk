@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { subject } from "@casl/ability";
-import { ResourceStatus, ResourceTraceType } from "@prisma/client";
+import { UserRole, ResourceStatus, ResourceTraceType } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
@@ -64,7 +64,15 @@ export const output: FormAction = async (_, formData) => {
       });
     });
 
-    revalidatePath("/[lang]/admin/resources", "page");
+    const CONTEXT: Record<UserRole, string | null> = {
+      [UserRole.ADMIN]: "/[lang]/admin/resources",
+      [UserRole.TECHNICIAN]: "/[lang]/technicians/resources",
+      [UserRole.USER]: null,
+    };
+
+    const path = session?.user ? CONTEXT[session.user.role] : null;
+
+    if (path) revalidatePath(path, "page");
 
     return {
       complete: true,

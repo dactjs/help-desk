@@ -2,6 +2,7 @@ export type TicketActionDialogType =
   (typeof TicketActionDialogType)[keyof typeof TicketActionDialogType];
 
 export const TicketActionDialogType = {
+  TAKE: "TAKE",
   ASSIGN: "ASSIGN",
   TRANSFER: "TRANSFER",
   OPEN: "OPEN",

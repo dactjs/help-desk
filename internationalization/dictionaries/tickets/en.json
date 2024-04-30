@@ -109,6 +109,7 @@
   "ticket_data_grid": {
     "actions": "Actions",
     "actions--view-details": "View Details",
+    "actions--take": "Take",
     "actions--assign": "Assign",
     "actions--transfer": "Transfer",
     "actions--open": "Open",
@@ -172,6 +173,11 @@
     "origin_field_label": "Origin",
     "destination_field_label": "Destination",
     "solution_field_label": "Solution or Reason",
+
+    "heading--take": "Take Ticket",
+    "context_text--take": "Are you sure you want to take this ticket? The user will be notified that a technician has been assigned to work on their request.",
+    "submit_button_text--take": "Take",
+    "actions--take-successfully": "Ticket taked successfully",
 
     "heading--assign": "Assign Ticket",
     "submit_button_text--assign": "Assign",

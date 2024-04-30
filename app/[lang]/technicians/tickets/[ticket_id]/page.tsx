@@ -9,6 +9,7 @@ import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { TicketCard } from "@/features/tickets/ticket-card";
 import { TicketTraceTimeline } from "@/features/tickets/ticket-trace-timeline";
+import { TicketComments } from "@/features/tickets/ticket-comments";
 import { UserCard } from "@/features/users/user-card";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/tickets";
@@ -86,6 +87,12 @@ export default async function TicketPage({
             </Widget>
           </Grid>
         )}
+
+        <Grid xs={12} md={ticket.assignedToId ? 12 : 6}>
+          <Widget>
+            <TicketComments ticketId={ticket.id} />
+          </Widget>
+        </Grid>
       </Grid>
     </Container>
   );

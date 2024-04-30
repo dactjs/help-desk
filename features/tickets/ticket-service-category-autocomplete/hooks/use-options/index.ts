@@ -16,7 +16,7 @@ export function useOptions(input: string): UseOptionsReturn {
     setLoading(true);
 
     query(input)
-      .then((users) => setOptions(users))
+      .then((categories) => setOptions(categories))
       .finally(() => setLoading(false));
   }, [input]);
 
