@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 
 import { InvalidCredentialsError, DisabledUserError } from "@/auth/errors";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
+import { ENV } from "@/config/env";
 import { prisma } from "@/lib/prisma";
 
 export const {
@@ -68,7 +69,14 @@ export const {
       const techniciansPath = `/${language}/technicians`;
       const dashboardPath = `/${language}/dashboard`;
 
-      if (!auth?.user || auth.user.status !== UserStatus.ENABLED) {
+      const response = await fetch(
+        new URL("/api/auth/update-session", ENV.AUTH_URL),
+        { method: "PUT", body: JSON.stringify(auth) }
+      );
+
+      const user = await response.json();
+
+      if (!user || user.status !== UserStatus.ENABLED) {
         if (pathname === signInPath) return;
 
         request.nextUrl.pathname = signInPath;
@@ -76,17 +84,14 @@ export const {
         return NextResponse.redirect(request.nextUrl);
       }
 
-      if (
-        auth.user.role === UserRole.ADMIN &&
-        !pathname.startsWith(adminPath)
-      ) {
+      if (user.role === UserRole.ADMIN && !pathname.startsWith(adminPath)) {
         request.nextUrl.pathname = `${adminPath}/dashboard`;
 
         return NextResponse.redirect(request.nextUrl);
       }
 
       if (
-        auth.user.role === UserRole.TECHNICIAN &&
+        user.role === UserRole.TECHNICIAN &&
         !pathname.startsWith(techniciansPath)
       ) {
         request.nextUrl.pathname = `${techniciansPath}/dashboard`;
@@ -94,10 +99,7 @@ export const {
         return NextResponse.redirect(request.nextUrl);
       }
 
-      if (
-        auth.user.role === UserRole.USER &&
-        !pathname.startsWith(dashboardPath)
-      ) {
+      if (user.role === UserRole.USER && !pathname.startsWith(dashboardPath)) {
         request.nextUrl.pathname = dashboardPath;
 
         return NextResponse.redirect(request.nextUrl);
