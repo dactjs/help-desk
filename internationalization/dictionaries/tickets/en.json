@@ -106,6 +106,11 @@
     "actions--created-successfully": "Category created successfully"
   },
 
+  "ticket_list": {
+    "search_placeholder": "Search...",
+    "empty-caption": "No Tickets"
+  },
+
   "ticket_data_grid": {
     "actions": "Actions",
     "actions--view-details": "View Details",

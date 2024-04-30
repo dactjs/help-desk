@@ -1,12 +1,12 @@
 import { Metadata } from "next";
+import { ReadonlyURLSearchParams } from "next/navigation";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Unstable_Grid2";
 
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/tickets";
 import { PageParams } from "@/types/page-params";
 
-import { TicketDataGrid } from "./_components/ticket-data-grid";
+import { TicketList } from "./_components/ticket-list";
 
 export const dynamic = "force-dynamic";
 
@@ -22,16 +22,17 @@ export async function generateMetadata({
   return { title };
 }
 
-export default function TicketsPage() {
+export interface TicketsPageProps {
+  params: PageParams;
+  searchParams: ReadonlyURLSearchParams;
+}
+
+export default function TicketsPage({ searchParams }: TicketsPageProps) {
   return (
-    <Container fixed sx={{ paddingY: 2 }}>
-      <Grid container justifyContent="center" alignItems="center" spacing={2}>
-        <Grid xs={12}>
-          <Widget sx={{ height: 500 }}>
-            <TicketDataGrid />
-          </Widget>
-        </Grid>
-      </Grid>
+    <Container fixed sx={{ display: "grid", height: "100%", paddingY: 2 }}>
+      <Widget sx={{ height: "100%" }}>
+        <TicketList searchParams={searchParams} />
+      </Widget>
     </Container>
   );
 }
