@@ -106,6 +106,13 @@
     "actions--created-successfully": "Category created successfully"
   },
 
+  "ticket_list": {
+    "search_placeholder": "Search...",
+    "item_heading": "{{id}} - {{status}} - {{service}}",
+    "item_subHeading": "Sent by {{name}} at {{timestamp}}",
+    "empty-caption": "No Tickets"
+  },
+
   "ticket_data_grid": {
     "actions": "Actions",
     "actions--view-details": "View Details",
