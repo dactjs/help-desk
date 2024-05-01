@@ -29,7 +29,7 @@ export interface TicketsPageProps {
 
 export default function TicketsPage({ searchParams }: TicketsPageProps) {
   return (
-    <Container fixed sx={{ display: "grid", height: "100%", paddingY: 2 }}>
+    <Container fixed sx={{ display: "grid", height: "100%" }}>
       <Widget sx={{ height: "100%", overflow: "hidden" }}>
         <TicketList searchParams={searchParams} />
       </Widget>

@@ -11,7 +11,7 @@ import ClosedIcon from "@mui/icons-material/Verified";
 import CancelledIcon from "@mui/icons-material/Cancel";
 import { TicketStatus } from "@prisma/client";
 
-export function StatusFilters() {
+export function StatusFilter() {
   const router = useRouter();
 
   const pathname = usePathname();

@@ -15,7 +15,8 @@ import { SupportedLanguage } from "@/internationalization/types";
 import { getShortUUID } from "@/utils/get-short-uuid";
 
 import { Search } from "./components/search";
-import { StatusFilters } from "./components/status-filters";
+import { StatusFilter } from "./components/status-filter";
+import { TechniciansFilter } from "./components/technicians-filter";
 import { Pagination } from "./components/pagination";
 import { Ticket } from "./types";
 
@@ -54,7 +55,7 @@ export function ClientTicketList({
     <Stack
       spacing={1}
       divider={<Divider flexItem />}
-      sx={{ height: "100%", overflow: "hidden" }}
+      sx={{ height: "100%", paddingY: 2, overflow: "hidden" }}
     >
       <Stack
         direction={{ xs: "column", sm: "row" }}
@@ -62,7 +63,15 @@ export function ClientTicketList({
         alignItems="center"
         spacing={1}
       >
-        <StatusFilters />
+        <Stack
+          direction="row"
+          spacing={0.5}
+          divider={<Divider flexItem orientation="vertical" />}
+        >
+          <StatusFilter />
+          <TechniciansFilter label={ticket_list.technicians_field_label} />
+        </Stack>
+
         <Search placeholder={ticket_list.search_placeholder} />
       </Stack>
 

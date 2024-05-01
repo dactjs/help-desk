@@ -110,6 +110,7 @@
     "search_placeholder": "Buscar...",
     "item_heading": "{{id}} - {{status}} - {{service}}",
     "item_subHeading": "Enviado por {{name}} el {{timestamp}}",
+    "technicians_field_label": "Técnicos",
     "empty-caption": "Sin Tickets"
   },
 

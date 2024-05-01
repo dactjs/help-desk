@@ -20,8 +20,8 @@ export function TicketListSkeleton() {
         spacing={1}
       >
         <Stack
-          direction={{ xs: "column", md: "row" }}
-          alignItems="center"
+          direction="row"
+          spacing={0.5}
           divider={<Divider flexItem orientation="vertical" />}
         >
           <Stack
@@ -32,7 +32,7 @@ export function TicketListSkeleton() {
               <Skeleton
                 key={index}
                 variant="rectangular"
-                width={index === 0 || index === 5 ? 40 : 39}
+                width={38}
                 height={40}
                 sx={[
                   index === 0 && {
@@ -47,6 +47,8 @@ export function TicketListSkeleton() {
               />
             ))}
           </Stack>
+
+          <Skeleton variant="rounded" width={64} height={40} />
         </Stack>
 
         <Skeleton variant="rounded" width={200} height={40} />
