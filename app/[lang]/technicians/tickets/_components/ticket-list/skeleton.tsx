@@ -11,7 +11,7 @@ export function TicketListSkeleton() {
     <Stack
       spacing={1}
       divider={<Divider flexItem />}
-      sx={{ height: "100%", overflow: "hidden" }}
+      sx={{ height: "100%", paddingY: 2, overflow: "hidden" }}
     >
       <Stack
         direction={{ xs: "column", sm: "row" }}
@@ -101,11 +101,13 @@ export function TicketListSkeleton() {
       </Stack>
 
       <Stack
-        direction="row"
-        justifyContent={{ xs: "center", sm: "flex-end" }}
+        direction={{ xs: "column", sm: "row" }}
+        justifyContent={{ xs: "center", sm: "space-between" }}
         alignItems="center"
         spacing={1}
       >
+        <Skeleton variant="rounded" width={64} height={40} />
+
         <Stack direction="row" spacing={0.5}>
           {Array.from({ length: 5 }).map((_, index) => (
             <Skeleton key={index} variant="rounded" width={32} height={32} />

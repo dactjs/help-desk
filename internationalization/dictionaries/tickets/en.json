@@ -107,10 +107,14 @@
   },
 
   "ticket_list": {
-    "search_placeholder": "Search...",
     "item_heading": "{{id}} - {{status}} - {{service}}",
     "item_subHeading": "Sent by {{name}} at {{timestamp}}",
+    "advanced_settings_heading": "Advanced Settings",
+
+    "search_placeholder": "Search...",
     "technicians_field_label": "Technicians",
+    "page_size_field_label": "Tickets per page",
+
     "empty-caption": "No Tickets"
   },
 

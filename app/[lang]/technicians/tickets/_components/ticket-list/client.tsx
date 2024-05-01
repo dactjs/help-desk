@@ -17,6 +17,7 @@ import { getShortUUID } from "@/utils/get-short-uuid";
 import { Search } from "./components/search";
 import { StatusFilter } from "./components/status-filter";
 import { TechniciansFilter } from "./components/technicians-filter";
+import { AdvancedSettings } from "./components/advanced-settings";
 import { Pagination } from "./components/pagination";
 import { Ticket } from "./types";
 
@@ -136,16 +137,19 @@ export function ClientTicketList({
         )}
       </Stack>
 
-      {tickets.length > 0 && (
-        <Stack
-          direction="row"
-          justifyContent={{ xs: "center", sm: "flex-end" }}
-          alignItems="center"
-          spacing={1}
-        >
-          <Pagination count={count} />
-        </Stack>
-      )}
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        justifyContent={{ xs: "center", sm: "space-between" }}
+        alignItems="center"
+        spacing={1}
+      >
+        <AdvancedSettings
+          heading={ticket_list.advanced_settings_heading}
+          page_size_field_label={ticket_list.page_size_field_label}
+        />
+
+        {count > 0 && <Pagination count={count} />}
+      </Stack>
     </Stack>
   );
 }
