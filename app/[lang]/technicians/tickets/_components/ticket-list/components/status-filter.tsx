@@ -22,7 +22,7 @@ export function StatusFilter() {
 
   const params = new URLSearchParams(searchParams);
 
-  const result = ParamsSchema.safeParse(searchParams);
+  const result = ParamsSchema.safeParse(Object.fromEntries(params));
 
   const status = result.data?.status || [];
 

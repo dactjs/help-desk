@@ -32,7 +32,7 @@ export function TechniciansFilter({ label }: TechniciansFilterProps) {
 
   const params = new URLSearchParams(searchParams);
 
-  const result = ParamsSchema.safeParse(searchParams);
+  const result = ParamsSchema.safeParse(Object.fromEntries(params));
 
   const technicians = result.data?.technicians || [];
 
@@ -74,7 +74,7 @@ export function TechniciansFilter({ label }: TechniciansFilterProps) {
         onClose={() => setAnchorEl(null)}
         sx={{ marginTop: 1 }}
       >
-        <Box sx={{ width: 325, padding: 2 }}>
+        <Box sx={{ minWidth: 200, padding: 2 }}>
           <UserAutocomplete
             multiple
             fullWidth

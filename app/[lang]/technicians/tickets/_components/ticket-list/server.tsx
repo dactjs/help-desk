@@ -25,7 +25,9 @@ export async function ServerTicketList({
 
   const ability = createAbilityFor(session);
 
-  const result = ParamsSchema.safeParse(searchParams);
+  const params = new URLSearchParams(searchParams);
+
+  const result = ParamsSchema.safeParse(Object.fromEntries(params));
 
   const search = result.data?.search || null;
   const status = result.data?.status || null;

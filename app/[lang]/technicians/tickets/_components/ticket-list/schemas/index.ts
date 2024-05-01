@@ -11,8 +11,15 @@ const UserSchema = zod.object({
 export const ParamsSchema = zod
   .object({
     search: zod.string(),
-    status: zod.nativeEnum(TicketStatus).array(),
-    technicians: UserSchema.array(),
+
+    status: zod
+      .string()
+      .transform((value) => JSON.parse(value) as TicketStatus[]),
+
+    technicians: zod
+      .string()
+      .transform((raw) => UserSchema.array().parse(JSON.parse(raw))),
+
     page: zod.string().transform((value) => Number(value)),
     pageSize: zod.string().transform((value) => Number(value)),
   })

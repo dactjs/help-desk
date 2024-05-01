@@ -20,7 +20,7 @@ export function Search({ placeholder }: SearchProps) {
 
   const params = new URLSearchParams(searchParams);
 
-  const result = ParamsSchema.safeParse(searchParams);
+  const result = ParamsSchema.safeParse(Object.fromEntries(params));
 
   const search = result.data?.search || null;
 

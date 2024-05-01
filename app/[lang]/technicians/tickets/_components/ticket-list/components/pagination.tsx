@@ -19,7 +19,7 @@ export function Pagination({ count }: PaginationProps) {
 
   const params = new URLSearchParams(searchParams);
 
-  const result = ParamsSchema.safeParse(searchParams);
+  const result = ParamsSchema.safeParse(Object.fromEntries(params));
 
   const page = result.data?.page || DEFAULT_PAGINATION.PAGE;
   const pageSize = result.data?.pageSize || DEFAULT_PAGINATION.PAGE_SIZE;
