@@ -108,8 +108,11 @@
 
   "ticket_list": {
     "search_placeholder": "Buscar...",
+<<<<<<< HEAD
     "item_heading": "{{id}} - {{status}} - {{service}}",
     "item_subHeading": "Enviado por {{name}} el {{timestamp}}",
+=======
+>>>>>>> f13f312695a3a9d7b248c642a9defbcbde2a7089
     "empty-caption": "Sin Tickets"
   },
 
