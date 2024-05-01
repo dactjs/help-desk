@@ -49,27 +49,27 @@ export function StatusFilters() {
     },
   ];
 
-  function handleSearch(
+  const handleOnChange = (
     _: React.MouseEvent<HTMLElement, MouseEvent>,
     value: string[]
-  ) {
+  ) => {
     params.delete("page");
     params.delete("pageSize");
 
-    if (value && value.length > 0) {
+    if (Array.isArray(value) && value.length > 0) {
       params.set("status", JSON.stringify(value));
     } else {
       params.delete("status");
     }
 
     router.replace(`${pathname}?${params.toString()}`);
-  }
+  };
 
   return (
     <ToggleButtonGroup
       size="small"
       value={status ? JSON.parse(status) : []}
-      onChange={handleSearch}
+      onChange={handleOnChange}
     >
       {filters.map(({ value, icon }) => (
         <ToggleButton key={value} value={value}>

@@ -83,7 +83,7 @@
 
   "resource_comments": {
     "heading": "Comments",
-    "written_by": "Written by: {{name}} at {{date}}",
+    "written_by": "Written by: {{name}} at {{timestamp}}",
 
     "empty-caption": "No Comments",
 

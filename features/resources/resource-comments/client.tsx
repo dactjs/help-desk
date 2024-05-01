@@ -146,7 +146,7 @@ export function ClientResourceComments({
                   <Typography variant="caption" color="text.secondary">
                     {replacePlaceholders(resource_comments.written_by, {
                       name: comment.writtenBy.name,
-                      date: comment.updatedAt.toLocaleString(language),
+                      timestamp: comment.updatedAt.toLocaleString(language),
                     })}
                   </Typography>
                 </AccordionDetails>

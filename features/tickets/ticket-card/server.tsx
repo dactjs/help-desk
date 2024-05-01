@@ -32,9 +32,9 @@ export async function ServerTicketCard({ ticketId }: ServerTicketCardProps) {
     ticket && ability.can("read", subject("Ticket", ticket)) ? ticket : null;
 
   const CONTEXT: Record<UserRole, string | null> = {
-    [UserRole.ADMIN]: `/${language}/admin/tickets/${data?.id}`,
-    [UserRole.TECHNICIAN]: `/${language}/technicians/tickets/${data?.id}`,
-    [UserRole.USER]: `/${language}/dashboard/tickets/${data?.id}`,
+    [UserRole.ADMIN]: `/${language}/admin/tickets/${ticketId}`,
+    [UserRole.TECHNICIAN]: `/${language}/technicians/tickets/${ticketId}`,
+    [UserRole.USER]: `/${language}/dashboard/tickets/${ticketId}`,
   };
 
   const href = session?.user && data ? CONTEXT[session.user.role] : null;

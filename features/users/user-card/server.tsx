@@ -32,8 +32,8 @@ export async function ServerUserCard({ variant, userId }: ServerUserCardProps) {
   const data = user && ability.can("read", subject("User", user)) ? user : null;
 
   const CONTEXT: Record<UserRole, string | null> = {
-    [UserRole.ADMIN]: `/${language}/admin/users/${data?.id}`,
-    [UserRole.TECHNICIAN]: `/${language}/technicians/users/${data?.id}`,
+    [UserRole.ADMIN]: `/${language}/admin/users/${userId}`,
+    [UserRole.TECHNICIAN]: `/${language}/technicians/users/${userId}`,
     [UserRole.USER]: null,
   };
 

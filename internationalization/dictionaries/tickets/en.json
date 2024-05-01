@@ -108,11 +108,8 @@
 
   "ticket_list": {
     "search_placeholder": "Search...",
-<<<<<<< HEAD
     "item_heading": "{{id}} - {{status}} - {{service}}",
     "item_subHeading": "Sent by {{name}} at {{timestamp}}",
-=======
->>>>>>> f13f312695a3a9d7b248c642a9defbcbde2a7089
     "empty-caption": "No Tickets"
   },
 
@@ -157,7 +154,7 @@
 
   "ticket_comments": {
     "heading": "Comments",
-    "written_by": "Written by: {{name}} at {{date}}",
+    "written_by": "Written by: {{name}} at {{timestamp}}",
 
     "empty-caption": "No Comments",
 

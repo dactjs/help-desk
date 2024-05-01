@@ -156,6 +156,7 @@ export function ClientThemeSettings({
           <ToggleButtonGroup
             exclusive
             size="small"
+            value={mode}
             onChange={handleOnThemeChange}
           >
             <ToggleButton value="light" disabled={mode === "light"}>

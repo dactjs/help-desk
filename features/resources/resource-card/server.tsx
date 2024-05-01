@@ -36,8 +36,8 @@ export async function ServerResourceCard({
       : null;
 
   const CONTEXT: Record<UserRole, string | null> = {
-    [UserRole.ADMIN]: `/${language}/admin/resources/${data?.id}`,
-    [UserRole.TECHNICIAN]: `/${language}/technicians/resources/${data?.id}`,
+    [UserRole.ADMIN]: `/${language}/admin/resources/${resourceId}`,
+    [UserRole.TECHNICIAN]: `/${language}/technicians/resources/${resourceId}`,
     [UserRole.USER]: null,
   };
 

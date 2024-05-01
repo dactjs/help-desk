@@ -8,6 +8,7 @@ import { getDictionary } from "@/internationalization/dictionaries/tickets";
 import { prisma } from "@/lib/prisma";
 
 import { ClientTicketList } from "./client";
+import { DEFAULT_PAGINATION } from "./config";
 import { NECESSARY_TICKET_FIELDS } from "./constants";
 
 export interface ServerTicketListProps {
@@ -29,8 +30,13 @@ export async function ServerTicketList({
 
   const status = params.get("status");
 
-  const page = params.get("page") ? Number(params.get("page")) : 1;
-  const pageSize = params.get("pageSize") ? Number(params.get("pageSize")) : 5;
+  const page = params.get("page")
+    ? Number(params.get("page"))
+    : DEFAULT_PAGINATION.PAGE;
+
+  const pageSize = params.get("pageSize")
+    ? Number(params.get("pageSize"))
+    : DEFAULT_PAGINATION.PAGE_SIZE;
 
   const [tickets, count, dictionary] = await Promise.all([
     prisma.ticket.findMany({
@@ -66,7 +72,11 @@ export async function ServerTicketList({
     <ClientTicketList
       tickets={tickets}
       count={count}
-      dictionary={{ ticket_list: dictionary.ticket_list }}
+      language={language}
+      dictionary={{
+        ticket_model: dictionary.ticket_model,
+        ticket_list: dictionary.ticket_list,
+      }}
     />
   );
 }
