@@ -5,6 +5,8 @@ import TextField from "@mui/material/TextField";
 import { debounce } from "@mui/material/utils";
 import SearchIcon from "@mui/icons-material/Search";
 
+import { ParamsSchema } from "../schemas";
+
 export interface SearchProps {
   placeholder: string;
 }
@@ -18,7 +20,9 @@ export function Search({ placeholder }: SearchProps) {
 
   const params = new URLSearchParams(searchParams);
 
-  const search = params.get("search");
+  const result = ParamsSchema.safeParse(searchParams);
+
+  const search = result.data?.search || null;
 
   const handleOnChange = debounce(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

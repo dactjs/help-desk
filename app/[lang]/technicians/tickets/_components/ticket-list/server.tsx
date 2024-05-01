@@ -8,6 +8,7 @@ import { getDictionary } from "@/internationalization/dictionaries/tickets";
 import { prisma } from "@/lib/prisma";
 
 import { ClientTicketList } from "./client";
+import { ParamsSchema } from "./schemas";
 import { DEFAULT_PAGINATION } from "./config";
 import { NECESSARY_TICKET_FIELDS } from "./constants";
 
@@ -24,19 +25,13 @@ export async function ServerTicketList({
 
   const ability = createAbilityFor(session);
 
-  const params = new URLSearchParams(searchParams);
+  const result = ParamsSchema.safeParse(searchParams);
 
-  const search = params.get("search");
-
-  const status = params.get("status");
-
-  const page = params.get("page")
-    ? Number(params.get("page"))
-    : DEFAULT_PAGINATION.PAGE;
-
-  const pageSize = params.get("pageSize")
-    ? Number(params.get("pageSize"))
-    : DEFAULT_PAGINATION.PAGE_SIZE;
+  const search = result.data?.search || null;
+  const status = result.data?.status || null;
+  const technicians = result.data?.technicians || null;
+  const page = result.data?.page || DEFAULT_PAGINATION.PAGE;
+  const pageSize = result.data?.pageSize || DEFAULT_PAGINATION.PAGE_SIZE;
 
   const [tickets, count, dictionary] = await Promise.all([
     prisma.ticket.findMany({
@@ -45,7 +40,10 @@ export async function ServerTicketList({
           accessibleBy(ability).Ticket,
           {
             ...(search && { issue: { mode: "insensitive", contains: search } }),
-            ...(status && { status: { in: JSON.parse(status) } }),
+            ...(status && { status: { in: status } }),
+            ...(technicians && {
+              assignedToId: { in: technicians.map(({ id }) => id) },
+            }),
           },
         ],
       },
@@ -60,7 +58,10 @@ export async function ServerTicketList({
           accessibleBy(ability).Ticket,
           {
             ...(search && { issue: { mode: "insensitive", contains: search } }),
-            ...(status && { status: { in: JSON.parse(status) } }),
+            ...(status && { status: { in: status } }),
+            ...(technicians && {
+              assignedToId: { in: technicians.map(({ id }) => id) },
+            }),
           },
         ],
       },

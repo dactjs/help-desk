@@ -15,6 +15,8 @@ import {
   UserAutocompleteProps,
 } from "@/features/users/user-autocomplete";
 
+import { ParamsSchema } from "../schemas";
+
 export interface TechniciansFilterProps {
   label: string;
 }
@@ -30,7 +32,9 @@ export function TechniciansFilter({ label }: TechniciansFilterProps) {
 
   const params = new URLSearchParams(searchParams);
 
-  const technicians = params.get("technicians");
+  const result = ParamsSchema.safeParse(searchParams);
+
+  const technicians = result.data?.technicians || [];
 
   const handleOnChange: UserAutocompleteProps["onChange"] = (_, value) => {
     params.delete("page");
@@ -49,7 +53,7 @@ export function TechniciansFilter({ label }: TechniciansFilterProps) {
     <>
       <Badge
         color="info"
-        badgeContent={technicians && JSON.parse(technicians).length}
+        badgeContent={technicians.length}
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
       >
         <ToggleButton
@@ -75,7 +79,7 @@ export function TechniciansFilter({ label }: TechniciansFilterProps) {
             multiple
             fullWidth
             filters={{ roles: [UserRole.TECHNICIAN] }}
-            value={technicians ? JSON.parse(technicians) : []}
+            value={technicians}
             onChange={handleOnChange}
             label={label}
           />

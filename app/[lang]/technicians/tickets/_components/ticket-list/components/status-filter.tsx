@@ -11,6 +11,8 @@ import ClosedIcon from "@mui/icons-material/Verified";
 import CancelledIcon from "@mui/icons-material/Cancel";
 import { TicketStatus } from "@prisma/client";
 
+import { ParamsSchema } from "../schemas";
+
 export function StatusFilter() {
   const router = useRouter();
 
@@ -20,7 +22,9 @@ export function StatusFilter() {
 
   const params = new URLSearchParams(searchParams);
 
-  const status = params.get("status");
+  const result = ParamsSchema.safeParse(searchParams);
+
+  const status = result.data?.status || [];
 
   const filters = [
     {
@@ -66,11 +70,7 @@ export function StatusFilter() {
   };
 
   return (
-    <ToggleButtonGroup
-      size="small"
-      value={status ? JSON.parse(status) : []}
-      onChange={handleOnChange}
-    >
+    <ToggleButtonGroup size="small" value={status} onChange={handleOnChange}>
       {filters.map(({ value, icon }) => (
         <ToggleButton key={value} value={value}>
           {icon}

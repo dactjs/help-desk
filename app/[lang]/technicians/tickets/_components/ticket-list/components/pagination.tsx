@@ -3,6 +3,7 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import MuiPagination from "@mui/material/Pagination";
 
+import { ParamsSchema } from "../schemas";
 import { DEFAULT_PAGINATION } from "../config";
 
 export interface PaginationProps {
@@ -18,13 +19,10 @@ export function Pagination({ count }: PaginationProps) {
 
   const params = new URLSearchParams(searchParams);
 
-  const page = params.get("page")
-    ? Number(params.get("page"))
-    : DEFAULT_PAGINATION.PAGE;
+  const result = ParamsSchema.safeParse(searchParams);
 
-  const pageSize = params.get("pageSize")
-    ? Number(params.get("pageSize"))
-    : DEFAULT_PAGINATION.PAGE_SIZE;
+  const page = result.data?.page || DEFAULT_PAGINATION.PAGE;
+  const pageSize = result.data?.pageSize || DEFAULT_PAGINATION.PAGE_SIZE;
 
   const handleOnChange = (_: React.ChangeEvent<unknown>, page: number) => {
     params.set("page", String(page));
