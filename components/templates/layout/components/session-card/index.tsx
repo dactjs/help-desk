@@ -15,9 +15,12 @@ import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useSnackbar } from "notistack";
 
 import { Dictionary } from "@/internationalization/dictionaries/common";
 import { SupportedLanguage } from "@/internationalization/types";
+
+import { signOut } from "../../actions/sign-out";
 
 export interface SessionCardProps {
   session: Session | null;
@@ -32,7 +35,22 @@ export function SessionCard({
     layout: { settings_item_text, sign_out_item_text },
   },
 }: SessionCardProps) {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      if (error instanceof Error) {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+          style: { whiteSpace: "pre-line" },
+        });
+      }
+    }
+  };
 
   return (
     <>
@@ -86,7 +104,7 @@ export function SessionCard({
 
             <Divider />
 
-            <MenuItem>
+            <MenuItem onClick={handleSignOut}>
               <ListItemIcon>
                 <LogoutIcon fontSize="small" color="error" />
               </ListItemIcon>
