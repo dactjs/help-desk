@@ -79,6 +79,7 @@ export async function ServerTicketList({
       dictionary={{
         ticket_model: dictionary.ticket_model,
         ticket_list: dictionary.ticket_list,
+        ticket_action_dialog: dictionary.ticket_action_dialog,
       }}
     />
   );

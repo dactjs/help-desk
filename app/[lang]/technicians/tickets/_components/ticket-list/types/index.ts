@@ -25,6 +25,7 @@ export interface Ticket {
   service: Service;
   sentBy: User;
   assignedTo: User | null;
+  assignedToId: string | null;
   createdAt: Date;
   updatedAt: Date;
 }

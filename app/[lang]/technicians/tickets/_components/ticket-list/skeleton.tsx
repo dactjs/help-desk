@@ -2,6 +2,7 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import Radio from "@mui/material/Radio";
 import Skeleton from "@mui/material/Skeleton";
 
 import { DEFAULT_PAGINATION } from "./config";
@@ -93,6 +94,8 @@ export function TicketListSkeleton() {
                       <Skeleton width={secondary} />
                     </Typography>
                   </Stack>
+
+                  <Radio disabled />
                 </Stack>
               </Paper>
             );

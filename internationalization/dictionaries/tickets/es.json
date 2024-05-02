@@ -115,6 +115,11 @@
     "technicians_field_label": "Técnicos",
     "page_size_field_label": "Tickets por página",
 
+    "actions--take": "Tomar",
+    "actions--open": "Abrir",
+    "actions--resolve": "Resolver",
+    "actions--cancel": "Cancelar",
+
     "empty-caption": "Sin Tickets"
   },
 

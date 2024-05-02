@@ -115,6 +115,11 @@
     "technicians_field_label": "Technicians",
     "page_size_field_label": "Tickets per page",
 
+    "actions--take": "Take",
+    "actions--open": "Open",
+    "actions--resolve": "Resolve",
+    "actions--cancel": "Cancel",
+
     "empty-caption": "No Tickets"
   },
 

@@ -30,6 +30,7 @@ export const NECESSARY_TICKET_FIELDS = {
       name: true,
     },
   },
+  assignedToId: true,
   createdAt: true,
   updatedAt: true,
 };
