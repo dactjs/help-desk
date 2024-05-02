@@ -49,7 +49,10 @@ export async function Dashboard({ navigation, children }: DashboardProps) {
       }}
     >
       <AppBar position="sticky" sx={{ gridArea: "header" }}>
-        <Toolbar sx={{ justifyContent: "flex-end", alignItems: "center" }}>
+        <Toolbar
+          variant="dense"
+          sx={{ justifyContent: "flex-end", alignItems: "center" }}
+        >
           <Image
             alt="Logo"
             src={Logo}

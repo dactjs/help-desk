@@ -5,6 +5,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Box from "@mui/material/Box";
 import ToggleButton from "@mui/material/ToggleButton";
 import Badge from "@mui/material/Badge";
+import Tooltip from "@mui/material/Tooltip";
 import Popover from "@mui/material/Popover";
 import TechniciansIcon from "@mui/icons-material/SupportAgent";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -51,20 +52,22 @@ export function TechniciansFilter({ label }: TechniciansFilterProps) {
 
   return (
     <>
-      <Badge
-        color="info"
-        badgeContent={technicians.length}
-        anchorOrigin={{ horizontal: "right", vertical: "top" }}
-      >
-        <ToggleButton
-          size="small"
-          value="technicians"
-          onClick={(event) => setAnchorEl(event.currentTarget)}
+      <Tooltip arrow title={label}>
+        <Badge
+          color="info"
+          badgeContent={technicians.length}
+          anchorOrigin={{ horizontal: "right", vertical: "top" }}
         >
-          <TechniciansIcon />
-          <ArrowDropDownIcon />
-        </ToggleButton>
-      </Badge>
+          <ToggleButton
+            size="small"
+            value="technicians"
+            onClick={(event) => setAnchorEl(event.currentTarget)}
+          >
+            <TechniciansIcon />
+            <ArrowDropDownIcon />
+          </ToggleButton>
+        </Badge>
+      </Tooltip>
 
       <Popover
         anchorEl={anchorEl}

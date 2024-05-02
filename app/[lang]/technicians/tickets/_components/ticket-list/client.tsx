@@ -207,7 +207,7 @@ export function ClientTicketList({
             spacing={0.5}
             divider={<Divider flexItem orientation="vertical" />}
           >
-            <StatusFilter />
+            <StatusFilter dictionary={{ ticket_model }} />
             <TechniciansFilter label={ticket_list.technicians_field_label} />
           </Stack>
 

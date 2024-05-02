@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import ToggleButton from "@mui/material/ToggleButton";
 import Badge from "@mui/material/Badge";
+import Tooltip from "@mui/material/Tooltip";
 import Popover from "@mui/material/Popover";
 import { debounce } from "@mui/material/utils";
 import TuneIcon from "@mui/icons-material/Tune";
@@ -59,21 +60,23 @@ export function AdvancedSettings({
 
   return (
     <>
-      <Badge
-        variant="dot"
-        badgeContent={showBadge || 0}
-        color="info"
-        anchorOrigin={{ horizontal: "right", vertical: "top" }}
-      >
-        <ToggleButton
-          size="small"
-          value="advanced-settings"
-          onClick={(event) => setAnchorEl(event.currentTarget)}
+      <Tooltip arrow title={heading}>
+        <Badge
+          variant="dot"
+          badgeContent={showBadge || 0}
+          color="info"
+          anchorOrigin={{ horizontal: "right", vertical: "top" }}
         >
-          <TuneIcon />
-          <ArrowDropDownIcon />
-        </ToggleButton>
-      </Badge>
+          <ToggleButton
+            size="small"
+            value="advanced-settings"
+            onClick={(event) => setAnchorEl(event.currentTarget)}
+          >
+            <TuneIcon />
+            <ArrowDropDownIcon />
+          </ToggleButton>
+        </Badge>
+      </Tooltip>
 
       <Popover
         anchorEl={anchorEl}

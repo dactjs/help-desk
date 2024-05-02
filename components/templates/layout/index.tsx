@@ -1,21 +1,26 @@
+import Image from "next/image";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
 
 import { auth } from "@/auth";
+import { getAppLanguage } from "@/internationalization/utils/get-app-language";
+import { getDictionary } from "@/internationalization/dictionaries/common";
+import Logo from "@/public/logo--white.webp";
 
-import { SignOutButton } from "./components/sign-out-button";
+import { SessionCard } from "./components/session-card";
 
 export interface LayoutProps {
   children: React.ReactNode;
 }
 
 export async function Layout({ children }: LayoutProps) {
-  const session = await auth();
+  const language = getAppLanguage();
+
+  const [session, dictionary] = await Promise.all([
+    auth(),
+    getDictionary(language),
+  ]);
 
   return (
     <Box
@@ -34,39 +39,25 @@ export async function Layout({ children }: LayoutProps) {
     >
       <AppBar position="sticky" sx={{ gridArea: "header" }}>
         <Toolbar
+          variant="dense"
           sx={{
             flexDirection: { xs: "column", sm: "row" },
             justifyContent: "space-between",
             alignItems: "center",
             gap: 1,
-            padding: 1,
           }}
         >
-          <Box component="section">
-            <Stack
-              component={Paper}
-              direction="row"
-              alignItems="center"
-              spacing={1}
-              sx={{ padding: 1 }}
-            >
-              <Avatar alt={String(session?.user?.name)} />
+          <Image
+            alt="Logo"
+            src={Logo}
+            style={{ width: "auto", height: "100%", objectFit: "cover" }}
+          />
 
-              <Stack>
-                <Typography component="strong" variant="subtitle2">
-                  {session?.user?.name}
-                </Typography>
-
-                <Typography component="span" variant="caption">
-                  {session?.user?.email}
-                </Typography>
-              </Stack>
-            </Stack>
-          </Box>
-
-          <Box component="section">
-            <SignOutButton />
-          </Box>
+          <SessionCard
+            session={session}
+            language={language}
+            dictionary={{ layout: dictionary.layout }}
+          />
         </Toolbar>
       </AppBar>
 

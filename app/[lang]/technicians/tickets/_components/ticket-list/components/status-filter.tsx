@@ -3,6 +3,7 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
+import Tooltip from "@mui/material/Tooltip";
 import UnassignedIcon from "@mui/icons-material/AssignmentLate";
 import AssignedIcon from "@mui/icons-material/AssignmentInd";
 import InProgressIcon from "@mui/icons-material/HourglassBottom";
@@ -11,9 +12,17 @@ import ClosedIcon from "@mui/icons-material/Verified";
 import CancelledIcon from "@mui/icons-material/Cancel";
 import { TicketStatus } from "@prisma/client";
 
+import { Dictionary } from "@/internationalization/dictionaries/tickets";
+
 import { ParamsSchema } from "../schemas";
 
-export function StatusFilter() {
+export interface StatusFilterProps {
+  dictionary: Pick<Dictionary, "ticket_model">;
+}
+
+export function StatusFilter({
+  dictionary: { ticket_model },
+}: StatusFilterProps) {
   const router = useRouter();
 
   const pathname = usePathname();
@@ -29,26 +38,32 @@ export function StatusFilter() {
   const filters = [
     {
       value: TicketStatus.UNASSIGNED,
+      tooltip: ticket_model["status--unassigned"],
       icon: <UnassignedIcon />,
     },
     {
       value: TicketStatus.ASSIGNED,
+      tooltip: ticket_model["status--assigned"],
       icon: <AssignedIcon />,
     },
     {
       value: TicketStatus.IN_PROGRESS,
+      tooltip: ticket_model["status--in-progress"],
       icon: <InProgressIcon />,
     },
     {
       value: TicketStatus.RESOLVED,
+      tooltip: ticket_model["status--resolved"],
       icon: <ResolvedIcon />,
     },
     {
       value: TicketStatus.CLOSED,
+      tooltip: ticket_model["status--closed"],
       icon: <ClosedIcon />,
     },
     {
       value: TicketStatus.CANCELLED,
+      tooltip: ticket_model["status--cancelled"],
       icon: <CancelledIcon />,
     },
   ];
@@ -71,10 +86,10 @@ export function StatusFilter() {
 
   return (
     <ToggleButtonGroup size="small" value={status} onChange={handleOnChange}>
-      {filters.map(({ value, icon }) => (
-        <ToggleButton key={value} value={value}>
-          {icon}
-        </ToggleButton>
+      {filters.map(({ value, tooltip, icon }) => (
+        <Tooltip key={value} arrow title={tooltip}>
+          <ToggleButton value={value}>{icon}</ToggleButton>
+        </Tooltip>
       ))}
     </ToggleButtonGroup>
   );

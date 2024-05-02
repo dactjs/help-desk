@@ -15,7 +15,8 @@
   },
 
   "layout": {
-    "sign_out_button_text": "Sign Out"
+    "settings_item_text": "Settings",
+    "sign_out_item_text": "Sign Out"
   },
 
   "dashboard": {

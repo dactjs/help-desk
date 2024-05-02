@@ -15,7 +15,8 @@
   },
 
   "layout": {
-    "sign_out_button_text": "Cerrar Sesión"
+    "settings_item_text": "Configuración",
+    "sign_out_item_text": "Cerrar Sesión"
   },
 
   "dashboard": {

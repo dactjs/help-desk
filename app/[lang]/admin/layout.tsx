@@ -4,7 +4,7 @@ import ResourcesIcon from "@mui/icons-material/Devices";
 import UsersIcon from "@mui/icons-material/Group";
 import PerformanceIcon from "@mui/icons-material/Speed";
 import GeneralPerformanceIcon from "@mui/icons-material/GroupWork";
-import IndividualPerformanceIcon from "@mui/icons-material/Person";
+import IndividualPerformanceIcon from "@mui/icons-material/SupportAgent";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import { Dashboard } from "@/components/templates/dashboard";
