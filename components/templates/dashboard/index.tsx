@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import AppBar from "@mui/material/AppBar";
@@ -8,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 
 import { auth } from "@/auth";
+import Logo from "@/public/logo--white.webp";
 
 import { NavigationItem } from "./components/navigation-item";
 import { NavigationGroup } from "./components/navigation-group";
@@ -47,7 +49,13 @@ export async function Dashboard({ navigation, children }: DashboardProps) {
       }}
     >
       <AppBar position="sticky" sx={{ gridArea: "header" }}>
-        <Toolbar />
+        <Toolbar sx={{ justifyContent: "flex-end", alignItems: "center" }}>
+          <Image
+            alt="Logo"
+            src={Logo}
+            style={{ width: "auto", height: "100%", objectFit: "cover" }}
+          />
+        </Toolbar>
       </AppBar>
 
       <Box

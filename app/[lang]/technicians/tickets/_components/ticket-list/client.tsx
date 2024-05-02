@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import Radio from "@mui/material/Radio";
 import Tooltip from "@mui/material/Tooltip";
 import { TicketStatus } from "@prisma/client";
 
@@ -51,6 +53,14 @@ export function ClientTicketList({
     CLOSED: "success.dark",
     CANCELLED: "error.main",
   };
+
+  const [selected, setSelected] = useState<Ticket | null>(null);
+
+  const handleSelect =
+    (ticket: Ticket) => (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
+      setSelected(ticket.id !== selected?.id ? ticket : null);
+    };
 
   return (
     <Stack
@@ -128,6 +138,11 @@ export function ClientTicketList({
                       })}
                     </Typography>
                   </Stack>
+
+                  <Radio
+                    checked={ticket.id === selected?.id}
+                    onClick={handleSelect(ticket)}
+                  />
                 </Stack>
               </Paper>
             </Tooltip>
