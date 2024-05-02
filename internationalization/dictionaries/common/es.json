@@ -27,6 +27,9 @@
     "tickets_item_text": "Tickets",
     "resources_item_text": "Recursos",
     "users_item_text": "Usuarios",
+    "performance_group_heading": "Rendimiento",
+    "general_performance_item_text": "General",
+    "individual_performance_item_text": "Individual",
     "settings_item_text": "Configuración"
   },
 
