@@ -68,7 +68,7 @@ export default async function AdminLayout({
           items: [
             {
               type: DashboardNavigationType.ITEM,
-              href: `/${lang}/admin/performance`,
+              href: `/${lang}/admin/performance/general`,
               icon: <GeneralPerformanceIcon />,
               text: general_performance_item_text,
             },

@@ -38,9 +38,9 @@ export function NavigationGroup({
           selected={selected}
           onClick={() => setExpanded((prev) => !prev)}
         >
-          <ListItemIcon>{icon}</ListItemIcon>
+          <ListItemIcon sx={{ minWidth: "fit-content" }}>{icon}</ListItemIcon>
 
-          <ListItemText>{heading}</ListItemText>
+          <ListItemText sx={{ marginLeft: 2 }}>{heading}</ListItemText>
 
           {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </ListItemButton>

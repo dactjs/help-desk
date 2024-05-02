@@ -34,13 +34,26 @@ export function NavigationItem({
       <ListItemButton
         LinkComponent={Link}
         href={href}
-        selected={selected}
-        sx={[Boolean(nested) && !isMobile && { paddingX: 4 }]}
+        selected={selected && !nested}
+        sx={[
+          Boolean(nested) && !isMobile && { paddingX: 4 },
+          Boolean(nested) && selected && { color: "secondary.main" },
+        ]}
       >
-        <ListItemIcon sx={{ minWidth: "fit-content" }}>{icon}</ListItemIcon>
+        <ListItemIcon sx={{ minWidth: "fit-content", color: "inherit" }}>
+          {icon}
+        </ListItemIcon>
 
         {!isMobile && (
-          <ListItemText sx={{ marginLeft: 2 }}>{text}</ListItemText>
+          <ListItemText
+            primaryTypographyProps={{
+              fontWeight: Boolean(nested) && selected ? "bolder" : "normal",
+              color: "inherit",
+            }}
+            sx={{ marginLeft: 2 }}
+          >
+            {text}
+          </ListItemText>
         )}
       </ListItemButton>
     </ListItem>
