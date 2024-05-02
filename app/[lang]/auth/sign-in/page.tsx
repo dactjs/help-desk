@@ -1,13 +1,13 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
-import LockIcon from "@mui/icons-material/LockOutlined";
 
 import { getDictionary } from "@/internationalization/dictionaries/auth";
 import { PageParams } from "@/types/page-params";
+import Logo from "@/public/logo--green.webp";
 import Banner from "@/public/sign-in-banner.avif";
 
 import { SignInForm } from "./_components/form";
@@ -52,9 +52,11 @@ export default async function SignInPage({
       <Grid component={Paper} elevation={12} xs={12} sm={8} md={4}>
         <Stack spacing={3} sx={{ paddingX: 4, paddingY: 8 }}>
           <Stack alignItems="center" spacing={1}>
-            <Avatar sx={{ backgroundColor: "secondary.main" }}>
-              <LockIcon />
-            </Avatar>
+            <Image
+              alt="Logo"
+              src={Logo}
+              style={{ width: 160, height: "auto", objectFit: "cover" }}
+            />
 
             <Typography component="h1" variant="h5">
               {heading}
