@@ -8,10 +8,7 @@ export async function signOut(): Promise<void> {
   const language = getAppLanguage();
 
   try {
-    await signOutLib({
-      redirect: true,
-      redirectTo: `/${language}/auth/sign-in`,
-    });
+    await signOutLib({ redirect: false });
   } catch (error) {
     const errors = await getDictionary(language);
 

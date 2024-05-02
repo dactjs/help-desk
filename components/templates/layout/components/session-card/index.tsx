@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Session } from "next-auth";
 import Paper from "@mui/material/Paper";
@@ -35,6 +36,8 @@ export function SessionCard({
     layout: { settings_item_text, sign_out_item_text },
   },
 }: SessionCardProps) {
+  const router = useRouter();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -42,6 +45,8 @@ export function SessionCard({
   const handleSignOut = async () => {
     try {
       await signOut();
+
+      router.replace(`/${language}/auth/sign-in`);
     } catch (error) {
       if (error instanceof Error) {
         enqueueSnackbar(error.message, {
