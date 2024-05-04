@@ -41,7 +41,30 @@ export async function ServerTicketList({
         AND: [
           accessibleBy(ability).Ticket,
           {
-            ...(search && { issue: { mode: "insensitive", contains: search } }),
+            ...(search && {
+              OR: [
+                { issue: { mode: "insensitive", contains: search } },
+                { solution: { mode: "insensitive", contains: search } },
+                {
+                  service: {
+                    name: {
+                      mode: "insensitive",
+                      contains: search,
+                    },
+                  },
+                },
+                {
+                  service: {
+                    category: {
+                      name: {
+                        mode: "insensitive",
+                        contains: search,
+                      },
+                    },
+                  },
+                },
+              ],
+            }),
             ...(status && { status: { in: status } }),
             ...(technicians && {
               assignedToId: { in: technicians.map(({ id }) => id) },
@@ -59,7 +82,30 @@ export async function ServerTicketList({
         AND: [
           accessibleBy(ability).Ticket,
           {
-            ...(search && { issue: { mode: "insensitive", contains: search } }),
+            ...(search && {
+              OR: [
+                { issue: { mode: "insensitive", contains: search } },
+                { solution: { mode: "insensitive", contains: search } },
+                {
+                  service: {
+                    name: {
+                      mode: "insensitive",
+                      contains: search,
+                    },
+                  },
+                },
+                {
+                  service: {
+                    category: {
+                      name: {
+                        mode: "insensitive",
+                        contains: search,
+                      },
+                    },
+                  },
+                },
+              ],
+            }),
             ...(status && { status: { in: status } }),
             ...(technicians && {
               assignedToId: { in: technicians.map(({ id }) => id) },

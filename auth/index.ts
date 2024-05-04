@@ -2,12 +2,14 @@ import { NextResponse } from "next/server";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { UserStatus, UserRole } from "@prisma/client";
-import bcrypt from "bcryptjs";
 
-import { InvalidCredentialsError, DisabledUserError } from "@/auth/errors";
+import {
+  InvalidCredentialsError,
+  DisabledUserError,
+  AuthErrorCode,
+} from "@/auth/errors";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { ENV } from "@/config/env";
-import { prisma } from "@/lib/prisma";
 
 export const {
   auth,
@@ -23,12 +25,22 @@ export const {
           password: "",
         }) as Record<string, string>;
 
-        const user = await prisma.user.findUnique({ where: { username } });
+        const response = await fetch(
+          new URL("/api/auth/sign-in", ENV.AUTH_URL),
+          { method: "POST", body: JSON.stringify({ username, password }) }
+        );
 
-        if (!user || !bcrypt.compareSync(password, user.password))
-          throw new InvalidCredentialsError();
+        if (!response.ok) {
+          const code = await response.text();
 
-        if (user.status !== UserStatus.ENABLED) throw new DisabledUserError();
+          if (code === AuthErrorCode.INVALID_CREDENTIALS)
+            throw new InvalidCredentialsError();
+
+          if (code === AuthErrorCode.DISABLED_USER)
+            throw new DisabledUserError();
+        }
+
+        const user = await response.json();
 
         return user;
       },
@@ -60,9 +72,9 @@ export const {
       return session;
     },
     async authorized({ request, auth }) {
-      const { pathname } = request.nextUrl;
-
       const language = getAppLanguage();
+
+      const { pathname } = request.nextUrl;
 
       const signInPath = `/${language}/auth/sign-in`;
       const adminPath = `/${language}/admin`;

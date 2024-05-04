@@ -1,0 +1,22 @@
+{
+  "log": {
+    "timestamp": "Timestamp",
+    "model": "Model",
+    "operation": "Operation",
+    "metadata": "Metadata",
+    "user": "User"
+  },
+
+  "logs_page": {
+    "title": "Logs"
+  },
+
+  "log_data_grid": {
+    "actions": "Actions",
+    "actions--view-details": "View Details"
+  },
+
+  "log_details_dialog": {
+    "heading": "Log Details"
+  }
+}

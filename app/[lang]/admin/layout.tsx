@@ -5,6 +5,7 @@ import UsersIcon from "@mui/icons-material/Group";
 import PerformanceIcon from "@mui/icons-material/Speed";
 import GeneralPerformanceIcon from "@mui/icons-material/GroupWork";
 import IndividualPerformanceIcon from "@mui/icons-material/SupportAgent";
+import LogsIcon from "@mui/icons-material/History";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import { Dashboard } from "@/components/templates/dashboard";
@@ -30,6 +31,7 @@ export default async function AdminLayout({
       performance_group_heading,
       general_performance_item_text,
       individual_performance_item_text,
+      logs_item_text,
       settings_item_text,
     },
   } = await getDictionary(lang);
@@ -79,6 +81,12 @@ export default async function AdminLayout({
               text: individual_performance_item_text,
             },
           ],
+        },
+        {
+          type: DashboardNavigationType.ITEM,
+          href: `/${lang}/admin/logs`,
+          icon: <LogsIcon />,
+          text: logs_item_text,
         },
         {
           type: DashboardNavigationType.ITEM,

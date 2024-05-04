@@ -1,0 +1,22 @@
+{
+  "log": {
+    "timestamp": "Marca de tiempo",
+    "model": "Modelo",
+    "operation": "Operación",
+    "metadata": "Metadatos",
+    "user": "Usuario"
+  },
+
+  "logs_page": {
+    "title": "Logs"
+  },
+
+  "log_data_grid": {
+    "actions": "Acciones",
+    "actions--view-details": "Ver Detalles"
+  },
+
+  "log_details_dialog": {
+    "heading": "Detalles del evento (log)"
+  }
+}

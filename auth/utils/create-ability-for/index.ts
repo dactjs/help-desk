@@ -5,6 +5,7 @@ import { UserStatus } from "@prisma/client";
 
 import { AppAbility } from "../../ability";
 
+import { createLogRulesFor } from "../create-log-rules-for";
 import { createUserRulesFor } from "../create-user-rules-for";
 import { createTicketRulesFor } from "../create-ticket-rules-for";
 import { createTicketTraceRulesFor } from "../create-ticket-trace-rules-for";
@@ -23,6 +24,7 @@ export function createAbilityFor(session: Session | null): AppAbility {
   if (!user || user.status !== UserStatus.ENABLED) return builder.build();
 
   const rules = {
+    Log: createLogRulesFor,
     User: createUserRulesFor,
     Ticket: createTicketRulesFor,
     TicketTrace: createTicketTraceRulesFor,
