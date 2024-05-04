@@ -39,7 +39,7 @@ export async function Layout({ children }: LayoutProps) {
     >
       <AppBar position="sticky" sx={{ gridArea: "header" }}>
         <Toolbar
-          variant="dense"
+          variant="regular"
           sx={{ justifyContent: "space-between", alignItems: "center", gap: 1 }}
         >
           <Image

@@ -48,8 +48,15 @@ export function NavigationGroup({
 
       <Collapse unmountOnExit timeout="auto" in={expanded || isMobile}>
         <List component="div" disablePadding>
-          {items.map((item) => (
-            <NavigationItem key={`${heading}-${item.href}`} nested {...item} />
+          {items.map((item, index) => (
+            <NavigationItem
+              key={index}
+              nested
+              type={item.type}
+              href={item.href}
+              icon={item.icon}
+              text={isMobile ? `${heading} - ${item.text}` : item.text}
+            />
           ))}
         </List>
       </Collapse>

@@ -76,7 +76,7 @@ export function SessionCard({
       >
         <Avatar
           alt={String(session?.user?.name)}
-          sx={{ width: 20, height: 20 }}
+          sx={{ width: 25, height: 25 }}
         />
 
         <Typography component="strong" variant="subtitle2">
