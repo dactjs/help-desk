@@ -18,5 +18,12 @@
 
   "log_details_dialog": {
     "heading": "Log Details"
+  },
+
+  "logs_toolbar": {
+    "filter--today": "Today",
+    "filter--last-week": "Last 7 days",
+    "filter--last-month": "Last 30 days",
+    "filter--custom": "Custom"
   }
 }

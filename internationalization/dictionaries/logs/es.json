@@ -18,5 +18,12 @@
 
   "log_details_dialog": {
     "heading": "Detalles del evento (log)"
+  },
+
+  "logs_toolbar": {
+    "filter--today": "Hoy",
+    "filter--last-week": "Últimos 7 días",
+    "filter--last-month": "Últimos 30 días",
+    "filter--custom": "Personalizado"
   }
 }

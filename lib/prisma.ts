@@ -12,7 +12,7 @@ export const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
 if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma;
 
 function prismaClientSingleton() {
-  const dir = "./logs";
+  const dir = "./tmp";
 
   return new PrismaClient().$extends({
     query: {

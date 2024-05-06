@@ -55,7 +55,7 @@ export function ClientLogDataGrid({
       headerAlign: "center",
       align: "center",
       flex: 1,
-      width: 125,
+      width: 150,
     },
     {
       field: "operation",

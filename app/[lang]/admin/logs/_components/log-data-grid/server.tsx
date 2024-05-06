@@ -1,3 +1,4 @@
+import { ReadonlyURLSearchParams } from "next/navigation";
 import fs from "fs/promises";
 
 import { auth } from "@/auth";
@@ -5,10 +6,18 @@ import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/logs";
 
+import { ParamsSchema } from "../../_schemas";
+
 import { ClientLogDataGrid } from "./client";
 import { Log } from "./types";
 
-export async function ServerLogDataGrid() {
+export interface ServerLogDataGridProps {
+  searchParams: ReadonlyURLSearchParams;
+}
+
+export async function ServerLogDataGrid({
+  searchParams,
+}: ServerLogDataGridProps) {
   const language = getAppLanguage();
 
   let logs: Log[] = [];
@@ -21,7 +30,7 @@ export async function ServerLogDataGrid() {
   const ability = createAbilityFor(session);
 
   if (ability.can("read", "Log")) {
-    const dir = "./logs";
+    const dir = "./tmp";
 
     try {
       await fs.access(dir);
@@ -29,40 +38,50 @@ export async function ServerLogDataGrid() {
       await fs.mkdir(dir);
     }
 
-    const now = new Date();
+    const params = new URLSearchParams(searchParams);
 
-    const year = now.getFullYear();
-    const month = String(now.getMonth()).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
+    const result = ParamsSchema.safeParse(Object.fromEntries(params));
 
-    const file = `${dir}/${year}_${month}_${day}.txt`;
+    const start = result.data?.start || new Date();
+    const end = result.data?.end || new Date();
 
-    try {
-      await fs.access(file);
-    } catch {
-      await fs.writeFile(file, "");
-    }
+    while (start <= end) {
+      const year = start.getFullYear();
+      const month = String(start.getMonth()).padStart(2, "0");
+      const day = String(start.getDate()).padStart(2, "0");
 
-    const raw = await fs.readFile(file, { encoding: "utf-8" });
+      const file = `${dir}/${year}_${month}_${day}.txt`;
 
-    const lines = raw.split("\n");
+      try {
+        await fs.access(file);
+      } catch {
+        await fs.writeFile(file, "");
+      }
 
-    lines.forEach((line) => {
-      const trimmed = line.trim();
+      const raw = await fs.readFile(file, { encoding: "utf-8" });
 
-      if (!trimmed) return;
+      const lines = raw.split("\n");
 
-      const [timestamp, model, operation, metadata, user] = trimmed.split(";");
+      lines.forEach((line) => {
+        const trimmed = line.trim();
 
-      logs.push({
-        id: crypto.randomUUID(),
-        timestamp: new Date(Number(timestamp)),
-        model,
-        operation,
-        metadata: JSON.parse(metadata),
-        user: JSON.parse(user),
+        if (!trimmed) return;
+
+        const [timestamp, model, operation, metadata, user] =
+          trimmed.split(";");
+
+        logs.push({
+          id: crypto.randomUUID(),
+          timestamp: new Date(Number(timestamp)),
+          model,
+          operation,
+          metadata: JSON.parse(metadata),
+          user: JSON.parse(user),
+        });
       });
-    });
+
+      start.setDate(start.getDate() + 1);
+    }
   }
 
   return (
