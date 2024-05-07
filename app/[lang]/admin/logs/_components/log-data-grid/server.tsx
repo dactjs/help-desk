@@ -54,31 +54,29 @@ export async function ServerLogDataGrid({
 
       try {
         await fs.access(file);
-      } catch {
-        await fs.writeFile(file, "");
-      }
 
-      const raw = await fs.readFile(file, { encoding: "utf-8" });
+        const raw = await fs.readFile(file, { encoding: "utf-8" });
 
-      const lines = raw.split("\n");
+        const lines = raw.split("\n");
 
-      lines.forEach((line) => {
-        const trimmed = line.trim();
+        lines.forEach((line) => {
+          const trimmed = line.trim();
 
-        if (!trimmed) return;
+          if (!trimmed) return;
 
-        const [timestamp, model, operation, metadata, user] =
-          trimmed.split(";");
+          const [timestamp, model, operation, metadata, user] =
+            trimmed.split(";");
 
-        logs.push({
-          id: crypto.randomUUID(),
-          timestamp: new Date(Number(timestamp)),
-          model,
-          operation,
-          metadata: JSON.parse(metadata),
-          user: JSON.parse(user),
+          logs.push({
+            id: crypto.randomUUID(),
+            timestamp: new Date(Number(timestamp)),
+            model,
+            operation,
+            metadata: JSON.parse(metadata),
+            user: JSON.parse(user),
+          });
         });
-      });
+      } catch {}
 
       start.setDate(start.getDate() + 1);
     }
