@@ -23,16 +23,10 @@ function prismaClientSingleton() {
           await fetch(new URL("/api/logs", ENV.AUTH_URL), {
             method: "POST",
             body: JSON.stringify({
-              timestamp: Date.now(),
               model,
               operation,
               metadata: args,
-              user: {
-                id: session.user.id,
-                username: session.user.username,
-                email: session.user.email,
-                name: session.user.name,
-              },
+              user: session.user.id,
             }),
           });
 

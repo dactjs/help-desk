@@ -1,15 +1,18 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
-import fs from "fs/promises";
+import { accessibleBy } from "@casl/prisma";
+import { startOfDay } from "date-fns/startOfDay";
+import { endOfDay } from "date-fns/endOfDay";
 
 import { auth } from "@/auth";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/logs";
+import { prisma } from "@/lib/prisma";
 
 import { ParamsSchema } from "../../_schemas";
 
 import { ClientLogDataGrid } from "./client";
-import { Log } from "./types";
+import { NECESSARY_LOG_FIELDS } from "./constants";
 
 export interface ServerLogDataGridProps {
   searchParams: ReadonlyURLSearchParams;
@@ -20,67 +23,36 @@ export async function ServerLogDataGrid({
 }: ServerLogDataGridProps) {
   const language = getAppLanguage();
 
-  let logs: Log[] = [];
-
-  const [session, dictionary] = await Promise.all([
-    auth(),
-    getDictionary(language),
-  ]);
+  const session = await auth();
 
   const ability = createAbilityFor(session);
 
-  if (ability.can("read", "Log")) {
-    const dir = "./tmp";
+  const params = new URLSearchParams(searchParams);
 
-    try {
-      await fs.access(dir);
-    } catch {
-      await fs.mkdir(dir);
-    }
+  const result = ParamsSchema.safeParse(Object.fromEntries(params));
 
-    const params = new URLSearchParams(searchParams);
+  const start = result.data?.start
+    ? startOfDay(result.data.start)
+    : startOfDay(new Date());
 
-    const result = ParamsSchema.safeParse(Object.fromEntries(params));
+  const end = result.data?.end
+    ? endOfDay(result.data.end)
+    : endOfDay(new Date());
 
-    const start = result.data?.start || new Date();
-    const end = result.data?.end || new Date();
-
-    while (start <= end) {
-      const year = start.getFullYear();
-      const month = String(start.getMonth()).padStart(2, "0");
-      const day = String(start.getDate()).padStart(2, "0");
-
-      const file = `${dir}/${year}_${month}_${day}.txt`;
-
-      try {
-        await fs.access(file);
-
-        const raw = await fs.readFile(file, { encoding: "utf-8" });
-
-        const lines = raw.split("\n");
-
-        lines.forEach((line) => {
-          const trimmed = line.trim();
-
-          if (!trimmed) return;
-
-          const [timestamp, model, operation, metadata, user] =
-            trimmed.split(";");
-
-          logs.push({
-            id: crypto.randomUUID(),
-            timestamp: new Date(Number(timestamp)),
-            model,
-            operation,
-            metadata: JSON.parse(metadata),
-            user: JSON.parse(user),
-          });
-        });
-      } catch {}
-
-      start.setDate(start.getDate() + 1);
-    }
-  }
+  const [logs, dictionary] = await Promise.all([
+    prisma.log.findMany({
+      where: {
+        AND: [
+          accessibleBy(ability).Log,
+          { timestamp: { gte: start } },
+          { timestamp: { lte: end } },
+        ],
+      },
+      orderBy: { timestamp: "desc" },
+      select: NECESSARY_LOG_FIELDS,
+    }),
+    getDictionary(language),
+  ]);
 
   return (
     <ClientLogDataGrid

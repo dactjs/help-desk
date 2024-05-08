@@ -1,3 +1,5 @@
+import { Prisma } from "@prisma/client";
+
 type User = {
   id: string;
   username: string;
@@ -7,9 +9,9 @@ type User = {
 
 export interface Log {
   id: string;
-  timestamp: Date;
   model: string;
   operation: string;
-  metadata: object;
+  metadata: Prisma.JsonValue;
   user: User;
+  timestamp: Date;
 }

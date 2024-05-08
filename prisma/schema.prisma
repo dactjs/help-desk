@@ -7,6 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Log {
+  id        String @id @default(uuid())
+  model     String
+  operation String
+  metadata  Json
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  timestamp DateTime @default(now())
+}
+
 model User {
   id       String @id @default(uuid())
   username String @unique
@@ -16,6 +28,8 @@ model User {
 
   status UserStatus @default(ENABLED)
   role   UserRole   @default(USER)
+
+  logs Log[]
 
   tickets         Ticket[]        @relation("Tickets")
   assignedTickets Ticket[]        @relation("AssignedTickets")

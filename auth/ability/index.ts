@@ -5,6 +5,7 @@ import { PureAbility } from "@casl/ability";
 import { useAbility, createContextualCan } from "@casl/react";
 import { createPrismaAbility, Subjects, PrismaQuery } from "@casl/prisma";
 import {
+  Log,
   User,
   Ticket,
   TicketTrace,
@@ -15,14 +16,6 @@ import {
   ResourceTrace,
   ResourceComment,
 } from "@prisma/client";
-
-interface Log {
-  timestamp: number;
-  model: string;
-  operation: string;
-  metadata: object;
-  user: Pick<User, "id" | "username" | "email" | "name">;
-}
 
 export type AppAbility = PureAbility<
   [
