@@ -66,12 +66,8 @@ export function LogDetailsDialog({
 
               <ListItem disablePadding>
                 <ListItemText
-                  primary={dictionary.log.user}
-                  secondary={JSON.stringify(log.user, null, 2)}
-                  secondaryTypographyProps={{
-                    component: "pre",
-                    sx: { whiteSpace: "pre-wrap" },
-                  }}
+                  primary={`${log.user.name} (${log.user.username})`}
+                  secondary={log.user.email}
                 />
               </ListItem>
 
