@@ -16,6 +16,8 @@ function prismaClientSingleton() {
     query: {
       $allModels: {
         async $allOperations({ model, operation, args, query }) {
+          if (model === "Log") return query(args);
+
           const session = await auth();
 
           if (!session?.user) return query(args);

@@ -24,6 +24,11 @@
     "filter--today": "Hoy",
     "filter--last-week": "Últimos 7 días",
     "filter--last-month": "Últimos 30 días",
-    "filter--custom": "Personalizado"
+    "filter--custom": {
+      "label": "Personalizado",
+      "start_field_label": "Desde",
+      "end_field_label": "Hasta",
+      "apply_button_text": "Aplicar"
+    }
   }
 }

@@ -24,6 +24,11 @@
     "filter--today": "Today",
     "filter--last-week": "Last 7 days",
     "filter--last-month": "Last 30 days",
-    "filter--custom": "Custom"
+    "filter--custom": {
+      "label": "Custom",
+      "start_field_label": "From",
+      "end_field_label": "To",
+      "apply_button_text": "Apply"
+    }
   }
 }

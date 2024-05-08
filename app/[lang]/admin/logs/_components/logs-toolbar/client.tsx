@@ -10,6 +10,8 @@ import { Dictionary } from "@/internationalization/dictionaries/logs";
 
 import { ParamsSchema } from "../../_schemas";
 
+import { CustomFilter } from "./components/custom-filter";
+
 export interface ClientLogsToolbarProps {
   dictionary: Pick<Dictionary, "logs_toolbar">;
 }
@@ -34,21 +36,23 @@ export function ClientLogsToolbar({
     {
       value: [new Date(), new Date()],
       text: logs_toolbar["filter--today"],
-      disabled: differenceInDays(end, start) === 0,
+      disabled: differenceInDays(end, start) === 0 && !params.has("custom"),
     },
     {
       value: [subDays(new Date(), 7), new Date()],
       text: logs_toolbar["filter--last-week"],
-      disabled: differenceInDays(end, start) === 7,
+      disabled: differenceInDays(end, start) === 7 && !params.has("custom"),
     },
     {
       value: [subDays(new Date(), 30), new Date()],
       text: logs_toolbar["filter--last-month"],
-      disabled: differenceInDays(end, start) === 30,
+      disabled: differenceInDays(end, start) === 30 && !params.has("custom"),
     },
   ];
 
   const handleOnClick = ([start, end]: Date[]) => {
+    params.delete("custom");
+
     params.set("start", start.toISOString());
     params.set("end", end.toISOString());
 
@@ -66,6 +70,8 @@ export function ClientLogsToolbar({
           {text}
         </Button>
       ))}
+
+      <CustomFilter dictionary={logs_toolbar["filter--custom"]} />
     </ButtonGroup>
   );
 }

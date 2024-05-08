@@ -4,6 +4,8 @@ import { Roboto } from "next/font/google";
 import { ThemeProvider, createTheme, PaletteMode } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { SnackbarProvider } from "notistack";
 import { ConfirmProvider } from "material-ui-confirm";
 import { Session } from "next-auth";
@@ -64,35 +66,37 @@ export function Providers({
   return (
     <AbilityContext.Provider value={ability}>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider>
-          <ConfirmProvider
-            defaultOptions={{
-              title: confirm_dialog.title,
-              description: confirm_dialog.description,
-              confirmationButtonProps: {
-                variant: "contained",
-                color: "warning",
-              },
-              cancellationButtonProps: {
-                variant: "outlined",
-                color: "inherit",
-              },
-            }}
-          >
-            <CssBaseline />
-
-            <GlobalStyles
-              styles={{
-                "*": {
-                  scrollbarWidth: "thin",
-                  scrollbarColor: `${secondaryColor} transparent`,
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <SnackbarProvider>
+            <ConfirmProvider
+              defaultOptions={{
+                title: confirm_dialog.title,
+                description: confirm_dialog.description,
+                confirmationButtonProps: {
+                  variant: "contained",
+                  color: "warning",
+                },
+                cancellationButtonProps: {
+                  variant: "outlined",
+                  color: "inherit",
                 },
               }}
-            />
+            >
+              <CssBaseline />
 
-            {children}
-          </ConfirmProvider>
-        </SnackbarProvider>
+              <GlobalStyles
+                styles={{
+                  "*": {
+                    scrollbarWidth: "thin",
+                    scrollbarColor: `${secondaryColor} transparent`,
+                  },
+                }}
+              />
+
+              {children}
+            </ConfirmProvider>
+          </SnackbarProvider>
+        </LocalizationProvider>
       </ThemeProvider>
     </AbilityContext.Provider>
   );
