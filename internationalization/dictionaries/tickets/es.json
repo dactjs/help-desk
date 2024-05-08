@@ -2,7 +2,9 @@
   "ticket_model": {
     "id": "ID",
     "issue": "Descripción del problema",
-    "solution": "Solución",
+
+    "solution--successfully": "Solución",
+    "solution--unsuccessfully": "Motivo de cancelación",
 
     "status": "Estado",
     "status--unassigned": "Sin Asignar",

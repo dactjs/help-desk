@@ -38,6 +38,11 @@ export function ClientTicketCard({
     CANCELLED: ticket_model["status--cancelled"],
   };
 
+  const solution = {
+    RESOLVED: ticket_model["solution--successfully"],
+    CANCELLED: ticket_model["solution--unsuccessfully"],
+  };
+
   if (!ticket) {
     return (
       <Paper sx={{ placeContent: "center", height: "100%" }}>
@@ -96,18 +101,27 @@ export function ClientTicketCard({
             />
           </ListItem>
 
-          {ticket.solution && (
-            <ListItem disablePadding>
-              <ListItemText
-                primary={ticket_model.solution}
-                secondary={ticket.solution}
-                secondaryTypographyProps={{
-                  component: "pre",
-                  sx: { whiteSpace: "pre-wrap" },
-                }}
-              />
-            </ListItem>
-          )}
+          {ticket.solution &&
+            (ticket.status === TicketStatus.RESOLVED ||
+              ticket.status === TicketStatus.CANCELLED) && (
+              <ListItem disablePadding>
+                <ListItemText
+                  primary={solution[ticket.status] ?? solution.RESOLVED}
+                  secondary={ticket.solution}
+                  primaryTypographyProps={{
+                    fontWeight: "bolder",
+                    color:
+                      ticket.status === TicketStatus.RESOLVED
+                        ? "success.main"
+                        : "error.main",
+                  }}
+                  secondaryTypographyProps={{
+                    component: "pre",
+                    sx: { whiteSpace: "pre-wrap" },
+                  }}
+                />
+              </ListItem>
+            )}
 
           <ListItem disablePadding>
             <ListItemText

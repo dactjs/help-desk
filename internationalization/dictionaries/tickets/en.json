@@ -2,7 +2,9 @@
   "ticket_model": {
     "id": "ID",
     "issue": "Issue",
-    "solution": "Solution",
+
+    "solution--successfully": "Solution",
+    "solution--unsuccessfully": "Cancellation Reason",
 
     "status": "Status",
     "status--unassigned": "Unassigned",
