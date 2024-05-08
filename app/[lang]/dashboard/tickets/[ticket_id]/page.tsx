@@ -1,7 +1,12 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import NextLink from "next/link";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import MuiLink from "@mui/material/Link";
+import HomeIcon from "@mui/icons-material/Home";
+import TicketsIcon from "@mui/icons-material/ConfirmationNumber";
 import { subject } from "@casl/ability";
 import { UserRole } from "@prisma/client";
 
@@ -45,11 +50,12 @@ export interface TicketPageProps {
 }
 
 export default async function TicketPage({
-  params: { ticket_id },
+  params: { lang, ticket_id },
 }: TicketPageProps) {
-  const [session, ticket] = await Promise.all([
+  const [session, ticket, { ticket_page }] = await Promise.all([
     auth(),
     prisma.ticket.findUnique({ where: { id: ticket_id } }),
+    getDictionary(lang),
   ]);
 
   const ability = createAbilityFor(session);
@@ -59,6 +65,31 @@ export default async function TicketPage({
   return (
     <Container fixed sx={{ paddingY: 2 }}>
       <Grid container justifyContent="center" alignItems="center" spacing={2}>
+        <Grid role="presentation" xs={12}>
+          <Breadcrumbs aria-label={ticket_page.breadcrumbs.label}>
+            <MuiLink
+              component={NextLink}
+              href={`/${lang}/dashboard`}
+              color="inherit"
+              underline="hover"
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              <HomeIcon fontSize="inherit" sx={{ mr: 0.5 }} />
+              {ticket_page.breadcrumbs.dashboard}
+            </MuiLink>
+
+            <MuiLink
+              color="text.primary"
+              underline="none"
+              aria-current="page"
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              <TicketsIcon fontSize="inherit" sx={{ mr: 0.5 }} />
+              {ticket_page.breadcrumbs.tickets}
+            </MuiLink>
+          </Breadcrumbs>
+        </Grid>
+
         <Grid xs={12} md={5}>
           <Widget>
             <TicketCard ticketId={ticket_id} />

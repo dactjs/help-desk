@@ -60,7 +60,13 @@
   },
 
   "ticket_page": {
-    "title": "Ticket {{id}}"
+    "title": "Ticket {{id}}",
+
+    "breadcrumbs": {
+      "label": "Navigation",
+      "dashboard": "Dashboard",
+      "tickets": "Tickets"
+    }
   },
 
   "create_ticket_page": {

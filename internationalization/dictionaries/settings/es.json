@@ -1,6 +1,12 @@
 {
   "settings_page": {
-    "title": "Configuración"
+    "title": "Configuración",
+
+    "breadcrumbs": {
+      "label": "Navegación",
+      "dashboard": "Dashboard",
+      "settings": "Configuración"
+    }
   },
 
   "internationalization_settings": {
