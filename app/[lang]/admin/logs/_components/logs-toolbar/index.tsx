@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 
 import { ServerLogsToolbar } from "./server";
+import { LogsToolbarSkeleton } from "./skeleton";
 
 export function LogsToolbar() {
-  // TODO: add skeleton
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<LogsToolbarSkeleton />}>
       <ServerLogsToolbar />
     </Suspense>
   );
