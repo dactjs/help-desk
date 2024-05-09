@@ -15,12 +15,12 @@ import { AverageTicketFirstContactTimeChartData } from "./types";
 
 export interface ClientAverageTicketFirstContactTimeChartProps {
   data: AverageTicketFirstContactTimeChartData;
-  dictionary: Pick<Dictionary, "average_ticket_resolution_time_chart">;
+  dictionary: Pick<Dictionary, "average_ticket_first_contact_time_chart">;
 }
 
 export function ClientAverageTicketFirstContactTimeChart({
   data,
-  dictionary: { average_ticket_resolution_time_chart },
+  dictionary: { average_ticket_first_contact_time_chart },
 }: ClientAverageTicketFirstContactTimeChartProps) {
   const hours = String(Math.floor(data / 3600)).padStart(2, "0");
   const minutes = String(Math.floor((data % 3600) / 60)).padStart(2, "0");
@@ -42,10 +42,10 @@ export function ClientAverageTicketFirstContactTimeChart({
         spacing={1}
       >
         <Typography component="h2" variant="h6">
-          {average_ticket_resolution_time_chart.heading}
+          {average_ticket_first_contact_time_chart.heading}
         </Typography>
 
-        <Tooltip title={average_ticket_resolution_time_chart.tooltip}>
+        <Tooltip title={average_ticket_first_contact_time_chart.tooltip}>
           <InfoIcon fontSize="small" color="info" />
         </Tooltip>
       </Stack>

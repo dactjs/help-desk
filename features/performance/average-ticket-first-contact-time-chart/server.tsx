@@ -34,8 +34,8 @@ export async function ServerAverageTicketFirstContactTimeChart() {
     <ClientAverageTicketFirstContactTimeChart
       data={data}
       dictionary={{
-        average_ticket_resolution_time_chart:
-          dictionary.average_ticket_resolution_time_chart,
+        average_ticket_first_contact_time_chart:
+          dictionary.average_ticket_first_contact_time_chart,
       }}
     />
   );

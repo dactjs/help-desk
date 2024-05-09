@@ -6,7 +6,7 @@ export const NECESSARY_TICKET_FIELDS = {
       type: {
         in: [
           TicketTraceType.RECEPTION,
-          TicketTraceType.RESOLVED,
+          TicketTraceType.ASSIGNMENT,
           TicketTraceType.CANCELLED,
         ],
       },
