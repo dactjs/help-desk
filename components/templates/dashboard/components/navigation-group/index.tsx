@@ -38,7 +38,9 @@ export function NavigationGroup({
           selected={selected}
           onClick={() => setExpanded((prev) => !prev)}
         >
-          <ListItemIcon sx={{ minWidth: "fit-content" }}>{icon}</ListItemIcon>
+          <ListItemIcon sx={{ minWidth: "fit-content", color: "inherit" }}>
+            {icon}
+          </ListItemIcon>
 
           <ListItemText sx={{ marginLeft: 2 }}>{heading}</ListItemText>
 

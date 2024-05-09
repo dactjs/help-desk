@@ -5,5 +5,10 @@
 
   "individual_performance_page": {
     "title": "Rendimiento Individual"
+  },
+
+  "average_ticket_resolution_time_chart": {
+    "heading": "T.P.R.T",
+    "tooltip": "Tiempo promedio de resolución de tickets"
   }
 }

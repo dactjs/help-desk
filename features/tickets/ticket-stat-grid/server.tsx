@@ -10,6 +10,7 @@ import { TicketStatGridData } from "./types";
 export async function ServerTicketStatGrid() {
   const language = getAppLanguage();
 
+  // TODO: add auth
   const [tickets, dictionary] = await Promise.all([
     prisma.ticket.groupBy({ by: "status", _count: { _all: true } }),
     getDictionary(language),

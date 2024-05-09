@@ -5,5 +5,10 @@
 
   "individual_performance_page": {
     "title": "Individual Performance"
+  },
+
+  "average_ticket_resolution_time_chart": {
+    "heading": "A.T.R.T",
+    "tooltip": "Average Ticket Resolution Time"
   }
 }
