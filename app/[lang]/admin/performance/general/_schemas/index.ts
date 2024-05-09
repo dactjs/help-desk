@@ -13,4 +13,4 @@ export const ParamsSchema = zod
       .transform((value) => new Date(value)),
   })
   .partial()
-  .refine((data) => data.start && data.end && data.end > data.start, "end");
+  .refine(({ start, end }) => !start || !end || end > start, { path: ["end"] });

@@ -4,7 +4,10 @@
   },
 
   "individual_performance_page": {
-    "title": "Individual Performance"
+    "title": "Individual Performance",
+
+    "heading": "Individual Performance 🪛",
+    "hint": "To get started, select a technician from the toolbar."
   },
 
   "average_ticket_resolution_time_chart": {
@@ -38,6 +41,8 @@
       "start_field_label": "From",
       "end_field_label": "To",
       "apply_button_text": "Apply"
-    }
+    },
+
+    "technician_field_label": "Technician"
   }
 }

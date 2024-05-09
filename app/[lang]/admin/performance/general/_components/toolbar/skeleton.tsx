@@ -12,7 +12,7 @@ export function GeneralPerformanceToolbarSkeleton() {
         <Skeleton
           key={index}
           variant="rectangular"
-          width={75}
+          width={100}
           height={31}
           sx={[
             index === 0 && {

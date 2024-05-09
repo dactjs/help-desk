@@ -7,7 +7,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import Badge from "@mui/material/Badge";
 import Tooltip from "@mui/material/Tooltip";
 import Popover from "@mui/material/Popover";
-import TechniciansIcon from "@mui/icons-material/SupportAgent";
+import TechnicianIcon from "@mui/icons-material/SupportAgent";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { UserRole } from "@prisma/client";
 
@@ -16,13 +16,13 @@ import {
   UserAutocompleteProps,
 } from "@/features/users/user-autocomplete";
 
-import { ParamsSchema } from "../schemas";
+import { ParamsSchema } from "../../../../_schemas";
 
-export interface TechniciansFilterProps {
+export interface TechnicianFilterProps {
   label: string;
 }
 
-export function TechniciansFilter({ label }: TechniciansFilterProps) {
+export function TechnicianFilter({ label }: TechnicianFilterProps) {
   const router = useRouter();
 
   const pathname = usePathname();
@@ -35,16 +35,13 @@ export function TechniciansFilter({ label }: TechniciansFilterProps) {
 
   const result = ParamsSchema.safeParse(Object.fromEntries(params));
 
-  const technicians = result.data?.technicians || [];
+  const technician = result.data?.technician || null;
 
   const handleOnChange: UserAutocompleteProps["onChange"] = (_, value) => {
-    params.delete("page");
-    params.delete("pageSize");
-
-    if (Array.isArray(value) && value.length > 0) {
-      params.set("technicians", JSON.stringify(value));
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      params.set("technician", JSON.stringify(value));
     } else {
-      params.delete("technicians");
+      params.delete("technician");
     }
 
     router.replace(`${pathname}?${params.toString()}`);
@@ -54,16 +51,17 @@ export function TechniciansFilter({ label }: TechniciansFilterProps) {
     <>
       <Tooltip arrow title={label}>
         <Badge
+          variant="dot"
+          badgeContent={params.has("technician") || 0}
           color="info"
-          badgeContent={technicians.length}
           anchorOrigin={{ horizontal: "right", vertical: "top" }}
         >
           <ToggleButton
             size="small"
-            value="technicians"
+            value="technician"
             onClick={(event) => setAnchorEl(event.currentTarget)}
           >
-            <TechniciansIcon />
+            <TechnicianIcon />
             <ArrowDropDownIcon />
           </ToggleButton>
         </Badge>
@@ -79,10 +77,9 @@ export function TechniciansFilter({ label }: TechniciansFilterProps) {
       >
         <Box sx={{ minWidth: 250, padding: 2 }}>
           <UserAutocomplete
-            multiple
             fullWidth
             filters={{ roles: [UserRole.TECHNICIAN] }}
-            value={technicians}
+            value={technician}
             onChange={handleOnChange}
             label={label}
           />

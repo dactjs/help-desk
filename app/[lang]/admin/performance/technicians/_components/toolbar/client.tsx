@@ -1,6 +1,8 @@
 "use client";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import { startOfMonth } from "date-fns/startOfMonth";
@@ -13,6 +15,7 @@ import { Dictionary } from "@/internationalization/dictionaries/performance";
 import { ParamsSchema } from "../../_schemas";
 
 import { CustomFilter } from "./components/custom-filter";
+import { TechnicianFilter } from "./components/technician-filter";
 
 export interface ClientIndividualPerformanceToolbarProps {
   dictionary: Pick<Dictionary, "individual_performance_toolbar">;
@@ -62,20 +65,31 @@ export function ClientIndividualPerformanceToolbar({
   };
 
   return (
-    <ButtonGroup variant="outlined" size="small" color="inherit">
-      {filters.map(({ value, text, disabled }) => (
-        <Button
-          key={text}
-          disabled={disabled}
-          onClick={() => handleOnClick(value)}
-        >
-          {text}
-        </Button>
-      ))}
+    <Stack
+      direction="row"
+      alignItems="center"
+      spacing={1}
+      divider={<Divider flexItem orientation="vertical" />}
+    >
+      <ButtonGroup variant="outlined" size="small" color="inherit">
+        {filters.map(({ value, text, disabled }) => (
+          <Button
+            key={text}
+            disabled={disabled}
+            onClick={() => handleOnClick(value)}
+          >
+            {text}
+          </Button>
+        ))}
 
-      <CustomFilter
-        dictionary={individual_performance_toolbar["filter--custom"]}
+        <CustomFilter
+          dictionary={individual_performance_toolbar["filter--custom"]}
+        />
+      </ButtonGroup>
+
+      <TechnicianFilter
+        label={individual_performance_toolbar.technician_field_label}
       />
-    </ButtonGroup>
+    </Stack>
   );
 }

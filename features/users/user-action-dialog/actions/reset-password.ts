@@ -32,11 +32,16 @@ export const resetPassword: FormAction = async (_, formData) => {
         password: z.string(),
         confirm_password: z.string(),
       })
-      .refine((data) => data.password === data["confirm_password"], {
-        path: ["confirm_password"],
-        message:
-          user_action_dialog["actions--reset-password-passwords-do-not-match"],
-      });
+      .refine(
+        ({ password, confirm_password }) => password === confirm_password,
+        {
+          path: ["confirm_password"],
+          message:
+            user_action_dialog[
+              "actions--reset-password-passwords-do-not-match"
+            ],
+        }
+      );
 
     const result = schema.safeParse(Object.fromEntries(formData));
 

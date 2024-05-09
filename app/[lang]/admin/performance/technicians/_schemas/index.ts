@@ -1,7 +1,18 @@
 import { z as zod } from "zod";
 
+const UserSchema = zod.object({
+  id: zod.string().uuid(),
+  username: zod.string(),
+  email: zod.string(),
+  name: zod.string(),
+});
+
 export const ParamsSchema = zod
   .object({
+    technician: zod
+      .string()
+      .transform((raw) => UserSchema.parse(JSON.parse(raw))),
+
     start: zod
       .string()
       .datetime()
@@ -13,4 +24,4 @@ export const ParamsSchema = zod
       .transform((value) => new Date(value)),
   })
   .partial()
-  .refine((data) => data.start && data.end && data.end > data.start, "end");
+  .refine(({ start, end }) => !start || !end || end > start, { path: ["end"] });

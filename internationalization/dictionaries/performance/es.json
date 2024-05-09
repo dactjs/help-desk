@@ -4,7 +4,10 @@
   },
 
   "individual_performance_page": {
-    "title": "Rendimiento Individual"
+    "title": "Rendimiento Individual",
+
+    "heading": "Rendimiento Individual 🪛",
+    "hint": "Para comenzar, selecciona un técnico de la barra de opciones."
   },
 
   "average_ticket_resolution_time_chart": {
@@ -38,6 +41,8 @@
       "start_field_label": "Desde",
       "end_field_label": "Hasta",
       "apply_button_text": "Aplicar"
-    }
+    },
+
+    "technician_field_label": "Técnico"
   }
 }

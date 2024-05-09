@@ -11,18 +11,23 @@ import { AverageTicketFirstContactTimeChartData } from "./types";
 export interface ServerAverageTicketFirstContactTimeChartProps {
   start: Date;
   end: Date;
+  technicianId?: string;
 }
 
 export async function ServerAverageTicketFirstContactTimeChart({
   start,
   end,
+  technicianId,
 }: ServerAverageTicketFirstContactTimeChartProps) {
   const language = getAppLanguage();
 
   // TODO: add auth
   const [tickets, dictionary] = await Promise.all([
     prisma.ticket.findMany({
-      where: { createdAt: { gte: start, lte: end } },
+      where: {
+        assignedToId: technicianId,
+        createdAt: { gte: start, lte: end },
+      },
       select: NECESSARY_TICKET_FIELDS,
     }),
     getDictionary(language),

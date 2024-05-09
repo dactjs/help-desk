@@ -40,8 +40,6 @@ export function AdvancedSettings({
 
   const pageSize = result.data?.pageSize || null;
 
-  const showBadge = params.has("pageSize");
-
   const handleOnChange = debounce(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       params.delete("page");
@@ -63,7 +61,7 @@ export function AdvancedSettings({
       <Tooltip arrow title={heading}>
         <Badge
           variant="dot"
-          badgeContent={showBadge || 0}
+          badgeContent={params.has("pageSize") || 0}
           color="info"
           anchorOrigin={{ horizontal: "right", vertical: "top" }}
         >
@@ -88,7 +86,7 @@ export function AdvancedSettings({
         <Stack
           spacing={1}
           divider={<Divider flexItem />}
-          sx={{ minWidth: 200, padding: 2 }}
+          sx={{ minWidth: 225, padding: 2 }}
         >
           <Typography component="h3" variant="subtitle1" fontWeight="bolder">
             {heading}

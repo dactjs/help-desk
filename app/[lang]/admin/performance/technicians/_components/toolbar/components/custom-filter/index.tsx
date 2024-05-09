@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Badge from "@mui/material/Badge";
 import Popover from "@mui/material/Popover";
-import { DatePicker } from "@mui/x-date-pickers";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 import { Dictionary } from "@/internationalization/dictionaries/performance";
 
@@ -69,8 +69,7 @@ export function CustomFilter({
         sx={{ marginTop: 1 }}
       >
         <Stack spacing={2} sx={{ width: 250, padding: 2 }}>
-          <DatePicker
-            disableFuture
+          <DateTimePicker
             shouldDisableDate={(day) => !!end && day >= end}
             label={start_field_label}
             value={start}
@@ -81,8 +80,7 @@ export function CustomFilter({
             }}
           />
 
-          <DatePicker
-            disableFuture
+          <DateTimePicker
             shouldDisableDate={(day) => !!start && day <= start}
             label={end_field_label}
             value={end}
