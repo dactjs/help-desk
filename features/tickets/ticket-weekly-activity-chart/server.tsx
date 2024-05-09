@@ -16,6 +16,7 @@ export async function ServerTicketWeeklyActivityChart() {
 
   const now = Date.now();
 
+  // TODO: add auth
   const [tickets, dictionary] = await Promise.all([
     prisma.ticket.findMany({
       where: {

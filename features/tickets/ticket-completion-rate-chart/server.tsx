@@ -10,6 +10,7 @@ import { TicketCompletionRateChartData } from "./types";
 export async function ServerTicketCompletionRateChart() {
   const language = getAppLanguage();
 
+  // TODO: add auth
   const [completed, uncompleted, dictionary] = await Promise.all([
     prisma.ticket.count({
       where: {
