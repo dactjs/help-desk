@@ -10,5 +10,10 @@
   "average_ticket_resolution_time_chart": {
     "heading": "T.P.R.T",
     "tooltip": "Tiempo promedio de resolución de tickets"
+  },
+
+  "average_ticket_first_contact_time_chart": {
+    "heading": "T.P.P.C.T",
+    "tooltip": "Tiempo promedio de primer contacto de tickets"
   }
 }

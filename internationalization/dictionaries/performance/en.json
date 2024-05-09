@@ -10,5 +10,10 @@
   "average_ticket_resolution_time_chart": {
     "heading": "A.T.R.T",
     "tooltip": "Average Ticket Resolution Time"
+  },
+
+  "average_ticket_first_contact_time_chart": {
+    "heading": "A.T.F.C.T",
+    "tooltip": "Average Ticket First Contact Time"
   }
 }
