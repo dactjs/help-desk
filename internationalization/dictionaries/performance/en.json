@@ -27,5 +27,17 @@
       "end_field_label": "To",
       "apply_button_text": "Apply"
     }
+  },
+
+  "individual_performance_toolbar": {
+    "filter--current-month": "Current month",
+    "filter--last-3-month": "Last 3 months",
+    "filter--last-6-month": "Last 6 months",
+    "filter--custom": {
+      "label": "Custom",
+      "start_field_label": "From",
+      "end_field_label": "To",
+      "apply_button_text": "Apply"
+    }
   }
 }
