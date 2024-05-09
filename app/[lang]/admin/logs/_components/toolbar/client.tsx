@@ -3,6 +3,8 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
+import { startOfDay } from "date-fns/startOfDay";
+import { endOfDay } from "date-fns/endOfDay";
 import { subDays } from "date-fns/subDays";
 import { differenceInDays } from "date-fns/differenceInDays";
 
@@ -34,7 +36,7 @@ export function ClientLogsToolbar({
 
   const filters = [
     {
-      value: [new Date(), new Date()],
+      value: [startOfDay(new Date()), endOfDay(new Date())],
       text: logs_toolbar["filter--today"],
       disabled: differenceInDays(end, start) === 0 && !params.has("custom"),
     },

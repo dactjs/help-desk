@@ -64,15 +64,17 @@ export function ClientAverageTicketResolutionTimeChart({
 
             [`& .${gaugeClasses.referenceArc}`]: {
               fill: (theme) =>
-                data >= TIME_GUIDE.VERY_BAD
-                  ? theme.palette.error.dark
-                  : data >= TIME_GUIDE.BAD
-                  ? theme.palette.error.light
-                  : data >= TIME_GUIDE.NORMAL
-                  ? theme.palette.info
-                  : data >= TIME_GUIDE.GOOD
-                  ? theme.palette.success.light
-                  : theme.palette.success.dark,
+                data
+                  ? data >= TIME_GUIDE.VERY_BAD
+                    ? theme.palette.error.dark
+                    : data >= TIME_GUIDE.BAD
+                    ? theme.palette.error.light
+                    : data >= TIME_GUIDE.NORMAL
+                    ? theme.palette.info
+                    : data >= TIME_GUIDE.GOOD
+                    ? theme.palette.success.light
+                    : theme.palette.success.dark
+                  : theme.palette.action.disabledBackground,
             },
 
             [`& .${gaugeClasses.valueText}`]: {

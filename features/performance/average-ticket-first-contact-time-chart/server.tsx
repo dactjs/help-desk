@@ -8,12 +8,23 @@ import { ClientAverageTicketFirstContactTimeChart } from "./client";
 import { NECESSARY_TICKET_FIELDS } from "./constants";
 import { AverageTicketFirstContactTimeChartData } from "./types";
 
-export async function ServerAverageTicketFirstContactTimeChart() {
+export interface ServerAverageTicketFirstContactTimeChartProps {
+  start: Date;
+  end: Date;
+}
+
+export async function ServerAverageTicketFirstContactTimeChart({
+  start,
+  end,
+}: ServerAverageTicketFirstContactTimeChartProps) {
   const language = getAppLanguage();
 
   // TODO: add auth
   const [tickets, dictionary] = await Promise.all([
-    prisma.ticket.findMany({ select: NECESSARY_TICKET_FIELDS }),
+    prisma.ticket.findMany({
+      where: { createdAt: { gte: start, lte: end } },
+      select: NECESSARY_TICKET_FIELDS,
+    }),
     getDictionary(language),
   ]);
 

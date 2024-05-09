@@ -31,13 +31,8 @@ export async function ServerLogDataGrid({
 
   const result = ParamsSchema.safeParse(Object.fromEntries(params));
 
-  const start = result.data?.start
-    ? startOfDay(result.data.start)
-    : startOfDay(new Date());
-
-  const end = result.data?.end
-    ? endOfDay(result.data.end)
-    : endOfDay(new Date());
+  const start = result.data?.start ?? startOfDay(new Date());
+  const end = result.data?.end ?? endOfDay(new Date());
 
   const [logs, dictionary] = await Promise.all([
     prisma.log.findMany({

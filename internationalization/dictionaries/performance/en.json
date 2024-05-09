@@ -15,5 +15,17 @@
   "average_ticket_first_contact_time_chart": {
     "heading": "A.T.F.C.T",
     "tooltip": "Average Ticket First Contact Time"
+  },
+
+  "general_performance_toolbar": {
+    "filter--current-month": "Current month",
+    "filter--last-3-month": "Last 3 months",
+    "filter--last-6-month": "Last 6 months",
+    "filter--custom": {
+      "label": "Custom",
+      "start_field_label": "From",
+      "end_field_label": "To",
+      "apply_button_text": "Apply"
+    }
   }
 }

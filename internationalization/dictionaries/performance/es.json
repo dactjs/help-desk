@@ -15,5 +15,17 @@
   "average_ticket_first_contact_time_chart": {
     "heading": "T.P.P.C.T",
     "tooltip": "Tiempo promedio de primer contacto de tickets"
+  },
+
+  "general_performance_toolbar": {
+    "filter--current-month": "Mes actual",
+    "filter--last-3-month": "Últimos 3 meses",
+    "filter--last-6-month": "Últimos 6 meses",
+    "filter--custom": {
+      "label": "Personalizado",
+      "start_field_label": "Desde",
+      "end_field_label": "Hasta",
+      "apply_button_text": "Aplicar"
+    }
   }
 }

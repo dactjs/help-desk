@@ -8,7 +8,7 @@ import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/logs";
 import { PageParams } from "@/types/page-params";
 
-import { LogsToolbar } from "./_components/logs-toolbar";
+import { LogsToolbar } from "./_components/toolbar";
 import { LogDataGrid } from "./_components/log-data-grid";
 
 export const dynamic = "force-dynamic";
