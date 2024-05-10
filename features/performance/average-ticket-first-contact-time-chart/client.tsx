@@ -22,9 +22,17 @@ export function ClientAverageTicketFirstContactTimeChart({
   data,
   dictionary: { average_ticket_first_contact_time_chart },
 }: ClientAverageTicketFirstContactTimeChartProps) {
-  const hours = String(Math.floor(data / 3600)).padStart(2, "0");
-  const minutes = String(Math.floor((data % 3600) / 60)).padStart(2, "0");
-  const seconds = String(data % 60).padStart(2, "0");
+  const hours = Math.round(Math.floor(data / 3600))
+    .toString()
+    .padStart(2, "0");
+
+  const minutes = Math.round(Math.floor((data % 3600) / 60))
+    .toString()
+    .padStart(2, "0");
+
+  const seconds = Math.round(data % 60)
+    .toString()
+    .padStart(2, "0");
 
   const text = data ? `${hours}:${minutes}:${seconds}` : "--:--:--";
 

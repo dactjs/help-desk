@@ -11,7 +11,6 @@ export const NECESSARY_TICKET_FIELDS = {
         ],
       },
     },
-    take: 2,
     orderBy: { createdAt: "asc" },
     select: { createdAt: true },
   },
