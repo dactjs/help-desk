@@ -9,8 +9,8 @@ import { NECESSARY_TICKET_FIELDS } from "./constants";
 import { AverageTicketFirstContactTimeChartData } from "./types";
 
 export interface ServerAverageTicketFirstContactTimeChartProps {
-  start: Date;
-  end: Date;
+  start?: Date;
+  end?: Date;
   technicianId?: string;
 }
 

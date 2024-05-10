@@ -9,8 +9,8 @@ import { NECESSARY_TICKET_FIELDS } from "./constants";
 import { AverageTicketResolutionTimeChartData } from "./types";
 
 export interface ServerAverageTicketResolutionTimeChartProps {
-  start: Date;
-  end: Date;
+  start?: Date;
+  end?: Date;
   technicianId?: string;
 }
 

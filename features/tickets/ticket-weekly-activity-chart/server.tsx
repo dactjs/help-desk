@@ -47,7 +47,7 @@ export async function ServerTicketWeeklyActivityChart() {
     {}
   );
 
-  const data = Object.entries(
+  const data: TicketWeeklyActivityChartData = Object.entries(
     tickets.reduce<Record<number, Serie>>((acc, current) => {
       const hour = current.createdAt.getHours();
       const day = DAYS[current.createdAt.getDay() as keyof typeof DAYS];

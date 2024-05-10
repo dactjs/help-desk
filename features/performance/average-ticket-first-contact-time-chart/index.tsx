@@ -4,8 +4,8 @@ import { ServerAverageTicketFirstContactTimeChart } from "./server";
 import { AverageTicketFirstContactTimeChartSkeleton } from "./skeleton";
 
 export interface AverageTicketFirstContactTimeChartProps {
-  start: Date;
-  end: Date;
+  start?: Date;
+  end?: Date;
   technicianId?: string;
 }
 
