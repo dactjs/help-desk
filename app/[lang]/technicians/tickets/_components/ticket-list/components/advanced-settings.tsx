@@ -53,7 +53,7 @@ export function AdvancedSettings({
 
       router.replace(`${pathname}?${params.toString()}`);
     },
-    300
+    400
   );
 
   return (

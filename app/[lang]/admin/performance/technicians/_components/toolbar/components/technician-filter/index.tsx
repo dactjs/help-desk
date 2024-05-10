@@ -11,10 +11,8 @@ import TechnicianIcon from "@mui/icons-material/SupportAgent";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { UserRole } from "@prisma/client";
 
-import {
-  UserAutocomplete,
-  UserAutocompleteProps,
-} from "@/features/users/user-autocomplete";
+import { UserAutocomplete } from "@/features/users/user-autocomplete";
+import { User } from "@/features/users/user-autocomplete/types";
 
 import { ParamsSchema } from "../../../../_schemas";
 
@@ -35,11 +33,18 @@ export function TechnicianFilter({ label }: TechnicianFilterProps) {
 
   const result = ParamsSchema.safeParse(Object.fromEntries(params));
 
-  const technician = result.data?.technician || null;
+  const [technician, setTechnician] = useState<User | null>(
+    result.data?.technician || null
+  );
 
-  const handleOnChange: UserAutocompleteProps["onChange"] = (_, value) => {
-    if (value && typeof value === "object" && !Array.isArray(value)) {
-      params.set("technician", JSON.stringify(value));
+  const handleOnClose = () => {
+    setAnchorEl(null);
+
+    params.delete("page");
+    params.delete("pageSize");
+
+    if (technician) {
+      params.set("technician", JSON.stringify(technician));
     } else {
       params.delete("technician");
     }
@@ -72,7 +77,7 @@ export function TechnicianFilter({ label }: TechnicianFilterProps) {
         open={Boolean(anchorEl)}
         anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
         transformOrigin={{ horizontal: "center", vertical: "top" }}
-        onClose={() => setAnchorEl(null)}
+        onClose={handleOnClose}
         sx={{ marginTop: 1 }}
       >
         <Box sx={{ minWidth: 250, padding: 2 }}>
@@ -80,7 +85,7 @@ export function TechnicianFilter({ label }: TechnicianFilterProps) {
             fullWidth
             filters={{ roles: [UserRole.TECHNICIAN] }}
             value={technician}
-            onChange={handleOnChange}
+            onChange={(_, value) => setTechnician(value as User | null)}
             label={label}
           />
         </Box>

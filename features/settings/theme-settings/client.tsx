@@ -78,7 +78,7 @@ export function ClientThemeSettings({
         }
       }
     },
-    300
+    400
   );
 
   const handleOnSecondaryColorChange = debounce(
@@ -95,7 +95,7 @@ export function ClientThemeSettings({
         }
       }
     },
-    300
+    400
   );
 
   const handleReset = () => {

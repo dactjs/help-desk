@@ -37,7 +37,7 @@ export function Search({ placeholder }: SearchProps) {
 
       router.replace(`${pathname}?${params.toString()}`);
     },
-    300
+    400
   );
 
   return (
