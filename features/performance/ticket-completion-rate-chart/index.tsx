@@ -3,10 +3,18 @@ import { Suspense } from "react";
 import { ServerTicketCompletionRateChart } from "./server";
 import { TicketCompletionRateChartSkeleton } from "./skeleton";
 
-export function TicketCompletionRateChart() {
+export interface TicketCompletionRateChartProps {
+  start?: Date;
+  end?: Date;
+}
+
+export function TicketCompletionRateChart({
+  start,
+  end,
+}: TicketCompletionRateChartProps) {
   return (
     <Suspense fallback={<TicketCompletionRateChartSkeleton />}>
-      <ServerTicketCompletionRateChart />
+      <ServerTicketCompletionRateChart start={start} end={end} />
     </Suspense>
   );
 }

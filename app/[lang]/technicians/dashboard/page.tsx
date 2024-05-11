@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
+import { startOfWeek } from "date-fns/startOfWeek";
+import { endOfWeek } from "date-fns/endOfWeek";
 
 import { TicketStatGrid } from "@/features/performance/ticket-stat-grid";
 import { TicketWeeklyActivityChart } from "@/features/performance/ticket-weekly-activity-chart";
@@ -24,6 +26,11 @@ export async function generateMetadata({
 }
 
 export default function DashboardPage() {
+  const now = new Date();
+
+  const start = startOfWeek(now);
+  const end = endOfWeek(now);
+
   return (
     <Container fixed sx={{ paddingY: 2 }}>
       <Grid container justifyContent="center" alignItems="center" spacing={2}>
@@ -35,13 +42,13 @@ export default function DashboardPage() {
 
         <Grid xs={12} md={8}>
           <Widget>
-            <TicketWeeklyActivityChart />
+            <TicketWeeklyActivityChart start={start} end={end} />
           </Widget>
         </Grid>
 
         <Grid xs={12} md={4}>
           <Widget>
-            <TicketCompletionRateChart />
+            <TicketCompletionRateChart start={start} end={end} />
           </Widget>
         </Grid>
       </Grid>

@@ -55,6 +55,7 @@ export async function ServerAverageTicketResolutionTimeChart({
               },
             ],
           },
+          take: 2,
           orderBy: { createdAt: "asc" },
           select: { createdAt: true },
         },
@@ -66,8 +67,7 @@ export async function ServerAverageTicketResolutionTimeChart({
   const total = tickets.reduce((prev, current) => {
     if (current.traces.length < 2) return prev;
 
-    const first = current.traces[0];
-    const last = current.traces[current.traces.length - 1];
+    const [first, last] = current.traces;
 
     const diff = differenceInSeconds(last.createdAt, first.createdAt);
 

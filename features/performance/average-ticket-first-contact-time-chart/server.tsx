@@ -55,6 +55,7 @@ export async function ServerAverageTicketFirstContactTimeChart({
               },
             ],
           },
+          take: 2,
           orderBy: { createdAt: "asc" },
           select: { createdAt: true },
         },

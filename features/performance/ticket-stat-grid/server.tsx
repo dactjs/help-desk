@@ -10,7 +10,15 @@ import { prisma } from "@/lib/prisma";
 import { ClientTicketStatGrid } from "./client";
 import { TicketStatGridData } from "./types";
 
-export async function ServerTicketStatGrid() {
+export interface ServerTicketStatGridProps {
+  start?: Date;
+  end?: Date;
+}
+
+export async function ServerTicketStatGrid({
+  start,
+  end,
+}: ServerTicketStatGridProps) {
   const language = getAppLanguage();
 
   const session = await auth();
@@ -20,8 +28,13 @@ export async function ServerTicketStatGrid() {
   const [tickets, dictionary] = await Promise.all([
     prisma.ticket.groupBy({
       by: "status",
-      where: accessibleBy(ability).Ticket,
       _count: { _all: true },
+      where: {
+        AND: [
+          accessibleBy(ability).Ticket,
+          { createdAt: { gte: start, lte: end } },
+        ],
+      },
     }),
     getDictionary(language),
   ]);

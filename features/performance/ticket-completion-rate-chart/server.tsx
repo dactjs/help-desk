@@ -10,7 +10,15 @@ import { prisma } from "@/lib/prisma";
 import { ClientTicketCompletionRateChart } from "./client";
 import { TicketCompletionRateChartData } from "./types";
 
-export async function ServerTicketCompletionRateChart() {
+export interface ServerTicketCompletionRateChartProps {
+  start?: Date;
+  end?: Date;
+}
+
+export async function ServerTicketCompletionRateChart({
+  start,
+  end,
+}: ServerTicketCompletionRateChartProps) {
   const language = getAppLanguage();
 
   const session = await auth();
@@ -31,6 +39,7 @@ export async function ServerTicketCompletionRateChart() {
               ],
             },
           },
+          { createdAt: { gte: start, lte: end } },
         ],
       },
     }),
@@ -47,6 +56,7 @@ export async function ServerTicketCompletionRateChart() {
               ],
             },
           },
+          { createdAt: { gte: start, lte: end } },
         ],
       },
     }),

@@ -3,10 +3,18 @@ import { Suspense } from "react";
 import { ServerTicketWeeklyActivityChart } from "./server";
 import { TicketWeeklyActivityChartSkeleton } from "./skeleton";
 
-export function TicketWeeklyActivityChart() {
+export interface TicketWeeklyActivityChartProps {
+  start?: Date;
+  end?: Date;
+}
+
+export function TicketWeeklyActivityChart({
+  start,
+  end,
+}: TicketWeeklyActivityChartProps) {
   return (
     <Suspense fallback={<TicketWeeklyActivityChartSkeleton />}>
-      <ServerTicketWeeklyActivityChart />
+      <ServerTicketWeeklyActivityChart start={start} end={end} />
     </Suspense>
   );
 }
