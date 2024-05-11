@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { LineChart, LineChartProps } from "@mui/x-charts/LineChart";
 
-import { Dictionary } from "@/internationalization/dictionaries/tickets";
+import { Dictionary } from "@/internationalization/dictionaries/performance";
 
 import { TicketWeeklyActivityChartData } from "./types";
 

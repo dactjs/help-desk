@@ -2,7 +2,7 @@ import { startOfWeek } from "date-fns/startOfWeek";
 import { endOfWeek } from "date-fns/endOfWeek";
 
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
-import { getDictionary } from "@/internationalization/dictionaries/tickets";
+import { getDictionary } from "@/internationalization/dictionaries/performance";
 import { prisma } from "@/lib/prisma";
 
 import { ClientTicketWeeklyActivityChart } from "./client";

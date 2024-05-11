@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import { TicketStatGrid } from "@/features/tickets/ticket-stat-grid";
-import { TicketWeeklyActivityChart } from "@/features/tickets/ticket-weekly-activity-chart";
-import { TicketCompletionRateChart } from "@/features/tickets/ticket-completion-rate-chart";
+import { TicketStatGrid } from "@/features/performance/ticket-stat-grid";
+import { TicketWeeklyActivityChart } from "@/features/performance/ticket-weekly-activity-chart";
+import { TicketCompletionRateChart } from "@/features/performance/ticket-completion-rate-chart";
 import { Widget } from "@/components/templates/widget";
 import { getDictionary } from "@/internationalization/dictionaries/common";
 import { PageParams } from "@/types/page-params";

@@ -44,5 +44,27 @@
     },
 
     "technician_field_label": "Technician"
+  },
+
+  "ticket_weekly_activity_chart": {
+    "heading": "Weekly Activity",
+
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    }
+  },
+
+  "ticket_completion_rate_chart": {
+    "heading": "Ticket completion rate",
+    "completed_label": "Completed Tickets (unassigned, assigned, in-progress)",
+    "uncompleted_label": "Unompleted Tickets (resolved, closed, cancelled)",
+
+    "empty-caption": "No Tickets"
   }
 }

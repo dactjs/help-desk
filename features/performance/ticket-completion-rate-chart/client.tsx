@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { PieChart, PieChartProps } from "@mui/x-charts/PieChart";
 
 import { Empty } from "@/components/templates/empty";
-import { Dictionary } from "@/internationalization/dictionaries/tickets";
+import { Dictionary } from "@/internationalization/dictionaries/performance";
 
 import { TicketCompletionRateChartData } from "./types";
 

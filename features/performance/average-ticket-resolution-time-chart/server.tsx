@@ -1,11 +1,14 @@
+import { accessibleBy } from "@casl/prisma";
+import { TicketTraceType } from "@prisma/client";
 import { differenceInSeconds } from "date-fns/differenceInSeconds";
 
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/performance";
 import { prisma } from "@/lib/prisma";
 
 import { ClientAverageTicketResolutionTimeChart } from "./client";
-import { NECESSARY_TICKET_FIELDS } from "./constants";
 import { AverageTicketResolutionTimeChartData } from "./types";
 
 export interface ServerAverageTicketResolutionTimeChartProps {
@@ -21,14 +24,41 @@ export async function ServerAverageTicketResolutionTimeChart({
 }: ServerAverageTicketResolutionTimeChartProps) {
   const language = getAppLanguage();
 
-  // TODO: add auth
+  const session = await auth();
+
+  const ability = createAbilityFor(session);
+
   const [tickets, dictionary] = await Promise.all([
     prisma.ticket.findMany({
       where: {
-        assignedToId: technicianId,
-        createdAt: { gte: start, lte: end },
+        AND: [
+          accessibleBy(ability).Ticket,
+          {
+            assignedToId: technicianId,
+            createdAt: { gte: start, lte: end },
+          },
+        ],
       },
-      select: NECESSARY_TICKET_FIELDS,
+      select: {
+        traces: {
+          where: {
+            AND: [
+              accessibleBy(ability).TicketTrace,
+              {
+                type: {
+                  in: [
+                    TicketTraceType.RECEPTION,
+                    TicketTraceType.RESOLVED,
+                    TicketTraceType.CANCELLED,
+                  ],
+                },
+              },
+            ],
+          },
+          orderBy: { createdAt: "asc" },
+          select: { createdAt: true },
+        },
+      },
     }),
     getDictionary(language),
   ]);

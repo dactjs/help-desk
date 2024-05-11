@@ -1,7 +1,7 @@
 import { TicketStatus } from "@prisma/client";
 
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
-import { getDictionary } from "@/internationalization/dictionaries/tickets";
+import { getDictionary } from "@/internationalization/dictionaries/performance";
 import { prisma } from "@/lib/prisma";
 
 import { ClientTicketCompletionRateChart } from "./client";
