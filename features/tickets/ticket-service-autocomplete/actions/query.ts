@@ -14,6 +14,7 @@ export async function query(input: string): Promise<TicketService[]> {
 
   const ability = createAbilityFor(session);
 
+  // TODO: add pagination
   const services = await prisma.ticketService.findMany({
     where: {
       AND: [

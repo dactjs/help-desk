@@ -23,6 +23,7 @@ export async function query(
 
   const ability = createAbilityFor(session);
 
+  // TODO: add pagination
   const users = await prisma.user.findMany({
     where: {
       AND: [

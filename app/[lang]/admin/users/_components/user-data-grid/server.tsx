@@ -16,6 +16,7 @@ export async function ServerUserDataGrid() {
 
   const ability = createAbilityFor(session);
 
+  // TODO: add pagination
   const [users, dictionary] = await Promise.all([
     prisma.user.findMany({
       where: accessibleBy(ability).User,

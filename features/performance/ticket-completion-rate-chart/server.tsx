@@ -1,5 +1,8 @@
+import { accessibleBy } from "@casl/prisma";
 import { TicketStatus } from "@prisma/client";
 
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/performance";
 import { prisma } from "@/lib/prisma";
@@ -10,28 +13,41 @@ import { TicketCompletionRateChartData } from "./types";
 export async function ServerTicketCompletionRateChart() {
   const language = getAppLanguage();
 
-  // TODO: add auth
+  const session = await auth();
+
+  const ability = createAbilityFor(session);
+
   const [completed, uncompleted, dictionary] = await Promise.all([
     prisma.ticket.count({
       where: {
-        status: {
-          in: [
-            TicketStatus.RESOLVED,
-            TicketStatus.CLOSED,
-            TicketStatus.CANCELLED,
-          ],
-        },
+        AND: [
+          accessibleBy(ability).Ticket,
+          {
+            status: {
+              in: [
+                TicketStatus.RESOLVED,
+                TicketStatus.CLOSED,
+                TicketStatus.CANCELLED,
+              ],
+            },
+          },
+        ],
       },
     }),
     prisma.ticket.count({
       where: {
-        status: {
-          in: [
-            TicketStatus.UNASSIGNED,
-            TicketStatus.ASSIGNED,
-            TicketStatus.IN_PROGRESS,
-          ],
-        },
+        AND: [
+          accessibleBy(ability).Ticket,
+          {
+            status: {
+              in: [
+                TicketStatus.UNASSIGNED,
+                TicketStatus.ASSIGNED,
+                TicketStatus.IN_PROGRESS,
+              ],
+            },
+          },
+        ],
       },
     }),
     getDictionary(language),

@@ -19,6 +19,7 @@ export async function ServerTicketServiceDataGrid() {
 
   const ability = createAbilityFor(session);
 
+  // TODO: add pagination
   const [services, categories, dictionary] = await Promise.all([
     prisma.ticketService.findMany({
       where: accessibleBy(ability).TicketService,

@@ -1,6 +1,9 @@
+import { accessibleBy } from "@casl/prisma";
 import { startOfWeek } from "date-fns/startOfWeek";
 import { endOfWeek } from "date-fns/endOfWeek";
 
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/performance";
 import { prisma } from "@/lib/prisma";
@@ -14,16 +17,24 @@ type Serie = Omit<TicketWeeklyActivityChartData[number], "hour">;
 export async function ServerTicketWeeklyActivityChart() {
   const language = getAppLanguage();
 
+  const session = await auth();
+
+  const ability = createAbilityFor(session);
+
   const now = Date.now();
 
-  // TODO: add auth
   const [tickets, dictionary] = await Promise.all([
     prisma.ticket.findMany({
       where: {
-        createdAt: {
-          gte: startOfWeek(now),
-          lte: endOfWeek(now),
-        },
+        AND: [
+          accessibleBy(ability).Ticket,
+          {
+            createdAt: {
+              gte: startOfWeek(now),
+              lte: endOfWeek(now),
+            },
+          },
+        ],
       },
     }),
     getDictionary(language),

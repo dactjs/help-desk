@@ -1,5 +1,8 @@
+import { accessibleBy } from "@casl/prisma";
 import { TicketStatus } from "@prisma/client";
 
+import { auth } from "@/auth";
+import { createAbilityFor } from "@/auth/utils/create-ability-for";
 import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/tickets";
 import { prisma } from "@/lib/prisma";
@@ -10,9 +13,16 @@ import { TicketStatGridData } from "./types";
 export async function ServerTicketStatGrid() {
   const language = getAppLanguage();
 
-  // TODO: add auth
+  const session = await auth();
+
+  const ability = createAbilityFor(session);
+
   const [tickets, dictionary] = await Promise.all([
-    prisma.ticket.groupBy({ by: "status", _count: { _all: true } }),
+    prisma.ticket.groupBy({
+      by: "status",
+      where: accessibleBy(ability).Ticket,
+      _count: { _all: true },
+    }),
     getDictionary(language),
   ]);
 

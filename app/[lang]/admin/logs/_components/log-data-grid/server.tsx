@@ -34,13 +34,13 @@ export async function ServerLogDataGrid({
   const start = result.data?.start ?? startOfDay(new Date());
   const end = result.data?.end ?? endOfDay(new Date());
 
+  // TODO: add pagination
   const [logs, dictionary] = await Promise.all([
     prisma.log.findMany({
       where: {
         AND: [
           accessibleBy(ability).Log,
-          { timestamp: { gte: start } },
-          { timestamp: { lte: end } },
+          { timestamp: { gte: start, lte: end } },
         ],
       },
       orderBy: { timestamp: "desc" },

@@ -16,6 +16,7 @@ export async function ServerResourceDataGrid() {
 
   const ability = createAbilityFor(session);
 
+  // TODO: add pagination
   const [resources, dictionary] = await Promise.all([
     prisma.resource.findMany({
       where: accessibleBy(ability).Resource,
