@@ -2,7 +2,6 @@
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import { startOfMonth } from "date-fns/startOfMonth";
@@ -67,9 +66,10 @@ export function ClientIndividualPerformanceToolbar({
   return (
     <Stack
       direction="row"
+      flexWrap="wrap"
       alignItems="center"
       spacing={1}
-      divider={<Divider flexItem orientation="vertical" />}
+      useFlexGap
     >
       <ButtonGroup variant="outlined" size="small" color="inherit">
         {filters.map(({ value, text, disabled }) => (

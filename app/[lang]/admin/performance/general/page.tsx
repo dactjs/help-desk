@@ -6,6 +6,7 @@ import Divider from "@mui/material/Divider";
 import { startOfMonth } from "date-fns/startOfMonth";
 import { endOfMonth } from "date-fns/endOfMonth";
 
+import { MVPCard } from "@/features/performance/mvp-card";
 import { AverageTicketFirstContactTimeChart } from "@/features/performance/average-ticket-first-contact-time-chart";
 import { AverageTicketResolutionTimeChart } from "@/features/performance/average-ticket-resolution-time-chart";
 import { Widget } from "@/components/templates/widget";
@@ -55,6 +56,12 @@ export default function GeneralPerformance({
 
         <Grid xs={12}>
           <Divider flexItem />
+        </Grid>
+
+        <Grid xs={12} md={4}>
+          <Widget>
+            <MVPCard start={start} end={end} />
+          </Widget>
         </Grid>
 
         <Grid xs={12} md={4}>

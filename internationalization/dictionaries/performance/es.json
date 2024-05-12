@@ -66,5 +66,9 @@
     "uncompleted_label": "Tickets no completados (resueltos, cerrados, cancelados)",
 
     "empty-caption": "Sin Tickets"
+  },
+
+  "mvp_card": {
+    "heading": "Técnico MVP"
   }
 }

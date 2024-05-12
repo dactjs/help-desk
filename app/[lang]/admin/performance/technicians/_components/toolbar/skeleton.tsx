@@ -6,9 +6,10 @@ export function IndividualPerformanceToolbarSkeleton() {
   return (
     <Stack
       direction="row"
+      flexWrap="wrap"
       alignItems="center"
       spacing={1}
-      divider={<Divider flexItem orientation="vertical" />}
+      useFlexGap
     >
       <Stack
         direction="row"

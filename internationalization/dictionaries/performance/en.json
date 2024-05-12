@@ -66,5 +66,9 @@
     "uncompleted_label": "Unompleted Tickets (resolved, closed, cancelled)",
 
     "empty-caption": "No Tickets"
+  },
+
+  "mvp_card": {
+    "heading": "MVP Technician"
   }
 }
