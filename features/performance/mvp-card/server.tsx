@@ -44,7 +44,7 @@ export async function ServerMVPCard({ start, end }: ServerMVPCardProps) {
 
     const mvp = draft.reduce<Draft | null>(
       (prev, current) =>
-        prev && current._count > prev._count ? current : prev,
+        !prev || current._count > prev._count ? current : prev,
       null
     );
 
