@@ -50,7 +50,7 @@ export function ClientUserCard({
 
   if (!user) {
     return (
-      <Paper sx={{ placeContent: "center", height: "100%" }}>
+      <Paper sx={{ display: "flex", placeContent: "center", height: "100%" }}>
         <NotFound
           heading={not_found.heading}
           description={not_found.description}

@@ -41,7 +41,7 @@ export function ClientResourceCard({
 
   if (!resource) {
     return (
-      <Paper sx={{ placeContent: "center", height: "100%" }}>
+      <Paper sx={{ display: "flex", placeContent: "center", height: "100%" }}>
         <NotFound
           heading={not_found.heading}
           description={not_found.description}
