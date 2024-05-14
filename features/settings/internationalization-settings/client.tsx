@@ -11,15 +11,16 @@ import { useSnackbar } from "notistack";
 import { Dictionary } from "@/internationalization/dictionaries/settings";
 import { SupportedLanguage } from "@/internationalization/types";
 
-import { changeLanguage } from "./actions/change-language";
+import { changePreferences } from "./actions/change-preferences";
+import { InternationalizationPreferences } from "./schemas";
 
 export interface ClientInternationalizationSettingsProps {
-  language: SupportedLanguage;
+  preferences: InternationalizationPreferences;
   dictionary: Pick<Dictionary, "internationalization_settings">;
 }
 
 export function ClientInternationalizationSettings({
-  language,
+  preferences,
   dictionary: {
     internationalization_settings: { heading, language_field_label },
   },
@@ -28,10 +29,10 @@ export function ClientInternationalizationSettings({
 
   const handleOnChange = async (
     _: React.MouseEvent<HTMLElement, MouseEvent>,
-    value: SupportedLanguage
+    language: SupportedLanguage
   ) => {
     try {
-      await changeLanguage(value);
+      await changePreferences({ language });
     } catch (error) {
       if (error instanceof Error) {
         enqueueSnackbar(error.message, {
@@ -66,14 +67,14 @@ export function ClientInternationalizationSettings({
         <ToggleButtonGroup
           exclusive
           size="small"
-          value={language}
+          value={preferences.language}
           onChange={handleOnChange}
         >
-          <ToggleButton value="en" disabled={language === "en"}>
+          <ToggleButton value="en" disabled={preferences.language === "en"}>
             EN
           </ToggleButton>
 
-          <ToggleButton value="es" disabled={language === "es"}>
+          <ToggleButton value="es" disabled={preferences.language === "es"}>
             ES
           </ToggleButton>
         </ToggleButtonGroup>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Roboto } from "next/font/google";
-import { ThemeProvider, createTheme, PaletteMode } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -12,10 +12,11 @@ import { Session } from "next-auth";
 
 import { AbilityContext } from "@/auth/ability";
 import { createAbilityFor } from "@/auth/utils/create-ability-for";
-import { Dictionary } from "@/internationalization/dictionaries/common";
 import { getMuiTranslations } from "@/internationalization/utils/get-mui-translations";
+import { Dictionary } from "@/internationalization/dictionaries/common";
 import { SupportedLanguage } from "@/internationalization/types";
-import { DEFAULT_THEME } from "@/config/theme";
+
+import { UserPreferences } from "../../_schemas";
 
 const roboto = Roboto({
   display: "swap",
@@ -26,6 +27,7 @@ const roboto = Roboto({
 export interface ProvidersProps {
   session: Session | null;
   language: SupportedLanguage;
+  preferences: UserPreferences;
   dictionary: Pick<Dictionary, "confirm_dialog">;
   children: React.ReactNode;
 }
@@ -33,6 +35,7 @@ export interface ProvidersProps {
 export function Providers({
   session,
   language,
+  preferences,
   dictionary: { confirm_dialog },
   children,
 }: ProvidersProps) {
@@ -40,23 +43,12 @@ export function Providers({
 
   const translations = getMuiTranslations(language);
 
-  const { MODE, PRIMARY_COLOR, SECONDARY_COLOR } = DEFAULT_THEME;
-
-  const mode: PaletteMode =
-    (window.localStorage.getItem("mode") as PaletteMode) ?? MODE;
-
-  const primaryColor =
-    window.localStorage.getItem("primary_color") ?? PRIMARY_COLOR;
-
-  const secondaryColor =
-    window.localStorage.getItem("secondary_color") ?? SECONDARY_COLOR;
-
   const theme = createTheme(
     {
       palette: {
-        mode,
-        primary: { main: primaryColor },
-        secondary: { main: secondaryColor },
+        mode: preferences.theme.mode,
+        primary: { main: preferences.theme.primaryColor },
+        secondary: { main: preferences.theme.secondaryColor },
       },
       typography: { fontFamily: roboto.style.fontFamily },
     },
@@ -88,7 +80,7 @@ export function Providers({
                 styles={{
                   "*": {
                     scrollbarWidth: "thin",
-                    scrollbarColor: `${secondaryColor} transparent`,
+                    scrollbarColor: `${preferences.theme.secondaryColor} transparent`,
                   },
                 }}
               />

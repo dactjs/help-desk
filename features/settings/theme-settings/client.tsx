@@ -18,11 +18,16 @@ import { useSnackbar } from "notistack";
 import { Dictionary } from "@/internationalization/dictionaries/settings";
 import { DEFAULT_THEME } from "@/config/theme";
 
+import { changePreferences } from "./actions/change-preferences";
+import { ThemePreferences } from "./schemas";
+
 export interface ClientThemeSettingsProps {
+  preferences: ThemePreferences;
   dictionary: Pick<Dictionary, "theme_settings">;
 }
 
 export function ClientThemeSettings({
+  preferences,
   dictionary: {
     theme_settings: {
       heading,
@@ -37,22 +42,12 @@ export function ClientThemeSettings({
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { MODE, PRIMARY_COLOR, SECONDARY_COLOR } = DEFAULT_THEME;
-
-  const mode = window.localStorage.getItem("mode") ?? MODE;
-
-  const primaryColor =
-    window.localStorage.getItem("primary_color") ?? PRIMARY_COLOR;
-
-  const secondaryColor =
-    window.localStorage.getItem("secondary_color") ?? SECONDARY_COLOR;
-
   const handleOnThemeChange = async (
     _: React.MouseEvent<HTMLElement, MouseEvent>,
-    value: string
+    value: "light" | "dark"
   ) => {
     try {
-      window.localStorage.setItem("mode", value);
+      await changePreferences({ mode: value });
       router.refresh();
     } catch (error) {
       if (error instanceof Error) {
@@ -65,9 +60,9 @@ export function ClientThemeSettings({
   };
 
   const handleOnPrimaryColorChange = debounce(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
       try {
-        window.localStorage.setItem("primary_color", event.target.value);
+        await changePreferences({ primaryColor: event.target.value });
         router.refresh();
       } catch (error) {
         if (error instanceof Error) {
@@ -82,9 +77,9 @@ export function ClientThemeSettings({
   );
 
   const handleOnSecondaryColorChange = debounce(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
       try {
-        window.localStorage.setItem("secondary_color", event.target.value);
+        await changePreferences({ secondaryColor: event.target.value });
         router.refresh();
       } catch (error) {
         if (error instanceof Error) {
@@ -98,11 +93,13 @@ export function ClientThemeSettings({
     400
   );
 
-  const handleReset = () => {
+  const handleReset = async () => {
     try {
-      window.localStorage.setItem("mode", MODE);
-      window.localStorage.setItem("primary_color", PRIMARY_COLOR);
-      window.localStorage.setItem("secondary_color", SECONDARY_COLOR);
+      await changePreferences({
+        mode: DEFAULT_THEME.MODE,
+        primaryColor: DEFAULT_THEME.PRIMARY_COLOR,
+        secondaryColor: DEFAULT_THEME.SECONDARY_COLOR,
+      });
       router.refresh();
     } catch (error) {
       if (error instanceof Error) {
@@ -156,14 +153,14 @@ export function ClientThemeSettings({
           <ToggleButtonGroup
             exclusive
             size="small"
-            value={mode}
+            value={preferences.mode}
             onChange={handleOnThemeChange}
           >
-            <ToggleButton value="light" disabled={mode === "light"}>
+            <ToggleButton value="light" disabled={preferences.mode === "light"}>
               <LightModeIcon fontSize="small" />
             </ToggleButton>
 
-            <ToggleButton value="dark" disabled={mode === "dark"}>
+            <ToggleButton value="dark" disabled={preferences.mode === "dark"}>
               <DarkModeIcon fontSize="small" />
             </ToggleButton>
           </ToggleButtonGroup>
@@ -182,7 +179,7 @@ export function ClientThemeSettings({
           <Box
             component="input"
             type="color"
-            defaultValue={primaryColor}
+            defaultValue={preferences.primaryColor}
             onChange={handleOnPrimaryColorChange}
             sx={{
               width: 35,
@@ -210,7 +207,7 @@ export function ClientThemeSettings({
           <Box
             component="input"
             type="color"
-            defaultValue={secondaryColor}
+            defaultValue={preferences.secondaryColor}
             onChange={handleOnSecondaryColorChange}
             sx={{
               width: 35,

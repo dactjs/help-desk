@@ -2,6 +2,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -28,6 +32,9 @@ model User {
 
   status UserStatus @default(ENABLED)
   role   UserRole   @default(USER)
+
+  /// [UserPreferences]
+  preferences Json?
 
   logs Log[]
 
