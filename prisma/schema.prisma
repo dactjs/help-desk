@@ -15,7 +15,9 @@ model Log {
   id        String @id @default(uuid())
   model     String
   operation String
-  metadata  Json
+
+  /// [LogMetadata]
+  metadata Json
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
