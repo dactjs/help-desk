@@ -12,54 +12,65 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Theme } from "@mui/material/styles";
 
+import { LayoutPreferences } from "../../schemas";
 import { DashboardNavigationGroup } from "../../types";
 
 import { NavigationItem } from "../navigation-item";
 
-export function NavigationGroup({
-  icon,
-  heading,
-  items,
-}: DashboardNavigationGroup) {
+export interface NavigationGroupProps {
+  group: DashboardNavigationGroup;
+  preferences: LayoutPreferences;
+}
+
+export function NavigationGroup({ group, preferences }: NavigationGroupProps) {
   const pathname = usePathname();
 
   const isMobile = useMediaQuery<Theme>((theme) =>
     theme.breakpoints.down("md")
   );
 
-  const [expanded, setExpanded] = useState<boolean>(true);
+  const [collapsed, setCollapsed] = useState<boolean>(false);
 
-  const selected = items.some(({ href }) => pathname.startsWith(href));
+  const expanded = preferences.dashboard.expanded && !isMobile;
+
+  const selected = group.items.some(({ href }) => pathname.startsWith(href));
 
   return (
     <>
-      {!isMobile && (
+      {expanded && (
         <ListItemButton
           selected={selected}
-          onClick={() => setExpanded((prev) => !prev)}
+          onClick={() => setCollapsed((prev) => !prev)}
         >
           <ListItemIcon sx={{ minWidth: "fit-content", color: "inherit" }}>
-            {icon}
+            {group.icon}
           </ListItemIcon>
 
-          <ListItemText sx={{ marginLeft: 2 }}>{heading}</ListItemText>
+          <ListItemText sx={{ marginLeft: 2 }}>{group.heading}</ListItemText>
 
-          {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          {collapsed ? <ExpandMoreIcon /> : <ExpandLessIcon />}
         </ListItemButton>
       )}
 
-      <Collapse unmountOnExit timeout="auto" in={expanded || isMobile}>
+      <Collapse unmountOnExit timeout="auto" in={!collapsed || !expanded}>
         <List component="div" disablePadding>
-          {items.map((item, index) => (
-            <NavigationItem
-              key={index}
-              nested
-              type={item.type}
-              href={item.href}
-              icon={item.icon}
-              text={isMobile ? `${heading} - ${item.text}` : item.text}
-            />
-          ))}
+          {group.items.map(({ type, href, icon, text }, index) => {
+            const item = {
+              type,
+              href,
+              icon,
+              text: !expanded ? `${group.heading} - ${text}` : text,
+            };
+
+            return (
+              <NavigationItem
+                key={index}
+                nested
+                item={item}
+                preferences={preferences}
+              />
+            );
+          })}
         </List>
       </Collapse>
     </>

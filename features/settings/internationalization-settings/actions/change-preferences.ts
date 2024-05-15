@@ -42,17 +42,16 @@ export async function changePreferences(
         select: { preferences: true },
       });
 
+      const clone = structuredClone(user.preferences ?? {});
+
+      clone.internationalization = {
+        ...clone.internationalization,
+        ...preferences,
+      };
+
       await tx.user.update({
         where: { id: String(session?.user?.id) },
-        data: {
-          preferences: {
-            internationalization: {
-              ...user.preferences?.internationalization,
-              ...preferences,
-            },
-            theme: user.preferences?.theme,
-          },
-        },
+        data: { preferences: clone },
       });
     });
   } catch (error) {

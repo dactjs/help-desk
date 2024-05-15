@@ -5,10 +5,10 @@ import { getAppLanguage } from "@/internationalization/utils/get-app-language";
 import { getDictionary } from "@/internationalization/dictionaries/errors";
 import { prisma } from "@/lib/prisma";
 
-import { ThemePreferences } from "../schemas";
+import { LayoutPreferences } from "../schemas";
 
 export async function changePreferences(
-  preferences: Partial<ThemePreferences>
+  preferences: Partial<LayoutPreferences>
 ): Promise<void> {
   const language = getAppLanguage();
 
@@ -27,8 +27,8 @@ export async function changePreferences(
 
       const clone = structuredClone(user.preferences ?? {});
 
-      clone.theme = {
-        ...clone.theme,
+      clone.layout = {
+        ...clone.layout,
         ...preferences,
       };
 

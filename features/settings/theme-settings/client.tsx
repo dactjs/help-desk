@@ -100,6 +100,7 @@ export function ClientThemeSettings({
         primaryColor: DEFAULT_THEME.PRIMARY_COLOR,
         secondaryColor: DEFAULT_THEME.SECONDARY_COLOR,
       });
+
       router.refresh();
     } catch (error) {
       if (error instanceof Error) {

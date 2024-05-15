@@ -10,16 +10,18 @@ import Tooltip from "@mui/material/Tooltip";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Theme } from "@mui/material/styles";
 
+import { LayoutPreferences } from "../../schemas";
 import { DashboardNavigationItem } from "../../types";
 
-export interface NavigationItemProps extends DashboardNavigationItem {
+export interface NavigationItemProps {
+  item: DashboardNavigationItem;
+  preferences: LayoutPreferences;
   nested?: boolean;
 }
 
 export function NavigationItem({
-  href,
-  icon,
-  text,
+  item,
+  preferences,
   nested,
 }: NavigationItemProps) {
   const pathname = usePathname();
@@ -28,25 +30,27 @@ export function NavigationItem({
     theme.breakpoints.down("md")
   );
 
-  const selected = pathname.startsWith(href);
+  const expanded = preferences.dashboard.expanded && !isMobile;
+
+  const selected = pathname.startsWith(item.href);
 
   return (
-    <Tooltip arrow placement="right" title={isMobile && text}>
+    <Tooltip arrow placement="right" title={!expanded && item.text}>
       <ListItem disablePadding>
         <ListItemButton
           LinkComponent={Link}
-          href={href}
-          selected={(selected && !nested) || (selected && isMobile)}
+          href={item.href}
+          selected={(selected && !nested) || (selected && !expanded)}
           sx={[
-            !!nested && !isMobile && { paddingX: 4 },
-            !!nested && !isMobile && selected && { color: "secondary.main" },
+            !!nested && expanded && { paddingX: 4 },
+            !!nested && expanded && selected && { color: "secondary.main" },
           ]}
         >
           <ListItemIcon sx={{ minWidth: "fit-content", color: "inherit" }}>
-            {icon}
+            {item.icon}
           </ListItemIcon>
 
-          {!isMobile && (
+          {expanded && (
             <ListItemText
               primaryTypographyProps={{
                 fontWeight: !!nested && selected ? "bolder" : "normal",
@@ -54,7 +58,7 @@ export function NavigationItem({
               }}
               sx={{ marginLeft: 2 }}
             >
-              {text}
+              {item.text}
             </ListItemText>
           )}
         </ListItemButton>

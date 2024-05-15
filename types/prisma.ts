@@ -18,6 +18,11 @@ declare global {
         primaryColor?: string;
         secondaryColor?: string;
       };
+      layout: {
+        dashboard?: {
+          expanded?: boolean;
+        };
+      };
     }>;
   }
 }

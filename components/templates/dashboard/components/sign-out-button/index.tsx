@@ -1,47 +1,76 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { Theme } from "@mui/material/styles";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useSnackbar } from "notistack";
 
-import { signOut } from "@/auth";
-import { SubmitButton } from "@/components/forms/submit-button";
-import { getAppLanguage } from "@/internationalization/utils/get-app-language";
-import { getDictionary } from "@/internationalization/dictionaries/common";
+import { SupportedLanguage } from "@/internationalization/types";
 
-export async function SignOutButton() {
-  const language = getAppLanguage();
+import { signOut } from "../../actions/sign-out";
+import { LayoutPreferences } from "../../schemas";
 
-  const {
-    dashboard: { sign_out_button_text },
-  } = await getDictionary(language);
+export interface SignOutButtonProps {
+  preferences: LayoutPreferences;
+  language: SupportedLanguage;
+  children: string;
+}
+
+export function SignOutButton({
+  preferences,
+  language,
+  children,
+}: SignOutButtonProps) {
+  const router = useRouter();
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const isMobile = useMediaQuery<Theme>((theme) =>
+    theme.breakpoints.down("md")
+  );
+
+  const expanded = preferences.dashboard.expanded && !isMobile;
 
   const handleSignOut = async () => {
-    "use server";
+    try {
+      await signOut();
 
-    await signOut({
-      redirect: true,
-      redirectTo: `/${language}/auth/sign-in`,
-    });
+      router.replace(`/${language}/auth/sign-in`);
+    } catch (error) {
+      if (error instanceof Error) {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+          style: { whiteSpace: "pre-line" },
+        });
+      }
+    }
   };
 
-  return (
-    <form action={handleSignOut}>
-      <SubmitButton
+  if (expanded) {
+    return (
+      <Button
         fullWidth
         type="submit"
         variant="outlined"
         color="error"
-        sx={{ display: { xs: "none", md: "flex" } }}
+        onClick={handleSignOut}
       >
-        {sign_out_button_text}
-      </SubmitButton>
+        {children}
+      </Button>
+    );
+  }
 
-      <IconButton
-        type="submit"
-        color="error"
-        aria-label={sign_out_button_text}
-        sx={{ display: { xs: "flex", md: "none" } }}
-      >
-        <LogoutIcon />
-      </IconButton>
-    </form>
+  return (
+    <IconButton
+      type="submit"
+      color="error"
+      aria-label={children}
+      onClick={handleSignOut}
+    >
+      <LogoutIcon />
+    </IconButton>
   );
 }
