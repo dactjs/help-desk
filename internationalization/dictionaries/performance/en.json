@@ -11,13 +11,13 @@
   },
 
   "average_ticket_resolution_time_chart": {
-    "heading": "A.T.R.T",
-    "tooltip": "Average Ticket Resolution Time"
+    "heading": "Average Ticket Resolution Time",
+    "tooltip": "The time it takes to resolve a ticket is defined as the period from when it is created until it is marked as resolved, closed, or canceled. A ticket is considered resolved in any of these cases."
   },
 
   "average_ticket_first_contact_time_chart": {
-    "heading": "A.T.F.C.T",
-    "tooltip": "Average Ticket First Contact Time"
+    "heading": "Average Time to First Contact",
+    "tooltip": "This is the time it takes for a ticket to be classified as first contact, meaning the period from when the ticket is received until it is assigned or canceled."
   },
 
   "general_performance_toolbar": {
@@ -62,8 +62,8 @@
 
   "ticket_completion_rate_chart": {
     "heading": "Ticket completion rate",
-    "completed_label": "Completed Tickets (unassigned, assigned, in-progress)",
-    "uncompleted_label": "Unompleted Tickets (resolved, closed, cancelled)",
+    "completed_label": "Completed Tickets (resolved, closed, cancelled)",
+    "uncompleted_label": "Uncompleted Tickets (unassigned, assigned, in-progress)",
 
     "empty-caption": "No Tickets"
   },

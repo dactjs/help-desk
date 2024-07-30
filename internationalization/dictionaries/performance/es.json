@@ -11,13 +11,13 @@
   },
 
   "average_ticket_resolution_time_chart": {
-    "heading": "T.P.R.T",
-    "tooltip": "Tiempo promedio de resolución de tickets"
+    "heading": "Tiempo promedio de resolución de tickets",
+    "tooltip": "El tiempo que tarda en resolverse un ticket se define como el período desde que se crea hasta que se marca como resuelto, cerrado o cancelado. Se considera que un ticket está resuelto en cualquiera de estos casos."
   },
 
   "average_ticket_first_contact_time_chart": {
-    "heading": "T.P.P.C.T",
-    "tooltip": "Tiempo promedio de primer contacto de tickets"
+    "heading": "Tiempo promedio para el primer contacto",
+    "tooltip": "Es el tiempo que tarda un ticket en ser clasificado como primer contacto, es decir, el tiempo que transcurre desde que el ticket es recibido hasta que es asignado o cancelado."
   },
 
   "general_performance_toolbar": {
@@ -62,8 +62,8 @@
 
   "ticket_completion_rate_chart": {
     "heading": "Tasa de finalización de tickets",
-    "completed_label": "Tickets completados (no asignados, asignados, en proceso)",
-    "uncompleted_label": "Tickets no completados (resueltos, cerrados, cancelados)",
+    "completed_label": "Tickets completados (resueltos, cerrados, cancelados)",
+    "uncompleted_label": "Tickets no completados (no asignados, asignados, en proceso)",
 
     "empty-caption": "Sin Tickets"
   },
